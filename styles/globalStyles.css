@@ -21,6 +21,7 @@ html {
 body {
   box-sizing: border-box;
   background: var(--brown);
+  font-family: var(--inter);
 }
 
 body div[id^="__next"] {
@@ -39,4 +40,8 @@ main {
   flex-direction: column;
   width: 100vw;
   max-width: 100%;
+}
+
+a {
+  text-decoration: none;
 }
