@@ -1,0 +1,15 @@
+import Link from "next/link";
+import { FooterContainer, FooterLink, FooterText, External } from "./styles";
+
+export const Footer = () => (
+  <FooterContainer>
+    <FooterText>
+      Built and designed by{" "}
+      <Link passHref href="https://github.com/tigerabrodi">
+        <FooterLink target="_blank" rel="noopener noreferrer">
+          Tiger Abrodi <External />{" "}
+        </FooterLink>
+      </Link>
+    </FooterText>
+  </FooterContainer>
+);
