@@ -4,6 +4,10 @@ import { pinkFocusStyles, yellowFocusStyles } from "@styles/sharedStyles";
 import { media } from "@styles/media";
 
 export const NavigationWrapper = styled.nav`
+  position: sticky;
+  background-color: ${theme.Brown};
+  z-index: 10;
+  top: 0;
   height: 7rem;
   width: 100%;
   box-shadow: 0 0.2rem 0.2rem black;
