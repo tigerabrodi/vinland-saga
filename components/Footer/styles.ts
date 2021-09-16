@@ -2,6 +2,7 @@ import { theme } from "@styles/theme";
 import ExternalSVG from "../../assets/external.svg";
 import styled from "styled-components";
 import { media } from "@styles/media";
+import { pinkFocusStyles } from "@styles/sharedStyles";
 
 export const FooterContainer = styled.footer`
   width: 100%;
@@ -28,6 +29,7 @@ export const FooterLink = styled.a`
   position: relative;
   color: ${theme.LightPink};
   text-decoration: underline;
+  ${pinkFocusStyles}
 `;
 
 export const External = styled(ExternalSVG)`
