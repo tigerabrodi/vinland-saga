@@ -1,4 +1,5 @@
 import { css } from "styled-components";
+import { media } from "./media";
 import { theme } from "./theme";
 
 export const pinkFocusStyles = css`
@@ -28,5 +29,15 @@ export const darkFocusStyles = css`
   }
   &:focus:not(:focus-visible) {
     outline: none;
+  }
+`;
+
+export const sectionHeightStyles = css`
+  min-height: calc(100vh - 13rem);
+  ${media.tablet} {
+    min-height: calc(100vh - 17rem);
+  }
+  ${media.desktop} {
+    min-height: calc(100vh - 18rem);
   }
 `;
