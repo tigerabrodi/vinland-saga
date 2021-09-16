@@ -7,7 +7,7 @@ export const Footer = () => (
       Built and designed by{" "}
       <Link passHref href="https://github.com/tigerabrodi">
         <FooterLink target="_blank" rel="noopener noreferrer">
-          Tiger Abrodi <External />{" "}
+          Tiger Abrodi <External aria-hidden="true" />{" "}
         </FooterLink>
       </Link>
     </FooterText>
