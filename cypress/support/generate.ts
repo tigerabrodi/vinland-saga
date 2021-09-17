@@ -4,7 +4,6 @@ export type User = {
   email: string;
   username: string;
   password: string;
-  confirmPassword: string;
 };
 
 export const buildUser = build<User>("User", {
@@ -12,6 +11,5 @@ export const buildUser = build<User>("User", {
     username: fake((f) => f.internet.userName()),
     email: fake((f) => f.internet.email()),
     password: fake((f) => f.internet.password()),
-    confirmPassword: fake((f) => f.internet.password()),
   },
 });
