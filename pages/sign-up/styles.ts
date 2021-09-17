@@ -1,7 +1,7 @@
 import { media } from "@styles/media";
 import { pinkFocusStyles, sectionHeightStyles } from "@styles/sharedStyles";
 import { theme } from "@styles/theme";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const SignSection = styled.section`
   width: 100%;
@@ -156,14 +156,23 @@ export const SubmitButton = styled.button`
   }
 `;
 
-export const FormError = styled.span`
+const formValidationStyles = css`
   font-size: 1rem;
-  margin: 1rem 0;
-  color: ${theme.DarkPink};
+  margin-top: 1rem;
   font-weight: 500;
   ${media.tablet} {
     margin-bottom: 0;
     margin-top: 1.5rem;
     font-size: 1.7rem;
   }
+`;
+
+export const FormError = styled.span`
+  ${formValidationStyles}
+  color: ${theme.DarkPink};
+`;
+
+export const FormValid = styled.span`
+  ${formValidationStyles}
+  color: ${theme.Green};
 `;

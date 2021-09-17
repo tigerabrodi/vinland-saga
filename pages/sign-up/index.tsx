@@ -12,7 +12,11 @@ import {
   SwitchText,
   SubmitButton,
   FormError,
+  FormValid,
 } from "./styles";
+import debounce from "lodash.debounce";
+import { doc, getDoc } from "@firebase/firestore";
+import { firebaseDb } from "@lib/firebase";
 
 type FormState = {
   username: string;
@@ -22,6 +26,7 @@ type FormState = {
 
 const SignUp: NextPage = () => {
   const [isUsernameError, setIsUsernameError] = React.useState(false);
+  const [isUsernameValid, setIsUsernameValid] = React.useState(false);
   const [isPasswordError, setIsPasswordError] = React.useState(false);
   const [isConfirmPasswordError, setIsConfirmPasswordError] =
     React.useState(false);
@@ -41,6 +46,32 @@ const SignUp: NextPage = () => {
 
   const { username, password, confirmPassword } = formState;
 
+  // useCallback is required for debounce to work
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const checkUsername = React.useCallback(
+    debounce(async (username: string) => {
+      if (username.length >= 3) {
+        const usernameDocRef = doc(firebaseDb, "usernames", username);
+        const usernameDocSnapshot = await getDoc(usernameDocRef);
+
+        const usernameAlreadyExists = usernameDocSnapshot.exists();
+
+        if (usernameAlreadyExists) {
+          setIsUsernameValid(false);
+          setIsUsernameError(true);
+        } else {
+          setIsUsernameError(false);
+          setIsUsernameValid(true);
+        }
+      }
+    }, 500),
+    []
+  );
+
+  React.useEffect(() => {
+    checkUsername(username);
+  }, [checkUsername, username]);
+
   return (
     <SignSection>
       <SignTitle>Sign Up</SignTitle>
@@ -58,6 +89,9 @@ const SignUp: NextPage = () => {
           />
           {isUsernameError && (
             <FormError role="alert">Username is already taken.</FormError>
+          )}
+          {isUsernameValid && (
+            <FormValid role="alert">Username is valid.</FormValid>
           )}
         </FormGroup>
         <FormGroup>
@@ -79,7 +113,7 @@ const SignUp: NextPage = () => {
           <Label htmlFor="confirm-password">Confirm Password</Label>
           <Input
             id="confirm-password"
-            name="confirm-password"
+            name="confirmPassword"
             placeholder="Secret Password..."
             value={confirmPassword}
             onChange={(event) => handleChange(event)}
