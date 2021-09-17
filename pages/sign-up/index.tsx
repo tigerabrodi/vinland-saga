@@ -46,6 +46,24 @@ const SignUp: NextPage = () => {
 
   const { username, password, confirmPassword } = formState;
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (password.length < 6) {
+      setIsPasswordError(true);
+      return setTimeout(() => {
+        setIsPasswordError(false);
+      }, 3000);
+    }
+
+    // if (password !== confirmPassword) {
+    //   setIsConfirmPasswordError(true);
+    //   setTimeout(() => {
+    //     setIsConfirmPasswordError(false);
+    //   }, 3000);
+    // }
+  };
+
   // useCallback is required for debounce to work
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkUsername = React.useCallback(
@@ -75,7 +93,7 @@ const SignUp: NextPage = () => {
   return (
     <SignSection>
       <SignTitle>Sign Up</SignTitle>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label htmlFor="username">Username</Label>
           <Input
