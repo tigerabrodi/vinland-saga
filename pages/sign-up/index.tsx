@@ -56,12 +56,12 @@ const SignUp: NextPage = () => {
       }, 3000);
     }
 
-    // if (password !== confirmPassword) {
-    //   setIsConfirmPasswordError(true);
-    //   setTimeout(() => {
-    //     setIsConfirmPasswordError(false);
-    //   }, 3000);
-    // }
+    if (password !== confirmPassword) {
+      setIsConfirmPasswordError(true);
+      setTimeout(() => {
+        setIsConfirmPasswordError(false);
+      }, 3000);
+    }
   };
 
   // useCallback is required for debounce to work
