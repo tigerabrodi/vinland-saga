@@ -4,6 +4,7 @@ import { UserContext } from "@lib/context";
 import { useUserData } from "@hooks/useUserData";
 import { Navigation } from "@components/Navigation";
 import { Footer } from "@components/Footer";
+import { LoadingSpinner } from "@components/Spinner";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const userData = useUserData();
@@ -12,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <UserContext.Provider value={userData}>
       <Navigation />
       <main>
+        <LoadingSpinner />
         <Component {...pageProps} />
       </main>
       <Footer />
