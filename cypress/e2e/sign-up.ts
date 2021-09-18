@@ -10,7 +10,7 @@ it("Username validation", () => {
 
   cy.findByText("Username is already taken.").should("not.exist");
 
-  cy.findByLabelText("Username").type("tigerabrodi");
+  cy.findByLabelText("Username").type("naruto");
 
   cy.findByText("Username is already taken.").should("exist");
 
@@ -59,4 +59,12 @@ it("Email Validation", () => {
   cy.findByRole("button", { name: "Sign Up" }).click();
 
   cy.findByText("Email is not valid.").should("exist");
+
+  cy.findByLabelText("Email").clear();
+
+  cy.findByLabelText("Email").type("naruto@gmail.com");
+
+  cy.findByRole("button", { name: "Sign Up" }).click();
+
+  cy.findByText("Email is already taken.").should("exist");
 });
