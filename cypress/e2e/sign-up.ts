@@ -24,6 +24,9 @@ it("Username validation", () => {
 it("Password validation", () => {
   const user = buildUser();
 
+  cy.findByRole("button", { name: "Sign Up" }).should("have.attr", "disabled");
+
+  cy.findByLabelText("Email").type(user.email);
   cy.findByLabelText("Username").type(user.username);
   cy.findByLabelText("Password").type("blah");
   cy.findByLabelText("Confirm Password").type("blah");
