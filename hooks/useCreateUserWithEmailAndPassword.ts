@@ -4,6 +4,7 @@ import { doc, serverTimestamp, writeBatch } from "@firebase/firestore";
 import { createUserWithEmailAndPassword as createUserWithEmailAndPasswordAuth } from "@firebase/auth";
 import { auth, firebaseDb } from "@lib/firebase";
 import { FirebaseError } from "@firebase/util";
+import toast from "react-hot-toast";
 
 export const useCreateUserWithEmailAndPassword = () => {
   const [signUpError, setSignUpError] = React.useState<FirebaseError>();
@@ -46,6 +47,7 @@ export const useCreateUserWithEmailAndPassword = () => {
 
       await batch.commit();
 
+      toast.success("You successfully created your account.");
       setStatus("success");
     } catch (error) {
       setStatus("error");
