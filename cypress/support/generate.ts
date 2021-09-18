@@ -4,6 +4,11 @@ export type User = {
   email: string;
   username: string;
   password: string;
+  fullname: string;
+  age: number;
+  work: string;
+  location: string;
+  biography: string;
 };
 
 export const buildUser = build<User>("User", {
@@ -11,5 +16,10 @@ export const buildUser = build<User>("User", {
     username: fake((f) => f.internet.userName()),
     email: fake((f) => f.internet.email()),
     password: fake((f) => f.internet.password()),
+    fullname: fake((f) => f.name.firstName()),
+    age: fake((f) => f.random.number(80)),
+    work: fake((f) => f.company.companyName()),
+    location: fake((f) => f.address.city()),
+    biography: fake((f) => f.random.words(100)),
   },
 });
