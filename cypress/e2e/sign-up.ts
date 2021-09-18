@@ -47,3 +47,16 @@ it("Password validation", () => {
 
   cy.findByText("Passwords do not match.").should("exist");
 });
+
+it("Email Validation", () => {
+  const user = buildUser();
+
+  cy.findByLabelText("Email").type("blah");
+  cy.findByLabelText("Username").type(user.username);
+  cy.findByLabelText("Password").type(user.password);
+  cy.findByLabelText("Confirm Password").type(user.password);
+
+  cy.findByRole("button", { name: "Sign Up" }).click();
+
+  cy.findByText("Email is not valid.").should("exist");
+});
