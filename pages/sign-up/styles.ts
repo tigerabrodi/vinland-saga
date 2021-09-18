@@ -9,9 +9,9 @@ export const SignSection = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  margin: 1rem 0;
+  margin: 3rem 0;
   ${media.tablet} {
-    margin: 3rem 0;
+    margin: 6rem 0;
   }
   ${sectionHeightStyles}
 `;
@@ -33,12 +33,9 @@ export const Form = styled.form`
   width: 100%;
   div:first-of-type {
     label {
-      margin-top: 1rem;
-      ${media.custom(360)} {
-        margin-top: 0;
-      }
+      margin-top: 2rem;
       ${media.tablet} {
-        margin-top: 2rem;
+        margin-top: 5rem;
       }
     }
   }
@@ -55,13 +52,10 @@ export const Label = styled.label`
   font-weight: bold;
   font-size: 1.4rem;
   color: ${theme.Pink};
-  margin-top: 3rem;
-  ${media.custom(360)} {
-    margin-top: 4rem;
-  }
+  margin-top: 4rem;
   ${media.tablet} {
     font-size: 2.5rem;
-    margin-top: 10rem;
+    margin-top: 8rem;
   }
 `;
 
@@ -103,10 +97,7 @@ export const SwitchText = styled.p`
   color: ${theme.LightPink};
   font-size: 1rem;
   font-weight: 500;
-  margin-top: 1.5rem;
-  ${media.custom(360)} {
-    margin-top: 2rem;
-  }
+  margin-top: 2rem;
   ${media.tablet} {
     font-size: 1.5rem;
     margin-top: 4rem;
@@ -139,11 +130,15 @@ export const SubmitButton = styled.button`
   margin-top: 5rem;
   box-shadow: 0 0.1rem 0.4rem black;
   cursor: pointer;
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
   ${pinkFocusStyles}
   ${media.tablet} {
     font-size: 2.5rem;
     padding: 1.5rem 4rem;
-    margin-top: 7rem;
+    margin-top: 9rem;
     transition: all 0.2s ease;
     &:hover {
       transform: translateY(-0.2rem);

@@ -22,11 +22,14 @@ type FormState = {
   username: string;
   password: string;
   confirmPassword: string;
+  email: string;
 };
 
 const SignUp: NextPage = () => {
   const [isUsernameError, setIsUsernameError] = React.useState(false);
   const [isUsernameValid, setIsUsernameValid] = React.useState(false);
+  const [isEmailInvalid, setIsEmailInvalid] = React.useState(false);
+  const [isEmailError, setIsEmailError] = React.useState(false);
   const [isPasswordError, setIsPasswordError] = React.useState(false);
   const [isConfirmPasswordError, setIsConfirmPasswordError] =
     React.useState(false);
@@ -35,6 +38,7 @@ const SignUp: NextPage = () => {
     username: "",
     password: "",
     confirmPassword: "",
+    email: "",
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,22 +48,37 @@ const SignUp: NextPage = () => {
     });
   };
 
-  const { username, password, confirmPassword } = formState;
+  const { username, password, confirmPassword, email } = formState;
+
+  const isAnyFieldEmpty =
+    !username.length ||
+    !password.length ||
+    !confirmPassword.length ||
+    !email.length;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (password.length < 6) {
+    const isPasswordTooShort = password.length < 6;
+    if (isPasswordTooShort) {
       setIsPasswordError(true);
       return setTimeout(() => {
         setIsPasswordError(false);
       }, 3000);
     }
 
-    if (password !== confirmPassword) {
+    const isPasswordNotMatching = password !== confirmPassword;
+    if (isPasswordNotMatching) {
       setIsConfirmPasswordError(true);
       setTimeout(() => {
         setIsConfirmPasswordError(false);
+      }, 3000);
+    }
+
+    if (isEmailInvalid) {
+      setIsEmailError(true);
+      setTimeout(() => {
+        setIsEmailError(false);
       }, 3000);
     }
   };
@@ -100,6 +119,7 @@ const SignUp: NextPage = () => {
             id="username"
             name="username"
             placeholder="Naruto_Uzumaki..."
+            type="text"
             value={username}
             onChange={(event) => handleChange(event)}
             aria-invalid={isUsernameError ? "true" : "false"}
@@ -113,10 +133,29 @@ const SignUp: NextPage = () => {
           )}
         </FormGroup>
         <FormGroup>
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="naruto@gmail.com"
+            value={email}
+            onChange={(event) => {
+              handleChange(event);
+              setIsEmailInvalid(!event.target.validity.valid);
+            }}
+            aria-required="true"
+          />
+          {isEmailError && (
+            <FormError role="alert">Email is not valid.</FormError>
+          )}
+        </FormGroup>
+        <FormGroup>
           <Label htmlFor="password">Password</Label>
           <Input
             id="password"
             name="password"
+            type="password"
             placeholder="Secret Password..."
             value={password}
             onChange={(event) => handleChange(event)}
@@ -132,6 +171,7 @@ const SignUp: NextPage = () => {
           <Input
             id="confirm-password"
             name="confirmPassword"
+            type="password"
             placeholder="Secret Password..."
             value={confirmPassword}
             onChange={(event) => handleChange(event)}
@@ -148,7 +188,12 @@ const SignUp: NextPage = () => {
             <SwitchLink>Sign In.</SwitchLink>
           </Link>{" "}
         </SwitchText>
-        <SubmitButton type="submit">Sign Up</SubmitButton>
+        <SubmitButton
+          type="submit"
+          disabled={isAnyFieldEmpty || isUsernameError}
+        >
+          Sign Up
+        </SubmitButton>
       </Form>
     </SignSection>
   );
