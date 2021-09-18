@@ -39,9 +39,10 @@ it("Password validation", () => {
   cy.findByLabelText("Password").clear();
   cy.findByLabelText("Confirm Password").clear();
 
-  cy.findByText("Passwords do not match.").should("not.exist");
   cy.findByLabelText("Password").type("password");
   cy.findByLabelText("Confirm Password").type("passwordNotMatching");
+
+  cy.findByText("Passwords do not match.").should("not.exist");
 
   cy.findByRole("button", { name: "Sign Up" }).click();
 
@@ -56,6 +57,8 @@ it("Email Validation", () => {
   cy.findByLabelText("Password").type(user.password);
   cy.findByLabelText("Confirm Password").type(user.password);
 
+  cy.findByText("Email is not valid.").should("not.exist");
+
   cy.findByRole("button", { name: "Sign Up" }).click();
 
   cy.findByText("Email is not valid.").should("exist");
@@ -63,6 +66,8 @@ it("Email Validation", () => {
   cy.findByLabelText("Email").clear();
 
   cy.findByLabelText("Email").type("naruto@gmail.com");
+
+  cy.findByText("Email is already taken.").should("not.exist");
 
   cy.findByRole("button", { name: "Sign Up" }).click();
 
