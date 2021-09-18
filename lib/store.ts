@@ -1,6 +1,6 @@
 import create from "zustand";
 
-type Status = "idle" | "loading" | "success" | "error";
+export type Status = "idle" | "loading" | "success" | "error";
 
 type LoadingState = {
   status: Status;
