@@ -17,7 +17,7 @@ it("Complete users flow", () => {
 
   cy.findByRole("button", { name: "Sign Up" }).click();
 
-  cy.findByText("You successfully created an account.").should("exist");
+  cy.findByText("You successfully created your account.").should("exist");
   cy.findByRole("heading", { name: "Creating Profile" }).should("exist");
   cy.findByText("Click your avatar to upload a new one.").should("exist");
 
