@@ -33,6 +33,7 @@ body div[id^="__next"] {
   flex-direction: column;
   width: 100vw;
   max-width: 100%;
+  font-weight: 500;
 }
 
 main {
