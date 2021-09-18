@@ -2,6 +2,7 @@ import { theme } from "@styles/theme";
 import SpinnerSVG from "../../assets/spinner.svg";
 import styled, { keyframes } from "styled-components";
 import { useLoadingStore } from "@lib/store";
+import { media } from "@styles/media";
 
 const spin = keyframes`
     from {
@@ -24,6 +25,12 @@ export const Spinner = styled(SpinnerSVG)`
   margin-top: 2.7rem;
   g {
     fill: ${theme.Pink};
+  }
+  ${media.tablet} {
+    margin-right: 2rem;
+    margin-top: 5rem;
+    height: 4rem;
+    width: 4rem;
   }
 `;
 
