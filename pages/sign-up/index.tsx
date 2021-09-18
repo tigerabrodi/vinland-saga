@@ -17,6 +17,8 @@ import {
 import debounce from "lodash.debounce";
 import { doc, getDoc } from "@firebase/firestore";
 import { firebaseDb } from "@lib/firebase";
+import { useCreateUserWithEmailAndPassword } from "@hooks/useCreateUserWithEmailAndPassword";
+import { useLoadingStore } from "@lib/store";
 
 type FormState = {
   username: string;
@@ -30,6 +32,7 @@ const SignUp: NextPage = () => {
   const [isUsernameValid, setIsUsernameValid] = React.useState(false);
   const [isEmailInvalid, setIsEmailInvalid] = React.useState(false);
   const [isEmailError, setIsEmailError] = React.useState(false);
+  const [isEmailTaken, setIsEmailTaken] = React.useState(false);
   const [isPasswordError, setIsPasswordError] = React.useState(false);
   const [isConfirmPasswordError, setIsConfirmPasswordError] =
     React.useState(false);
@@ -41,12 +44,17 @@ const SignUp: NextPage = () => {
     email: "",
   });
 
+  const { setStatus } = useLoadingStore();
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormState({
       ...formState,
       [event.target.name]: event.target.value,
     });
   };
+
+  const { createUserWithEmailAndPassword, signUpError } =
+    useCreateUserWithEmailAndPassword();
 
   const { username, password, confirmPassword, email } = formState;
 
@@ -56,9 +64,7 @@ const SignUp: NextPage = () => {
     !confirmPassword.length ||
     !email.length;
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const canUserSignUp = () => {
     const isPasswordTooShort = password.length < 6;
     if (isPasswordTooShort) {
       setIsPasswordError(true);
@@ -70,16 +76,28 @@ const SignUp: NextPage = () => {
     const isPasswordNotMatching = password !== confirmPassword;
     if (isPasswordNotMatching) {
       setIsConfirmPasswordError(true);
-      setTimeout(() => {
+      return setTimeout(() => {
         setIsConfirmPasswordError(false);
       }, 3000);
     }
 
     if (isEmailInvalid) {
       setIsEmailError(true);
-      setTimeout(() => {
+      return setTimeout(() => {
         setIsEmailError(false);
       }, 3000);
+    }
+
+    return true;
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsEmailTaken(false);
+    setIsEmailError(false);
+
+    if (canUserSignUp() === true) {
+      createUserWithEmailAndPassword(email, password, username);
     }
   };
 
@@ -88,10 +106,11 @@ const SignUp: NextPage = () => {
   const checkUsername = React.useCallback(
     debounce(async (username: string) => {
       if (username.length >= 3) {
+        setStatus("loading");
         const usernameDocRef = doc(firebaseDb, "usernames", username);
         const usernameDocSnapshot = await getDoc(usernameDocRef);
-
         const usernameAlreadyExists = usernameDocSnapshot.exists();
+        setStatus("success");
 
         if (usernameAlreadyExists) {
           setIsUsernameValid(false);
@@ -109,10 +128,20 @@ const SignUp: NextPage = () => {
     checkUsername(username);
   }, [checkUsername, username]);
 
+  React.useEffect(() => {
+    if (signUpError && signUpError.code === "auth/email-already-in-use") {
+      setIsEmailError(false);
+      setIsEmailTaken(true);
+      setTimeout(() => {
+        setIsEmailTaken(false);
+      }, 3000);
+    }
+  }, [signUpError]);
+
   return (
     <SignSection>
       <SignTitle>Sign Up</SignTitle>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} noValidate>
         <FormGroup>
           <Label htmlFor="username">Username</Label>
           <Input
@@ -144,10 +173,14 @@ const SignUp: NextPage = () => {
               handleChange(event);
               setIsEmailInvalid(!event.target.validity.valid);
             }}
+            aria-invalid={isEmailError ? "true" : "false"}
             aria-required="true"
           />
           {isEmailError && (
             <FormError role="alert">Email is not valid.</FormError>
+          )}
+          {isEmailTaken && (
+            <FormError role="alert">Email is already taken.</FormError>
           )}
         </FormGroup>
         <FormGroup>
