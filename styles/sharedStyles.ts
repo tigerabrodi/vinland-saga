@@ -41,3 +41,12 @@ export const sectionHeightStyles = css`
     min-height: calc(100vh - 18rem);
   }
 `;
+
+export const AssistiveTechnologyOnly = css`
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+`;
