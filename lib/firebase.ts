@@ -11,6 +11,7 @@ import {
   limit,
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { UserProfile } from "./types";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_APP_API_KEY,
@@ -34,21 +35,25 @@ export const fromMillis = Timestamp.fromMillis;
 // Storage export
 export const storage = getStorage(firebaseApp);
 
-export async function getUserWithUsername(username: string) {
+export const getUserWithUsername = async (username: string) => {
+  if (!username) {
+    return;
+  }
+
   const userQuery = query(
     collection(firebaseDb, "users"),
     where("username", "==", username),
     limit(1)
   );
 
-  const userDoc = (await getDocs(userQuery)).docs[0];
+  const user = (await getDocs(userQuery)).docs[0].data() as UserProfile;
 
-  return userDoc;
-}
+  return user;
+};
 
-export function recipeToJSON(
+export const recipeToJSON = (
   doc: DocumentSnapshot<{ createdAt: Timestamp; updatedAt: Timestamp }>
-) {
+) => {
   const data = doc.data();
   return {
     ...data,
@@ -56,4 +61,4 @@ export function recipeToJSON(
     createdAt: data?.createdAt.toMillis() || 0,
     updatedAt: data?.updatedAt.toMillis() || 0,
   };
-}
+};
