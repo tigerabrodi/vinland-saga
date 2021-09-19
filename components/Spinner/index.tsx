@@ -3,6 +3,7 @@ import SpinnerSVG from "../../assets/spinner.svg";
 import styled, { keyframes } from "styled-components";
 import { useLoadingStore } from "@lib/store";
 import { media } from "@styles/media";
+import { sectionHeightStyles } from "@styles/sharedStyles";
 
 const spin = keyframes`
     from {
@@ -34,9 +35,39 @@ export const Spinner = styled(SpinnerSVG)`
   }
 `;
 
+export const BigSpinner = styled(SpinnerSVG)`
+  height: 10rem;
+  width: 10rem;
+  position: absolute;
+  animation: ${spin} 0.6s linear infinite;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  fill: ${theme.Pink};
+  g {
+    fill: ${theme.Pink};
+  }
+  ${media.tablet} {
+    margin-right: 2rem;
+    margin-top: 5rem;
+    height: 4rem;
+    width: 4rem;
+  }
+`;
+
+export const BigSpinnerSection = styled.div`
+  ${sectionHeightStyles}
+`;
+
 export const LoadingSpinner = () => {
   const { status } = useLoadingStore();
   return status === "loading" ? (
     <Spinner role="alert" aria-label="loading" />
   ) : null;
 };
+
+export const FullPageSpinner = () => (
+  <BigSpinnerSection>
+    <BigSpinner />
+  </BigSpinnerSection>
+);
