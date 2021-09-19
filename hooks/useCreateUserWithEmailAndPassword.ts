@@ -5,10 +5,12 @@ import { createUserWithEmailAndPassword as createUserWithEmailAndPasswordAuth } 
 import { auth, firebaseDb } from "@lib/firebase";
 import { FirebaseError } from "@firebase/util";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 export const useCreateUserWithEmailAndPassword = () => {
   const [signUpError, setSignUpError] = React.useState<FirebaseError>();
   const { setStatus } = useLoadingStore();
+  const router = useRouter();
 
   const batch = writeBatch(firebaseDb);
 
@@ -34,7 +36,7 @@ export const useCreateUserWithEmailAndPassword = () => {
         bio: "",
         work: "",
         location: "",
-        avatar: "",
+        avatarUrl: "",
         clapCount: 0,
         recipeCount: 0,
         joined: serverTimestamp(),
@@ -49,6 +51,8 @@ export const useCreateUserWithEmailAndPassword = () => {
 
       toast.success("You successfully created your account.");
       setStatus("success");
+
+      router.push(`/${username}/edit`);
     } catch (error) {
       setStatus("error");
       setSignUpError(error as FirebaseError);
