@@ -97,7 +97,7 @@ export const RegisterLink = styled.a`
   }
 `;
 
-export const NavLogo = styled.a`
+export const NavLogo = styled.span`
   background-color: ${theme.Yellow};
   font-weight: bold;
   font-size: 2.4rem;
@@ -107,17 +107,26 @@ export const NavLogo = styled.a`
   color: ${theme.Brown};
   ${yellowFocusStyles}
   ${media.tablet} {
-    font-size: 2.6rem;
+    font-size: 2.2rem;
     padding: 0.7rem;
     box-shadow: 0 0.1rem 0.2rem black;
-    transition: all 0.2s ease;
-    &:hover {
-      transform: translateY(-0.2rem);
-      box-shadow: 0 0.2rem 0.2rem black;
-    }
-    &:active {
-      transform: translateY(0);
-      box-shadow: 0 0.1rem 0.2rem black;
-    }
   }
+`;
+
+export const NavLogoLink = styled.a`
+  transition: all 0.2s ease;
+  &:hover {
+    transform: translateY(-0.1rem);
+    filter: brightness(120%);
+  }
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+export const NavLogoText = styled.span`
+  color: ${theme.Yellow};
+  font-size: 2rem;
+  font-weight: 500;
+  margin-left: 2rem;
 `;
