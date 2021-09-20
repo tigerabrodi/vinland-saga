@@ -48,10 +48,8 @@ export const BigSpinner = styled(SpinnerSVG)`
     fill: ${theme.Pink};
   }
   ${media.tablet} {
-    margin-right: 2rem;
-    margin-top: 5rem;
-    height: 4rem;
-    width: 4rem;
+    height: 15rem;
+    width: 15rem;
   }
 `;
 
