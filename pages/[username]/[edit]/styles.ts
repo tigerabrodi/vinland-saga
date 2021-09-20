@@ -34,7 +34,7 @@ export const UserEditWrapper = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
-  grid-template-areas: "avatar avatar" "inputUpload inputUpload" "editTitle cancelButton" "uploadText uploadText";
+  grid-template-areas: "avatar avatar" "progress progress" "inputUpload inputUpload" "editTitle cancelButton" "uploadText uploadText";
   ${media.tablet} {
     width: 47rem;
     height: 44rem;
@@ -70,6 +70,7 @@ export const Avatar = styled.img`
 export const UploadLabel = styled.label`
   grid-area: inputUpload;
   border-radius: 0.2rem;
+  margin-bottom: 1rem;
   box-shadow: 0 0.2rem 0.2rem black;
   cursor: pointer;
   color: ${theme.LightPink};
@@ -83,6 +84,7 @@ export const UploadLabel = styled.label`
   ${media.tablet} {
     font-size: 2rem;
     padding: 1.2rem 1.6rem;
+    margin-bottom: 0;
     &:hover {
       box-shadow: 0 0.4rem 0.3rem black;
       transform: translateY(-0.3rem);
@@ -94,6 +96,19 @@ export const UploadLabel = styled.label`
   }
   ${media.desktop} {
     padding: 1.4rem 2.2rem;
+  }
+`;
+
+export const UploadProgress = styled.span`
+  grid-area: progress;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: ${theme.Brown};
+  ${media.tablet} {
+    font-size: 1.6rem;
+  }
+  ${media.desktop} {
+    font-size: 1.8rem;
   }
 `;
 
