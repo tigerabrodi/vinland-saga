@@ -1,12 +1,17 @@
 import {
   AssistiveTechnologyOnly,
   darkFocusStyles,
+  formGroupStyles,
+  formInputStyles,
+  pinkFocusStyles,
   sectionHeightStyles,
 } from "@styles/sharedStyles";
 import CancelSVG from "../../../assets/close.svg";
+import ProfileSVG from "../../../assets/profile.svg";
 import FileUploadSVG from "../../../assets/file-upload.svg";
 import { theme } from "@styles/theme";
 import styled from "styled-components";
+import { media } from "@styles/media";
 
 export const UserEditForm = styled.form`
   width: 100%;
@@ -14,7 +19,11 @@ export const UserEditForm = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  margin: 3rem;
   ${sectionHeightStyles}
+  ${media.tablet} {
+    margin: 5rem;
+  }
 `;
 
 export const UserEditWrapper = styled.div`
@@ -26,6 +35,14 @@ export const UserEditWrapper = styled.div`
   justify-items: center;
   align-items: center;
   grid-template-areas: "avatar avatar" "inputUpload inputUpload" "editTitle cancelButton" "uploadText uploadText";
+  ${media.tablet} {
+    width: 47rem;
+    height: 44rem;
+  }
+  ${media.desktop} {
+    width: 55rem;
+    height: 50rem;
+  }
 `;
 
 // Heading should come first due to accessibility, hence this hidden heading exists
@@ -40,12 +57,19 @@ export const Avatar = styled.img`
   border-radius: 50%;
   background-color: ${theme.Brown};
   padding: 0.5rem;
+  ${media.tablet} {
+    height: 22rem;
+    width: 22rem;
+  }
+  ${media.desktop} {
+    height: 26rem;
+    width: 26rem;
+  }
 `;
 
 export const UploadLabel = styled.label`
   grid-area: inputUpload;
   border-radius: 0.2rem;
-  border: none;
   box-shadow: 0 0.2rem 0.2rem black;
   cursor: pointer;
   color: ${theme.LightPink};
@@ -56,6 +80,21 @@ export const UploadLabel = styled.label`
   padding: 1rem 1.4rem;
   font-size: 1.3rem;
   transition: all 0.2s ease;
+  ${media.tablet} {
+    font-size: 2rem;
+    padding: 1.2rem 1.6rem;
+    &:hover {
+      box-shadow: 0 0.4rem 0.3rem black;
+      transform: translateY(-0.3rem);
+    }
+    &:active {
+      box-shadow: 0 0.2rem 0.2rem black;
+      transform: translateY(0);
+    }
+  }
+  ${media.desktop} {
+    padding: 1.4rem 2.2rem;
+  }
 `;
 
 export const FileUpload = styled(FileUploadSVG)`
@@ -63,6 +102,10 @@ export const FileUpload = styled(FileUploadSVG)`
   width: 1.8rem;
   fill: ${theme.LightPink};
   margin-left: 1rem;
+  ${media.tablet} {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 `;
 
 export const UploadInput = styled.input`
@@ -79,6 +122,12 @@ export const UserEditVisibleTitle = styled.h1`
   color: ${theme.Brown};
   justify-self: flex-end;
   margin-right: 1rem;
+  ${media.tablet} {
+    font-size: 2.1rem;
+  }
+  ${media.desktop} {
+    font-size: 2.3rem;
+  }
 `;
 
 export const CancelButton = styled.button`
@@ -86,7 +135,6 @@ export const CancelButton = styled.button`
   height: 3.2rem;
   width: 3.2rem;
   border-radius: 0.2rem;
-  border: 0;
   background-color: ${theme.Brown};
   box-shadow: 0 0.2rem 0.4rem black;
   justify-self: flex-start;
@@ -94,10 +142,161 @@ export const CancelButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
   ${darkFocusStyles}
+  ${media.tablet} {
+    height: 4rem;
+    width: 4rem;
+    &:hover {
+      box-shadow: 0 0.4rem 0.4rem black;
+      transform: translateY(-0.1rem);
+    }
+    &:active {
+      box-shadow: 0 0.2rem 0.4rem black;
+      transform: translateY(0);
+    }
+  }
+  ${media.desktop} {
+    height: 4.5rem;
+    width: 4.5rem;
+  }
 `;
 
 export const Cancel = styled(CancelSVG)`
   height: 1.8rem;
   width: 1.8rem;
+  ${media.tablet} {
+    height: 2.2rem;
+    width: 2.2rem;
+  }
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 5rem;
+  column-gap: 4rem;
+  ${media.tablet} {
+    margin-top: 10rem;
+    column-gap: 10rem;
+  }
+  ${media.desktop} {
+    column-gap: 12rem;
+  }
+`;
+
+export const ButtonSave = styled.button`
+  color: ${theme.Brown};
+  font-weight: 600;
+  background-color: ${theme.Pink};
+  font-size: 1.2rem;
+  border-radius: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 7.3rem;
+  height: 3.3rem;
+  box-shadow: 0 0.2rem 0.4rem black;
+  cursor: pointer;
+  transition: all ease 0.2s;
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  ${pinkFocusStyles}
+  ${media.tablet} {
+    font-size: 2rem;
+    height: 5rem;
+    width: 11rem;
+    &:not(:disabled) {
+      &:hover {
+        box-shadow: 0 0.4rem 0.4rem black;
+        transform: translateY(-0.3rem);
+      }
+    }
+  }
+  ${media.desktop} {
+    height: 5.5rem;
+    font-size: 2.2rem;
+    width: 12rem;
+  }
+`;
+
+export const ButtonCancel = styled.button`
+  color: ${theme.Pink};
+  font-size: 1.2rem;
+  background-color: transparent;
+  font-weight: 600;
+  ${pinkFocusStyles}
+  ${media.tablet} {
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all ease 0.2s;
+    &:hover {
+      filter: brightness(120%);
+      transform: translateY(-0.2rem);
+    }
+  }
+  ${media.desktop} {
+    font-size: 2.2rem;
+  }
+`;
+
+export const Profile = styled(ProfileSVG)`
+  fill: ${theme.Brown};
+  height: 2rem;
+  width: 2rem;
+  ${media.desktop} {
+    height: 3rem;
+    width: 3rem;
+  }
+`;
+
+export const Input = styled.input`
+  ${formInputStyles}
+  margin-top: 2rem;
+  ${media.tablet} {
+    width: 47rem;
+  }
+  ${media.desktop} {
+    width: 55rem;
+  }
+`;
+
+export const Textarea = styled.textarea`
+  ${formInputStyles}
+  padding-top: 0.5rem;
+  height: 6.5rem;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  ${media.tablet} {
+    width: 47rem;
+    height: 13rem;
+  }
+  ${media.desktop} {
+    width: 55rem;
+  }
+`;
+
+export const AgeInput = styled.input`
+  ${formInputStyles}
+  width: 5rem;
+  text-align: center;
+  padding-left: 0;
+  ${media.tablet} {
+    width: 7rem;
+  }
+`;
+
+export const AgeFormGroup = styled.div`
+  ${formGroupStyles}
+  margin-right: 18rem;
+  ${media.tablet} {
+    margin-right: 40rem;
+  }
+  ${media.desktop} {
+    margin-right: 48.2rem;
+  }
 `;
