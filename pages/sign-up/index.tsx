@@ -5,9 +5,6 @@ import {
   SignSection,
   SignTitle,
   Form,
-  FormGroup,
-  Label,
-  Input,
   SwitchLink,
   SwitchText,
   SubmitButton,
@@ -19,6 +16,7 @@ import { doc, getDoc } from "@firebase/firestore";
 import { firebaseDb } from "@lib/firebase";
 import { useCreateUserWithEmailAndPassword } from "@hooks/useCreateUserWithEmailAndPassword";
 import { useLoadingStore } from "@lib/store";
+import { FormGroup, Input, Label } from "@styles/sharedStyles";
 
 type FormState = {
   username: string;
