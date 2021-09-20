@@ -18,17 +18,16 @@ it("Complete users flow", () => {
   cy.findByRole("button", { name: "Sign Up" }).click();
 
   cy.findByText("You successfully created your account.").should("exist");
-  cy.findByRole("heading", { name: "Creating Profile" }).should("exist");
-  cy.findByText("Click your avatar to upload a new one.").should("exist");
+  cy.findByRole("heading", { name: "Editing Profile" }).should("exist");
 
   cy.findByLabelText("Avatar Upload").attachFile("tiger-avatar.png");
 
   cy.findByText("Successfully uploaded your avatar.").should("exist");
 
-  cy.findByLabelText("Full Name").type(user.fullname);
-  cy.findByLabelText("Age").type(`Age ${user.age}`);
-  cy.findByLabelText("Work").type(`Chef at ${user.work}`);
-  cy.findByLabelText("Location").type(`Located in ${user.location}`);
+  cy.findByLabelText("Full Name *").type(user.fullname);
+  cy.findByLabelText("Age *").type(`Age ${user.age}`);
+  cy.findByLabelText("Work *").type(`Chef at ${user.work}`);
+  cy.findByLabelText("Location *").type(`Located in ${user.location}`);
   cy.findByLabelText("Biography").type(user.biography);
 
   cy.findByRole("button", { name: "Save" }).click();
