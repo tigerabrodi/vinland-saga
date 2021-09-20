@@ -22,14 +22,14 @@ export const Spinner = styled(SpinnerSVG)`
   top: 0;
   right: 0;
   fill: ${theme.Pink};
-  margin-right: 1rem;
-  margin-top: 2.7rem;
+  margin-right: 0.1rem;
+  margin-top: 2rem;
   g {
     fill: ${theme.Pink};
   }
   ${media.tablet} {
-    margin-right: 2rem;
-    margin-top: 5rem;
+    margin-right: 1rem;
+    margin-top: 4.5rem;
     height: 4rem;
     width: 4rem;
   }
