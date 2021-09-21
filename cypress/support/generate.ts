@@ -8,7 +8,7 @@ export type User = {
   age: number;
   work: string;
   location: string;
-  biography: string;
+  bio: string;
 };
 
 export const buildUser = build<User>("User", {
@@ -20,6 +20,6 @@ export const buildUser = build<User>("User", {
     age: fake((f) => f.random.number(80)),
     work: fake((f) => f.company.companyName()),
     location: fake((f) => f.address.city()),
-    biography: fake((f) => f.random.words(100)),
+    bio: fake((f) => f.random.words(100)),
   },
 });
