@@ -1,5 +1,5 @@
 import * as React from "react";
-import { auth, firebaseDb, getUserWithUsername } from "@lib/firebase";
+import { auth, firebaseDb } from "@lib/firebase";
 import type { NextPage } from "next";
 import { NextRouter, useRouter } from "next/router";
 import { UserProfile } from "@lib/types";
@@ -36,6 +36,7 @@ import {
 } from "@firebase/storage";
 import { doc, serverTimestamp, setDoc } from "@firebase/firestore";
 import toast from "react-hot-toast";
+import { useGetUser } from "@hooks/useGetUser";
 
 type Router = NextRouter & {
   query: { username: string };
@@ -50,11 +51,16 @@ type FormState = {
 };
 
 const UsernameEdit: NextPage = () => {
-  const { query, push } = useRouter() as Router;
+  const {
+    query: { username },
+    push,
+  } = useRouter() as Router;
   const { setStatus } = useLoadingStore();
-  const [user, setUser] = React.useState<UserProfile | null>(null);
   const [uploadProgress, setUploadProgress] = React.useState<number>(0);
   const [avatarImage, setAvatarImage] = React.useState<string>("");
+
+  const { user } = useGetUser(username);
+
   const [formState, setFormState] = React.useState<FormState>({
     fullname: "",
     age: "",
@@ -65,6 +71,18 @@ const UsernameEdit: NextPage = () => {
 
   const { fullname, age, work, location, bio } = formState;
 
+  React.useEffect(() => {
+    if (user) {
+      setFormState({
+        fullname: user.fullname,
+        age: user.age,
+        work: user.work,
+        location: user.location,
+        bio: user.bio,
+      });
+    }
+  }, [user]);
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -73,19 +91,6 @@ const UsernameEdit: NextPage = () => {
       [event.target.name]: event.target.value,
     });
   };
-
-  React.useEffect(() => {
-    if (user) {
-      return;
-    }
-
-    const setUserState = async () => {
-      setStatus("loading");
-      setUser((await getUserWithUsername(query.username)) as UserProfile);
-      setStatus("success");
-    };
-    setUserState();
-  }, [query.username, setStatus, user]);
 
   const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = Array.from(event.target.files as FileList)[0];
@@ -146,7 +151,7 @@ const UsernameEdit: NextPage = () => {
 
     toast.success("Successfully updated your profile.");
 
-    push(`/${query.username}`);
+    push(`/${username}`);
   };
 
   if (!user) {
