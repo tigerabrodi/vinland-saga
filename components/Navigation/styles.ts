@@ -33,7 +33,7 @@ export const NavigationContainer = styled.div`
     width: 95%;
   }
   ${media.desktop} {
-    width: 70%;
+    width: 55%;
   }
 `;
 
@@ -129,4 +129,43 @@ export const NavLogoText = styled.span`
   font-size: 2rem;
   font-weight: 500;
   margin-left: 2rem;
+`;
+
+export const NavMenuButton = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  ${media.tablet} {
+    transition: all 0.2s ease;
+    &:hover {
+      transform: translateY(-0.2rem);
+      img {
+        box-shadow: 0 0.3rem 0.2rem black;
+      }
+    }
+    &:active {
+      transform: translateY(0);
+      img {
+        box-shadow: 0 0.1rem 0.2rem black;
+      }
+    }
+  }
+  ${pinkFocusStyles}
+`;
+
+export const Avatar = styled.img`
+  height: 4.2rem;
+  width: 4.2rem;
+  border-radius: 50%;
+  background-color: ${theme.Pink};
+  padding: 0.2rem;
+  margin-top: 0.4rem;
+  margin-left: 3rem;
+  box-shadow: 0 0.1rem 0.2rem black;
+  ${media.tablet} {
+    transition: all 0.2s ease;
+    height: 6rem;
+    width: 6rem;
+    padding: 0.3rem;
+  }
 `;
