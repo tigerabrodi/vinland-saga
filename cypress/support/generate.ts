@@ -20,6 +20,6 @@ export const buildUser = build<User>("User", {
     age: fake((f) => f.random.number(80)),
     work: fake((f) => f.company.companyName()),
     location: fake((f) => f.address.city()),
-    bio: fake((f) => f.random.words(100)),
+    bio: fake((f) => f.random.words(10)),
   },
 });

@@ -19,9 +19,11 @@ it("Complete users flow", () => {
 
   cy.findByText("You successfully created your account.").should("exist");
   cy.findByRole("heading", { name: "Editing Profile" }).should("exist");
+  cy.findByRole("button", { name: "Save" }).should("have.attr", "disabled");
 
+  cy.findByRole("img", { name: "default" }).should("exist");
   cy.findByLabelText("Avatar Upload").attachFile("tiger-avatar.png");
-
+  cy.findByRole("img", { name: "avatar" }).should("exist");
   cy.findByText("Successfully uploaded your avatar.").should("exist");
 
   cy.findByLabelText("Full Name *").type(user.fullname);
