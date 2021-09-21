@@ -9,12 +9,11 @@ export type UserData = {
 export type UserProfile = {
   username: string;
   email: string;
-  password: string;
   fullname: string;
-  age: number;
+  age: string;
   work: string;
   location: string;
-  biography: string;
+  bio: string;
   avatarUrl: string;
   clapCount: number;
   recipeCount: number;

@@ -34,7 +34,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "@firebase/storage";
-import { doc, setDoc } from "@firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "@firebase/firestore";
 import toast from "react-hot-toast";
 
 type Router = NextRouter & {
@@ -74,10 +74,6 @@ const UsernameEdit: NextPage = () => {
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
-
   React.useEffect(() => {
     if (user) {
       return;
@@ -90,12 +86,6 @@ const UsernameEdit: NextPage = () => {
     };
     setUserState();
   }, [query.username, setStatus, user]);
-
-  React.useEffect(() => {
-    if (user) {
-      setAvatarImage(user.avatarUrl);
-    }
-  }, [user]);
 
   const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = Array.from(event.target.files as FileList)[0];
@@ -135,9 +125,40 @@ const UsernameEdit: NextPage = () => {
     );
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const userRef = doc(firebaseDb, "users", auth.currentUser!.uid);
+
+    setStatus("loading");
+    setDoc(
+      userRef,
+      {
+        bio,
+        work,
+        location,
+        fullname,
+        age,
+        joined: serverTimestamp(),
+      } as UserProfile,
+      { merge: true }
+    );
+    setStatus("success");
+
+    toast.success("Successfully updated your profile.");
+
+    push(`/${query.username}`);
+  };
+
   if (!user) {
     return <FullPageSpinner />;
   }
+
+  const image =
+    avatarImage !== ""
+      ? avatarImage
+      : user.avatarUrl !== ""
+      ? user.avatarUrl
+      : DefaultAvatar.src;
 
   const isButtonDisabled =
     !fullname.length || !age.length || !work.length || !location.length;
@@ -146,7 +167,10 @@ const UsernameEdit: NextPage = () => {
     <UserEditForm onSubmit={handleSubmit}>
       <UserEditWrapper>
         <UserEditTitle>Editing Profile</UserEditTitle>
-        <Avatar src={avatarImage === "" ? DefaultAvatar.src : avatarImage} />
+        <Avatar
+          src={image}
+          alt={image === DefaultAvatar.src ? "default" : "avatar"}
+        />
         {uploadProgress !== 0 && (
           <UploadProgress>{uploadProgress}%</UploadProgress>
         )}
@@ -183,7 +207,7 @@ const UsernameEdit: NextPage = () => {
         />
       </FormGroup>
       <AgeFormGroup>
-        <Label htmlFor="Age">Age *</Label>
+        <Label htmlFor="age">Age *</Label>
         <AgeInput
           id="age"
           name="age"
