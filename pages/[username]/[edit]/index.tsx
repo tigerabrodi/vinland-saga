@@ -37,6 +37,7 @@ import {
 import { doc, serverTimestamp, setDoc } from "@firebase/firestore";
 import toast from "react-hot-toast";
 import { useGetUser } from "@hooks/useGetUser";
+import { useUserContext } from "@lib/context";
 
 type Router = NextRouter & {
   query: { username: string };
@@ -61,6 +62,8 @@ const UsernameEdit: NextPage = () => {
 
   const { user } = useGetUser(username);
 
+  const { username: currentUserUsername } = useUserContext();
+
   const [formState, setFormState] = React.useState<FormState>({
     fullname: "",
     age: "",
@@ -71,7 +74,13 @@ const UsernameEdit: NextPage = () => {
 
   const { fullname, age, work, location, bio } = formState;
 
+  // TODO Assert this functionality in Test.
   React.useEffect(() => {
+    if (username !== currentUserUsername) {
+      toast.error("You are not authorized to edit the user's profile.");
+      push("/");
+      return;
+    }
     if (user) {
       setFormState({
         fullname: user.fullname,
@@ -81,7 +90,7 @@ const UsernameEdit: NextPage = () => {
         bio: user.bio,
       });
     }
-  }, [user]);
+  }, [currentUserUsername, push, user, username]);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -154,7 +163,7 @@ const UsernameEdit: NextPage = () => {
     push(`/${username}`);
   };
 
-  if (!user) {
+  if (!user || username !== currentUserUsername) {
     return <FullPageSpinner />;
   }
 
