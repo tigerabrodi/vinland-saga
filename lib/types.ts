@@ -1,4 +1,4 @@
-import { FieldValue } from "@firebase/firestore";
+import { FieldValue, Timestamp } from "@firebase/firestore";
 
 export type UserData = {
   username: string | null;
@@ -15,5 +15,5 @@ export type UserProfile = {
   avatarUrl: string;
   clapCount: number;
   recipeCount: number;
-  joined: FieldValue;
+  joined: FieldValue | Timestamp | number;
 };

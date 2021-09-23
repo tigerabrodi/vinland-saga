@@ -48,7 +48,10 @@ export const getUserWithUsername = async (username: string) => {
 
   const user = (await getDocs(userQuery)).docs[0].data() as UserProfile;
 
-  return user;
+  return {
+    ...user,
+    joined: (user.joined as Timestamp).toMillis(),
+  } as UserProfile;
 };
 
 export const recipeToJSON = (
