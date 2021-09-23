@@ -1,7 +1,114 @@
+import Link from "next/link";
+import { getUserWithUsername } from "@lib/firebase";
+import defaultAvatar from "../../assets/default-avatar.png";
+import { UserProfile } from "@lib/types";
 import type { NextPage } from "next";
+import { useUserContext } from "@lib/context";
+import {
+  Avatar,
+  EditLink,
+  Pen,
+  ProfileTitle,
+  ProfileUsername,
+  RecipesSection,
+  ProfileText,
+  ProfileSection,
+  HiddenProfileTitle,
+  RecipesHeading,
+  NoRecipesText,
+  NewRecipeLink,
+  UsernameWrapper,
+  Dot,
+  Line,
+} from "./styles";
+import { Timestamp } from "@firebase/firestore";
+import { FullPageSpinner } from "@components/Spinner";
 
-const Username: NextPage = () => {
-  return <div>Hello World</div>;
+type ServerProps = {
+  query: {
+    username: string;
+  };
+};
+
+// TODO Show user's recipes if they exist, otherwise no recipes found section.
+export async function getServerSideProps({ query }: ServerProps) {
+  const { username } = query;
+
+  const user = await getUserWithUsername(username);
+
+  if (!user) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { user },
+  };
+}
+
+type Props = {
+  user: UserProfile;
+};
+
+const Username: NextPage<Props> = ({ user }) => {
+  const { username } = useUserContext();
+
+  const joined = (
+    typeof user.joined === "number"
+      ? new Date(user.joined)
+      : (user.joined as Timestamp).toDate()
+  )
+    .toISOString()
+    .split("T")[0];
+
+  if (!user) {
+    return <FullPageSpinner />;
+  }
+
+  return (
+    <UsernameWrapper>
+      <ProfileSection>
+        <HiddenProfileTitle>{user.fullname}</HiddenProfileTitle>
+        <Avatar
+          src={user.avatarUrl === "" ? defaultAvatar.src : user.avatarUrl}
+          alt={user.fullname}
+        />
+        <ProfileUsername>@{user.username}</ProfileUsername>
+        <ProfileTitle
+          aria-hidden="true"
+          isNotAuthorizedUser={user.username !== username}
+        >
+          {user.fullname}
+        </ProfileTitle>
+        {user.username === username && (
+          <Link passHref href={`/${username}/edit`}>
+            <EditLink aria-label="Edit Your Profile">
+              <Pen />
+            </EditLink>
+          </Link>
+        )}
+        <ProfileText>
+          Age {user.age}
+          <Dot />
+          Located in {user.location} <Dot />
+          {user.bio}
+          <Dot />
+          {user.work}
+          <Dot />
+          Since {joined}
+        </ProfileText>
+        <Line />
+      </ProfileSection>
+      <RecipesSection>
+        <RecipesHeading>Recipes</RecipesHeading>
+        <NoRecipesText>You currently have written no recipes.</NoRecipesText>
+        <Link passHref href="/new-recipe">
+          <NewRecipeLink>New Recipe</NewRecipeLink>
+        </Link>
+      </RecipesSection>
+    </UsernameWrapper>
+  );
 };
 
 export default Username;
