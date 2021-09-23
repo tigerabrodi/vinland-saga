@@ -89,14 +89,14 @@ const Username: NextPage<Props> = ({ user }) => {
           </Link>
         )}
         <ProfileText>
-          Age {user.age}
+          <span>Age {user.age}</span>
           <Dot />
-          Located in {user.location} <Dot />
-          {user.bio}
+          <span>Located in {user.location}</span> <Dot />
+          <span>{user.bio}</span>
           <Dot />
-          {user.work}
+          <span>{user.work}</span>
           <Dot />
-          Since {joined}
+          <span>Since {joined}</span>
         </ProfileText>
         <Line />
       </ProfileSection>
