@@ -28,7 +28,7 @@ import {
 } from "./styles";
 import { useLoadingStore } from "@lib/store";
 import { FullPageSpinner } from "@components/Spinner";
-import { FormGroup, Label } from "@styles/sharedStyles";
+import { FormGroup, Label } from "@styles/formStyles";
 import {
   getDownloadURL,
   getStorage,
