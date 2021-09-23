@@ -7,35 +7,48 @@ import { sectionHeightStyles } from "@styles/sharedStyles";
 
 const spin = keyframes`
     from {
-        transform: translate(-50%, -50%) rotate(0deg);
+        transform: rotate(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotate(360deg);
+        transform: rotate(360deg);
     }
 `;
 
-export const Spinner = styled(SpinnerSVG)`
-  height: 2rem;
-  width: 2rem;
+const SpinnerWrapper = styled.div`
+  background-color: ${theme.Brown};
+  box-shadow: 0 0.2rem 0.2rem black;
+  border-radius: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  animation: ${spin} 0.5s linear infinite;
   top: 0;
   right: 0;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  height: 3.5rem;
+  width: 3.5rem;
+  box-shadow: 0 0.1rem 0.4rem black;
+  z-index: 100;
+  ${media.tablet} {
+    margin-top: 2rem;
+    margin-right: 2.5rem;
+    height: 5.5rem;
+    width: 5.5rem;
+  }
+`;
+
+const Spinner = styled(SpinnerSVG)`
+  width: 70%;
+  height: 70%;
+  animation: ${spin} 0.5s linear infinite;
   fill: ${theme.Pink};
-  margin-right: 0.1rem;
-  margin-top: 2rem;
   g {
     fill: ${theme.Pink};
   }
-  ${media.tablet} {
-    margin-right: 1rem;
-    margin-top: 4.5rem;
-    height: 4rem;
-    width: 4rem;
-  }
 `;
 
-export const BigSpinner = styled(SpinnerSVG)`
+const BigSpinner = styled(SpinnerSVG)`
   height: 10rem;
   width: 10rem;
   position: absolute;
@@ -60,7 +73,9 @@ export const BigSpinnerSection = styled.div`
 export const LoadingSpinner = () => {
   const { status } = useLoadingStore();
   return status === "loading" ? (
-    <Spinner role="alert" aria-label="loading" />
+    <SpinnerWrapper role="alert" aria-label="loading">
+      <Spinner />
+    </SpinnerWrapper>
   ) : null;
 };
 
