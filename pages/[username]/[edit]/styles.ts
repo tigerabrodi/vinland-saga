@@ -145,7 +145,7 @@ export const UserEditVisibleTitle = styled.h1`
   }
 `;
 
-export const CancelButton = styled.button`
+export const CancelLink = styled.a`
   grid-area: cancelButton;
   height: 3.2rem;
   width: 3.2rem;
@@ -239,7 +239,7 @@ export const ButtonSave = styled.button`
   }
 `;
 
-export const ButtonCancel = styled.button`
+export const LinkCancel = styled.a`
   color: ${theme.Pink};
   font-size: 1.2rem;
   background-color: transparent;

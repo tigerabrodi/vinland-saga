@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from "next/link";
 import { auth, firebaseDb } from "@lib/firebase";
 import type { NextPage } from "next";
 import { NextRouter, useRouter } from "next/router";
@@ -7,7 +8,7 @@ import DefaultAvatar from "../../../assets/default-avatar.png";
 import {
   Avatar,
   Cancel,
-  CancelButton,
+  CancelLink,
   UploadInput,
   UploadLabel,
   UserEditForm,
@@ -15,7 +16,7 @@ import {
   UserEditVisibleTitle,
   UserEditWrapper,
   FileUpload,
-  ButtonCancel,
+  LinkCancel,
   ButtonSave,
   ButtonWrapper,
   Profile,
@@ -201,12 +202,12 @@ const UsernameEdit: NextPage = () => {
         <UserEditVisibleTitle aria-hidden="true">
           Editing Profile
         </UserEditVisibleTitle>
-        <CancelButton
-          aria-label="Cancel"
-          onClick={() => push(`/${user.username}`)}
-        >
-          <Cancel />
-        </CancelButton>
+
+        <Link passHref href={`/${user.username}`}>
+          <CancelLink aria-label="Cancel">
+            <Cancel />
+          </CancelLink>
+        </Link>
       </UserEditWrapper>
       <FormGroup>
         <Label htmlFor="fullname">Full Name *</Label>
@@ -271,9 +272,9 @@ const UsernameEdit: NextPage = () => {
           <Profile />
           Save
         </ButtonSave>
-        <ButtonCancel onClick={() => push(`/${user.username}`)}>
-          Cancel
-        </ButtonCancel>
+        <Link passHref href={`/${user.username}`}>
+          <LinkCancel>Cancel</LinkCancel>
+        </Link>
       </ButtonWrapper>
     </UserEditForm>
   );
