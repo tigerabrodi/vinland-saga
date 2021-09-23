@@ -105,7 +105,6 @@ export const NavLogo = styled.span`
   margin-top: 0.4rem;
   box-shadow: 0 0.1rem 0.2rem black;
   color: ${theme.Brown};
-  ${yellowFocusStyles}
   ${media.tablet} {
     font-size: 2.2rem;
     padding: 0.7rem;
@@ -115,6 +114,7 @@ export const NavLogo = styled.span`
 
 export const NavLogoLink = styled.a`
   transition: all 0.2s ease;
+  ${yellowFocusStyles}
   &:hover {
     transform: translateY(-0.1rem);
     filter: brightness(120%);
