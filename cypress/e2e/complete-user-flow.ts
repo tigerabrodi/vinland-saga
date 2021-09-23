@@ -41,7 +41,7 @@ it("Complete users flow", () => {
   cy.findByText(`@${user.username}`).should("exist");
   cy.findByText(`Age ${user.age}`).should("exist");
   cy.findByText(`Located in ${user.location}`).should("exist");
-  cy.findByText(user.work).should("exist");
+  cy.findByText(`Chef at ${user.work}`).should("exist");
   cy.findByText(user.bio).should("exist");
   cy.findByRole("link", { name: "Edit Your Profile" }).should("exist");
   cy.findByRole("img", { name: user.fullname }).should("exist");

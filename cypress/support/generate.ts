@@ -13,7 +13,7 @@ export type User = {
 
 export const buildUser = build<User>("User", {
   fields: {
-    username: fake((f) => f.internet.userName()),
+    username: fake((f) => f.internet.userName().toLowerCase()),
     email: fake((f) => f.internet.email()),
     password: fake((f) => f.internet.password()),
     fullname: fake((f) => f.name.firstName()),
