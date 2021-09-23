@@ -48,20 +48,24 @@ export const getUserWithUsername = async (username: string) => {
 
   const user = (await getDocs(userQuery)).docs[0].data() as UserProfile;
 
-  return {
-    ...user,
-    joined: (user.joined as Timestamp).toMillis(),
-  } as UserProfile;
+  if (user.joined !== null) {
+    return {
+      ...user,
+      joined: (user.joined as Timestamp).toMillis(),
+    } as UserProfile;
+  }
 };
 
 export const recipeToJSON = (
-  doc: DocumentSnapshot<{ createdAt: Timestamp; updatedAt: Timestamp }>
+  recipeDocument: DocumentSnapshot<{
+    createdAt: Timestamp;
+    updatedAt: Timestamp;
+  }>
 ) => {
-  const data = doc.data();
+  const data = recipeDocument.data();
   return {
     ...data,
     // Firestore timestamp NOT serializable to JSON. Must convert to milliseconds
     createdAt: data?.createdAt.toMillis() || 0,
-    updatedAt: data?.updatedAt.toMillis() || 0,
   };
 };
