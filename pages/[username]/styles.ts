@@ -2,7 +2,7 @@ import {
   AssistiveTechnologyOnly,
   darkFocusStyles,
   pinkFocusStyles,
-  sectionHeightStyles,
+  sectionStyles,
 } from "@styles/sharedStyles";
 import PenSVG from "../../assets/pen.svg";
 import DotSVG from "../../assets/dot.svg";
@@ -11,12 +11,8 @@ import styled, { css } from "styled-components";
 import { media } from "@styles/media";
 
 export const UsernameWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
   margin: 3rem 0;
-  ${sectionHeightStyles}
+  ${sectionStyles}
   ${media.tablet} {
     justify-content: flex-start;
   }

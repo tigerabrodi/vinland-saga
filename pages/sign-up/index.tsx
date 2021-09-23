@@ -16,7 +16,7 @@ import { doc, getDoc } from "@firebase/firestore";
 import { firebaseDb } from "@lib/firebase";
 import { useCreateUserWithEmailAndPassword } from "@hooks/useCreateUserWithEmailAndPassword";
 import { useLoadingStore } from "@lib/store";
-import { FormGroup, Input, Label } from "@styles/sharedStyles";
+import { FormGroup, Input, Label } from "@styles/formStyles";
 
 type FormState = {
   username: string;

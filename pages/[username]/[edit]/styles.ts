@@ -1,11 +1,10 @@
 import {
   AssistiveTechnologyOnly,
   darkFocusStyles,
-  formGroupStyles,
-  formInputStyles,
   pinkFocusStyles,
-  sectionHeightStyles,
+  sectionStyles,
 } from "@styles/sharedStyles";
+import { formGroupStyles, formInputStyles } from "@styles/formStyles";
 import CancelSVG from "../../../assets/close.svg";
 import ProfileSVG from "../../../assets/profile.svg";
 import FileUploadSVG from "../../../assets/file-upload.svg";
@@ -14,15 +13,10 @@ import styled from "styled-components";
 import { media } from "@styles/media";
 
 export const UserEditForm = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  margin: 3rem;
-  ${sectionHeightStyles}
+  ${sectionStyles}
+  margin: 3rem 0;
   ${media.tablet} {
-    margin: 5rem;
+    margin: 5rem 0;
   }
 `;
 

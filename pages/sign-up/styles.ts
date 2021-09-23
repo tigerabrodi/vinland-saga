@@ -1,19 +1,14 @@
 import { media } from "@styles/media";
-import { pinkFocusStyles, sectionHeightStyles } from "@styles/sharedStyles";
+import { pinkFocusStyles, sectionStyles } from "@styles/sharedStyles";
 import { theme } from "@styles/theme";
 import styled, { css } from "styled-components";
 
 export const SignSection = styled.section`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+  ${sectionStyles}
   margin: 3rem 0;
   ${media.tablet} {
     margin: 6rem 0;
   }
-  ${sectionHeightStyles}
 `;
 
 export const SignTitle = styled.h1`

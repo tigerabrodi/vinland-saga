@@ -3,7 +3,7 @@ import SpinnerSVG from "../../assets/spinner.svg";
 import styled, { keyframes } from "styled-components";
 import { useLoadingStore } from "@lib/store";
 import { media } from "@styles/media";
-import { sectionHeightStyles } from "@styles/sharedStyles";
+import { sectionStyles } from "@styles/sharedStyles";
 
 const spin = keyframes`
     from {
@@ -67,7 +67,7 @@ const BigSpinner = styled(SpinnerSVG)`
 `;
 
 export const BigSpinnerSection = styled.div`
-  ${sectionHeightStyles}
+  ${sectionStyles}
 `;
 
 export const LoadingSpinner = () => {
