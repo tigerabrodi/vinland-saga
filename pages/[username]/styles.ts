@@ -123,7 +123,7 @@ export const EditLink = styled.a`
     padding: 1.2rem;
     &:hover {
       transform: translateY(-0.2rem);
-      box-shadow: 0 0.4rem 0.4rem black;
+      box-shadow: 0 0.5rem 0.4rem black;
     }
     &:active {
       box-shadow: 0 0.2rem 0.4rem black;
@@ -206,6 +206,9 @@ export const RecipesSection = styled.section`
   margin-top: 2rem;
   ${media.tablet} {
     margin-top: 5rem;
+  }
+  ${media.desktop} {
+    margin-top: 8rem;
   }
 `;
 
