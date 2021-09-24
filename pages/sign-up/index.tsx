@@ -17,13 +17,7 @@ import { firebaseDb } from "@lib/firebase";
 import { useCreateUserWithEmailAndPassword } from "@hooks/useCreateUserWithEmailAndPassword";
 import { useLoadingStore } from "@lib/store";
 import { FormGroup, Input, Label } from "@styles/formStyles";
-
-type FormState = {
-  username: string;
-  password: string;
-  confirmPassword: string;
-  email: string;
-};
+import { useFormState } from "@hooks/useFormState";
 
 const SignUp: NextPage = () => {
   const [isUsernameError, setIsUsernameError] = React.useState(false);
@@ -35,7 +29,7 @@ const SignUp: NextPage = () => {
   const [isConfirmPasswordError, setIsConfirmPasswordError] =
     React.useState(false);
 
-  const [formState, setFormState] = React.useState<FormState>({
+  const { handleChange, formState } = useFormState({
     username: "",
     password: "",
     confirmPassword: "",
@@ -43,13 +37,6 @@ const SignUp: NextPage = () => {
   });
 
   const { setStatus } = useLoadingStore();
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormState({
-      ...formState,
-      [event.target.name]: event.target.value,
-    });
-  };
 
   const { createUserWithEmailAndPassword, signUpError } =
     useCreateUserWithEmailAndPassword();

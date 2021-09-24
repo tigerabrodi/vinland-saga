@@ -39,17 +39,10 @@ import { doc, serverTimestamp, setDoc } from "@firebase/firestore";
 import toast from "react-hot-toast";
 import { useGetUser } from "@hooks/useGetUser";
 import { useUserContext } from "@lib/context";
+import { useFormState } from "@hooks/useFormState";
 
 type Router = NextRouter & {
   query: { username: string };
-};
-
-type FormState = {
-  fullname: string;
-  age: string;
-  work: string;
-  location: string;
-  bio: string;
 };
 
 const UsernameEdit: NextPage = () => {
@@ -65,7 +58,7 @@ const UsernameEdit: NextPage = () => {
 
   const { username: currentUserUsername } = useUserContext();
 
-  const [formState, setFormState] = React.useState<FormState>({
+  const { handleChange, formState, setFormState } = useFormState({
     fullname: "",
     age: "",
     work: "",
@@ -91,16 +84,7 @@ const UsernameEdit: NextPage = () => {
         bio: user.bio,
       });
     }
-  }, [currentUserUsername, push, user, username]);
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormState({
-      ...formState,
-      [event.target.name]: event.target.value,
-    });
-  };
+  }, [currentUserUsername, push, setFormState, user, username]);
 
   const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = Array.from(event.target.files as FileList)[0];
