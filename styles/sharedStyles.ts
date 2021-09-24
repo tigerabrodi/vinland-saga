@@ -55,3 +55,14 @@ export const AssistiveTechnologyOnly = css`
   height: 1px;
   overflow: hidden;
 `;
+
+export const heightSectionStyles = css`
+  width: 100%;
+  min-height: calc(100vh - 13rem);
+  ${media.tablet} {
+    min-height: calc(100vh - 17rem);
+  }
+  ${media.desktop} {
+    min-height: calc(100vh - 18rem);
+  }
+`;
