@@ -5,9 +5,9 @@ import {
   yellowFocusStyles,
 } from "@styles/sharedStyles";
 import { theme } from "@styles/theme";
-import ImagesSVG from "@assets/images.svg";
-import EyeSVG from "@assets/eye.svg";
-import RocketSVG from "@assets/rocket.svg";
+import ImagesSVG from "../../../assets/images.svg";
+import EyeSVG from "../../../assets/eye.svg";
+import RocketSVG from "../../../assets/rocket.svg";
 import styled, { css } from "styled-components";
 
 const formGroupStyles = css`

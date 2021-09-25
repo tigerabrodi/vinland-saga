@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import type { NextPage } from "next";
-import PlaceholderImage from "@assets/placeholder-image.jpg";
+import PlaceholderImage from "../../../assets/placeholder-image.jpg";
 import {
   RecipeEditForm,
   Heading,

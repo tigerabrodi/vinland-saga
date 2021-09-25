@@ -5,9 +5,9 @@ import {
   sectionStyles,
 } from "@styles/sharedStyles";
 import { formGroupStyles, formInputStyles } from "@styles/formStyles";
-import CancelSVG from "@assets/close.svg";
-import ProfileSVG from "@assets/profile.svg";
-import FileUploadSVG from "@assets/file-upload.svg";
+import CancelSVG from "../../assets/close.svg";
+import ProfileSVG from "../../assets/profile.svg";
+import FileUploadSVG from "../../assets/file-upload.svg";
 import { theme } from "@styles/theme";
 import styled from "styled-components";
 import { media } from "@styles/media";

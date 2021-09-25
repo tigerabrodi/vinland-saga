@@ -4,7 +4,7 @@ import { auth, firebaseDb } from "@lib/firebase";
 import type { NextPage } from "next";
 import { NextRouter, useRouter } from "next/router";
 import { UserProfile } from "@lib/types";
-import DefaultAvatar from "@assets/default-avatar.png";
+import DefaultAvatar from "../../assets/default-avatar.png";
 import {
   Avatar,
   Cancel,
