@@ -50,5 +50,5 @@ it("Complete users flow", () => {
   cy.findByText("You currently have written no recipes.");
 
   // New Post
-  cy.findByRole("link", { name: "New Recipe" }).click();
+  cy.findByRole("button", { name: "New Recipe" }).click();
 });
