@@ -132,7 +132,6 @@ export const NavLogoText = styled.span`
 `;
 
 export const NavMenuButton = styled.button`
-  border: none;
   background-color: transparent;
   cursor: pointer;
   ${media.tablet} {

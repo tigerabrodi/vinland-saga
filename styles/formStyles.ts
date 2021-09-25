@@ -26,7 +26,6 @@ export const Label = styled.label`
 
 export const formInputStyles = `
   border-radius: 0.2rem;
-  border: 0;
   background-color: ${theme.LightPink};
   padding-left: 0.5rem;
   color: ${theme.Brown};
