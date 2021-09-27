@@ -1,3 +1,5 @@
+import * as React from "react";
+
 import { useFocusTrap } from "@hooks/useFocusTrap";
 import { useFormState } from "@hooks/useFormState";
 import { useNewRecipeStore } from "@lib/store";
@@ -12,6 +14,7 @@ import {
   Label,
   Input,
 } from "./styles";
+import { useCloseEscape } from "@hooks/useCloseEscape";
 
 export const NewRecipeModal = () => {
   const {
@@ -22,6 +25,8 @@ export const NewRecipeModal = () => {
   const { setIsModalOpen, isModalOpen } = useNewRecipeStore();
 
   const modalRef = useFocusTrap();
+
+  useCloseEscape(() => setIsModalOpen(false));
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {};
 
