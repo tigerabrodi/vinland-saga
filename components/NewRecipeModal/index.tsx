@@ -15,6 +15,7 @@ import {
   Input,
 } from "./styles";
 import { useCloseEscape } from "@hooks/useCloseEscape";
+import { useClickOutside } from "@hooks/useClickOutside";
 
 export const NewRecipeModal = () => {
   const {
@@ -25,6 +26,12 @@ export const NewRecipeModal = () => {
   const { setIsModalOpen, isModalOpen } = useNewRecipeStore();
 
   const modalRef = useFocusTrap();
+
+  useClickOutside({
+    ref: modalRef,
+    callback: () => setIsModalOpen(false),
+    shouldTriggerCallback: isModalOpen,
+  });
 
   useCloseEscape(() => setIsModalOpen(false));
 
