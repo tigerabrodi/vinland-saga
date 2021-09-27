@@ -233,7 +233,7 @@ export const NoRecipesText = styled.p`
   }
 `;
 
-export const NewRecipeLink = styled.a`
+export const NewRecipeButton = styled.button`
   background-color: ${theme.LightPink};
   color: ${theme.Brown};
   font-weight: bold;
@@ -243,6 +243,7 @@ export const NewRecipeLink = styled.a`
   margin-top: 5rem;
   padding: 1.3rem 2.2rem;
   transition: all 0.2s ease;
+  cursor: pointer;
   ${pinkFocusStyles}
   ${media.tablet} {
     font-size: 2rem;

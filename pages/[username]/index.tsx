@@ -16,13 +16,15 @@ import {
   HiddenProfileTitle,
   RecipesHeading,
   NoRecipesText,
-  NewRecipeLink,
+  NewRecipeButton,
   UsernameWrapper,
   Dot,
   Line,
 } from "./styles";
 import { Timestamp } from "@firebase/firestore";
 import { FullPageSpinner } from "@components/Spinner";
+import { NewRecipeModal } from "@components/NewRecipeModal";
+import { useNewRecipeStore } from "@lib/store";
 
 type ServerProps = {
   query: {
@@ -54,6 +56,8 @@ type Props = {
 const Username: NextPage<Props> = ({ user }) => {
   const { username } = useUserContext();
 
+  const { setIsModalOpen } = useNewRecipeStore();
+
   const joined = (
     typeof user.joined === "number"
       ? new Date(user.joined)
@@ -67,47 +71,50 @@ const Username: NextPage<Props> = ({ user }) => {
   }
 
   return (
-    <UsernameWrapper>
-      <ProfileSection>
-        <HiddenProfileTitle>{user.fullname}</HiddenProfileTitle>
-        <Avatar
-          src={user.avatarUrl === "" ? defaultAvatar.src : user.avatarUrl}
-          alt={user.fullname}
-        />
-        <ProfileUsername>@{user.username}</ProfileUsername>
-        <ProfileTitle
-          aria-hidden="true"
-          isNotAuthorizedUser={user.username !== username}
-        >
-          {user.fullname}
-        </ProfileTitle>
-        {user.username === username && (
-          <Link passHref href={`/${username}/edit`}>
-            <EditLink aria-label="Edit Your Profile">
-              <Pen />
-            </EditLink>
-          </Link>
-        )}
-        <ProfileText>
-          <span>Age {user.age}</span>
-          <Dot />
-          <span>Located in {user.location}</span> <Dot />
-          <span>{user.bio}</span>
-          <Dot />
-          <span>{user.work}</span>
-          <Dot />
-          <span>Since {joined}</span>
-        </ProfileText>
-        <Line />
-      </ProfileSection>
-      <RecipesSection>
-        <RecipesHeading>Recipes</RecipesHeading>
-        <NoRecipesText>You currently have written no recipes.</NoRecipesText>
-        <Link passHref href="/new-recipe">
-          <NewRecipeLink>New Recipe</NewRecipeLink>
-        </Link>
-      </RecipesSection>
-    </UsernameWrapper>
+    <>
+      <UsernameWrapper>
+        <ProfileSection>
+          <HiddenProfileTitle>{user.fullname}</HiddenProfileTitle>
+          <Avatar
+            src={user.avatarUrl === "" ? defaultAvatar.src : user.avatarUrl}
+            alt={user.fullname}
+          />
+          <ProfileUsername>@{user.username}</ProfileUsername>
+          <ProfileTitle
+            aria-hidden="true"
+            isNotAuthorizedUser={user.username !== username}
+          >
+            {user.fullname}
+          </ProfileTitle>
+          {user.username === username && (
+            <Link passHref href={`/${username}/edit`}>
+              <EditLink aria-label="Edit Your Profile">
+                <Pen />
+              </EditLink>
+            </Link>
+          )}
+          <ProfileText>
+            <span>Age {user.age}</span>
+            <Dot />
+            <span>Located in {user.location}</span> <Dot />
+            <span>{user.bio}</span>
+            <Dot />
+            <span>{user.work}</span>
+            <Dot />
+            <span>Since {joined}</span>
+          </ProfileText>
+          <Line />
+        </ProfileSection>
+        <RecipesSection>
+          <RecipesHeading>Recipes</RecipesHeading>
+          <NoRecipesText>You currently have written no recipes.</NoRecipesText>
+          <NewRecipeButton onClick={() => setIsModalOpen(true)}>
+            New Recipe
+          </NewRecipeButton>
+        </RecipesSection>
+      </UsernameWrapper>
+      <NewRecipeModal />
+    </>
   );
 };
 
