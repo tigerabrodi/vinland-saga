@@ -1,4 +1,4 @@
-import { buildUser } from "../support/generate";
+import { buildUser, buildRecipe } from "../support/generate";
 
 beforeEach(() => {
   indexedDB.deleteDatabase("firebaseLocalStorageDb");
@@ -7,6 +7,7 @@ beforeEach(() => {
 
 it("Complete users flow", () => {
   const user = buildUser();
+  const firstUserRecipe = buildRecipe();
 
   cy.findByRole("link", { name: "Create Account" }).click();
 
@@ -49,6 +50,26 @@ it("Complete users flow", () => {
   cy.findByRole("heading", { name: "Recipes" }).should("exist");
   cy.findByText("You currently have written no recipes.");
 
-  // New Post
+  // New Recipe
   cy.findByRole("button", { name: "New Recipe" }).click();
+
+  // Create Recipe
+  cy.findByRole("dialog", { name: "Create Recipe" }).within(() => {
+    cy.findByRole("heading", { name: "Create Recipe" }).should("exist");
+    cy.findByLabelText("Title").type(firstUserRecipe.title);
+    cy.findByRole("button", { name: "Create" }).click();
+  });
+
+  // Edit Recipe
+  cy.findByRole("heading", { name: "Edit Recipe" }).should("exist");
+
+  cy.findByLabelText("Title").should("have.value", firstUserRecipe.title);
+  cy.findByRole("img", { name: "Placeholder" }).should("exist");
+
+  cy.findByLabelText("Body").type(firstUserRecipe.body);
+  cy.findByRole("link", { name: "Markdown" }).should("exist");
+
+  cy.findByLabelText("Upload Recipe Image").attachFile("recipe-image.jpg");
+
+  cy.findByRole("img", { name: "Recipe" }).should("exist");
 });

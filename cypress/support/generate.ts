@@ -1,6 +1,6 @@
 import { build, fake } from "@jackfranklin/test-data-bot";
 
-export type User = {
+type User = {
   email: string;
   username: string;
   password: string;
@@ -9,6 +9,11 @@ export type User = {
   work: string;
   location: string;
   bio: string;
+};
+
+type Recipe = {
+  title: string;
+  body: string;
 };
 
 export const buildUser = build<User>("User", {
@@ -21,5 +26,12 @@ export const buildUser = build<User>("User", {
     work: fake((f) => f.company.companyName()),
     location: fake((f) => f.address.city()),
     bio: fake((f) => f.random.words(10)),
+  },
+});
+
+export const buildRecipe = build<Recipe>("User", {
+  fields: {
+    title: fake((f) => f.name.title()),
+    body: fake((f) => f.random.words(20)),
   },
 });
