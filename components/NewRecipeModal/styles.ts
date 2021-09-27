@@ -2,6 +2,7 @@ import { darkFocusStyles } from "@styles/sharedStyles";
 import { theme } from "@styles/theme";
 import CloseSVG from "../../assets/close.svg";
 import styled from "styled-components";
+import { media } from "@styles/media";
 
 export const Modal = styled.div`
   width: 30rem;
@@ -17,6 +18,14 @@ export const Modal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 5;
+  ${media.tablet} {
+    width: 60rem;
+    height: 40rem;
+  }
+  ${media.desktop} {
+    width: 80rem;
+    height: 50rem;
+  }
 `;
 
 export const ModalBackground = styled.div`
@@ -32,6 +41,12 @@ export const Title = styled.h1`
   font-weight: bold;
   color: ${theme.Brown};
   text-decoration: underline;
+  ${media.tablet} {
+    font-size: 4rem;
+  }
+  ${media.desktop} {
+    font-size: 5rem;
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -43,7 +58,24 @@ export const CloseButton = styled.button`
   margin-top: 1.5rem;
   background-color: transparent;
   margin-right: 1.5rem;
+  cursor: pointer;
   ${darkFocusStyles}
+  ${media.tablet} {
+    height: 2.3rem;
+    width: 2.3rem;
+    margin-top: 2rem;
+    margin-right: 2rem;
+    transition: all 0.3s ease;
+    &:hover {
+      transform: rotate(180deg);
+    }
+  }
+  ${media.desktop} {
+    height: 2.7rem;
+    width: 2.7rem;
+    margin-top: 2.2rem;
+    margin-right: 2.4rem;
+  }
 `;
 
 export const Close = styled(CloseSVG)`
@@ -55,19 +87,27 @@ export const Close = styled(CloseSVG)`
 `;
 
 export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: flex-start;
+  display: grid;
+  justify-items: flex-start;
+  align-items: center;
+  grid-template-areas: "label" "input" "button";
 `;
 
 export const Label = styled.label`
+  grid-area: label;
   font-weight: 500;
   font-size: 1.8rem;
   color: ${theme.Brown};
+  ${media.tablet} {
+    font-size: 2.5rem;
+  }
+  ${media.desktop} {
+    font-size: 3rem;
+  }
 `;
 
 export const Input = styled.input`
+  grid-area: input;
   width: 21rem;
   height: 3rem;
   border-radius: 0.2rem;
@@ -83,9 +123,22 @@ export const Input = styled.input`
   &:focus {
     box-shadow: 0 0.2rem 0.4rem black;
   }
+  ${media.tablet} {
+    width: 35rem;
+    height: 5rem;
+    font-size: 2.2rem;
+    padding-left: 1rem;
+  }
+  ${media.desktop} {
+    width: 55rem;
+    margin-top: 2rem;
+    font-size: 2.5rem;
+  }
 `;
 
 export const CreateButton = styled.button`
+  grid-area: button;
+  justify-self: center;
   padding: 1 2rem;
   border-radius: 0.2rem;
   background-color: ${theme.Brown};
@@ -95,6 +148,28 @@ export const CreateButton = styled.button`
   font-weight: 500;
   width: 8.2rem;
   height: 3.3rem;
-  margin-top: 5rem;
+  margin-top: 4rem;
+  cursor: pointer;
   ${darkFocusStyles}
+  ${media.tablet} {
+    width: 12rem;
+    height: 5rem;
+    font-size: 2.3rem;
+    margin-top: 8rem;
+    transition: all 0.2s ease;
+    &:hover {
+      transform: translateY(-0.2rem);
+      box-shadow: 0 0.5rem 0.2rem black;
+    }
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 0.2rem 0.2rem black;
+    }
+  }
+  ${media.desktop} {
+    font-size: 3rem;
+    width: 16rem;
+    margin-top: 11rem;
+    height: 6rem;
+  }
 `;

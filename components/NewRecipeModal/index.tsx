@@ -46,14 +46,19 @@ export const NewRecipeModal = () => {
         ref={modalRef}
       >
         <Title id="modalTitle">Create Recipe</Title>
-        <CloseButton type="button" onClick={() => setIsModalOpen(false)}>
+        <CloseButton
+          type="button"
+          onClick={() => setIsModalOpen(false)}
+          aria-label="Close"
+        >
           <Close />
         </CloseButton>
         <Form onSubmit={handleSubmit}>
-          <Label>Title</Label>
+          <Label htmlFor="title">Title</Label>
           <Input
             placeholder="Chicken Tikka"
             name="title"
+            id="title"
             onChange={handleChange}
             value={title}
           />
