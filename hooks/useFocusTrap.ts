@@ -1,16 +1,24 @@
 import { useRef, useEffect } from "react";
 import focusTrap from "modal-focus-trap";
+import { useNewRecipeStore } from "@lib/store";
 
 export const useFocusTrap = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const { isModalOpen } = useNewRecipeStore();
 
-  // Create on didMount.
   useEffect(() => {
-    const destroy = focusTrap(ref.current as HTMLElement);
+    if (ref.current) {
+      const buttonToRecieveFocus = document.activeElement as HTMLElement;
+      const destroy = focusTrap(ref.current as HTMLElement);
 
-    // Destroy on willUnmount.
-    return destroy;
-  }, []);
+      const unmount = () => {
+        buttonToRecieveFocus.focus();
+        destroy();
+      };
+
+      return unmount;
+    }
+  }, [isModalOpen]);
 
   return ref;
 };
