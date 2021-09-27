@@ -15,6 +15,7 @@
     "firebase": "^9.0.2",
     "lodash.debounce": "^4.0.8",
     "lodash.kebabcase": "^4.1.1",
+    "modal-focus-trap": "^0.1.0",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",

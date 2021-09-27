@@ -14,3 +14,16 @@ export const useLoadingStore = create<LoadingState>((set) => ({
       status: status,
     })),
 }));
+
+type NewRecipeState = {
+  isModalOpen: boolean;
+  setIsModalOpen: (state: boolean) => void;
+};
+
+export const useNewRecipeStore = create<NewRecipeState>((set) => ({
+  isModalOpen: false,
+  setIsModalOpen: (state) =>
+    set(() => ({
+      isModalOpen: state,
+    })),
+}));
