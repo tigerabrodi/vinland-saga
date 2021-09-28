@@ -1,7 +1,9 @@
 import * as React from "react";
 import Link from "next/link";
 import type { NextPage } from "next";
-import PlaceholderImage from "../../../assets/placeholder-image.jpg";
+import PlaceholderImage4x from "../../../assets/placeholder-image4x.jpg";
+import PlaceholderImage3x from "../../../assets/placeholder-image3x.jpg";
+import PlaceholderImage2x from "../../../assets/placeholder-image2x.jpg";
 import Eye from "../../../assets/eye.svg";
 import Rocket from "../../../assets/rocket.svg";
 import {
@@ -49,7 +51,11 @@ const RecipeEdit: NextPage = () => {
           placeholder="Chicken Tikka"
         />
       </TitleFormGroup>
-      <Image src={PlaceholderImage.src} alt="Placeholder image" />
+      <Image
+        src={PlaceholderImage2x.src}
+        srcSet={`${PlaceholderImage2x.src} 300w, ${PlaceholderImage3x.src} 768w, ${PlaceholderImage4x.src} 1280w`}
+        alt="Placeholder"
+      />
       <FileInput
         type="file"
         id="upload"
