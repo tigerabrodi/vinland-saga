@@ -29,7 +29,10 @@ const SignUp: NextPage = () => {
   const [isConfirmPasswordError, setIsConfirmPasswordError] =
     React.useState(false);
 
-  const { handleChange, formState } = useFormState({
+  const {
+    handleChange,
+    formState: { username, password, confirmPassword, email },
+  } = useFormState({
     username: "",
     password: "",
     confirmPassword: "",
@@ -40,8 +43,6 @@ const SignUp: NextPage = () => {
 
   const { createUserWithEmailAndPassword, signUpError } =
     useCreateUserWithEmailAndPassword();
-
-  const { username, password, confirmPassword, email } = formState;
 
   const isAnyFieldEmpty =
     !username.length ||

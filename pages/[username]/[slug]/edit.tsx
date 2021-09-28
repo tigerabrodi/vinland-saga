@@ -25,12 +25,13 @@ import {
 import { useFormState } from "@hooks/useFormState";
 
 const RecipeEdit: NextPage = () => {
-  const { handleChange, formState } = useFormState({
+  const {
+    handleChange,
+    formState: { title, body },
+  } = useFormState({
     title: "",
     body: "",
   });
-
-  const { title, body } = formState;
 
   const isButtonSaveDisabled = !body.length || title.length < 3;
 
