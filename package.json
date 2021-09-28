@@ -21,6 +21,7 @@
     "react-hot-toast": "^2.1.1",
     "react-markdown": "^7.0.1",
     "styled-components": "^5.3.1",
+    "uuid": "^8.3.2",
     "zustand": "^3.5.10"
   },
   "devDependencies": {
@@ -30,6 +31,7 @@
     "@types/lodash.kebabcase": "^4.1.6",
     "@types/react": "17.0.20",
     "@types/styled-components": "^5.1.12",
+    "@types/uuid": "^8.3.1",
     "babel-plugin-inline-react-svg": "^2.0.1",
     "babel-plugin-styled-components": "^1.13.2",
     "cypress": "^8.4.0",
