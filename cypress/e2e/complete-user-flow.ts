@@ -60,6 +60,10 @@ it("Complete users flow", () => {
     cy.findByRole("button", { name: "Create" }).click();
   });
 
+  cy.findByText(
+    `You successfully created the recipe ${firstUserRecipe.title}.`
+  ).should("exist");
+
   // Edit Recipe
   cy.findByRole("heading", { name: "Edit Recipe" }).should("exist");
 
