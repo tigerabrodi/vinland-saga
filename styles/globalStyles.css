@@ -61,3 +61,11 @@ input {
 input:focus {
   outline: none;
 }
+
+textarea {
+  border: none;
+}
+
+textarea:focus {
+  outline: none;
+}
