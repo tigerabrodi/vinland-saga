@@ -47,16 +47,16 @@ type Router = NextRouter & {
 
 const UsernameEdit: NextPage = () => {
   const {
-    query: { username },
+    query: { username: queryUsername },
     push,
   } = useRouter() as Router;
   const { setStatus } = useLoadingStore();
   const [uploadProgress, setUploadProgress] = React.useState<number>(0);
   const [avatarImage, setAvatarImage] = React.useState<string>("");
 
-  const { user } = useGetUser(username);
+  const { user } = useGetUser(queryUsername);
 
-  const { username: currentUserUsername } = useUserContext();
+  const { username } = useUserContext();
 
   const { handleChange, formState, setFormState } = useFormState({
     fullname: "",
@@ -70,7 +70,7 @@ const UsernameEdit: NextPage = () => {
 
   // TODO Assert this functionality in Test.
   React.useEffect(() => {
-    if (username !== currentUserUsername) {
+    if (queryUsername !== username) {
       toast.error("You are not authorized to edit the user's profile.");
       push("/");
       return;
@@ -84,7 +84,7 @@ const UsernameEdit: NextPage = () => {
         bio: user.bio,
       });
     }
-  }, [currentUserUsername, push, setFormState, user, username]);
+  }, [username, push, setFormState, user, queryUsername]);
 
   const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = Array.from(event.target.files as FileList)[0];
@@ -104,8 +104,9 @@ const UsernameEdit: NextPage = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
         setUploadProgress(progress);
       },
       () => {
@@ -145,10 +146,10 @@ const UsernameEdit: NextPage = () => {
 
     toast.success("Successfully updated your profile.");
 
-    push(`/${username}`);
+    push(`/${queryUsername}`);
   };
 
-  if (!user || username !== currentUserUsername) {
+  if (!user || queryUsername !== username) {
     return <FullPageSpinner />;
   }
 
