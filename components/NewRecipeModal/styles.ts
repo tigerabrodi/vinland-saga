@@ -151,19 +151,25 @@ export const CreateButton = styled.button`
   margin-top: 4rem;
   cursor: pointer;
   ${darkFocusStyles}
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
   ${media.tablet} {
     width: 12rem;
     height: 5rem;
     font-size: 2.3rem;
     margin-top: 8rem;
     transition: all 0.2s ease;
-    &:hover {
-      transform: translateY(-0.2rem);
-      box-shadow: 0 0.5rem 0.2rem black;
-    }
-    &:active {
-      transform: translateY(0);
-      box-shadow: 0 0.2rem 0.2rem black;
+    &:not(:disabled) {
+      &:hover {
+        transform: translateY(-0.2rem);
+        box-shadow: 0 0.5rem 0.2rem black;
+      }
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 0.2rem 0.2rem black;
+      }
     }
   }
   ${media.desktop} {
