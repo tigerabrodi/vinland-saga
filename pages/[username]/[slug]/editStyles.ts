@@ -6,15 +6,15 @@ import {
 } from "@styles/sharedStyles";
 import { theme } from "@styles/theme";
 import ImagesSVG from "../../../assets/images.svg";
-import EyeSVG from "../../../assets/eye.svg";
-import RocketSVG from "../../../assets/rocket.svg";
 import styled, { css } from "styled-components";
+import { media } from "@styles/media";
 
 const formGroupStyles = css`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-evenly;
+  width: 100%;
 `;
 
 export const RecipeEditForm = styled.form`
@@ -22,53 +22,87 @@ export const RecipeEditForm = styled.form`
   display: grid;
   grid-template-areas: "heading" "title" "image" "upload" "body" "text" "buttons";
   align-items: center;
-  justify-items: flex-start;
-  grid-template-columns: 23.5rem;
+  justify-items: center;
+  width: 23.5rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  ${media.tablet} {
+    width: 45rem;
+  }
+  ${media.desktop} {
+    width: 65rem;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+  }
 `;
 
 export const Heading = styled.h1`
-  grid-area: title;
+  grid-area: heading;
   font-weight: bold;
   color: ${theme.Pink};
   text-decoration: underline;
   font-size: 2.6rem;
+  ${media.tablet} {
+    font-size: 5rem;
+  }
+  ${media.desktop} {
+    font-size: 6rem;
+  }
 `;
 
 export const TitleFormGroup = styled.div`
   ${formGroupStyles}
   grid-area: title;
+  margin-top: 2rem;
+  ${media.tablet} {
+    margin-top: 4rem;
+  }
 `;
 
 export const Label = styled.label`
   font-weight: 600;
   font-size: 1.8rem;
   color: ${theme.Pink};
+  ${media.tablet} {
+    font-size: 3rem;
+  }
 `;
 
 export const Input = styled.input`
-  width: 23rem;
+  width: 100%;
   height: 3.4rem;
   border-radius: 0.2rem;
-  background-color: ${theme.LightPink};
+  background-color: ${theme.Pink};
   font-weight: 500;
   font-size: 1.8rem;
   color: ${theme.Brown};
   padding-left: 0.7rem;
   transition: 0.2s all ease;
+  margin-top: 1.5rem;
   &::placeholder {
     color: ${theme.Brown};
     opacity: 0.6;
   }
-
   &:focus {
     box-shadow: 0 0.2rem 0.2rem black;
+  }
+  ${media.tablet} {
+    height: 5rem;
+    font-size: 2.3rem;
+    padding-left: 1rem;
+    margin-top: 2rem;
+  }
+  ${media.desktop} {
+    font-size: 2.5rem;
+    height: 5.2rem;
   }
 `;
 
 export const Image = styled.img`
   grid-area: image;
-  width: 23rem;
-  height: 10.5rem;
+  width: 100%;
+  height: auto;
+  margin-top: 4rem;
   border-radius: 0.2rem;
 `;
 
@@ -86,23 +120,53 @@ export const UploadLabel = styled.label`
   height: 4rem;
   background-color: ${theme.Pink};
   border-radius: 0.2rem;
+  justify-self: flex-start;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 2rem;
+  ${media.tablet} {
+    cursor: pointer;
+    width: 6.5rem;
+    height: 5rem;
+    transition: all 0.2s ease;
+    &:hover {
+      transform: translateY(-0.2rem);
+      box-shadow: 0 0.2rem 0.2rem black;
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 0.1rem 0.1rem black;
+    }
+  }
+  ${media.desktop} {
+    width: 8rem;
+    height: 6rem;
+  }
 `;
 
 export const ImageIcon = styled(ImagesSVG)`
   height: 2.4rem;
   width: 2.4rem;
+  ${media.tablet} {
+    height: 3rem;
+    width: 3rem;
+  }
+  ${media.desktop} {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 `;
 
 export const BodyFormGroup = styled.div`
   ${formGroupStyles}
   grid-area: body;
+  margin-top: 6rem;
 `;
 
 export const Textarea = styled.textarea`
-  width: 23rem;
+  width: 100%;
   height: 10rem;
   border-radius: 0.2rem;
   font-size: 1.2rem;
@@ -111,12 +175,27 @@ export const Textarea = styled.textarea`
   padding-top: 0.5rem;
   padding-left: 0.5rem;
   transition: 0.2s all ease;
+  margin-top: 1.5rem;
+  border: 0;
+  background-color: ${theme.Pink};
   &::placeholder {
     opacity: 0.6;
     color: ${theme.Brown};
   }
   &:focus {
     box-shadow: 0 0.2rem 0.2rem black;
+  }
+  ${media.tablet} {
+    height: 15rem;
+    font-size: 2rem;
+    padding-top: 1.5rem;
+    padding-left: 1.5rem;
+    margin-top: 2rem;
+  }
+  ${media.desktop} {
+    height: 30rem;
+    font-size: 2.5rem;
+    margin-top: 3rem;
   }
 `;
 
@@ -127,23 +206,42 @@ export const Text = styled.p`
   font-size: 1rem;
   color: ${theme.Yellow};
   justify-self: center;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+  width: 31ch;
+  ${media.tablet} {
+    font-size: 1.5rem;
+    width: 44ch;
+    margin-top: 2rem;
+    margin-bottom: 6rem;
+  }
+  ${media.desktop} {
+    font-size: 2rem;
+    line-height: 1.5;
+  }
 `;
 
 export const TextLink = styled.a`
-  color: ${theme.LightPink};
+  color: ${theme.LightYellow};
   text-decoration: underline;
   ${yellowFocusStyles}
 `;
 
 export const ButtonWrapper = styled.div`
   grid-area: buttons;
-  width: 23rem;
+  width: 100%;
   height: 5.5rem;
   background-color: ${theme.Pink};
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   border-radius: 0.2rem;
+  ${media.tablet} {
+    height: 10rem;
+  }
+  ${media.desktop} {
+    height: 12rem;
+  }
 `;
 
 const buttonStyles = css`
@@ -155,22 +253,50 @@ const buttonStyles = css`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  cursor: pointer;
   ${darkFocusStyles}
+  svg {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+  ${media.tablet} {
+    width: 13rem;
+    height: 5rem;
+    font-size: 2rem;
+    transition: all 0.1s ease-in;
+    &:not(:disabled) {
+      &:hover {
+        transform: translateY(-0.4rem);
+        box-shadow: 0 0.5rem 0.4rem black;
+      }
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 0.2rem 0.4rem black;
+      }
+    }
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    svg {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+  ${media.desktop} {
+    width: 15rem;
+    height: 6.5rem;
+    font-size: 2.5rem;
+    svg {
+      height: 2.7rem;
+      width: 2.7rem;
+    }
+  }
 `;
 
 export const ButtonSave = styled.button`
   ${buttonStyles}
   color: ${theme.Pink};
-`;
-
-export const Rocket = styled(RocketSVG)`
-  height: 1.2rem;
-  width: 1.2rem;
-`;
-
-export const Eye = styled(EyeSVG)`
-  height: 1.2rem;
-  width: 1.2rem;
 `;
 
 export const ButtonPreview = styled.button`

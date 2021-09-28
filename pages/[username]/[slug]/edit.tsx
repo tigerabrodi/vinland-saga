@@ -2,6 +2,8 @@ import * as React from "react";
 import Link from "next/link";
 import type { NextPage } from "next";
 import PlaceholderImage from "../../../assets/placeholder-image.jpg";
+import Eye from "../../../assets/eye.svg";
+import Rocket from "../../../assets/rocket.svg";
 import {
   RecipeEditForm,
   Heading,
@@ -19,8 +21,6 @@ import {
   ButtonWrapper,
   ButtonSave,
   ButtonPreview,
-  Rocket,
-  Eye,
 } from "./editStyles";
 import { useFormState } from "@hooks/useFormState";
 
@@ -31,6 +31,8 @@ const RecipeEdit: NextPage = () => {
   });
 
   const { title, body } = formState;
+
+  const isButtonSaveDisabled = !body.length || title.length < 3;
 
   return (
     <RecipeEditForm>
@@ -43,6 +45,7 @@ const RecipeEdit: NextPage = () => {
           value={title}
           type="text"
           onChange={handleChange}
+          placeholder="Chicken Tikka"
         />
       </TitleFormGroup>
       <Image src={PlaceholderImage.src} alt="Placeholder image" />
@@ -58,7 +61,13 @@ const RecipeEdit: NextPage = () => {
       </UploadLabel>
       <BodyFormGroup>
         <Label htmlFor="body">Body</Label>
-        <Textarea id="body" name="body" value={body} onChange={handleChange} />
+        <Textarea
+          id="body"
+          name="body"
+          value={body}
+          onChange={handleChange}
+          placeholder="# Chicken Tikka Masala Recipe"
+        />
       </BodyFormGroup>
       <Text>
         The body uses{" "}
@@ -71,7 +80,7 @@ const RecipeEdit: NextPage = () => {
       </Text>
 
       <ButtonWrapper>
-        <ButtonSave>
+        <ButtonSave disabled={isButtonSaveDisabled}>
           <Rocket /> Submit
         </ButtonSave>
         <ButtonPreview>
