@@ -14,6 +14,10 @@ export const FooterContainer = styled.footer`
   ${media.tablet} {
     height: 9rem;
   }
+  ${media.desktop} {
+    height: 11rem;
+    border-top: solid 0.3rem ${theme.Pink};
+  }
 `;
 
 export const FooterText = styled.p`
@@ -43,5 +47,12 @@ export const External = styled(ExternalSVG)`
     right: -1.4rem;
     height: 1.7rem;
     width: 1.7rem;
+  }
+
+  ${media.desktop} {
+    top: -2.2rem;
+    right: -1.6rem;
+    height: 1.9rem;
+    width: 1.9rem;
   }
 `;
