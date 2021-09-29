@@ -1,10 +1,10 @@
-import * as React from "react";
-import Link from "next/link";
-import { auth, firebaseDb } from "@lib/firebase";
-import type { NextPage } from "next";
-import { NextRouter, useRouter } from "next/router";
-import { UserProfile } from "@lib/types";
-import DefaultAvatar from "../../assets/default-avatar.png";
+import * as React from 'react'
+import Link from 'next/link'
+import { auth, firebaseDb } from '@lib/firebase'
+import type { NextPage } from 'next'
+import { NextRouter, useRouter } from 'next/router'
+import { UserProfile } from '@lib/types'
+import DefaultAvatar from '../../assets/default-avatar.png'
 import {
   Avatar,
   Cancel,
@@ -25,55 +25,57 @@ import {
   Input,
   AgeFormGroup,
   UploadProgress,
-} from "./editStyles";
-import { useLoadingStore } from "@lib/store";
-import { FullPageSpinner } from "@components/Spinner";
-import { FormGroup, Label } from "@styles/formStyles";
+} from './editStyles'
+import { useLoadingStore } from '@lib/store'
+import { FullPageSpinner } from '@components/Spinner'
+import { FormGroup, Label } from '@styles/formStyles'
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
-} from "@firebase/storage";
-import { doc, serverTimestamp, setDoc } from "@firebase/firestore";
-import toast from "react-hot-toast";
-import { useGetUser } from "@hooks/useGetUser";
-import { useUserContext } from "@lib/context";
-import { useFormState } from "@hooks/useFormState";
+} from '@firebase/storage'
+import { doc, serverTimestamp, setDoc } from '@firebase/firestore'
+import toast from 'react-hot-toast'
+import { useGetUser } from '@hooks/useGetUser'
+import { useUserContext } from '@lib/context'
+import { useFormState } from '@hooks/useFormState'
 
 type Router = NextRouter & {
-  query: { username: string };
-};
+  query: { username: string }
+}
 
 const UsernameEdit: NextPage = () => {
   const {
     query: { username: queryUsername },
     push,
-  } = useRouter() as Router;
-  const { setStatus } = useLoadingStore();
-  const [uploadProgress, setUploadProgress] = React.useState<number>(0);
-  const [avatarImage, setAvatarImage] = React.useState<string>("");
+  } = useRouter() as Router
+  const { setStatus } = useLoadingStore()
+  const [uploadProgress, setUploadProgress] = React.useState<number>(0)
+  const [avatarImage, setAvatarImage] = React.useState<string>('')
 
-  const { user } = useGetUser(queryUsername);
+  const { user } = useGetUser(queryUsername)
 
-  const { username } = useUserContext();
+  const { username } = useUserContext()
 
-  const { handleChange, formState, setFormState } = useFormState({
-    fullname: "",
-    age: "",
-    work: "",
-    location: "",
-    bio: "",
-  });
-
-  const { fullname, age, work, location, bio } = formState;
+  const {
+    handleChange,
+    formState: { fullname, age, work, location, bio },
+    setFormState,
+  } = useFormState({
+    fullname: '',
+    age: '',
+    work: '',
+    location: '',
+    bio: '',
+  })
 
   // TODO Assert this functionality in Test.
   React.useEffect(() => {
     if (queryUsername !== username) {
-      toast.error("You are not authorized to edit the user's profile.");
-      push("/");
-      return;
+      toast.error("You are not authorized to edit the user's profile.")
+      push('/')
+      return
     }
     if (user) {
       setFormState({
@@ -82,54 +84,54 @@ const UsernameEdit: NextPage = () => {
         work: user.work,
         location: user.location,
         bio: user.bio,
-      });
+      })
     }
-  }, [username, push, setFormState, user, queryUsername]);
+  }, [username, push, setFormState, user, queryUsername])
 
   const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = Array.from(event.target.files as FileList)[0];
-    const extension = file.type.split("/")[1];
+    const file = Array.from(event.target.files as FileList)[0]
+    const extension = file.type.split('/')[1]
 
-    const userRef = doc(firebaseDb, "users", auth.currentUser!.uid);
+    const userRef = doc(firebaseDb, 'users', auth.currentUser!.uid)
 
-    const storage = getStorage();
+    const storage = getStorage()
     const avatarRef = ref(
       storage,
       `avatars/${auth.currentUser!.uid}.${extension}`
-    );
+    )
 
-    setStatus("loading");
+    setStatus('loading')
 
-    const uploadTask = uploadBytesResumable(avatarRef, file);
+    const uploadTask = uploadBytesResumable(avatarRef, file)
     uploadTask.on(
-      "state_changed",
+      'state_changed',
       (snapshot) => {
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setUploadProgress(progress);
+        )
+        setUploadProgress(progress)
       },
       () => {
-        toast.error("Avatar upload did not succeed.");
-        setUploadProgress(0);
-        setStatus("error");
+        toast.error('Avatar upload did not succeed.')
+        setUploadProgress(0)
+        setStatus('error')
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setDoc(userRef, { avatarUrl: downloadURL }, { merge: true });
-          setAvatarImage(downloadURL);
-          setStatus("success");
-          toast.success("Successfully uploaded your avatar.");
-        });
+          setDoc(userRef, { avatarUrl: downloadURL }, { merge: true })
+          setAvatarImage(downloadURL)
+          setStatus('success')
+          toast.success('Successfully uploaded your avatar.')
+        })
       }
-    );
-  };
+    )
+  }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const userRef = doc(firebaseDb, "users", auth.currentUser!.uid);
+    event.preventDefault()
+    const userRef = doc(firebaseDb, 'users', auth.currentUser!.uid)
 
-    setStatus("loading");
+    setStatus('loading')
     setDoc(
       userRef,
       {
@@ -141,27 +143,27 @@ const UsernameEdit: NextPage = () => {
         joined: serverTimestamp(),
       } as UserProfile,
       { merge: true }
-    );
-    setStatus("success");
+    )
+    setStatus('success')
 
-    toast.success("Successfully updated your profile.");
+    toast.success('Successfully updated your profile.')
 
-    push(`/${queryUsername}`);
-  };
+    push(`/${queryUsername}`)
+  }
 
   if (!user || queryUsername !== username) {
-    return <FullPageSpinner />;
+    return <FullPageSpinner />
   }
 
   const image =
-    avatarImage !== ""
+    avatarImage !== ''
       ? avatarImage
-      : user.avatarUrl !== ""
+      : user.avatarUrl !== ''
       ? user.avatarUrl
-      : DefaultAvatar.src;
+      : DefaultAvatar.src
 
   const isButtonDisabled =
-    !fullname.length || !age.length || !work.length || !location.length;
+    !fullname.length || !age.length || !work.length || !location.length
 
   return (
     <UserEditForm onSubmit={handleSubmit}>
@@ -169,7 +171,7 @@ const UsernameEdit: NextPage = () => {
         <UserEditTitle>Editing Profile</UserEditTitle>
         <Avatar
           src={image}
-          alt={image === DefaultAvatar.src ? "default" : "avatar"}
+          alt={image === DefaultAvatar.src ? 'default' : 'avatar'}
         />
         {uploadProgress !== 0 && (
           <UploadProgress>{uploadProgress}%</UploadProgress>
@@ -262,7 +264,7 @@ const UsernameEdit: NextPage = () => {
         </Link>
       </ButtonWrapper>
     </UserEditForm>
-  );
-};
+  )
+}
 
-export default UsernameEdit;
+export default UsernameEdit
