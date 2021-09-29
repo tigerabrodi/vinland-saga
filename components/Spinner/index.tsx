@@ -1,9 +1,9 @@
-import { theme } from "@styles/theme";
-import SpinnerSVG from "../../assets/spinner.svg";
-import styled, { keyframes } from "styled-components";
-import { useLoadingStore } from "@lib/store";
-import { media } from "@styles/media";
-import { sectionStyles } from "@styles/sharedStyles";
+import { theme } from '@styles/theme'
+import SpinnerSVG from '../../assets/spinner.svg'
+import styled, { keyframes } from 'styled-components'
+import { useLoadingStore } from '@lib/store'
+import { media } from '@styles/media'
+import { sectionStyles } from '@styles/sharedStyles'
 
 const spin = keyframes`
     from {
@@ -12,7 +12,7 @@ const spin = keyframes`
     to {
         transform: rotate(360deg);
     }
-`;
+`
 
 const SpinnerWrapper = styled.div`
   background-color: ${theme.Brown};
@@ -36,7 +36,7 @@ const SpinnerWrapper = styled.div`
     height: 5.5rem;
     width: 5.5rem;
   }
-`;
+`
 
 const Spinner = styled(SpinnerSVG)`
   width: 70%;
@@ -46,16 +46,14 @@ const Spinner = styled(SpinnerSVG)`
   g {
     fill: ${theme.Pink};
   }
-`;
+`
 
 const BigSpinner = styled(SpinnerSVG)`
   height: 10rem;
   width: 10rem;
-  position: absolute;
   animation: ${spin} 0.6s linear infinite;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 28%;
+  position: absolute;
   fill: ${theme.Pink};
   g {
     fill: ${theme.Pink};
@@ -64,23 +62,23 @@ const BigSpinner = styled(SpinnerSVG)`
     height: 15rem;
     width: 15rem;
   }
-`;
+`
 
 export const BigSpinnerSection = styled.div`
   ${sectionStyles}
-`;
+`
 
 export const LoadingSpinner = () => {
-  const { status } = useLoadingStore();
-  return status === "loading" ? (
+  const { status } = useLoadingStore()
+  return status === 'loading' ? (
     <SpinnerWrapper role="alert" aria-label="loading">
       <Spinner />
     </SpinnerWrapper>
-  ) : null;
-};
+  ) : null
+}
 
 export const FullPageSpinner = () => (
   <BigSpinnerSection>
     <BigSpinner />
   </BigSpinnerSection>
-);
+)
