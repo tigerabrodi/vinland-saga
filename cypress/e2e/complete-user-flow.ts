@@ -71,11 +71,11 @@ it('Complete users flow', () => {
   cy.findByRole('img', { name: 'Placeholder' }).should('exist')
 
   cy.findByLabelText('Body').type(firstUserRecipe.body)
-  cy.findByRole('link', { name: 'Markdown' }).should('exist')
+  cy.findByRole('link', { name: 'Markdown.' }).should('exist')
 
   cy.findByLabelText('Upload Recipe Image').attachFile('recipe-image.jpg')
 
-  cy.findByRole('img', { name: 'Recipe' }).should('exist')
+  cy.findByRole('img', { name: firstUserRecipe.title }).should('exist')
 
   cy.findByText('Successfully uploaded your recipe image.').should('exist')
 })
