@@ -1,76 +1,76 @@
-import * as React from "react";
-import { useLoadingStore } from "@lib/store";
-import { doc, serverTimestamp, writeBatch } from "@firebase/firestore";
-import { createUserWithEmailAndPassword as createUserWithEmailAndPasswordAuth } from "@firebase/auth";
-import { auth, firebaseDb } from "@lib/firebase";
-import { FirebaseError } from "@firebase/util";
-import toast from "react-hot-toast";
-import { useRouter } from "next/router";
+import * as React from 'react'
+import { useLoadingStore } from '@lib/store'
+import { doc, serverTimestamp, writeBatch } from '@firebase/firestore'
+import { createUserWithEmailAndPassword as createUserWithEmailAndPasswordAuth } from '@firebase/auth'
+import { auth, firebaseDb } from '@lib/firebase'
+import { FirebaseError } from '@firebase/util'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/router'
 
 export const useCreateUserWithEmailAndPassword = () => {
-  const [signUpError, setSignUpError] = React.useState<FirebaseError>();
-  const { setStatus } = useLoadingStore();
-  const router = useRouter();
+  const [signUpError, setSignUpError] = React.useState<FirebaseError>()
+  const { setStatus } = useLoadingStore()
+  const router = useRouter()
 
-  const batch = writeBatch(firebaseDb);
+  const batch = writeBatch(firebaseDb)
 
   const createUserWithEmailAndPassword = async (
     email: string,
     password: string,
     username: string
   ) => {
-    setStatus("loading");
+    setStatus('loading')
     try {
       const user = await createUserWithEmailAndPasswordAuth(
         auth,
         email,
         password
-      );
+      )
 
-      const userRef = doc(firebaseDb, "users", user.user?.uid);
+      const userRef = doc(firebaseDb, 'users', user.user?.uid)
 
       // Workaround since serverTimestamp behavior is inconsistent and sometimes returns null.
-      let joined = null;
+      let joined = null
       do {
-        joined = serverTimestamp();
-      } while (joined === null);
+        joined = serverTimestamp()
+      } while (joined === null)
 
       batch.set(userRef, {
         username,
         email,
-        fullname: "",
-        age: "",
-        bio: "",
-        work: "",
-        location: "",
-        avatarUrl: "",
+        fullname: '',
+        age: '',
+        bio: '',
+        work: '',
+        location: '',
+        avatarUrl: '',
         clapCount: 0,
         recipeCount: 0,
         joined,
-      });
+      })
 
-      const usernameRef = doc(firebaseDb, "usernames", username);
+      const usernameRef = doc(firebaseDb, 'usernames', username)
       batch.set(usernameRef, {
         uid: user.user?.uid,
-      });
+      })
 
-      await batch.commit();
+      await batch.commit()
 
-      toast.success("You successfully created your account.");
-      setStatus("success");
+      toast.success('You successfully created your account.')
+      setStatus('success')
 
-      router.push(`/${username}/edit`);
+      router.push(`/${username}/edit`)
     } catch (error) {
-      setStatus("error");
-      setSignUpError(error as FirebaseError);
+      setStatus('error')
+      setSignUpError(error as FirebaseError)
       setTimeout(() => {
-        setSignUpError(undefined);
-      }, 3000);
+        setSignUpError(undefined)
+      }, 3000)
     }
-  };
+  }
 
   return {
     createUserWithEmailAndPassword,
     signUpError,
-  };
-};
+  }
+}
