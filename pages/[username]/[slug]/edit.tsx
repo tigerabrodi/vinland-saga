@@ -131,7 +131,7 @@ const RecipeEdit: NextPage = () => {
 
   return (
     <RecipeEditForm>
-      <Heading>Create Recipe</Heading>
+      <Heading>Edit Recipe</Heading>
       <TitleFormGroup>
         <Label htmlFor="title">Title</Label>
         <Input
