@@ -1,6 +1,6 @@
-import { css } from "styled-components";
-import { media } from "./media";
-import { theme } from "./theme";
+import { css } from 'styled-components'
+import { media } from './media'
+import { theme } from './theme'
 
 export const pinkFocusStyles = css`
   &:focus-visible {
@@ -10,7 +10,7 @@ export const pinkFocusStyles = css`
   &:focus:not(:focus-visible) {
     outline: none;
   }
-`;
+`
 
 export const yellowFocusStyles = css`
   &:focus-visible {
@@ -20,7 +20,7 @@ export const yellowFocusStyles = css`
   &:focus:not(:focus-visible) {
     outline: none;
   }
-`;
+`
 
 export const darkFocusStyles = css`
   &:focus-visible {
@@ -30,7 +30,7 @@ export const darkFocusStyles = css`
   &:focus:not(:focus-visible) {
     outline: none;
   }
-`;
+`
 
 export const sectionStyles = css`
   width: 100%;
@@ -45,7 +45,7 @@ export const sectionStyles = css`
   ${media.desktop} {
     min-height: calc(100vh - 18rem);
   }
-`;
+`
 
 export const AssistiveTechnologyOnly = css`
   position: absolute;
@@ -54,7 +54,7 @@ export const AssistiveTechnologyOnly = css`
   width: 1px;
   height: 1px;
   overflow: hidden;
-`;
+`
 
 export const heightSectionStyles = css`
   width: 100%;
@@ -65,4 +65,4 @@ export const heightSectionStyles = css`
   ${media.desktop} {
     min-height: calc(100vh - 18rem);
   }
-`;
+`
