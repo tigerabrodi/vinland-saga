@@ -67,6 +67,7 @@ const RecipeEdit: NextPage = () => {
 
   const {
     query: { slug },
+    push,
   } = useRouter() as Router
 
   const { user } = useGetUser(username)
@@ -135,8 +136,29 @@ const RecipeEdit: NextPage = () => {
       ? `${PlaceholderImage2x.src} 300w, ${PlaceholderImage3x.src} 768w, ${PlaceholderImage4x.src} 1280w`
       : undefined
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
+    if (username) {
+      const uid = auth.currentUser!.uid
+
+      const recipeData = {
+        title,
+        body,
+      }
+
+      await setDoc(
+        doc(firebaseDb, `users/${uid}/recipes/${recipe.slug}`),
+        recipeData,
+        { merge: true }
+      )
+
+      setStatus('success')
+
+      toast.success(`Successfully updated your recipe ${title}.`)
+
+      push(`/${username}/${recipe.slug}`)
+    }
   }
 
   const Buttons = () => (
