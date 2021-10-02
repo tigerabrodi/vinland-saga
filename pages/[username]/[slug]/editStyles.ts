@@ -3,11 +3,11 @@ import {
   AssistiveTechnologyOnly,
   heightSectionStyles,
   yellowFocusStyles,
-} from "@styles/sharedStyles";
-import { theme } from "@styles/theme";
-import ImagesSVG from "../../../assets/images.svg";
-import styled, { css } from "styled-components";
-import { media } from "@styles/media";
+} from '@styles/sharedStyles'
+import { theme } from '@styles/theme'
+import ImagesSVG from '../../../assets/images.svg'
+import styled, { css } from 'styled-components'
+import { media } from '@styles/media'
 
 const formGroupStyles = css`
   display: flex;
@@ -15,12 +15,12 @@ const formGroupStyles = css`
   align-items: flex-start;
   justify-content: space-evenly;
   width: 100%;
-`;
+`
 
-export const RecipeEditForm = styled.form`
+export const RecipeEditWrapper = styled.div`
   ${heightSectionStyles}
   display: grid;
-  grid-template-areas: "heading" "title" "image" "upload" "body" "text" "buttons";
+  grid-template-areas: 'heading' 'title' 'image' 'upload' 'body' 'text' 'buttons';
   align-items: center;
   justify-items: center;
   width: 23.5rem;
@@ -34,7 +34,7 @@ export const RecipeEditForm = styled.form`
     margin-top: 3rem;
     margin-bottom: 4rem;
   }
-`;
+`
 
 export const Heading = styled.h1`
   grid-area: heading;
@@ -48,7 +48,7 @@ export const Heading = styled.h1`
   ${media.desktop} {
     font-size: 6rem;
   }
-`;
+`
 
 export const TitleFormGroup = styled.div`
   ${formGroupStyles}
@@ -57,7 +57,7 @@ export const TitleFormGroup = styled.div`
   ${media.tablet} {
     margin-top: 4rem;
   }
-`;
+`
 
 export const Label = styled.label`
   font-weight: 600;
@@ -66,7 +66,7 @@ export const Label = styled.label`
   ${media.tablet} {
     font-size: 3rem;
   }
-`;
+`
 
 export const Input = styled.input`
   width: 100%;
@@ -96,7 +96,7 @@ export const Input = styled.input`
     font-size: 2.5rem;
     height: 5.2rem;
   }
-`;
+`
 
 export const Image = styled.img`
   grid-area: image;
@@ -104,7 +104,7 @@ export const Image = styled.img`
   height: auto;
   margin-top: 4rem;
   border-radius: 0.2rem;
-`;
+`
 
 export const FileInput = styled.input`
   ${AssistiveTechnologyOnly}
@@ -112,7 +112,7 @@ export const FileInput = styled.input`
     outline: 0.2rem ridge #ffbeba;
     outline-offset: 0.3rem;
   }
-`;
+`
 
 export const UploadLabel = styled.label`
   grid-area: upload;
@@ -144,7 +144,7 @@ export const UploadLabel = styled.label`
     width: 8rem;
     height: 6rem;
   }
-`;
+`
 
 export const ImageIcon = styled(ImagesSVG)`
   height: 2.4rem;
@@ -157,13 +157,13 @@ export const ImageIcon = styled(ImagesSVG)`
     width: 3.5rem;
     height: 3.5rem;
   }
-`;
+`
 
 export const BodyFormGroup = styled.div`
   ${formGroupStyles}
   grid-area: body;
   margin-top: 6rem;
-`;
+`
 
 export const Textarea = styled.textarea`
   width: 100%;
@@ -197,7 +197,7 @@ export const Textarea = styled.textarea`
     font-size: 2.5rem;
     margin-top: 3rem;
   }
-`;
+`
 
 export const Text = styled.p`
   text-align: center;
@@ -219,13 +219,13 @@ export const Text = styled.p`
     font-size: 2rem;
     line-height: 1.5;
   }
-`;
+`
 
 export const TextLink = styled.a`
   color: ${theme.LightYellow};
   text-decoration: underline;
   ${yellowFocusStyles}
-`;
+`
 
 export const ButtonWrapper = styled.div`
   grid-area: buttons;
@@ -236,13 +236,16 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   border-radius: 0.2rem;
+  width: 23.5rem;
   ${media.tablet} {
     height: 10rem;
+    width: 45rem;
   }
   ${media.desktop} {
     height: 12rem;
+    width: 65rem;
   }
-`;
+`
 
 const buttonStyles = css`
   width: 8rem;
@@ -292,14 +295,14 @@ const buttonStyles = css`
       width: 2.7rem;
     }
   }
-`;
+`
 
 export const ButtonSave = styled.button`
   ${buttonStyles}
   color: ${theme.Pink};
-`;
+`
 
 export const ButtonPreview = styled.button`
   ${buttonStyles}
   color: ${theme.Yellow};
-`;
+`
