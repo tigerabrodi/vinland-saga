@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 *,
 *::after,
@@ -13,7 +13,7 @@
   --darkPink: #ff6969;
   --green: #48ff48;
   --lightYellow: #f1db93;
-  --inter: "Inter";
+  --inter: 'Inter';
 }
 
 html {
@@ -26,7 +26,7 @@ body {
   font-family: var(--inter);
 }
 
-body div[id^="__next"] {
+body div[id^='__next'] {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -48,6 +48,7 @@ main {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 button {
