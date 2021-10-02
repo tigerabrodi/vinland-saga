@@ -78,4 +78,32 @@ it('Complete users flow', () => {
   cy.findByRole('img', { name: firstUserRecipe.title }).should('exist')
 
   cy.findByText('Successfully uploaded your recipe image.').should('exist')
+
+  // Turn on Preview Mode
+  cy.findByRole('button', { name: 'Preview' }).click()
+  cy.findByRole('heading', { name: 'Edit Recipe' }).should('not.exist')
+
+  // Assert preview page
+  cy.findByRole('heading', { name: firstUserRecipe.title }).should('exist')
+  cy.findByText(firstUserRecipe.body).should('exist')
+  cy.findByRole('link', { name: user.fullname }).should('exist')
+  cy.findByRole('img', { name: firstUserRecipe.title }).should('exist')
+  cy.findByRole('button', { name: '0 claps' }).should('exist')
+  cy.findByRole('link', { name: '0 comments' }).should('exist')
+  cy.findByRole('link', { name: 'Edit' }).should('exist')
+  cy.findByRole('button', { name: 'Delete' }).should('exist')
+
+  // Turn off preview mode
+  cy.findByRole('button', { name: 'Preview' }).click()
+  cy.findByRole('heading', { name: 'Edit Recipe' }).should('exist')
+
+  // Submit
+  cy.findByRole('button', { name: 'Submit' }).click()
+
+  cy.findByText(
+    `Successfully updated your recipe ${firstUserRecipe.title}.`
+  ).should('exist')
+
+  // Recipe Detail Page
+  cy.findByRole('heading', { name: firstUserRecipe.title }).should('exist')
 })
