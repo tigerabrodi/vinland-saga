@@ -48,6 +48,8 @@ export const RecipeDetail = ({ recipe, user, buttons }: Props) => {
       ? `${PlaceholderImage2x.src} 300w, ${PlaceholderImage3x.src} 768w, ${PlaceholderImage4x.src} 1280w`
       : undefined
 
+  const isUserAuthorized = recipe.username === user.username
+
   return (
     <Wrapper>
       <TopContainer>
@@ -84,7 +86,7 @@ export const RecipeDetail = ({ recipe, user, buttons }: Props) => {
           {' '}
           <ClockSVG /> Posted on {createdAt}{' '}
         </DateText>
-        {recipe.username === user.username && (
+        {isUserAuthorized && (
           <>
             <Link passHref href={`/${user.username}/${recipe.slug}/edit`}>
               <EditLink aria-label="Edit">
