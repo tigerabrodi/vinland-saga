@@ -1,22 +1,24 @@
-import { build, fake } from "@jackfranklin/test-data-bot";
+import { build, fake } from '@jackfranklin/test-data-bot'
 
 type User = {
-  email: string;
-  username: string;
-  password: string;
-  fullname: string;
-  age: number;
-  work: string;
-  location: string;
-  bio: string;
-};
+  email: string
+  username: string
+  password: string
+  fullname: string
+  age: number
+  work: string
+  location: string
+  bio: string
+}
 
 type Recipe = {
-  title: string;
-  body: string;
-};
+  title: string
+  body: string
+  comment: string
+  editedComment: string
+}
 
-export const buildUser = build<User>("User", {
+export const buildUser = build<User>('User', {
   fields: {
     username: fake((f) => f.internet.userName().toLowerCase()),
     email: fake((f) => f.internet.email()),
@@ -27,11 +29,13 @@ export const buildUser = build<User>("User", {
     location: fake((f) => f.address.city()),
     bio: fake((f) => f.random.words(10)),
   },
-});
+})
 
-export const buildRecipe = build<Recipe>("User", {
+export const buildRecipe = build<Recipe>('User', {
   fields: {
     title: fake((f) => f.name.title()),
-    body: fake((f) => f.random.words(20)),
+    body: fake((f) => f.random.words(10)),
+    comment: fake((f) => f.random.words(5)),
+    editedComment: fake((f) => f.random.words(5)),
   },
-});
+})

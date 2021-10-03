@@ -88,10 +88,10 @@ it('Complete users flow', () => {
   cy.findByText(firstUserRecipe.body).should('exist')
   cy.findByRole('link', { name: user.fullname }).should('exist')
   cy.findByRole('img', { name: firstUserRecipe.title }).should('exist')
-  cy.findByRole('button', { name: '0 claps' }).should('exist')
+  cy.findByRole('button', { name: 'Recipe 0 claps' }).should('exist')
   cy.findByRole('link', { name: '0 comments' }).should('exist')
-  cy.findByRole('link', { name: 'Edit' }).should('exist')
-  cy.findByRole('button', { name: 'Delete' }).should('exist')
+  cy.findByRole('link', { name: 'Edit Recipe' }).should('exist')
+  cy.findByRole('button', { name: 'Delete Recipe' }).should('exist')
 
   // Turn off preview mode
   cy.findByRole('button', { name: 'Preview' }).click()
@@ -106,4 +106,47 @@ it('Complete users flow', () => {
 
   // Recipe Detail Page
   cy.findByRole('heading', { name: firstUserRecipe.title }).should('exist')
+  cy.findByText(firstUserRecipe.body).should('exist')
+  cy.findByRole('link', { name: user.fullname }).should('exist')
+  cy.findByRole('img', { name: firstUserRecipe.title }).should('exist')
+  cy.findByRole('link', { name: '0 comments' }).should('exist')
+  cy.findByRole('link', { name: 'Edit Recipe' }).should('exist')
+  cy.findByRole('button', { name: 'Delete Recipe' }).should('exist')
+
+  // Clap and unclap the recipe
+  cy.findByRole('button', { name: 'Recipe 0 claps' }).click()
+  cy.findByRole('button', { name: 'Recipe 1 claps' }).click()
+  cy.findByRole('button', { name: 'Recipe 0 claps' }).should('exist')
+
+  // Comments on Recipe Detail Page
+  cy.findByRole('heading', { name: 'Comments' }).should('exist')
+  cy.findByText('This recipe currently has no comments.')
+
+  // Write a comment to the recipe
+  cy.findByLabelText('Comment').type(firstUserRecipe.comment)
+  cy.findByRole('button', { name: 'Post' }).click()
+  cy.findByText('Successfully added a comment to this recipe.').should('exist')
+  cy.findByText('This recipe currently has no comments.').should('not.exist')
+  cy.findByRole('link', { name: '1 comments' }).should('exist')
+
+  // Find Comment
+  cy.findByText(firstUserRecipe.comment).should('exist')
+
+  // Clap and unclap the comment
+  cy.findByRole('button', { name: 'Comment 0 claps' }).click()
+  cy.findByRole('button', { name: 'Comment 1 claps' }).click()
+  cy.findByRole('button', { name: 'Comment 0 claps' }).should('exist')
+
+  // Edit Comment
+  cy.findByRole('button', { name: 'Edit Comment' }).click()
+  cy.findByRole('textbox', { name: 'Edit Comment' }).clear()
+  cy.findByRole('textbox', { name: 'Edit Comment' }).type(
+    firstUserRecipe.editedComment
+  )
+  cy.findByRole('button', { name: 'Save' }).click()
+  cy.findByText(firstUserRecipe.editedComment).should('exist')
+  cy.findByText('Successfully edited your comment.').should('exist')
+
+  // Delete Comment
+  cy.findByRole('button', { name: 'Delete Comment' }).click()
 })
