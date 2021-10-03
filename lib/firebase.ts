@@ -4,13 +4,13 @@ import {
   Timestamp,
   collection,
   getFirestore,
-  DocumentSnapshot,
   query,
   where,
   getDocs,
   limit,
   doc,
   getDoc,
+  DocumentSnapshot,
 } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 import { Recipe, UserProfile } from './types'
@@ -70,11 +70,11 @@ export const getRecipeWithSlug = async (
     ? `users/${options.userToGetRecipeFrom.uid}/recipes/${slug}`
     : `recipes/${slug}`
 
-  const docRef = doc(firebaseDb, queryPath)
-  const docSnap = await getDoc(docRef)
+  const recipeRef = doc(firebaseDb, queryPath)
+  const recipeSnap = await getDoc(recipeRef)
 
-  if (docSnap.exists()) {
-    const recipe = docSnap.data() as Recipe
+  if (recipeSnap.exists()) {
+    const recipe = recipeSnap.data() as Recipe
 
     return {
       ...recipe,
@@ -83,16 +83,10 @@ export const getRecipeWithSlug = async (
   }
 }
 
-export const recipeToJSON = (
-  recipeDocument: DocumentSnapshot<{
-    createdAt: Timestamp
-    updatedAt: Timestamp
-  }>
-) => {
-  const data = recipeDocument.data()
+export const recipeToJSON = (recipeSnap: DocumentSnapshot): Recipe => {
+  const recipe = recipeSnap.data() as Recipe
   return {
-    ...data,
-    // Firestore timestamp NOT serializable to JSON. Must convert to milliseconds
-    createdAt: data?.createdAt.toMillis() || 0,
+    ...recipe,
+    createdAt: (recipe.createdAt as Timestamp).toMillis() || 0,
   }
 }
