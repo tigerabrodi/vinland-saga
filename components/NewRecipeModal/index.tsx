@@ -33,7 +33,7 @@ export const NewRecipeModal = () => {
 
   const { setStatus } = useLoadingStore()
 
-  const modalRef = useFocusTrap()
+  const modalRef = useFocusTrap(isModalOpen)
 
   useClickOutside({
     ref: modalRef,
