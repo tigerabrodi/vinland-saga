@@ -47,6 +47,7 @@ export const useCreateUserWithEmailAndPassword = () => {
         clapCount: 0,
         recipeCount: 0,
         joined,
+        uid: user.user.uid,
       })
 
       const usernameRef = doc(firebaseDb, 'usernames', username)
