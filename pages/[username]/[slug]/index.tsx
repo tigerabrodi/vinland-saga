@@ -1,17 +1,10 @@
 import * as React from 'react'
-import {
-  getDocs,
-  query,
-  doc,
-  getDoc,
-  collection,
-  onSnapshot,
-} from '@firebase/firestore'
+import { getDocs, query, doc, getDoc, collection } from '@firebase/firestore'
 import { firebaseDb, recipeToJSON, getUserWithUsername } from '@lib/firebase'
 import { FullPageSpinner } from '@components/Spinner'
 import { Recipe, UserProfile } from '@lib/types'
 import type { NextPage } from 'next'
-import { useLoadingStore } from '@lib/store'
+import { useRealtimeState } from '@hooks/useRealtimeState'
 
 type Params = {
   params: {
@@ -68,23 +61,7 @@ type Props = {
 }
 
 const RecipeDetailPage: NextPage<Props> = (props) => {
-  const [realtimeRecipe, setRealtimeRecipe] = React.useState<null | Recipe>(
-    null
-  )
-
-  const { setStatus } = useLoadingStore()
-
-  React.useEffect(() => {
-    setStatus('loading')
-    const unsubscribe = onSnapshot(doc(firebaseDb, props.path), (doc) => {
-      if (doc.exists()) {
-        setRealtimeRecipe(doc.data() as Recipe)
-        setStatus('success')
-      }
-    })
-
-    return unsubscribe
-  }, [props.path, setStatus])
+  const realtimeRecipe = useRealtimeState<Recipe>(props.path)
 
   if (!realtimeRecipe) {
     return <FullPageSpinner />
