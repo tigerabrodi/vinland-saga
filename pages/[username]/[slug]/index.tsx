@@ -67,7 +67,7 @@ type Props = {
   path: string
 }
 
-const RecipeDetail: NextPage<Props> = (props) => {
+const RecipeDetailPage: NextPage<Props> = (props) => {
   const [realtimeRecipe, setRealtimeRecipe] = React.useState<null | Recipe>(
     null
   )
@@ -95,4 +95,4 @@ const RecipeDetail: NextPage<Props> = (props) => {
   return <div>{recipe.title}</div>
 }
 
-export default RecipeDetail
+export default RecipeDetailPage
