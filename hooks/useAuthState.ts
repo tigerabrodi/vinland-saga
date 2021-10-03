@@ -1,6 +1,6 @@
-import { User, Auth, onAuthStateChanged } from "firebase/auth";
-import { useEffect } from "react";
-import { useLoadingValue } from "@hooks/useLoadingValue";
+import { User, Auth, onAuthStateChanged } from 'firebase/auth'
+import { useEffect } from 'react'
+import { useLoadingValue } from '@hooks/useLoadingValue'
 
 export const useAuthState = (auth: Auth) => {
   const {
@@ -9,19 +9,19 @@ export const useAuthState = (auth: Auth) => {
     setError,
     setValue,
     value: user,
-  } = useLoadingValue<User | null, Error>(() => auth.currentUser);
+  } = useLoadingValue<User | null, Error>(() => auth.currentUser)
 
   useEffect(() => {
-    const listener = onAuthStateChanged(auth, setValue, setError);
+    const listener = onAuthStateChanged(auth, setValue, setError)
 
     return () => {
-      listener();
-    };
-  }, [auth, setError, setValue]);
+      listener()
+    }
+  }, [auth, setError, setValue])
 
   return {
     user,
     loading,
     error,
-  };
-};
+  }
+}
