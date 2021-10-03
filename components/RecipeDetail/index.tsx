@@ -27,6 +27,7 @@ import {
   Wrapper,
   MarkDownWrapper,
 } from './styles'
+import { useUserContext } from '@lib/context'
 
 type Props = {
   recipe: Recipe
@@ -35,6 +36,8 @@ type Props = {
 }
 
 export const RecipeDetail = ({ recipe, user, buttons }: Props) => {
+  const { username } = useUserContext()
+
   const createdAt = (
     typeof recipe.createdAt === 'number'
       ? new Date(recipe.createdAt)
@@ -48,7 +51,7 @@ export const RecipeDetail = ({ recipe, user, buttons }: Props) => {
       ? `${PlaceholderImage2x.src} 300w, ${PlaceholderImage3x.src} 768w, ${PlaceholderImage4x.src} 1280w`
       : undefined
 
-  const isUserAuthorized = recipe.username === user.username
+  const isUserAuthorized = recipe.username === username
 
   return (
     <Wrapper>
@@ -72,7 +75,7 @@ export const RecipeDetail = ({ recipe, user, buttons }: Props) => {
           alt={recipe.imageUrl === '' ? 'Placeholder' : recipe.title}
         />
         {/* TODO Add Aria Pressed and clap functionality */}
-        <ClapButton aria-label={`${recipe.clapCount} claps`}>
+        <ClapButton aria-label={`Recipe ${recipe.clapCount} claps`}>
           <ClapSVG />
           {recipe.clapCount}
         </ClapButton>
@@ -89,12 +92,12 @@ export const RecipeDetail = ({ recipe, user, buttons }: Props) => {
         {isUserAuthorized && (
           <>
             <Link passHref href={`/${user.username}/${recipe.slug}/edit`}>
-              <EditLink aria-label="Edit">
+              <EditLink aria-label="Edit Recipe">
                 <PenSVG />
               </EditLink>
             </Link>
             {/* TODO Add functionality to delete recipe */}
-            <DeleteButton aria-label="Delete">
+            <DeleteButton aria-label="Delete Recipe">
               <TrashSVG />
             </DeleteButton>
           </>
