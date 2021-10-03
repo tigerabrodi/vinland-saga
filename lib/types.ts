@@ -18,6 +18,7 @@ export type UserProfile = {
   clapCount: number
   recipeCount: number
   joined: FieldValue | Timestamp | number
+  uid: string
 }
 
 export type Recipe = {
