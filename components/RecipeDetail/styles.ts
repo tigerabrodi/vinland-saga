@@ -102,7 +102,6 @@ const clapCommentStyles = css`
   font-size: 1.6rem;
   cursor: pointer;
   margin-top: 2rem;
-  background-color: transparent;
   column-gap: 0.5rem;
   ${pinkFocusStyles}
   svg {

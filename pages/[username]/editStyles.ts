@@ -3,14 +3,14 @@ import {
   darkFocusStyles,
   pinkFocusStyles,
   sectionStyles,
-} from "@styles/sharedStyles";
-import { formGroupStyles, formInputStyles } from "@styles/formStyles";
-import CancelSVG from "../../assets/close.svg";
-import ProfileSVG from "../../assets/profile.svg";
-import FileUploadSVG from "../../assets/file-upload.svg";
-import { theme } from "@styles/theme";
-import styled from "styled-components";
-import { media } from "@styles/media";
+} from '@styles/sharedStyles'
+import { formGroupStyles, formInputStyles } from '@styles/formStyles'
+import CancelSVG from '../../assets/close.svg'
+import ProfileSVG from '../../assets/profile.svg'
+import FileUploadSVG from '../../assets/file-upload.svg'
+import { theme } from '@styles/theme'
+import styled from 'styled-components'
+import { media } from '@styles/media'
 
 export const UserEditForm = styled.form`
   ${sectionStyles}
@@ -18,7 +18,7 @@ export const UserEditForm = styled.form`
   ${media.tablet} {
     margin: 5rem 0;
   }
-`;
+`
 
 export const UserEditWrapper = styled.div`
   width: 25rem;
@@ -28,7 +28,7 @@ export const UserEditWrapper = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
-  grid-template-areas: "avatar avatar" "progress progress" "inputUpload inputUpload" "editTitle cancelButton" "uploadText uploadText";
+  grid-template-areas: 'avatar avatar' 'progress progress' 'inputUpload inputUpload' 'editTitle cancelButton' 'uploadText uploadText';
   ${media.tablet} {
     width: 47rem;
     height: 44rem;
@@ -37,12 +37,12 @@ export const UserEditWrapper = styled.div`
     width: 55rem;
     height: 50rem;
   }
-`;
+`
 
 // Heading should come first due to accessibility, hence this hidden heading exists
 export const UserEditTitle = styled.h1`
   ${AssistiveTechnologyOnly}
-`;
+`
 
 export const Avatar = styled.img`
   grid-area: avatar;
@@ -59,7 +59,7 @@ export const Avatar = styled.img`
     height: 26rem;
     width: 26rem;
   }
-`;
+`
 
 export const UploadLabel = styled.label`
   grid-area: inputUpload;
@@ -91,7 +91,7 @@ export const UploadLabel = styled.label`
   ${media.desktop} {
     padding: 1.4rem 2.2rem;
   }
-`;
+`
 
 export const UploadProgress = styled.span`
   grid-area: progress;
@@ -104,7 +104,7 @@ export const UploadProgress = styled.span`
   ${media.desktop} {
     font-size: 1.8rem;
   }
-`;
+`
 
 export const FileUpload = styled(FileUploadSVG)`
   height: 1.8rem;
@@ -115,14 +115,14 @@ export const FileUpload = styled(FileUploadSVG)`
     width: 2.5rem;
     height: 2.5rem;
   }
-`;
+`
 
 export const UploadInput = styled.input`
   ${AssistiveTechnologyOnly}
   &:focus + label {
     box-shadow: 0 0.3rem 1rem black;
   }
-`;
+`
 
 export const UserEditVisibleTitle = styled.h1`
   grid-area: editTitle;
@@ -137,7 +137,7 @@ export const UserEditVisibleTitle = styled.h1`
   ${media.desktop} {
     font-size: 2.3rem;
   }
-`;
+`
 
 export const CancelLink = styled.a`
   grid-area: cancelButton;
@@ -170,7 +170,7 @@ export const CancelLink = styled.a`
     height: 4.5rem;
     width: 4.5rem;
   }
-`;
+`
 
 export const Cancel = styled(CancelSVG)`
   height: 1.8rem;
@@ -179,7 +179,7 @@ export const Cancel = styled(CancelSVG)`
     height: 2.2rem;
     width: 2.2rem;
   }
-`;
+`
 
 export const ButtonWrapper = styled.div`
   display: flex;
@@ -194,7 +194,7 @@ export const ButtonWrapper = styled.div`
   ${media.desktop} {
     column-gap: 12rem;
   }
-`;
+`
 
 export const ButtonSave = styled.button`
   color: ${theme.Brown};
@@ -231,12 +231,11 @@ export const ButtonSave = styled.button`
     font-size: 2.2rem;
     width: 12rem;
   }
-`;
+`
 
 export const LinkCancel = styled.a`
   color: ${theme.Pink};
   font-size: 1.2rem;
-  background-color: transparent;
   font-weight: 600;
   ${pinkFocusStyles}
   ${media.tablet} {
@@ -251,7 +250,7 @@ export const LinkCancel = styled.a`
   ${media.desktop} {
     font-size: 2.2rem;
   }
-`;
+`
 
 export const Profile = styled(ProfileSVG)`
   fill: ${theme.Brown};
@@ -261,7 +260,7 @@ export const Profile = styled(ProfileSVG)`
     height: 3rem;
     width: 3rem;
   }
-`;
+`
 
 export const Input = styled.input`
   ${formInputStyles}
@@ -272,7 +271,7 @@ export const Input = styled.input`
   ${media.desktop} {
     width: 55rem;
   }
-`;
+`
 
 export const Textarea = styled.textarea`
   ${formInputStyles}
@@ -287,7 +286,7 @@ export const Textarea = styled.textarea`
   ${media.desktop} {
     width: 55rem;
   }
-`;
+`
 
 export const AgeInput = styled.input`
   ${formInputStyles}
@@ -297,7 +296,7 @@ export const AgeInput = styled.input`
   ${media.tablet} {
     width: 7rem;
   }
-`;
+`
 
 export const AgeFormGroup = styled.div`
   ${formGroupStyles}
@@ -308,4 +307,4 @@ export const AgeFormGroup = styled.div`
   ${media.desktop} {
     margin-right: 48.2rem;
   }
-`;
+`

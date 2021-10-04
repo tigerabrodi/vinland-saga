@@ -1,8 +1,8 @@
-import { darkFocusStyles } from "@styles/sharedStyles";
-import { theme } from "@styles/theme";
-import CloseSVG from "../../assets/close.svg";
-import styled from "styled-components";
-import { media } from "@styles/media";
+import { darkFocusStyles } from '@styles/sharedStyles'
+import { theme } from '@styles/theme'
+import CloseSVG from '../../assets/close.svg'
+import styled from 'styled-components'
+import { media } from '@styles/media'
 
 export const Modal = styled.div`
   width: 30rem;
@@ -26,7 +26,7 @@ export const Modal = styled.div`
     width: 80rem;
     height: 50rem;
   }
-`;
+`
 
 export const ModalBackground = styled.div`
   width: 100%;
@@ -34,7 +34,7 @@ export const ModalBackground = styled.div`
   background-color: black;
   position: absolute;
   opacity: 0.6;
-`;
+`
 
 export const Title = styled.h1`
   font-size: 2.4rem;
@@ -47,7 +47,7 @@ export const Title = styled.h1`
   ${media.desktop} {
     font-size: 5rem;
   }
-`;
+`
 
 export const CloseButton = styled.button`
   height: 1.5rem;
@@ -56,7 +56,6 @@ export const CloseButton = styled.button`
   top: 0;
   right: 0;
   margin-top: 1.5rem;
-  background-color: transparent;
   margin-right: 1.5rem;
   cursor: pointer;
   ${darkFocusStyles}
@@ -76,7 +75,7 @@ export const CloseButton = styled.button`
     margin-top: 2.2rem;
     margin-right: 2.4rem;
   }
-`;
+`
 
 export const Close = styled(CloseSVG)`
   height: 100%;
@@ -84,14 +83,14 @@ export const Close = styled(CloseSVG)`
   path {
     fill: ${theme.Brown};
   }
-`;
+`
 
 export const Form = styled.form`
   display: grid;
   justify-items: flex-start;
   align-items: center;
-  grid-template-areas: "label" "input" "button";
-`;
+  grid-template-areas: 'label' 'input' 'button';
+`
 
 export const Label = styled.label`
   grid-area: label;
@@ -104,7 +103,7 @@ export const Label = styled.label`
   ${media.desktop} {
     font-size: 3rem;
   }
-`;
+`
 
 export const Input = styled.input`
   grid-area: input;
@@ -134,7 +133,7 @@ export const Input = styled.input`
     margin-top: 2rem;
     font-size: 2.5rem;
   }
-`;
+`
 
 export const CreateButton = styled.button`
   grid-area: button;
@@ -178,4 +177,4 @@ export const CreateButton = styled.button`
     margin-top: 11rem;
     height: 6rem;
   }
-`;
+`

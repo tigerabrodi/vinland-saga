@@ -140,7 +140,6 @@ export const NavMenuWrapper = styled.div`
 `
 
 export const NavMenuButton = styled.button`
-  background-color: transparent;
   cursor: pointer;
   ${media.tablet} {
     transition: all 0.2s ease;
@@ -202,7 +201,6 @@ const menuLinkButtonStyles = css`
   justify-content: space-between;
   font-size: 1.4rem;
   font-weight: 500;
-  background-color: transparent;
   color: ${theme.Brown};
   column-gap: 1rem;
   cursor: pointer;
