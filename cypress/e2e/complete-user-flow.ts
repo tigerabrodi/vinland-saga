@@ -20,7 +20,7 @@ it('Complete users flow', () => {
     `Successfully updated your recipe ${firstUserRecipe.title}.`
   ).should('exist')
 
-  // Recipe Detail Page (first user)
+  // Recipe Detail Page
   cy.assertRecipeDetail(firstUserRecipe, firstUser)
 
   // Currently no comments
@@ -30,6 +30,13 @@ it('Complete users flow', () => {
   // Go to Profile via Menu
   cy.clickItemInMenu('Profile')
   cy.findByRole('heading', { name: firstUser.fullname }).should('exist')
+
+  // Sign Out (first user)
+  cy.clickItemInMenu('Sign Out')
+  cy.findByText('Successfully signed out of your account.').should('exist')
+  cy.findByRole('link', { name: 'Create Account', timeout: 8000 }).should(
+    'exist'
+  )
 
   /*
   // Clap and unclap the recipe
