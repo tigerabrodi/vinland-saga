@@ -1,3 +1,5 @@
+import * as React from 'react'
+import Link from 'next/link'
 import {
   RegisterLink,
   LoginLink,
@@ -10,18 +12,41 @@ import {
   NavLogoLink,
   NavMenuButton,
   Avatar,
-} from "./styles";
-import defaultAvatar from "../../assets/default-avatar.png";
-import Link from "next/link";
-import { useMedia } from "@hooks/useMedia";
-import { useUserContext } from "@lib/context";
-import { useGetUser } from "@hooks/useGetUser";
+  NavMenuWrapper,
+  MenuItemButton,
+  MenuItemLink,
+  Menu,
+} from './styles'
+import defaultAvatar from '../../assets/default-avatar.png'
+import RecipeSVG from '../../assets/recipe.svg'
+import ProfileSVG from '../../assets/profile.svg'
+import MoonSVG from '../../assets/moon.svg'
+import { useMedia } from '@hooks/useMedia'
+import { useUserContext } from '@lib/context'
+import { useGetUser } from '@hooks/useGetUser'
+import { auth } from '@lib/firebase'
+import toast from 'react-hot-toast'
+import { useLoadingStore, useNewRecipeStore } from '@lib/store'
+import { useRouter } from 'next/router'
 
 export const Navigation = () => {
-  const isTabletLayout = useMedia("min", "768");
+  const isTabletLayout = useMedia('min', '768')
 
-  const { username } = useUserContext();
-  const { user } = useGetUser(username);
+  const { push } = useRouter()
+  const { username } = useUserContext()
+  const { user } = useGetUser(username)
+  const { setIsModalOpen } = useNewRecipeStore()
+  const { setStatus } = useLoadingStore()
+
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
+  const signOut = () => {
+    setStatus('loading')
+    auth.signOut()
+    push('/')
+    setStatus('success')
+    toast.success('Successfully signed out of your account.')
+  }
 
   return (
     <NavigationWrapper>
@@ -40,12 +65,38 @@ export const Navigation = () => {
         </Link>
 
         {user ? (
-          <NavMenuButton aria-label="Menu" aria-haspopup="menu">
-            <Avatar
-              src={user.avatarUrl !== "" ? user.avatarUrl : defaultAvatar.src}
-              alt=""
-            />
-          </NavMenuButton>
+          <NavMenuWrapper>
+            <NavMenuButton
+              aria-label="Menu"
+              aria-haspopup="menu"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <Avatar
+                src={user.avatarUrl !== '' ? user.avatarUrl : defaultAvatar.src}
+                alt=""
+              />
+            </NavMenuButton>
+            {isMenuOpen && (
+              <Menu role="menu">
+                <Link passHref href={`/${username}`}>
+                  <MenuItemLink role="menuitem">
+                    <ProfileSVG /> Profile
+                  </MenuItemLink>
+                </Link>
+                <MenuItemButton
+                  role="menuitem"
+                  onClick={() => {
+                    setIsModalOpen(true)
+                  }}
+                >
+                  <RecipeSVG /> New Recipe
+                </MenuItemButton>
+                <MenuItemButton role="menuitem" onClick={() => signOut()}>
+                  <MoonSVG /> Sign Out
+                </MenuItemButton>
+              </Menu>
+            )}
+          </NavMenuWrapper>
         ) : (
           <ButtonLinkWrapper>
             <Link passHref href="/sign-in">
@@ -58,5 +109,5 @@ export const Navigation = () => {
         )}
       </NavigationContainer>
     </NavigationWrapper>
-  );
-};
+  )
+}

@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
-import { theme } from "@styles/theme";
-import { pinkFocusStyles, yellowFocusStyles } from "@styles/sharedStyles";
-import { media } from "@styles/media";
+import styled, { css } from 'styled-components'
+import { theme } from '@styles/theme'
+import { pinkFocusStyles, yellowFocusStyles } from '@styles/sharedStyles'
+import { media } from '@styles/media'
 
 export const NavigationWrapper = styled.nav`
   position: sticky;
@@ -21,7 +21,7 @@ export const NavigationWrapper = styled.nav`
   ${media.desktop} {
     height: 9rem;
   }
-`;
+`
 
 export const NavigationContainer = styled.div`
   display: flex;
@@ -35,13 +35,13 @@ export const NavigationContainer = styled.div`
   ${media.desktop} {
     width: 55%;
   }
-`;
+`
 
 export const ButtonLinkWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-`;
+`
 
 const linkStyles = css`
   font-weight: 500;
@@ -56,13 +56,13 @@ const linkStyles = css`
       filter: brightness(120%);
     }
   }
-`;
+`
 
 export const NavLink = styled.a`
   ${linkStyles}
   font-size: 1.4rem;
   margin-top: 2rem;
-`;
+`
 
 export const LoginLink = styled.a`
   ${linkStyles}
@@ -71,7 +71,7 @@ export const LoginLink = styled.a`
     margin-right: 3rem;
     display: inline;
   }
-`;
+`
 
 export const RegisterLink = styled.a`
   font-weight: 600;
@@ -95,7 +95,7 @@ export const RegisterLink = styled.a`
       box-shadow: 0 0.1rem 0.2rem black;
     }
   }
-`;
+`
 
 export const NavLogo = styled.span`
   background-color: ${theme.Yellow};
@@ -110,7 +110,7 @@ export const NavLogo = styled.span`
     padding: 0.7rem;
     box-shadow: 0 0.1rem 0.2rem black;
   }
-`;
+`
 
 export const NavLogoLink = styled.a`
   transition: all 0.2s ease;
@@ -122,14 +122,18 @@ export const NavLogoLink = styled.a`
   &:active {
     transform: translateY(0);
   }
-`;
+`
 
 export const NavLogoText = styled.span`
   color: ${theme.Yellow};
   font-size: 2rem;
   font-weight: 500;
   margin-left: 2rem;
-`;
+`
+
+export const NavMenuWrapper = styled.div`
+  position: relative;
+`
 
 export const NavMenuButton = styled.button`
   background-color: transparent;
@@ -150,7 +154,7 @@ export const NavMenuButton = styled.button`
     }
   }
   ${pinkFocusStyles}
-`;
+`
 
 export const Avatar = styled.img`
   height: 4.2rem;
@@ -167,4 +171,60 @@ export const Avatar = styled.img`
     width: 6rem;
     padding: 0.3rem;
   }
-`;
+`
+
+export const Menu = styled.div`
+  position: absolute;
+  bottom: -20.5rem;
+  height: 20rem;
+  width: 15rem;
+  right: 0;
+  background-color: ${theme.LightPink};
+  border-radius: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  ${media.tablet} {
+    width: 21rem;
+    height: 27rem;
+    bottom: -27.5rem;
+  }
+`
+
+const menuLinkButtonStyles = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  font-weight: 500;
+  background-color: transparent;
+  color: ${theme.Brown};
+  column-gap: 1rem;
+  cursor: pointer;
+  svg {
+    height: 2.4rem;
+    width: 2.4rem;
+    ${media.tablet} {
+      width: 3.3rem;
+      height: 3.3rem;
+    }
+  }
+  ${media.tablet} {
+    font-size: 2rem;
+    transition: all 0.2s;
+    padding: 1rem;
+    &:hover {
+      transform: translateY(-0.2rem);
+      box-shadow: 0 0.2rem 0.1rem;
+    }
+  }
+`
+
+export const MenuItemLink = styled.a`
+  ${menuLinkButtonStyles}
+`
+
+export const MenuItemButton = styled.button`
+  ${menuLinkButtonStyles}
+`
