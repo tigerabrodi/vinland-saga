@@ -28,10 +28,7 @@ it('Complete users flow', () => {
   cy.findByText('This recipe currently has no comments.')
 
   // Go to Profile via Menu
-  cy.findByRole('button', { name: 'Menu' }).click()
-  cy.findByRole('menu').within(() => {
-    cy.findByRole('menuitem', { name: 'Profile' }).click()
-  })
+  cy.clickItemInMenu('Profile')
   cy.findByRole('heading', { name: firstUser.fullname }).should('exist')
 
   /*

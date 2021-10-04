@@ -33,6 +33,7 @@ declare global {
       createRecipe: typeof createRecipe
       assertPreviewMode: typeof assertPreviewMode
       assertRecipeDetail: typeof assertRecipeDetail
+      clickItemInMenu: typeof clickItemInMenu
     }
   }
 }
@@ -131,6 +132,14 @@ const assertRecipeDetail = (recipe: Recipe, user: User) => {
   cy.findByRole('button', { name: 'Delete Recipe' }).should('exist')
 }
 
+const clickItemInMenu = (itemName: string) => {
+  cy.findByRole('button', { name: 'Menu' }).click()
+  cy.findByRole('menu').within(() => {
+    cy.findByRole('menuitem', { name: itemName }).click()
+  })
+}
+
+Cypress.Commands.add('clickItemInMenu', clickItemInMenu)
 Cypress.Commands.add('createUserAndProfile', createUserAndProfile)
 Cypress.Commands.add('assertRecipeDetail', assertRecipeDetail)
 Cypress.Commands.add('createRecipe', createRecipe)
