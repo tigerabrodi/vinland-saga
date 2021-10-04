@@ -5,6 +5,8 @@ import { FullPageSpinner } from '@components/Spinner'
 import { Recipe, UserProfile } from '@lib/types'
 import type { NextPage } from 'next'
 import { useRealtimeState } from '@hooks/useRealtimeState'
+import { PageWrapper } from './styles'
+import { RecipeDetail } from '@components/RecipeDetail'
 
 type Params = {
   params: {
@@ -69,7 +71,11 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
 
   const recipe = props.recipe || realtimeRecipe
 
-  return <div>{recipe.title}</div>
+  return (
+    <PageWrapper>
+      <RecipeDetail recipe={recipe} user={props.user} />
+    </PageWrapper>
+  )
 }
 
 export default RecipeDetailPage
