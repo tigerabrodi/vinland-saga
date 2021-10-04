@@ -51,6 +51,7 @@ export const Navigation = () => {
 
   const signOut = () => {
     setStatus('loading')
+    setIsMenuOpen(false)
     auth.signOut()
     push('/')
     setStatus('success')
@@ -73,7 +74,7 @@ export const Navigation = () => {
           </NavLogoLink>
         </Link>
 
-        {user ? (
+        {user && username ? (
           <NavMenuWrapper>
             <NavMenuButton
               aria-label="Menu"
@@ -88,7 +89,10 @@ export const Navigation = () => {
             {isMenuOpen && (
               <Menu role="menu" ref={menuRef}>
                 <Link passHref href={`/${username}`}>
-                  <MenuItemLink role="menuitem">
+                  <MenuItemLink
+                    role="menuitem"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
                     <ProfileSVG /> Profile
                   </MenuItemLink>
                 </Link>
@@ -96,6 +100,7 @@ export const Navigation = () => {
                   role="menuitem"
                   onClick={() => {
                     setIsModalOpen(true)
+                    setIsMenuOpen(false)
                   }}
                 >
                   <RecipeSVG /> New Recipe
