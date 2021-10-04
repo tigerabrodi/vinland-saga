@@ -57,7 +57,6 @@ export const CloseButton = styled.button`
   right: 0;
   margin-top: 1.5rem;
   margin-right: 1.5rem;
-  cursor: pointer;
   ${darkFocusStyles}
   ${media.tablet} {
     height: 2.3rem;
@@ -148,7 +147,7 @@ export const CreateButton = styled.button`
   width: 8.2rem;
   height: 3.3rem;
   margin-top: 4rem;
-  cursor: pointer;
+
   ${darkFocusStyles}
   &:disabled {
     opacity: 0.6;

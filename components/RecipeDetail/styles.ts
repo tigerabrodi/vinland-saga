@@ -100,7 +100,6 @@ const clapCommentStyles = css`
   font-weight: 400;
   color: ${theme.Pink};
   font-size: 1.6rem;
-  cursor: pointer;
   margin-top: 2rem;
   column-gap: 0.5rem;
   ${pinkFocusStyles}
@@ -185,7 +184,6 @@ const editDeleteStyles = css`
   align-items: center;
   justify-content: center;
   border-radius: 0.2rem;
-  cursor: pointer;
   box-shadow: 0 0.2rem 0.2rem black;
   margin-top: 3rem;
   ${pinkFocusStyles}

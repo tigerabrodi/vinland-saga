@@ -152,7 +152,6 @@ export const CancelLink = styled.a`
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  cursor: pointer;
   ${darkFocusStyles}
   ${media.tablet} {
     height: 4rem;
@@ -208,7 +207,6 @@ export const ButtonSave = styled.button`
   width: 7.3rem;
   height: 3.3rem;
   box-shadow: 0 0.2rem 0.4rem black;
-  cursor: pointer;
   transition: all ease 0.2s;
   &:disabled {
     opacity: 0.6;
@@ -240,7 +238,6 @@ export const LinkCancel = styled.a`
   ${pinkFocusStyles}
   ${media.tablet} {
     font-size: 2rem;
-    cursor: pointer;
     transition: all ease 0.2s;
     &:hover {
       filter: brightness(120%);

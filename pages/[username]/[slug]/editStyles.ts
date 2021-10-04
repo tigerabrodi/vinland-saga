@@ -256,7 +256,6 @@ const buttonStyles = css`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  cursor: pointer;
   ${darkFocusStyles}
   svg {
     height: 1.2rem;

@@ -3,12 +3,12 @@ import {
   darkFocusStyles,
   pinkFocusStyles,
   sectionStyles,
-} from "@styles/sharedStyles";
-import PenSVG from "../../assets/pen.svg";
-import DotSVG from "../../assets/dot.svg";
-import { theme } from "@styles/theme";
-import styled, { css } from "styled-components";
-import { media } from "@styles/media";
+} from '@styles/sharedStyles'
+import PenSVG from '../../assets/pen.svg'
+import DotSVG from '../../assets/dot.svg'
+import { theme } from '@styles/theme'
+import styled, { css } from 'styled-components'
+import { media } from '@styles/media'
 
 export const UsernameWrapper = styled.div`
   margin: 3rem 0;
@@ -16,11 +16,11 @@ export const UsernameWrapper = styled.div`
   ${media.tablet} {
     justify-content: flex-start;
   }
-`;
+`
 
 export const ProfileSection = styled.section`
   display: grid;
-  grid-template-areas: "avatar avatar" "username username" "fullname edit" "text text" "line line";
+  grid-template-areas: 'avatar avatar' 'username username' 'fullname edit' 'text text' 'line line';
   align-items: center;
   justify-items: center;
   width: 29rem;
@@ -29,7 +29,7 @@ export const ProfileSection = styled.section`
   border-radius: 0.2rem;
   margin-bottom: 0.2rem;
   ${media.tablet} {
-    grid-template-areas: "avatar username fullname edit" "avatar text text text" "line line line line";
+    grid-template-areas: 'avatar username fullname edit' 'avatar text text text' 'line line line line';
     grid-template-columns: auto 12rem 18rem 18rem;
     width: 72rem;
     height: 32rem;
@@ -40,11 +40,11 @@ export const ProfileSection = styled.section`
     height: 35rem;
     grid-template-columns: auto 18rem 21rem 34rem;
   }
-`;
+`
 
 export const HiddenProfileTitle = styled.h1`
   ${AssistiveTechnologyOnly}
-`;
+`
 
 export const Avatar = styled.img`
   grid-area: avatar;
@@ -63,7 +63,7 @@ export const Avatar = styled.img`
     height: 23rem;
     width: 23rem;
   }
-`;
+`
 
 export const ProfileUsername = styled.span`
   grid-area: username;
@@ -77,7 +77,7 @@ export const ProfileUsername = styled.span`
   ${media.desktop} {
     font-size: 2.3rem;
   }
-`;
+`
 
 export const ProfileTitle = styled.h1<{ isNotAuthorizedUser: boolean }>`
   grid-area: fullname;
@@ -98,14 +98,13 @@ export const ProfileTitle = styled.h1<{ isNotAuthorizedUser: boolean }>`
   ${media.desktop} {
     font-size: 2.8rem;
   }
-`;
+`
 
 export const EditLink = styled.a`
   grid-area: edit;
   background-color: ${theme.Brown};
   border-radius: 0.2rem;
   box-shadow: 0 0.2rem 0.4rem black;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,7 +128,7 @@ export const EditLink = styled.a`
   ${media.desktop} {
     padding: 1.2rem;
   }
-`;
+`
 
 export const Pen = styled(PenSVG)`
   height: 1.5rem;
@@ -142,7 +141,7 @@ export const Pen = styled(PenSVG)`
     height: 2.5rem;
     width: 2.5rem;
   }
-`;
+`
 
 export const ProfileText = styled.p`
   grid-area: text;
@@ -165,7 +164,7 @@ export const ProfileText = styled.p`
     font-size: 2rem;
     margin-top: 4rem;
   }
-`;
+`
 
 export const Dot = styled(DotSVG)`
   height: 0.4rem;
@@ -175,7 +174,7 @@ export const Dot = styled(DotSVG)`
   g {
     fill: ${theme.Brown};
   }
-`;
+`
 
 export const Line = styled.div`
   grid-area: line;
@@ -192,7 +191,7 @@ export const Line = styled.div`
   ${media.desktop} {
     width: 86rem;
   }
-`;
+`
 
 export const RecipesSection = styled.section`
   display: flex;
@@ -206,7 +205,7 @@ export const RecipesSection = styled.section`
   ${media.desktop} {
     margin-top: 8rem;
   }
-`;
+`
 
 export const RecipesHeading = styled.h2`
   font-weight: bold;
@@ -216,7 +215,7 @@ export const RecipesHeading = styled.h2`
   ${media.tablet} {
     font-size: 6rem;
   }
-`;
+`
 
 export const NoRecipesText = styled.p`
   font-weight: 500;
@@ -231,7 +230,7 @@ export const NoRecipesText = styled.p`
   ${media.desktop} {
     font-size: 3.2rem;
   }
-`;
+`
 
 export const NewRecipeButton = styled.button`
   background-color: ${theme.LightPink};
@@ -243,7 +242,6 @@ export const NewRecipeButton = styled.button`
   margin-top: 5rem;
   padding: 1.3rem 2.2rem;
   transition: all 0.2s ease;
-  cursor: pointer;
   ${pinkFocusStyles}
   ${media.tablet} {
     font-size: 2rem;
@@ -264,4 +262,4 @@ export const NewRecipeButton = styled.button`
     padding: 2rem 3.5rem;
     margin-top: 13rem;
   }
-`;
+`

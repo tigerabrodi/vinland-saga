@@ -1,7 +1,7 @@
-import { media } from "@styles/media";
-import { pinkFocusStyles, sectionStyles } from "@styles/sharedStyles";
-import { theme } from "@styles/theme";
-import styled, { css } from "styled-components";
+import { media } from '@styles/media'
+import { pinkFocusStyles, sectionStyles } from '@styles/sharedStyles'
+import { theme } from '@styles/theme'
+import styled, { css } from 'styled-components'
 
 export const SignSection = styled.section`
   ${sectionStyles}
@@ -9,7 +9,7 @@ export const SignSection = styled.section`
   ${media.tablet} {
     margin: 6rem 0;
   }
-`;
+`
 
 export const SignTitle = styled.h1`
   font-weight: bold;
@@ -18,7 +18,7 @@ export const SignTitle = styled.h1`
   ${media.tablet} {
     font-size: 5rem;
   }
-`;
+`
 
 export const Form = styled.form`
   display: flex;
@@ -34,7 +34,7 @@ export const Form = styled.form`
       }
     }
   }
-`;
+`
 
 export const SwitchText = styled.p`
   color: ${theme.LightPink};
@@ -49,7 +49,7 @@ export const SwitchText = styled.p`
     font-size: 1.8rem;
     margin-top: 4rem;
   }
-`;
+`
 
 export const SwitchLink = styled.a`
   color: white;
@@ -60,7 +60,7 @@ export const SwitchLink = styled.a`
   ${media.tablet} {
     font-size: 1.7rem;
   }
-`;
+`
 
 export const SubmitButton = styled.button`
   font-weight: 600;
@@ -71,7 +71,6 @@ export const SubmitButton = styled.button`
   padding: 1rem 3rem;
   margin-top: 5rem;
   box-shadow: 0 0.1rem 0.4rem black;
-  cursor: pointer;
   &:disabled {
     opacity: 0.7;
     cursor: not-allowed;
@@ -93,7 +92,7 @@ export const SubmitButton = styled.button`
       }
     }
   }
-`;
+`
 
 const formValidationStyles = css`
   font-size: 1rem;
@@ -104,14 +103,14 @@ const formValidationStyles = css`
     margin-top: 1.5rem;
     font-size: 1.7rem;
   }
-`;
+`
 
 export const FormError = styled.span`
   ${formValidationStyles}
   color: ${theme.DarkPink};
-`;
+`
 
 export const FormValid = styled.span`
   ${formValidationStyles}
   color: ${theme.Green};
-`;
+`

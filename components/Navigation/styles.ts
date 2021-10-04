@@ -140,7 +140,6 @@ export const NavMenuWrapper = styled.div`
 `
 
 export const NavMenuButton = styled.button`
-  cursor: pointer;
   ${media.tablet} {
     transition: all 0.2s ease;
     &:hover {
@@ -203,7 +202,6 @@ const menuLinkButtonStyles = css`
   font-weight: 500;
   color: ${theme.Brown};
   column-gap: 1rem;
-  cursor: pointer;
   ${darkFocusStyles}
   svg {
     height: 2.4rem;
