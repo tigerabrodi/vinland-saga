@@ -133,7 +133,12 @@ const assertRecipeDetail = (recipe: Recipe, user: User) => {
 }
 
 const clickItemInMenu = (itemName: string) => {
-  cy.findByRole('button', { name: 'Menu' }).click()
+  cy.findByRole('button', { name: 'Menu', timeout: 10000 }).should('exist')
+
+  cy.findByRole('button', { name: 'Menu' }).click({
+    force: true,
+  })
+
   cy.findByRole('menu').within(() => {
     cy.findByRole('menuitem', { name: itemName }).click()
   })
