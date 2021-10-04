@@ -5,7 +5,7 @@ import { FullPageSpinner } from '@components/Spinner'
 import { Recipe, UserProfile } from '@lib/types'
 import type { NextPage } from 'next'
 import { useRealtimeState } from '@hooks/useRealtimeState'
-import { PageWrapper } from './styles'
+import { CommentsHeading, NoCommentsText, PageWrapper } from './styles'
 import { RecipeDetail } from '@components/RecipeDetail'
 
 type Params = {
@@ -74,6 +74,8 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
   return (
     <PageWrapper>
       <RecipeDetail recipe={recipe} user={props.user} />
+      <CommentsHeading>Comments</CommentsHeading>
+      <NoCommentsText>This recipe currently has no comments.</NoCommentsText>
     </PageWrapper>
   )
 }
