@@ -126,6 +126,9 @@ export const NavLogoLink = styled.a`
   &:active {
     transform: translateY(0);
   }
+  ${media.tablet} {
+    margin-top: 0.5rem;
+  }
 `
 
 export const NavLogoText = styled.span`
