@@ -27,6 +27,13 @@ it('Complete users flow', () => {
   cy.findByRole('heading', { name: 'Comments' }).should('exist')
   cy.findByText('This recipe currently has no comments.')
 
+  // Go to Profile via Menu
+  cy.findByRole('button', { name: 'Menu' }).click()
+  cy.findByRole('menu').within(() => {
+    cy.findByRole('menuitem', { name: 'Profile' }).click()
+  })
+  cy.findByRole('heading', { name: firstUser.fullname }).should('exist')
+
   /*
   // Clap and unclap the recipe
   cy.findByRole('button', { name: 'Recipe 0 claps' }).click()

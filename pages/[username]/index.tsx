@@ -32,7 +32,6 @@ type ServerProps = {
   }
 }
 
-// TODO Show user's recipes if they exist, otherwise no recipes found section.
 export async function getServerSideProps({ query }: ServerProps) {
   const { username } = query
 
