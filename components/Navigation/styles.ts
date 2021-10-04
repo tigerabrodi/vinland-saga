@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components'
 import { theme } from '@styles/theme'
-import { pinkFocusStyles, yellowFocusStyles } from '@styles/sharedStyles'
+import {
+  darkFocusStyles,
+  pinkFocusStyles,
+  yellowFocusStyles,
+} from '@styles/sharedStyles'
 import { media } from '@styles/media'
 
 export const NavigationWrapper = styled.nav`
@@ -202,6 +206,7 @@ const menuLinkButtonStyles = css`
   color: ${theme.Brown};
   column-gap: 1rem;
   cursor: pointer;
+  ${darkFocusStyles}
   svg {
     height: 2.4rem;
     width: 2.4rem;
