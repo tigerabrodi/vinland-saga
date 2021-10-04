@@ -14,8 +14,12 @@ export type User = {
 export type Recipe = {
   title: string
   body: string
-  comment: string
-  editedComment: string
+}
+
+export type Comment = {
+  first: string
+  second: string
+  edited: string
 }
 
 export const buildUser = build<User>('User', {
@@ -35,7 +39,13 @@ export const buildRecipe = build<Recipe>('User', {
   fields: {
     title: fake((f) => f.name.title()),
     body: fake((f) => f.random.words(10)),
-    comment: fake((f) => f.random.words(5)),
-    editedComment: fake((f) => f.random.words(5)),
+  },
+})
+
+export const buildComments = build<Comment>('User', {
+  fields: {
+    first: fake((f) => f.lorem.paragraph(1)),
+    second: fake((f) => f.lorem.paragraph(1)),
+    edited: fake((f) => f.lorem.paragraph(1)),
   },
 })

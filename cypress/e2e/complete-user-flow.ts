@@ -1,4 +1,4 @@
-import { buildUser, buildRecipe } from '../support/generate'
+import { buildUser, buildRecipe, buildComments } from '../support/generate'
 
 beforeEach(() => {
   indexedDB.deleteDatabase('firebaseLocalStorageDb')
@@ -8,6 +8,14 @@ beforeEach(() => {
 it('Complete users flow', () => {
   const firstUser = buildUser()
   const firstUserRecipe = buildRecipe()
+
+  const secondUser = buildUser()
+  const secondUserRecipe = buildRecipe()
+  const secondUserRecipe2 = buildRecipe()
+  const secondUserComments = buildComments()
+
+  const thirdUser = buildUser()
+  const thirdUserRecipe = buildRecipe()
 
   cy.createUserAndProfile(firstUser)
   cy.findByRole('button', { name: 'New Recipe' }).click()
@@ -37,6 +45,40 @@ it('Complete users flow', () => {
   cy.findByRole('link', { name: 'Create Account', timeout: 8000 }).should(
     'exist'
   )
+
+  // Create second user
+  // Go to Home
+  // Click on first user's recipe
+  // Clap
+  // Click on Comments link
+  // Write a comment
+  // Assert comments link length
+  // Edit comment itself
+  // Delete Comment
+  // Write two comments
+  // Create two recipes
+
+  // Sign Out (second user)
+
+  // Login (first user)
+  // See recipe on first user's profile
+  // Go to users page
+  // Sort by both claps and recipes of the users
+  // Click on the second user and see both its recipes on the profile page
+  // Go to your own profile and click on your recipe, also assert it has two comments and a clap
+
+  // Sign out (first user)
+
+  // Create third user
+  // Go to the first user's recipe and clap on one of the comments, and unclap it, assert it too
+  // Sign out (Third User)
+
+  // Login (second user) and go to users page
+  // Sort by both claps and recipes, third user should always come last
+  // Go to third user's profile
+  // Assert text that the user has no recipes
+  // Go to your profile and click on the first recipe, then delete it and assert you get redirected to your profile
+  // Then assert the recipe is no longer there
 
   /*
   // Clap and unclap the recipe
