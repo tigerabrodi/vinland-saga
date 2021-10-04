@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { getUserWithUsername } from "@lib/firebase";
-import defaultAvatar from "../../assets/default-avatar.png";
-import { UserProfile } from "@lib/types";
-import type { NextPage } from "next";
-import { useUserContext } from "@lib/context";
+import Link from 'next/link'
+import { getUserWithUsername } from '@lib/firebase'
+import defaultAvatar from '../../assets/default-avatar.png'
+import { UserProfile } from '@lib/types'
+import type { NextPage } from 'next'
+import { useUserContext } from '@lib/context'
 import {
   Avatar,
   EditLink,
@@ -20,54 +20,54 @@ import {
   UsernameWrapper,
   Dot,
   Line,
-} from "./styles";
-import { Timestamp } from "@firebase/firestore";
-import { FullPageSpinner } from "@components/Spinner";
-import { NewRecipeModal } from "@components/NewRecipeModal";
-import { useNewRecipeStore } from "@lib/store";
+} from './styles'
+import { Timestamp } from '@firebase/firestore'
+import { FullPageSpinner } from '@components/Spinner'
+import { NewRecipeModal } from '@components/NewRecipeModal'
+import { useNewRecipeStore } from '@lib/store'
 
 type ServerProps = {
   query: {
-    username: string;
-  };
-};
+    username: string
+  }
+}
 
 // TODO Show user's recipes if they exist, otherwise no recipes found section.
 export async function getServerSideProps({ query }: ServerProps) {
-  const { username } = query;
+  const { username } = query
 
-  const user = await getUserWithUsername(username);
+  const user = await getUserWithUsername(username)
 
   if (!user) {
     return {
       notFound: true,
-    };
+    }
   }
 
   return {
     props: { user },
-  };
+  }
 }
 
 type Props = {
-  user: UserProfile;
-};
+  user: UserProfile
+}
 
 const Username: NextPage<Props> = ({ user }) => {
-  const { username } = useUserContext();
+  const { username } = useUserContext()
 
-  const { setIsModalOpen } = useNewRecipeStore();
+  const { setIsModalOpen } = useNewRecipeStore()
 
   const joined = (
-    typeof user.joined === "number"
+    typeof user.joined === 'number'
       ? new Date(user.joined)
       : (user.joined as Timestamp).toDate()
   )
     .toISOString()
-    .split("T")[0];
+    .split('T')[0]
 
   if (!user) {
-    return <FullPageSpinner />;
+    return <FullPageSpinner />
   }
 
   return (
@@ -76,7 +76,7 @@ const Username: NextPage<Props> = ({ user }) => {
         <ProfileSection>
           <HiddenProfileTitle>{user.fullname}</HiddenProfileTitle>
           <Avatar
-            src={user.avatarUrl === "" ? defaultAvatar.src : user.avatarUrl}
+            src={user.avatarUrl === '' ? defaultAvatar.src : user.avatarUrl}
             alt={user.fullname}
           />
           <ProfileUsername>@{user.username}</ProfileUsername>
@@ -107,6 +107,7 @@ const Username: NextPage<Props> = ({ user }) => {
         </ProfileSection>
         <RecipesSection>
           <RecipesHeading>Recipes</RecipesHeading>
+          {/* TODO Recipes should be returned if they exist */}
           <NoRecipesText>You currently have written no recipes.</NoRecipesText>
           <NewRecipeButton onClick={() => setIsModalOpen(true)}>
             New Recipe
@@ -115,7 +116,7 @@ const Username: NextPage<Props> = ({ user }) => {
       </UsernameWrapper>
       <NewRecipeModal />
     </>
-  );
-};
+  )
+}
 
-export default Username;
+export default Username
