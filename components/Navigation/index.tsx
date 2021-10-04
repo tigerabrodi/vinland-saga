@@ -28,17 +28,26 @@ import { auth } from '@lib/firebase'
 import toast from 'react-hot-toast'
 import { useLoadingStore, useNewRecipeStore } from '@lib/store'
 import { useRouter } from 'next/router'
+import { useFocusTrap } from '@hooks/useFocusTrap'
+import { useClickOutside } from '@hooks/useClickOutside'
+import { useCloseEscape } from '@hooks/useCloseEscape'
 
 export const Navigation = () => {
   const isTabletLayout = useMedia('min', '768')
-
   const { push } = useRouter()
   const { username } = useUserContext()
   const { user } = useGetUser(username)
   const { setIsModalOpen } = useNewRecipeStore()
   const { setStatus } = useLoadingStore()
-
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
+  const menuRef = useFocusTrap(isMenuOpen)
+  useClickOutside({
+    ref: menuRef,
+    callback: () => setIsMenuOpen(false),
+    shouldTriggerCallback: isMenuOpen,
+  })
+  useCloseEscape(() => setIsMenuOpen(false))
 
   const signOut = () => {
     setStatus('loading')
@@ -77,7 +86,7 @@ export const Navigation = () => {
               />
             </NavMenuButton>
             {isMenuOpen && (
-              <Menu role="menu">
+              <Menu role="menu" ref={menuRef}>
                 <Link passHref href={`/${username}`}>
                   <MenuItemLink role="menuitem">
                     <ProfileSVG /> Profile
