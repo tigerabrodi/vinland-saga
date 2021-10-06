@@ -1,7 +1,16 @@
-import * as React from "react";
-import type { NextPage } from "next";
-import Link from "next/link";
+import * as React from 'react'
+import type { NextPage } from 'next'
+import Link from 'next/link'
+import { FormValid } from './styles'
+import debounce from 'lodash.debounce'
+import { doc, getDoc } from '@firebase/firestore'
+import { firebaseDb } from '@lib/firebase'
+import { useCreateUserWithEmailAndPassword } from '@hooks/useCreateUserWithEmailAndPassword'
+import { useLoadingStore } from '@lib/store'
 import {
+  FormGroup,
+  Input,
+  Label,
   SignSection,
   SignTitle,
   Form,
@@ -9,120 +18,113 @@ import {
   SwitchText,
   SubmitButton,
   FormError,
-  FormValid,
-} from "./styles";
-import debounce from "lodash.debounce";
-import { doc, getDoc } from "@firebase/firestore";
-import { firebaseDb } from "@lib/firebase";
-import { useCreateUserWithEmailAndPassword } from "@hooks/useCreateUserWithEmailAndPassword";
-import { useLoadingStore } from "@lib/store";
-import { FormGroup, Input, Label } from "@styles/formStyles";
-import { useFormState } from "@hooks/useFormState";
+} from '@styles/formStyles'
+import { useFormState } from '@hooks/useFormState'
 
 const SignUp: NextPage = () => {
-  const [isUsernameError, setIsUsernameError] = React.useState(false);
-  const [isUsernameValid, setIsUsernameValid] = React.useState(false);
-  const [isEmailInvalid, setIsEmailInvalid] = React.useState(false);
-  const [isEmailError, setIsEmailError] = React.useState(false);
-  const [isEmailTaken, setIsEmailTaken] = React.useState(false);
-  const [isPasswordError, setIsPasswordError] = React.useState(false);
+  const [isUsernameError, setIsUsernameError] = React.useState(false)
+  const [isUsernameValid, setIsUsernameValid] = React.useState(false)
+  const [isEmailInvalid, setIsEmailInvalid] = React.useState(false)
+  const [isEmailError, setIsEmailError] = React.useState(false)
+  const [isEmailTaken, setIsEmailTaken] = React.useState(false)
+  const [isPasswordError, setIsPasswordError] = React.useState(false)
   const [isConfirmPasswordError, setIsConfirmPasswordError] =
-    React.useState(false);
+    React.useState(false)
 
   const {
     handleChange,
     formState: { username, password, confirmPassword, email },
   } = useFormState({
-    username: "",
-    password: "",
-    confirmPassword: "",
-    email: "",
-  });
+    username: '',
+    password: '',
+    confirmPassword: '',
+    email: '',
+  })
 
-  const { setStatus } = useLoadingStore();
+  const { setStatus } = useLoadingStore()
 
   const { createUserWithEmailAndPassword, signUpError } =
-    useCreateUserWithEmailAndPassword();
+    useCreateUserWithEmailAndPassword()
 
   const isAnyFieldEmpty =
     !username.length ||
     !password.length ||
     !confirmPassword.length ||
-    !email.length;
+    !email.length
 
   const canUserSignUp = () => {
-    const isPasswordTooShort = password.length < 6;
+    const isPasswordTooShort = password.length < 6
     if (isPasswordTooShort) {
-      setIsPasswordError(true);
+      setIsPasswordError(true)
       return setTimeout(() => {
-        setIsPasswordError(false);
-      }, 3000);
+        setIsPasswordError(false)
+      }, 3000)
     }
 
-    const isPasswordNotMatching = password !== confirmPassword;
+    const isPasswordNotMatching = password !== confirmPassword
     if (isPasswordNotMatching) {
-      setIsConfirmPasswordError(true);
+      setIsConfirmPasswordError(true)
       return setTimeout(() => {
-        setIsConfirmPasswordError(false);
-      }, 3000);
+        setIsConfirmPasswordError(false)
+      }, 3000)
     }
 
     if (isEmailInvalid) {
-      setIsEmailError(true);
+      setIsEmailError(true)
       return setTimeout(() => {
-        setIsEmailError(false);
-      }, 3000);
+        setIsEmailError(false)
+      }, 3000)
     }
 
-    return true;
-  };
+    return true
+  }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsEmailTaken(false);
-    setIsEmailError(false);
+    event.preventDefault()
+    setIsEmailTaken(false)
+    setIsEmailError(false)
 
     if (canUserSignUp() === true) {
-      createUserWithEmailAndPassword(email, password, username);
+      createUserWithEmailAndPassword(email, password, username)
     }
-  };
+  }
 
   // useCallback is required for debounce to work
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkUsername = React.useCallback(
     debounce(async (username: string) => {
       if (username.length >= 3) {
-        setStatus("loading");
-        const usernameDocRef = doc(firebaseDb, "usernames", username);
-        const usernameDocSnapshot = await getDoc(usernameDocRef);
-        const usernameAlreadyExists = usernameDocSnapshot.exists();
-        setStatus("success");
+        setStatus('loading')
+        const usernameDocRef = doc(firebaseDb, 'usernames', username)
+        const usernameDocSnapshot = await getDoc(usernameDocRef)
+        const usernameAlreadyExists = usernameDocSnapshot.exists()
+        setStatus('success')
 
         if (usernameAlreadyExists) {
-          setIsUsernameValid(false);
-          setIsUsernameError(true);
+          setIsUsernameValid(false)
+          setIsUsernameError(true)
         } else {
-          setIsUsernameError(false);
-          setIsUsernameValid(true);
+          setIsUsernameError(false)
+          setIsUsernameValid(true)
         }
       }
     }, 500),
     []
-  );
+  )
 
   React.useEffect(() => {
-    checkUsername(username);
-  }, [checkUsername, username]);
+    checkUsername(username)
+  }, [checkUsername, username])
 
   React.useEffect(() => {
-    if (signUpError && signUpError.code === "auth/email-already-in-use") {
-      setIsEmailError(false);
-      setIsEmailTaken(true);
+    if (signUpError && signUpError.code === 'auth/email-already-in-use') {
+      setIsEmailError(false)
+      setIsEmailTaken(true)
       setTimeout(() => {
-        setIsEmailTaken(false);
-      }, 3000);
+        setIsEmailTaken(false)
+      }, 3000)
     }
-  }, [signUpError]);
+  }, [signUpError])
 
   return (
     <SignSection>
@@ -137,7 +139,7 @@ const SignUp: NextPage = () => {
             type="text"
             value={username}
             onChange={(event) => handleChange(event)}
-            aria-invalid={isUsernameError ? "true" : "false"}
+            aria-invalid={isUsernameError ? 'true' : 'false'}
             aria-required="true"
           />
           {isUsernameError && (
@@ -156,10 +158,10 @@ const SignUp: NextPage = () => {
             placeholder="naruto@gmail.com"
             value={email}
             onChange={(event) => {
-              handleChange(event);
-              setIsEmailInvalid(!event.target.validity.valid);
+              handleChange(event)
+              setIsEmailInvalid(!event.target.validity.valid)
             }}
-            aria-invalid={isEmailError ? "true" : "false"}
+            aria-invalid={isEmailError ? 'true' : 'false'}
             aria-required="true"
           />
           {isEmailError && (
@@ -178,11 +180,13 @@ const SignUp: NextPage = () => {
             placeholder="Secret Password..."
             value={password}
             onChange={(event) => handleChange(event)}
-            aria-invalid={isPasswordError ? "true" : "false"}
+            aria-invalid={isPasswordError ? 'true' : 'false'}
             aria-required="true"
           />
           {isPasswordError && (
-            <FormError>Password must be at least 6 characters.</FormError>
+            <FormError role="alert">
+              Password must be at least 6 characters.
+            </FormError>
           )}
         </FormGroup>
         <FormGroup>
@@ -194,18 +198,18 @@ const SignUp: NextPage = () => {
             placeholder="Secret Password..."
             value={confirmPassword}
             onChange={(event) => handleChange(event)}
-            aria-invalid={isConfirmPasswordError ? "true" : "false"}
+            aria-invalid={isConfirmPasswordError ? 'true' : 'false'}
             aria-required="true"
           />
           {isConfirmPasswordError && (
-            <FormError>Passwords do not match.</FormError>
+            <FormError role="alert">Passwords do not match.</FormError>
           )}
         </FormGroup>
         <SwitchText>
-          Already have an account?{" "}
+          Already have an account?{' '}
           <Link passHref href="/sign-in">
             <SwitchLink>Sign In.</SwitchLink>
-          </Link>{" "}
+          </Link>{' '}
         </SwitchText>
         <SubmitButton
           type="submit"
@@ -215,7 +219,7 @@ const SignUp: NextPage = () => {
         </SubmitButton>
       </Form>
     </SignSection>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp
