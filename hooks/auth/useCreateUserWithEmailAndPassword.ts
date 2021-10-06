@@ -8,7 +8,9 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 
 export const useCreateUserWithEmailAndPassword = () => {
-  const [signUpError, setSignUpError] = React.useState<FirebaseError>()
+  const [signUpError, setSignUpError] = React.useState<FirebaseError | null>(
+    null
+  )
   const { setStatus } = useLoadingStore()
   const router = useRouter()
 
@@ -65,7 +67,7 @@ export const useCreateUserWithEmailAndPassword = () => {
       setStatus('error')
       setSignUpError(error as FirebaseError)
       setTimeout(() => {
-        setSignUpError(undefined)
+        setSignUpError(null)
       }, 3000)
     }
   }
