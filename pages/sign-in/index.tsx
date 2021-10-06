@@ -1,7 +1,6 @@
 import * as React from 'react'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { useLoadingStore } from '@lib/store'
 import { useFormState } from '@hooks/useFormState'
 import {
   Form,
@@ -15,10 +14,9 @@ import {
   FormError,
   Input,
 } from '@styles/formStyles'
+import { useSignInWithEmailAndPassword } from '@hooks/auth/useSignInWithEmailAndPassword'
 
 const SignIn: NextPage = () => {
-  const [isError, setIsError] = React.useState(false)
-
   const {
     handleChange,
     formState: { password, email },
@@ -27,10 +25,13 @@ const SignIn: NextPage = () => {
     email: '',
   })
 
-  const { setStatus } = useLoadingStore()
+  const { signInError, signInWithEmailAndPassword } =
+    useSignInWithEmailAndPassword()
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
+    signInWithEmailAndPassword(email, password)
   }
 
   return (
@@ -62,10 +63,12 @@ const SignIn: NextPage = () => {
             onChange={(event) => handleChange(event)}
             aria-required="true"
           />
-          {isError && (
-            <FormError role="alert">Password or email is invalid.</FormError>
-          )}
         </FormGroup>
+        {signInError && (
+          <FormError role="alert" isLoginMode>
+            Password or email is invalid.
+          </FormError>
+        )}
         <SwitchText>
           Do not have an account yet?{' '}
           <Link passHref href="/sign-up">
