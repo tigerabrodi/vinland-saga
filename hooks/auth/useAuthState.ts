@@ -1,6 +1,6 @@
 import { User, Auth, onAuthStateChanged } from 'firebase/auth'
 import { useEffect } from 'react'
-import { useLoadingValue } from '@hooks/useLoadingValue'
+import { useLoadingValue } from '@hooks/auth/useLoadingValue'
 
 export const useAuthState = (auth: Auth) => {
   const {

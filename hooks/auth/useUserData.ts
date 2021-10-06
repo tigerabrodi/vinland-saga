@@ -1,7 +1,7 @@
 import { doc, onSnapshot } from 'firebase/firestore'
 import { auth, firebaseDb } from '@lib/firebase'
 import { useEffect, useState } from 'react'
-import { useAuthState } from '@hooks/useAuthState'
+import { useAuthState } from '@hooks/auth/useAuthState'
 import { UserData } from '@lib/types'
 
 type User = {

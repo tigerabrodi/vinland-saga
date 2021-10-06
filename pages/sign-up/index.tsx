@@ -5,7 +5,7 @@ import { FormValid } from './styles'
 import debounce from 'lodash.debounce'
 import { doc, getDoc } from '@firebase/firestore'
 import { firebaseDb } from '@lib/firebase'
-import { useCreateUserWithEmailAndPassword } from '@hooks/useCreateUserWithEmailAndPassword'
+import { useCreateUserWithEmailAndPassword } from '@hooks/auth/useCreateUserWithEmailAndPassword'
 import { useLoadingStore } from '@lib/store'
 import {
   FormGroup,

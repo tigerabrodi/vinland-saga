@@ -37,7 +37,7 @@ import {
 } from '@firebase/storage'
 import { doc, serverTimestamp, setDoc } from '@firebase/firestore'
 import toast from 'react-hot-toast'
-import { useGetUser } from '@hooks/useGetUser'
+import { useGetUser } from '@hooks/auth/useGetUser'
 import { useUserContext } from '@lib/context'
 import { useFormState } from '@hooks/useFormState'
 

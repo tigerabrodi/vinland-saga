@@ -1,7 +1,7 @@
 import '../styles/globalStyles.css'
 import type { AppProps } from 'next/app'
 import { UserContext } from '@lib/context'
-import { useUserData } from '@hooks/useUserContext'
+import { useUserData } from '@hooks/auth/useUserData'
 import { Navigation } from '@components/Navigation'
 import { Footer } from '@components/Footer'
 import { LoadingSpinner } from '@components/Spinner'

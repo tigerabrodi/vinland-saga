@@ -39,7 +39,7 @@ import {
 import toast from 'react-hot-toast'
 import { FullPageSpinner } from '@components/Spinner'
 import { useUserContext } from '@lib/context'
-import { useGetUser } from '@hooks/useGetUser'
+import { useGetUser } from '@hooks/auth/useGetUser'
 import { RecipeDetail } from '@components/RecipeDetail'
 
 type Router = NextRouter & {
