@@ -73,7 +73,7 @@ export const SignSection = styled.section<{ isLoginMode?: boolean }>`
     css`
       justify-content: flex-start;
       row-gap: 3rem;
-      margin-bottom: 0;
+      margin-bottom: 2rem;
     `};
   ${media.tablet} {
     margin: 6rem 0;
@@ -175,7 +175,17 @@ export const formValidationStyles = css`
   }
 `
 
-export const FormError = styled.span`
+export const FormError = styled.span<{ isLoginMode?: boolean }>`
   ${formValidationStyles}
   color: ${theme.DarkPink};
+  ${(props) =>
+    props.isLoginMode &&
+    css`
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      ${media.tablet} {
+        margin-top: 3rem;
+        font-size: 2rem;
+      }
+    `};
 `
