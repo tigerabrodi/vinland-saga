@@ -23,6 +23,7 @@ export const Label = styled.label<{ isLoginMode?: boolean }>`
   ${media.tablet} {
     font-size: 2.5rem;
     margin-top: 8rem;
+    ${(props) => props.isLoginMode && 'margin-top: 18rem;'};
   }
 `
 
@@ -48,6 +49,7 @@ export const formInputStyles = `
     margin-top: 1.5rem;
   }
   ${media.tablet} {
+    padding-left: 1rem;
     width: 39rem;
     height: 3.5rem;
     margin-top: 2rem;
@@ -75,6 +77,7 @@ export const SignSection = styled.section<{ isLoginMode?: boolean }>`
     `};
   ${media.tablet} {
     margin: 6rem 0;
+    ${(props) => props.isLoginMode && 'margin-bottom: 0rem;'};
   }
 `
 
