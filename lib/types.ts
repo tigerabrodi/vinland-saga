@@ -31,4 +31,5 @@ export type Recipe = {
   uid: string
   imageUrl: string
   slug: string
+  readingTime: string
 }

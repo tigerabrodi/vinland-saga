@@ -22,6 +22,7 @@ import { useUserContext } from '@lib/context'
 import { auth, firebaseDb } from '@lib/firebase'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
+import { Recipe } from '@lib/types'
 
 export const NewRecipeModal = () => {
   const {
@@ -63,7 +64,7 @@ export const NewRecipeModal = () => {
       // Ensure slug is URL safe and unique
       const slug = encodeURI(kebabCase(title)) + uuidv4()
 
-      const recipeData = {
+      const recipeData: Recipe = {
         title,
         body: '',
         commentsCount: 0,
@@ -72,6 +73,7 @@ export const NewRecipeModal = () => {
         createdAt,
         uid,
         imageUrl: '',
+        readingTime: '',
         slug,
       }
 

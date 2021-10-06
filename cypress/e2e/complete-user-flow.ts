@@ -80,7 +80,10 @@ it('Complete users flow', () => {
   // Go to your profile and click on the first recipe, then delete it and assert you get redirected to your profile
   // Then assert the recipe is no longer there
 
-  /*
+  // Assert authorization of pages
+})
+
+/*
   // Clap and unclap the recipe
   cy.findByRole('button', { name: 'Recipe 0 claps' }).click()
   cy.findByRole('button', { name: 'Recipe 1 claps' }).click()
@@ -113,4 +116,3 @@ it('Complete users flow', () => {
 
   // Delete Comment
   cy.findByRole('button', { name: 'Delete Comment' }).click() */
-})

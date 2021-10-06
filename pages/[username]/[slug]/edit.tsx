@@ -142,10 +142,14 @@ const RecipeEdit: NextPage = () => {
     if (username) {
       const uid = auth.currentUser!.uid
 
+      const wordCount = body.trim().split(/\s+/g).length
+      const minutesToRead = (wordCount / 100 + 1).toFixed(0)
+
       const recipeData = {
         title,
         body,
-      }
+        readingTime: `${minutesToRead} min read`,
+      } as Recipe
 
       await setDoc(
         doc(firebaseDb, `users/${uid}/recipes/${recipe.slug}`),
