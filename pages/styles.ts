@@ -61,6 +61,10 @@ export const ToolBarButton = styled.button`
   ${whiteFocusStyles}
   ${media.tablet} {
     font-size: 2.3rem;
+    transition: all 0.2s ease;
+    &:hover {
+      transform: translateY(-0.2rem);
+    }
   }
   ${media.desktop} {
     font-size: 3rem;
@@ -94,7 +98,7 @@ export const RecipeItem = styled.li`
     'image image image image'
     'avatar author .... ....'
     'avatar date ..... .....'
-    'title title ..... .....'
+    'title title title title'
     'clap comment .... time';
   align-items: center;
   justify-items: center;
@@ -182,6 +186,7 @@ export const Date = styled.p`
 export const RecipeTitle = styled.h2`
   align-self: self-end;
   grid-area: title;
+  justify-self: self-start;
   ${linkHoverStyles}
   ${media.desktop} {
     align-self: self-start;
@@ -193,11 +198,10 @@ export const RecipeTitleLink = styled.a`
   font-size: 2rem;
   color: ${theme.Yellow};
   text-decoration: underline;
-  padding-left: 1.6rem;
+  padding-left: 2.2rem;
   ${yellowFocusStyles}
   ${media.desktop} {
     font-size: 2.6rem;
-    padding-left: 2.1rem;
   }
 `
 
