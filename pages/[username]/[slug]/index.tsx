@@ -2,7 +2,7 @@ import * as React from 'react'
 import { getDocs, query, doc, getDoc, collection } from '@firebase/firestore'
 import { firebaseDb, recipeToJSON, getUserWithUsername } from '@lib/firebase'
 import { FullPageSpinner } from '@components/Spinner'
-import { Recipe, UserProfile } from '@lib/types'
+import { Recipe } from '@lib/types'
 import type { NextPage } from 'next'
 import { useRealtimeState } from '@hooks/useRealtimeState'
 import { CommentsHeading, NoCommentsText, PageWrapper } from './styles'
@@ -34,7 +34,7 @@ export async function getStaticProps({ params }: Params) {
   }
 
   return {
-    props: { recipe, path, user },
+    props: { recipe, path },
     revalidate: 100,
   }
 }
@@ -43,10 +43,10 @@ export async function getStaticPaths() {
   const recipesQuery = query(collection(firebaseDb, 'recipes'))
 
   const paths = (await getDocs(recipesQuery)).docs.map((doc) => {
-    const { slug, username } = doc.data() as Recipe
+    const { slug, authorUsername } = doc.data() as Recipe
 
     return {
-      params: { username, slug },
+      params: { slug, authorUsername },
     }
   })
 
@@ -58,7 +58,6 @@ export async function getStaticPaths() {
 
 type Props = {
   recipe: Recipe
-  user: UserProfile
   path: string
 }
 
@@ -73,7 +72,7 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
 
   return (
     <PageWrapper>
-      <RecipeDetail recipe={recipe} user={props.user} />
+      <RecipeDetail recipe={recipe} />
       <CommentsHeading>Comments</CommentsHeading>
       <NoCommentsText>This recipe currently has no comments.</NoCommentsText>
     </PageWrapper>

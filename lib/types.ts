@@ -26,10 +26,12 @@ export type Recipe = {
   body: string
   commentsCount: number
   clapCount: number
-  username: string
   createdAt: FieldValue | Timestamp | number
   uid: string
   imageUrl: string
   slug: string
   readingTime: string
+  authorUsername: string
+  authorAvatarUrl: string
+  authorFullname: string
 }

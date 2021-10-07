@@ -186,7 +186,6 @@ const RecipeEdit: NextPage = () => {
       {isPreview ? (
         <RecipeDetail
           recipe={{ ...recipe, imageUrl: recipeImage, title, body }}
-          user={user}
           buttons={<Buttons />}
         />
       ) : (

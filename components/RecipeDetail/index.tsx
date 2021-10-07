@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Recipe, UserProfile } from '@lib/types'
+import { Recipe } from '@lib/types'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 import defaultAvatar from '../../assets/default-avatar.png'
@@ -11,7 +11,7 @@ import BubbleSVG from '../../assets/bubble.svg'
 import TrashSVG from '../../assets/trash.svg'
 import PenSVG from '../../assets/pen.svg'
 import ClockSVG from '../../assets/clock.svg'
-import { Timestamp } from '@firebase/firestore'
+import { FieldValue, Timestamp } from '@firebase/firestore'
 import {
   AuthorAvatar,
   AuthorLink,
@@ -31,67 +31,78 @@ import { useUserContext } from '@lib/context'
 
 type Props = {
   recipe: Recipe
-  user: UserProfile
   buttons?: React.ReactNode
 }
 
-export const RecipeDetail = ({ recipe, user, buttons }: Props) => {
-  const { username } = useUserContext()
-
-  const createdAt = (
-    typeof recipe.createdAt === 'number'
-      ? new Date(recipe.createdAt)
-      : (recipe.createdAt as Timestamp).toDate()
+const formatDate = (createdAt: number | Timestamp | FieldValue) =>
+  (typeof createdAt === 'number'
+    ? new Date(createdAt)
+    : (createdAt as Timestamp).toDate()
   )
     .toISOString()
     .split('T')[0]
 
+export const RecipeDetail = ({
+  recipe: {
+    authorUsername,
+    createdAt,
+    imageUrl,
+    authorFullname,
+    authorAvatarUrl,
+    body,
+    title,
+    clapCount,
+    commentsCount,
+    slug,
+  },
+  buttons,
+}: Props) => {
+  const { username } = useUserContext()
+
   const imageSrcSet =
-    recipe.imageUrl === ''
+    imageUrl === ''
       ? `${PlaceholderImage2x.src} 300w, ${PlaceholderImage3x.src} 768w, ${PlaceholderImage4x.src} 1280w`
       : undefined
 
-  const isUserAuthorized = recipe.username === username
+  const isUserAuthorized = authorUsername === username
 
   return (
     <Wrapper>
       <TopContainer>
-        <Title>{recipe.title}</Title>
+        <Title>{title}</Title>
         <AuthorText>
           by{' '}
-          <Link passHref href={`/${user.username}`}>
-            <AuthorLink>{user.fullname}</AuthorLink>
+          <Link passHref href={`/${authorUsername}`}>
+            <AuthorLink>{authorFullname}</AuthorLink>
           </Link>{' '}
           <AuthorAvatar
-            src={user.avatarUrl === '' ? defaultAvatar.src : user.avatarUrl}
-            alt={user.fullname}
+            src={authorAvatarUrl === '' ? defaultAvatar.src : authorAvatarUrl}
+            alt={authorFullname}
           />{' '}
         </AuthorText>
         <RecipeImage
-          src={
-            recipe.imageUrl === '' ? PlaceholderImage2x.src : recipe.imageUrl
-          }
+          src={imageUrl === '' ? PlaceholderImage2x.src : imageUrl}
           srcSet={imageSrcSet}
-          alt={recipe.imageUrl === '' ? 'Placeholder' : recipe.title}
+          alt={imageUrl === '' ? 'Placeholder' : title}
         />
         {/* TODO Add Aria Pressed and clap functionality */}
-        <ClapButton aria-label={`Recipe ${recipe.clapCount} claps`}>
+        <ClapButton aria-label={`Recipe ${clapCount} claps`}>
           <ClapSVG />
-          {recipe.clapCount}
+          {clapCount}
         </ClapButton>
         <Link passHref href="#comments">
-          <CommentLink aria-label={`${recipe.commentsCount} comments`}>
+          <CommentLink aria-label={`${commentsCount} comments`}>
             <BubbleSVG />
-            {recipe.commentsCount}
+            {commentsCount}
           </CommentLink>
         </Link>
         <DateText>
           {' '}
-          <ClockSVG /> Posted on {createdAt}{' '}
+          <ClockSVG /> Posted on {formatDate(createdAt)}{' '}
         </DateText>
         {isUserAuthorized && (
           <>
-            <Link passHref href={`/${user.username}/${recipe.slug}/edit`}>
+            <Link passHref href={`/${authorUsername}/${slug}/edit`}>
               <EditLink aria-label="Edit Recipe">
                 <PenSVG />
               </EditLink>
@@ -104,7 +115,7 @@ export const RecipeDetail = ({ recipe, user, buttons }: Props) => {
         )}
       </TopContainer>
       <MarkDownWrapper>
-        <ReactMarkdown>{recipe.body}</ReactMarkdown>
+        <ReactMarkdown>{body}</ReactMarkdown>
       </MarkDownWrapper>
       {buttons}
     </Wrapper>

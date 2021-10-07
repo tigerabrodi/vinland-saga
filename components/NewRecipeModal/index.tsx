@@ -19,10 +19,11 @@ import {
 import { useCloseEscape } from '@hooks/useCloseEscape'
 import { useClickOutside } from '@hooks/useClickOutside'
 import { useUserContext } from '@lib/context'
-import { auth, firebaseDb } from '@lib/firebase'
+import { firebaseDb } from '@lib/firebase'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import { Recipe } from '@lib/types'
+import { useGetUser } from '@hooks/auth/useGetUser'
 
 export const NewRecipeModal = () => {
   const {
@@ -48,6 +49,8 @@ export const NewRecipeModal = () => {
 
   const { username } = useUserContext()
 
+  const { user } = useGetUser(username)
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -58,9 +61,7 @@ export const NewRecipeModal = () => {
       createdAt = serverTimestamp()
     } while (createdAt === null)
 
-    if (username) {
-      const uid = auth.currentUser!.uid
-
+    if (username && user) {
       // Ensure slug is URL safe and unique
       const slug = encodeURI(kebabCase(title)) + uuidv4()
 
@@ -69,15 +70,20 @@ export const NewRecipeModal = () => {
         body: '',
         commentsCount: 0,
         clapCount: 0,
-        username,
+        authorUsername: username,
+        authorAvatarUrl: user.avatarUrl,
+        authorFullname: user.fullname,
         createdAt,
-        uid,
+        uid: user.uid,
         imageUrl: '',
         readingTime: '',
         slug,
       }
 
-      await setDoc(doc(firebaseDb, `users/${uid}/recipes/${slug}`), recipeData)
+      await setDoc(
+        doc(firebaseDb, `users/${user.uid}/recipes/${slug}`),
+        recipeData
+      )
 
       setStatus('success')
       toast.success(`You successfully created the recipe ${title}.`)

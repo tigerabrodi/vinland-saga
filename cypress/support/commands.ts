@@ -50,7 +50,9 @@ const createUserAndProfile = (user: User) => {
 
   // Create Profile
   cy.findByText('You successfully created your account.').should('exist')
-  cy.findByRole('heading', { name: 'Editing Profile' }).should('exist')
+  cy.findByRole('heading', { name: 'Editing Profile', timeout: 8000 }).should(
+    'exist'
+  )
   cy.findByRole('button', { name: 'Save' }).should('have.attr', 'disabled')
 
   cy.findByRole('img', { name: 'default' }).should('exist')
