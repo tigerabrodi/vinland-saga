@@ -12,6 +12,16 @@ export const pinkFocusStyles = css`
   }
 `
 
+export const whiteFocusStyles = css`
+  &:focus-visible {
+    outline: 0.2rem ridge white;
+    outline-offset: 0.3rem;
+  }
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+`
+
 export const yellowFocusStyles = css`
   &:focus-visible {
     outline: 0.2rem ridge ${theme.Yellow};
