@@ -16,6 +16,9 @@ export const FeedSection = styled.div`
   ${media.tablet} {
     width: 65rem;
   }
+  ${media.desktop} {
+    width: 80%;
+  }
 `
 
 export const TopWrapper = styled.div`
@@ -33,6 +36,9 @@ export const Title = styled.h1`
   ${media.tablet} {
     font-size: 4rem;
   }
+  ${media.desktop} {
+    font-size: 5rem;
+  }
 `
 
 export const ToolBar = styled.div`
@@ -43,6 +49,9 @@ export const ToolBar = styled.div`
   ${media.tablet} {
     column-gap: 7rem;
   }
+  ${media.desktop} {
+    column-gap: 10rem;
+  }
 `
 
 export const ToolBarButton = styled.button`
@@ -52,6 +61,9 @@ export const ToolBarButton = styled.button`
   ${whiteFocusStyles}
   ${media.tablet} {
     font-size: 2.3rem;
+  }
+  ${media.desktop} {
+    font-size: 3rem;
   }
 `
 
@@ -67,6 +79,10 @@ export const RecipesList = styled.ul`
     justify-content: space-between;
     width: 100%;
     flex-wrap: wrap;
+  }
+  ${media.desktop} {
+    margin-top: 3rem;
+    column-gap: 2rem;
   }
 `
 
@@ -88,6 +104,20 @@ export const RecipeItem = styled.li`
   grid-template-columns: 30% 30% 10% 30%;
   grid-template-rows: 55% auto auto auto 3.8rem;
   overflow: hidden;
+  ${media.tablet} {
+    transition: all 0.2s ease;
+    &:hover {
+      transform: translateY(-0.2rem);
+      box-shadow: 0 0.3rem 0.3rem black;
+      filter: brightness(120%);
+    }
+  }
+  ${media.desktop} {
+    width: 33rem;
+    height: 40rem;
+    grid-template-columns: 30% 32% 5% 33%;
+    grid-template-rows: min-content auto auto auto 3.8rem;
+  }
 `
 
 export const RecipeImage = styled.img`
@@ -103,6 +133,20 @@ export const RecipeAvatar = styled.img`
   border-radius: 50%;
   position: relative;
   bottom: -0.4rem;
+  ${media.desktop} {
+    height: 6rem;
+    width: 6rem;
+    bottom: 0;
+  }
+`
+
+const linkHoverStyles = css`
+  ${media.tablet} {
+    transition: all 0.2s ease;
+    &:hover {
+      transform: translateY(-0.2rem);
+    }
+  }
 `
 
 export const AuthorLink = styled.a`
@@ -114,6 +158,12 @@ export const AuthorLink = styled.a`
   align-self: self-end;
   justify-self: self-start;
   ${pinkFocusStyles}
+  ${linkHoverStyles} 
+  ${media.desktop} {
+    font-size: 1.7rem;
+    position: relative;
+    bottom: 0.5rem;
+  }
 `
 
 export const Date = styled.p`
@@ -122,11 +172,20 @@ export const Date = styled.p`
   color: ${theme.Pink};
   grid-area: date;
   justify-self: self-start;
+  ${media.desktop} {
+    font-size: 1.4rem;
+    position: relative;
+    bottom: 0.7rem;
+  }
 `
 
 export const RecipeTitle = styled.h2`
   align-self: self-end;
   grid-area: title;
+  ${linkHoverStyles}
+  ${media.desktop} {
+    align-self: self-start;
+  }
 `
 
 export const RecipeTitleLink = styled.a`
@@ -136,6 +195,10 @@ export const RecipeTitleLink = styled.a`
   text-decoration: underline;
   padding-left: 1.6rem;
   ${yellowFocusStyles}
+  ${media.desktop} {
+    font-size: 2.6rem;
+    padding-left: 2.1rem;
+  }
 `
 
 const textStyles = css`
@@ -149,6 +212,14 @@ const textStyles = css`
   svg {
     height: 2rem;
     width: 2rem;
+    ${media.desktop} {
+      height: 3rem;
+      width: 3rem;
+    }
+  }
+  ${media.desktop} {
+    font-size: 1.8rem;
+    align-self: self-start;
   }
 `
 
@@ -168,4 +239,10 @@ export const ReadingTime = styled.p`
   font-size: 1.2rem;
   font-weight: 400;
   margin-right: 1rem;
+  ${media.desktop} {
+    font-size: 1.8rem;
+    align-self: self-start;
+    margin-right: 1.5rem;
+    margin-top: 0.5rem;
+  }
 `
