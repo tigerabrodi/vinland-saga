@@ -80,6 +80,75 @@ const RecipesFeed: NextPage = () => {
           </CommentText>
           <ReadingTime>4 min read</ReadingTime>
         </RecipeItem>
+        <RecipeItem aria-label="Read the recipe Chicken Tikka">
+          <RecipeImage src={DummyRecipeImage.src} alt="Chicken Tikka" />
+          <RecipeAvatar src={DummyAvatarImage.src} alt="Tiger Abrodi" />
+          <Link passHref href="/">
+            <AuthorLink aria-label="Author: Tiger Abrodi">
+              Tiger Abrodi
+            </AuthorLink>
+          </Link>
+          <Date aria-label="Posted in 2021-09-09">2021-09-09</Date>
+          <RecipeTitle>
+            <Link passHref href="/">
+              <RecipeTitleLink>Chicken Tikka</RecipeTitleLink>
+            </Link>
+          </RecipeTitle>
+          <ClapText>
+            <ClapSVG />
+            12
+          </ClapText>
+          <CommentText>
+            <BubbleSVG />8
+          </CommentText>
+          <ReadingTime>4 min read</ReadingTime>
+        </RecipeItem>
+        <RecipeItem aria-label="Read the recipe Chicken Tikka">
+          <RecipeImage src={DummyRecipeImage.src} alt="Chicken Tikka" />
+          <RecipeAvatar src={DummyAvatarImage.src} alt="Tiger Abrodi" />
+          <Link passHref href="/">
+            <AuthorLink aria-label="Author: Tiger Abrodi">
+              Tiger Abrodi
+            </AuthorLink>
+          </Link>
+          <Date aria-label="Posted in 2021-09-09">2021-09-09</Date>
+          <RecipeTitle>
+            <Link passHref href="/">
+              <RecipeTitleLink>Chicken Tikka</RecipeTitleLink>
+            </Link>
+          </RecipeTitle>
+          <ClapText>
+            <ClapSVG />
+            12
+          </ClapText>
+          <CommentText>
+            <BubbleSVG />8
+          </CommentText>
+          <ReadingTime>4 min read</ReadingTime>
+        </RecipeItem>
+        <RecipeItem aria-label="Read the recipe Chicken Tikka">
+          <RecipeImage src={DummyRecipeImage.src} alt="Chicken Tikka" />
+          <RecipeAvatar src={DummyAvatarImage.src} alt="Tiger Abrodi" />
+          <Link passHref href="/">
+            <AuthorLink aria-label="Author: Tiger Abrodi">
+              Tiger Abrodi
+            </AuthorLink>
+          </Link>
+          <Date aria-label="Posted in 2021-09-09">2021-09-09</Date>
+          <RecipeTitle>
+            <Link passHref href="/">
+              <RecipeTitleLink>Chicken Tikka</RecipeTitleLink>
+            </Link>
+          </RecipeTitle>
+          <ClapText>
+            <ClapSVG />
+            12
+          </ClapText>
+          <CommentText>
+            <BubbleSVG />8
+          </CommentText>
+          <ReadingTime>4 min read</ReadingTime>
+        </RecipeItem>
       </RecipesList>
     </FeedSection>
   )

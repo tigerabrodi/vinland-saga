@@ -1,3 +1,4 @@
+import { media } from '@styles/media'
 import {
   pinkFocusStyles,
   sectionStyles,
@@ -12,6 +13,9 @@ export const FeedSection = styled.div`
   justify-content: flex-start;
   width: 28rem;
   margin-bottom: 2rem;
+  ${media.tablet} {
+    width: 65rem;
+  }
 `
 
 export const TopWrapper = styled.div`
@@ -26,6 +30,9 @@ export const Title = styled.h1`
   font-weight: bold;
   font-size: 2.5rem;
   color: ${theme.Pink};
+  ${media.tablet} {
+    font-size: 4rem;
+  }
 `
 
 export const ToolBar = styled.div`
@@ -33,6 +40,9 @@ export const ToolBar = styled.div`
   align-items: center;
   justify-content: space-evenly;
   column-gap: 2rem;
+  ${media.tablet} {
+    column-gap: 7rem;
+  }
 `
 
 export const ToolBarButton = styled.button`
@@ -40,6 +50,9 @@ export const ToolBarButton = styled.button`
   font-weight: bold;
   font-size: 1.4rem;
   ${whiteFocusStyles}
+  ${media.tablet} {
+    font-size: 2.3rem;
+  }
 `
 
 export const RecipesList = styled.ul`
@@ -49,6 +62,12 @@ export const RecipesList = styled.ul`
   justify-content: flex-start;
   row-gap: 3rem;
   margin-top: 2rem;
+  ${media.tablet} {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+  }
 `
 
 export const RecipeItem = styled.li`
