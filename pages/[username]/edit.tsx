@@ -35,7 +35,7 @@ import {
   ref,
   uploadBytesResumable,
 } from '@firebase/storage'
-import { doc, serverTimestamp, setDoc } from '@firebase/firestore'
+import { doc, setDoc } from '@firebase/firestore'
 import toast from 'react-hot-toast'
 import { useGetUser } from '@hooks/auth/useGetUser'
 import { useUserContext } from '@lib/context'
@@ -45,7 +45,7 @@ type Router = NextRouter & {
   query: { username: string }
 }
 
-const UsernameEdit: NextPage = () => {
+const ProfileEdit: NextPage = () => {
   const {
     query: { username: queryUsername },
     push,
@@ -140,7 +140,6 @@ const UsernameEdit: NextPage = () => {
         location,
         fullname,
         age,
-        joined: serverTimestamp(),
       } as UserProfile,
       { merge: true }
     )
@@ -267,4 +266,4 @@ const UsernameEdit: NextPage = () => {
   )
 }
 
-export default UsernameEdit
+export default ProfileEdit
