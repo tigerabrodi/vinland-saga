@@ -11,6 +11,7 @@ import {
   doc,
   getDoc,
   DocumentSnapshot,
+  FieldValue,
 } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 import { Recipe, UserProfile } from './types'
@@ -90,3 +91,11 @@ export const recipeToJSON = (recipeSnap: DocumentSnapshot): Recipe => {
     createdAt: (recipe.createdAt as Timestamp).toMillis() || 0,
   }
 }
+
+export const formatDate = (createdAt: number | Timestamp | FieldValue) =>
+  (typeof createdAt === 'number'
+    ? new Date(createdAt)
+    : (createdAt as Timestamp).toDate()
+  )
+    .toISOString()
+    .split('T')[0]

@@ -11,7 +11,6 @@ import BubbleSVG from '../../assets/bubble.svg'
 import TrashSVG from '../../assets/trash.svg'
 import PenSVG from '../../assets/pen.svg'
 import ClockSVG from '../../assets/clock.svg'
-import { FieldValue, Timestamp } from '@firebase/firestore'
 import {
   AuthorAvatar,
   AuthorLink,
@@ -28,19 +27,12 @@ import {
   MarkDownWrapper,
 } from './styles'
 import { useUserContext } from '@lib/context'
+import { formatDate } from '@lib/firebase'
 
 type Props = {
   recipe: Recipe
   buttons?: React.ReactNode
 }
-
-const formatDate = (createdAt: number | Timestamp | FieldValue) =>
-  (typeof createdAt === 'number'
-    ? new Date(createdAt)
-    : (createdAt as Timestamp).toDate()
-  )
-    .toISOString()
-    .split('T')[0]
 
 export const RecipeDetail = ({
   recipe: {
