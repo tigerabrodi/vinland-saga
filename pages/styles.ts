@@ -84,3 +84,16 @@ export const RecipesList = styled.ul`
     column-gap: 2rem;
   }
 `
+
+export const NoFoundText = styled.p`
+  font-size: 2rem;
+  color: ${theme.Pink};
+  font-weight: 500;
+  ${media.tablet} {
+    margin-top: 20rem;
+    font-size: 3rem;
+  }
+  ${media.desktop} {
+    font-size: 4rem;
+  }
+`

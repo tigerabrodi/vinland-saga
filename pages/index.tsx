@@ -1,4 +1,6 @@
 import { RecipeItem } from '@components/RecipeItem'
+import { collection, getDocs, limit, query } from '@firebase/firestore'
+import { firebaseDb, recipeToJSON } from '@lib/firebase'
 import { Recipe } from '@lib/types'
 import type { NextPage } from 'next'
 import {
@@ -8,9 +10,23 @@ import {
   ToolBar,
   ToolBarButton,
   RecipesList,
+  NoFoundText,
 } from './styles'
 
-export async function getServerSideProps() {}
+// Max recipes to query per page
+const LIMIT = 10
+
+export async function getServerSideProps() {
+  const recipesQuery = query(collection(firebaseDb, 'recipes'), limit(LIMIT))
+
+  const recipes = (await getDocs(recipesQuery)).docs.map(
+    recipeToJSON
+  ) as Recipe[]
+
+  return {
+    props: { recipes },
+  }
+}
 
 type Props = {
   recipes: Recipe[]
@@ -26,11 +42,15 @@ const RecipesFeed: NextPage<Props> = ({ recipes }) => {
           <ToolBarButton>Newest</ToolBarButton>
         </ToolBar>
       </TopWrapper>
-      <RecipesList>
-        {recipes.map((recipe) => (
-          <RecipeItem key={recipe.slug} recipe={recipe} />
-        ))}
-      </RecipesList>
+      {recipes.length > 0 ? (
+        <RecipesList>
+          {recipes.map((recipe) => (
+            <RecipeItem key={recipe.slug} recipe={recipe} />
+          ))}
+        </RecipesList>
+      ) : (
+        <NoFoundText>Currently no recipes exist.</NoFoundText>
+      )}
     </FeedSection>
   )
 }
