@@ -29,7 +29,7 @@ export const useCreateUserWithEmailAndPassword = () => {
         password
       )
 
-      const userRef = doc(firebaseDb, 'users', user.user?.uid)
+      const userRef = doc(firebaseDb, `users/${user.user.uid}`)
 
       // Workaround since serverTimestamp behavior is inconsistent and sometimes returns null.
       let joined = null
@@ -52,7 +52,7 @@ export const useCreateUserWithEmailAndPassword = () => {
         uid: user.user.uid,
       })
 
-      const usernameRef = doc(firebaseDb, 'usernames', username)
+      const usernameRef = doc(firebaseDb, `usernames/${username}`)
       batch.set(usernameRef, {
         uid: user.user?.uid,
       })

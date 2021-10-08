@@ -95,7 +95,7 @@ const SignUp: NextPage = () => {
     debounce(async (username: string) => {
       if (username.length >= 3) {
         setStatus('loading')
-        const usernameDocRef = doc(firebaseDb, 'usernames', username)
+        const usernameDocRef = doc(firebaseDb, `usernames/${username}`)
         const usernameDocSnapshot = await getDoc(usernameDocRef)
         const usernameAlreadyExists = usernameDocSnapshot.exists()
         setStatus('success')

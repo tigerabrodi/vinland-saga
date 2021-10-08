@@ -92,7 +92,7 @@ const ProfileEdit: NextPage = () => {
     const file = Array.from(event.target.files as FileList)[0]
     const extension = file.type.split('/')[1]
 
-    const userRef = doc(firebaseDb, 'users', auth.currentUser!.uid)
+    const userRef = doc(firebaseDb, `users/${auth.currentUser!.uid}`)
 
     const storage = getStorage()
     const avatarRef = ref(
@@ -129,7 +129,7 @@ const ProfileEdit: NextPage = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const userRef = doc(firebaseDb, 'users', auth.currentUser!.uid)
+    const userRef = doc(firebaseDb, `users/${auth.currentUser!.uid}`)
 
     setStatus('loading')
     setDoc(
