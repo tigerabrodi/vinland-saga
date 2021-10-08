@@ -106,7 +106,13 @@ it('Complete users flow', () => {
   // Go to your profile and click on the first recipe, then delete it and assert you get redirected to your profile
   // Then assert the recipe is no longer there
 
-  // Assert authorization of pages
+  // Assert authorization of pages (both as second user and logged out user)
+
+  // Sign Out
+
+  // Sign in Third User
+
+  // Create over 10 recipes and assert Load More button
 })
 
 /*
