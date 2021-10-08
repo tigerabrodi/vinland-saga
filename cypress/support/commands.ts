@@ -34,6 +34,7 @@ declare global {
       assertPreviewMode: typeof assertPreviewMode
       assertRecipeDetail: typeof assertRecipeDetail
       clickItemInMenu: typeof clickItemInMenu
+      assertAndClickOnRecipe: typeof assertAndClickOnRecipe
     }
   }
 }
@@ -128,6 +129,7 @@ const assertRecipeDetail = (recipe: Recipe, user: User) => {
   cy.findByText(recipe.body).should('exist')
   cy.findByRole('link', { name: user.fullname }).should('exist')
   cy.findByRole('img', { name: recipe.title }).should('exist')
+  cy.findByText(/^Posted on 2021-10/i).should('exist')
   cy.findByRole('button', { name: 'Recipe 0 claps' }).should('exist')
   cy.findByRole('link', { name: '0 comments' }).should('exist')
   cy.findByRole('link', { name: 'Edit Recipe' }).should('exist')
@@ -146,7 +148,32 @@ const clickItemInMenu = (itemName: string) => {
   })
 }
 
+const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
+  cy.findByRole('listitem', { name: `Read the recipe ${recipe.title}` }).within(
+    () => {
+      cy.findByRole('heading', { name: recipe.title, level: 2 }).should('exist')
+      cy.findByRole('link', { name: `Author: ${user.fullname}` }).should(
+        'exist'
+      )
+
+      cy.findByRole('img', { name: recipe.title }).should('exist')
+      cy.findByRole('img', { name: user.fullname }).should('exist')
+
+      cy.findByText('0 claps').should('exist')
+      cy.findByText('0 comments').should('exist')
+
+      cy.findByText(/min read$/i).should('exist')
+      cy.findByText(/^Posted on 2021-10/i).should('exist')
+
+      cy.findByRole('link', { name: recipe.title }).click()
+
+      cy.findByRole('heading', { name: recipe.title, level: 1 }).should('exist')
+    }
+  )
+}
+
 Cypress.Commands.add('clickItemInMenu', clickItemInMenu)
+Cypress.Commands.add('assertAndClickOnRecipe', assertAndClickOnRecipe)
 Cypress.Commands.add('createUserAndProfile', createUserAndProfile)
 Cypress.Commands.add('assertRecipeDetail', assertRecipeDetail)
 Cypress.Commands.add('createRecipe', createRecipe)
