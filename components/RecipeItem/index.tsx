@@ -67,7 +67,7 @@ export const RecipeItem = ({
           <RecipeTitleLink>{title}</RecipeTitleLink>
         </Link>
       </RecipeTitle>
-      <ClapText>
+      <ClapText aria-label={`${clapCount} claps`}>
         <ClapSVG />
         {clapCount}
       </ClapText>
