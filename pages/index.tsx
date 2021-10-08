@@ -1,9 +1,6 @@
+import { RecipeItem } from '@components/RecipeItem'
+import { Recipe } from '@lib/types'
 import type { NextPage } from 'next'
-import Link from 'next/link'
-import ClapSVG from '../assets/clap.svg'
-import BubbleSVG from '../assets/bubble.svg'
-import DummyRecipeImage from '../cypress/fixtures/recipe-image.jpg'
-import DummyAvatarImage from '../cypress/fixtures/tiger-avatar.png'
 import {
   FeedSection,
   TopWrapper,
@@ -11,19 +8,15 @@ import {
   ToolBar,
   ToolBarButton,
   RecipesList,
-  RecipeItem,
-  RecipeImage,
-  RecipeAvatar,
-  AuthorLink,
-  Date,
-  RecipeTitle,
-  ClapText,
-  CommentText,
-  ReadingTime,
-  RecipeTitleLink,
 } from './styles'
 
-const RecipesFeed: NextPage = () => {
+export async function getServerSideProps() {}
+
+type Props = {
+  recipes: Recipe[]
+}
+
+const RecipesFeed: NextPage<Props> = ({ recipes }) => {
   return (
     <FeedSection>
       <TopWrapper>
@@ -34,121 +27,9 @@ const RecipesFeed: NextPage = () => {
         </ToolBar>
       </TopWrapper>
       <RecipesList>
-        <RecipeItem aria-label="Read the recipe Chicken Tikka">
-          <RecipeImage src={DummyRecipeImage.src} alt="Chicken Tikka" />
-          <RecipeAvatar src={DummyAvatarImage.src} alt="Tiger Abrodi" />
-          <Link passHref href="/">
-            <AuthorLink aria-label="Author: Tiger Abrodi">
-              Tiger Abrodi
-            </AuthorLink>
-          </Link>
-          <Date aria-label="Posted in 2021-09-09">2021-09-09</Date>
-          <RecipeTitle>
-            <Link passHref href="/">
-              <RecipeTitleLink>Chicken Tikka</RecipeTitleLink>
-            </Link>
-          </RecipeTitle>
-          <ClapText>
-            <ClapSVG />
-            12
-          </ClapText>
-          <CommentText>
-            <BubbleSVG />8
-          </CommentText>
-          <ReadingTime>4 min read</ReadingTime>
-        </RecipeItem>
-        <RecipeItem aria-label="Read the recipe Chicken Tikka">
-          <RecipeImage src={DummyRecipeImage.src} alt="Chicken Tikka" />
-          <RecipeAvatar src={DummyAvatarImage.src} alt="Tiger Abrodi" />
-          <Link passHref href="/">
-            <AuthorLink aria-label="Author: Tiger Abrodi">
-              Tiger Abrodi
-            </AuthorLink>
-          </Link>
-          <Date aria-label="Posted in 2021-09-09">2021-09-09</Date>
-          <RecipeTitle>
-            <Link passHref href="/">
-              <RecipeTitleLink>Chicken Tikka</RecipeTitleLink>
-            </Link>
-          </RecipeTitle>
-          <ClapText>
-            <ClapSVG />
-            12
-          </ClapText>
-          <CommentText>
-            <BubbleSVG />8
-          </CommentText>
-          <ReadingTime>4 min read</ReadingTime>
-        </RecipeItem>
-        <RecipeItem aria-label="Read the recipe Chicken Tikka">
-          <RecipeImage src={DummyRecipeImage.src} alt="Chicken Tikka" />
-          <RecipeAvatar src={DummyAvatarImage.src} alt="Tiger Abrodi" />
-          <Link passHref href="/">
-            <AuthorLink aria-label="Author: Tiger Abrodi">
-              Tiger Abrodi
-            </AuthorLink>
-          </Link>
-          <Date aria-label="Posted in 2021-09-09">2021-09-09</Date>
-          <RecipeTitle>
-            <Link passHref href="/">
-              <RecipeTitleLink>Chicken Tikka</RecipeTitleLink>
-            </Link>
-          </RecipeTitle>
-          <ClapText>
-            <ClapSVG />
-            12
-          </ClapText>
-          <CommentText>
-            <BubbleSVG />8
-          </CommentText>
-          <ReadingTime>4 min read</ReadingTime>
-        </RecipeItem>
-        <RecipeItem aria-label="Read the recipe Chicken Tikka">
-          <RecipeImage src={DummyRecipeImage.src} alt="Chicken Tikka" />
-          <RecipeAvatar src={DummyAvatarImage.src} alt="Tiger Abrodi" />
-          <Link passHref href="/">
-            <AuthorLink aria-label="Author: Tiger Abrodi">
-              Tiger Abrodi
-            </AuthorLink>
-          </Link>
-          <Date aria-label="Posted in 2021-09-09">2021-09-09</Date>
-          <RecipeTitle>
-            <Link passHref href="/">
-              <RecipeTitleLink>Chicken Tikka</RecipeTitleLink>
-            </Link>
-          </RecipeTitle>
-          <ClapText>
-            <ClapSVG />
-            12
-          </ClapText>
-          <CommentText>
-            <BubbleSVG />8
-          </CommentText>
-          <ReadingTime>4 min read</ReadingTime>
-        </RecipeItem>
-        <RecipeItem aria-label="Read the recipe Chicken Tikka">
-          <RecipeImage src={DummyRecipeImage.src} alt="Chicken Tikka" />
-          <RecipeAvatar src={DummyAvatarImage.src} alt="Tiger Abrodi" />
-          <Link passHref href="/">
-            <AuthorLink aria-label="Author: Tiger Abrodi">
-              Tiger Abrodi
-            </AuthorLink>
-          </Link>
-          <Date aria-label="Posted in 2021-09-09">2021-09-09</Date>
-          <RecipeTitle>
-            <Link passHref href="/">
-              <RecipeTitleLink>Chicken Tikka</RecipeTitleLink>
-            </Link>
-          </RecipeTitle>
-          <ClapText>
-            <ClapSVG />
-            12
-          </ClapText>
-          <CommentText>
-            <BubbleSVG />8
-          </CommentText>
-          <ReadingTime>4 min read</ReadingTime>
-        </RecipeItem>
+        {recipes.map((recipe) => (
+          <RecipeItem key={recipe.slug} recipe={recipe} />
+        ))}
       </RecipesList>
     </FeedSection>
   )
