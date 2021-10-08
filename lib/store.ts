@@ -1,24 +1,24 @@
-import create from "zustand";
+import create from 'zustand'
 
-export type Status = "idle" | "loading" | "success" | "error";
+export type Status = 'idle' | 'loading' | 'success' | 'error'
 
 type LoadingState = {
-  status: Status;
-  setStatus: (status: Status) => void;
-};
+  status: Status
+  setStatus: (status: Status) => void
+}
 
 export const useLoadingStore = create<LoadingState>((set) => ({
-  status: "idle",
+  status: 'idle',
   setStatus: (status: Status) =>
     set(() => ({
       status: status,
     })),
-}));
+}))
 
 type NewRecipeState = {
-  isModalOpen: boolean;
-  setIsModalOpen: (state: boolean) => void;
-};
+  isModalOpen: boolean
+  setIsModalOpen: (state: boolean) => void
+}
 
 export const useNewRecipeStore = create<NewRecipeState>((set) => ({
   isModalOpen: false,
@@ -26,4 +26,4 @@ export const useNewRecipeStore = create<NewRecipeState>((set) => ({
     set(() => ({
       isModalOpen: state,
     })),
-}));
+}))
