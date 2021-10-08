@@ -112,7 +112,7 @@ it('Complete users flow', () => {
 
   // Sign in Third User
 
-  // Create over 10 recipes and assert Load More button
+  // Create over 10 recipes, assert that 10 recipes max are being shown and assert Load More button
 })
 
 /*
