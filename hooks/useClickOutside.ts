@@ -1,10 +1,10 @@
-import * as React from "react";
+import * as React from 'react'
 
 type ClickOutsideParams = {
-  ref: React.RefObject<HTMLDivElement>;
-  callback: () => void;
-  shouldTriggerCallback: boolean;
-};
+  ref: React.RefObject<HTMLDivElement>
+  callback: () => void
+  shouldTriggerCallback: boolean
+}
 
 export const useClickOutside = ({
   ref,
@@ -19,16 +19,16 @@ export const useClickOutside = ({
         !ref.current.contains(event.target as Node) &&
         shouldTriggerCallback
       ) {
-        callback();
+        callback()
       }
     },
     [callback, shouldTriggerCallback, ref]
-  );
+  )
 
   React.useEffect(() => {
-    document.addEventListener("click", handleClick);
+    document.addEventListener('click', handleClick)
     return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, [handleClick]);
-};
+      document.removeEventListener('click', handleClick)
+    }
+  }, [handleClick])
+}

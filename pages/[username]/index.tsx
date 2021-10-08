@@ -23,7 +23,6 @@ import {
 } from './styles'
 import { Timestamp } from '@firebase/firestore'
 import { FullPageSpinner } from '@components/Spinner'
-import { NewRecipeModal } from '@components/NewRecipeModal'
 import { useNewRecipeStore } from '@lib/store'
 
 type ServerProps = {
@@ -113,7 +112,6 @@ const Username: NextPage<Props> = ({ user }) => {
           </NewRecipeButton>
         </RecipesSection>
       </UsernameWrapper>
-      <NewRecipeModal />
     </>
   )
 }
