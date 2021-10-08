@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { auth, firebaseDb } from '@lib/firebase'
 import type { NextPage } from 'next'
 import { NextRouter, useRouter } from 'next/router'
-import { UserProfile } from '@lib/types'
+import { Recipe, UserProfile } from '@lib/types'
 import DefaultAvatar from '../../assets/default-avatar.png'
 import {
   Avatar,
@@ -35,7 +35,14 @@ import {
   ref,
   uploadBytesResumable,
 } from '@firebase/storage'
-import { doc, setDoc } from '@firebase/firestore'
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  writeBatch,
+} from '@firebase/firestore'
 import toast from 'react-hot-toast'
 import { useGetUser } from '@hooks/auth/useGetUser'
 import { useUserContext } from '@lib/context'
@@ -127,22 +134,37 @@ const ProfileEdit: NextPage = () => {
     )
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setStatus('loading')
     const userRef = doc(firebaseDb, `users/${auth.currentUser!.uid}`)
 
-    setStatus('loading')
-    setDoc(
-      userRef,
-      {
-        bio,
-        work,
-        location,
-        fullname,
-        age,
-      } as UserProfile,
-      { merge: true }
+    const recipeDocs = query(
+      collection(firebaseDb, `users/${auth.currentUser!.uid}/recipes`)
     )
+    const recipesSnapshot = await getDocs(recipeDocs)
+
+    const batch = writeBatch(firebaseDb)
+
+    if (recipesSnapshot.docs.length > 0) {
+      recipesSnapshot.forEach((recipeDoc) => {
+        batch.update(recipeDoc.ref, {
+          authorAvatarUrl: avatarImage === '' ? user!.avatarUrl : avatarImage,
+          authorFullname: fullname,
+        } as Recipe)
+      })
+    }
+
+    batch.update(userRef, {
+      bio,
+      work,
+      location,
+      fullname,
+      age,
+    } as UserProfile)
+
+    await batch.commit()
+
     setStatus('success')
 
     toast.success('Successfully updated your profile.')
