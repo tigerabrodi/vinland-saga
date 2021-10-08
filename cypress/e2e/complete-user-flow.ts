@@ -47,9 +47,34 @@ it('Complete users flow', () => {
   )
 
   // Create second user
-  // Go to Home
+  cy.createUserAndProfile(secondUser)
+
+  // Go to recipes feed
+  cy.findByRole('link', { name: 'Home' }).click()
+
   // Click on first user's recipe
+  cy.findByRole('heading', { name: 'Recipes' }).should('exist')
+  cy.findByRole('list').within(() => {
+    cy.assertAndClickOnRecipe(firstUserRecipe, firstUser)
+  })
+
   // Clap
+  cy.findByRole('button', { name: 'Recipe 0 claps' }).click()
+  cy.findByRole('button', { name: 'Recipe 1 claps' }).should('exist')
+
+  // Go to recipes feed
+  cy.findByRole('link', { name: 'Home' }).click()
+
+  // Ensure clap count
+  cy.findByRole('listitem', {
+    name: `Read the recipe ${firstUserRecipe.title}`,
+  }).within(() => {
+    cy.findByText('1 claps').should('exist')
+
+    // Go back to recipe detail
+    cy.findByRole('link', { name: firstUserRecipe.title }).click()
+  })
+
   // Click on Comments link
   // Write a comment
   // Assert comments link length
@@ -77,6 +102,7 @@ it('Complete users flow', () => {
   // Sort by both claps and recipes, third user should always come last
   // Go to third user's profile
   // Assert text that the user has no recipes
+  // Go to the feed page and be able to sort by claps and newest date
   // Go to your profile and click on the first recipe, then delete it and assert you get redirected to your profile
   // Then assert the recipe is no longer there
 
