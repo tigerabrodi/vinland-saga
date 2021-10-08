@@ -76,7 +76,7 @@ export const NewRecipeModal = () => {
         createdAt,
         uid: user.uid,
         imageUrl: '',
-        readingTime: '',
+        readingTime: '0 min read',
         slug,
       }
 
