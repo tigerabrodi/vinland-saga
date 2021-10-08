@@ -1,5 +1,5 @@
 import { RecipeItem } from '@components/RecipeItem'
-import { collection, getDocs, limit, query } from '@firebase/firestore'
+import { collectionGroup, getDocs, limit, query } from '@firebase/firestore'
 import { firebaseDb, recipeToJSON } from '@lib/firebase'
 import { Recipe } from '@lib/types'
 import type { NextPage } from 'next'
@@ -17,7 +17,10 @@ import {
 const LIMIT = 10
 
 export async function getServerSideProps() {
-  const recipesQuery = query(collection(firebaseDb, 'recipes'), limit(LIMIT))
+  const recipesQuery = query(
+    collectionGroup(firebaseDb, 'recipes'),
+    limit(LIMIT)
+  )
 
   const recipes = (await getDocs(recipesQuery)).docs.map(
     recipeToJSON
