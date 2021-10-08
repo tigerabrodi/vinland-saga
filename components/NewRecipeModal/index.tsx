@@ -54,6 +54,13 @@ export const NewRecipeModal = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    if (title.length < 3) {
+      toast.error(
+        'The title of the recipes must contain at least 3 characters.'
+      )
+      return
+    }
+
     setStatus('loading')
 
     let createdAt = null
@@ -117,7 +124,7 @@ export const NewRecipeModal = () => {
             onChange={handleChange}
             value={title}
           />
-          <CreateButton type="submit" disabled={title.length < 3}>
+          <CreateButton type="submit" aria-disabled={title.length < 3}>
             Create
           </CreateButton>
         </Form>

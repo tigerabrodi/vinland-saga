@@ -5,18 +5,18 @@ export const FOCUSABLE_ELEMENTS = [
   'button:not([disabled]):not([tabindex="-1"])',
   '[href]:not([tabindex="-1"])',
   '[tabindex]:not([tabindex="-1"])',
-];
+]
 
 export function isVisible(element: HTMLElement) {
   return !!(
     element.offsetWidth ||
     element.offsetHeight ||
     element.getClientRects().length
-  );
+  )
 }
 
 export function isTabKeyPressed(event: KeyboardEvent) {
-  return event.key === "Tab";
+  return event.key === 'Tab'
 }
 
 export function getFocusableElements(
@@ -24,16 +24,16 @@ export function getFocusableElements(
 ): HTMLElement[] {
   const focusableElements = Array.prototype.slice.call(
     trappedElement.querySelectorAll(FOCUSABLE_ELEMENTS.join())
-  );
-  const visibleFocusableElements = focusableElements.filter(isVisible);
+  )
+  const visibleFocusableElements = focusableElements.filter(isVisible)
 
   if (visibleFocusableElements.length === 0) {
     throw new TypeError(
-      "There are no focusable elements in the trapped element provided"
-    );
+      'There are no focusable elements in the trapped element provided'
+    )
   }
 
-  return visibleFocusableElements;
+  return visibleFocusableElements
 }
 
 export function getKeyDownEventHandler(
@@ -42,17 +42,17 @@ export function getKeyDownEventHandler(
 ) {
   return function (event: KeyboardEvent) {
     if (!isTabKeyPressed(event)) {
-      return;
+      return
     }
 
     if (event.shiftKey && document.activeElement === firstElement) {
-      event.preventDefault();
-      lastElement.focus();
+      event.preventDefault()
+      lastElement.focus()
     } else if (!event.shiftKey && document.activeElement === lastElement) {
-      event.preventDefault();
-      firstElement.focus();
+      event.preventDefault()
+      firstElement.focus()
     }
-  };
+  }
 }
 
 export function getDisengageFocusTrapCallback(
@@ -61,10 +61,10 @@ export function getDisengageFocusTrapCallback(
   lastActiveElement: HTMLElement
 ) {
   return function () {
-    trappedElement.removeEventListener("keydown", keyDownEventHandler);
+    trappedElement.removeEventListener('keydown', keyDownEventHandler)
 
     if (lastActiveElement) {
-      lastActiveElement.focus();
+      lastActiveElement.focus()
     }
-  };
+  }
 }
