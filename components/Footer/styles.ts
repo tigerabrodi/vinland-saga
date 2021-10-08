@@ -1,8 +1,8 @@
-import { theme } from "@styles/theme";
-import ExternalSVG from "../../assets/external.svg";
-import styled from "styled-components";
-import { media } from "@styles/media";
-import { pinkFocusStyles } from "@styles/sharedStyles";
+import { theme } from '@styles/theme'
+import ExternalSVG from '../../assets/external.svg'
+import styled from 'styled-components'
+import { media } from '@styles/media'
+import { pinkFocusStyles } from '@styles/sharedStyles'
 
 export const FooterContainer = styled.footer`
   width: 100%;
@@ -18,7 +18,7 @@ export const FooterContainer = styled.footer`
     height: 11rem;
     border-top: solid 0.3rem ${theme.Pink};
   }
-`;
+`
 
 export const FooterText = styled.p`
   font-weight: 500;
@@ -27,14 +27,14 @@ export const FooterText = styled.p`
   ${media.tablet} {
     font-size: 1.8rem;
   }
-`;
+`
 
 export const FooterLink = styled.a`
   position: relative;
   color: ${theme.LightPink};
   text-decoration: underline;
   ${pinkFocusStyles}
-`;
+`
 
 export const External = styled(ExternalSVG)`
   position: absolute;
@@ -55,4 +55,4 @@ export const External = styled(ExternalSVG)`
     height: 1.9rem;
     width: 1.9rem;
   }
-`;
+`

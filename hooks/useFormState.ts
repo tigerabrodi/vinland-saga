@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react'
 
 export const useFormState = <InitialState extends object>(
   initialState: InitialState
 ) => {
-  const [formState, setFormState] = React.useState<InitialState>(initialState);
+  const [formState, setFormState] = React.useState<InitialState>(initialState)
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -11,8 +11,8 @@ export const useFormState = <InitialState extends object>(
     setFormState({
       ...formState,
       [event.target.name]: event.target.value,
-    });
-  };
+    })
+  }
 
-  return { formState, setFormState, handleChange };
-};
+  return { formState, setFormState, handleChange }
+}
