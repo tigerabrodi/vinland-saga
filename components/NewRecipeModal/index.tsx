@@ -95,6 +95,7 @@ export const NewRecipeModal = () => {
       setStatus('success')
       toast.success(`You successfully created the recipe ${title}.`)
 
+      setIsModalOpen(false)
       push(`/${username}/${slug}/edit`)
     }
   }
