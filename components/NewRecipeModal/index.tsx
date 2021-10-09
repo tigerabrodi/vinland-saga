@@ -92,11 +92,10 @@ export const NewRecipeModal = () => {
         recipeData
       )
 
-      setStatus('success')
-      toast.success(`You successfully created the recipe ${title}.`)
-
       setIsModalOpen(false)
+      toast.success(`You successfully created the recipe ${title}.`)
       push(`/${username}/${slug}/edit`)
+      setStatus('success')
     }
   }
 
