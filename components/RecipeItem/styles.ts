@@ -19,7 +19,7 @@ export const RecipeListItem = styled.li`
   border-radius: 0.2rem;
   box-shadow: 0 0.2rem 0.2rem black;
   grid-template-columns: 30% 30% 10% 30%;
-  grid-template-rows: 55% auto auto auto 3.8rem;
+  grid-template-rows: min-content auto auto auto 3.8rem;
   overflow: hidden;
   ${media.tablet} {
     transition: all 0.2s ease;
@@ -33,7 +33,6 @@ export const RecipeListItem = styled.li`
     width: 33rem;
     height: 40rem;
     grid-template-columns: 30% 32% 5% 33%;
-    grid-template-rows: min-content auto auto auto 3.8rem;
   }
 `
 
