@@ -11,7 +11,6 @@ export const useClickOutside = ({
   callback,
   shouldTriggerCallback,
 }: ClickOutsideParams) => {
-  // Wrapped in useCallback in order to avoid making the effect run everytime
   const handleClick = React.useCallback(
     (event: Event) => {
       if (
