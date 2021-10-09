@@ -1,10 +1,13 @@
 import { getUserWithUsername } from '@lib/firebase'
 import { useLoadingStore } from '@lib/store'
+import { auth } from '@lib/firebase'
+import { useAuthState } from '@hooks/auth/useAuthState'
 import { UserProfile } from '@lib/types'
 import * as React from 'react'
 
 export const useGetUser = (username: string | null) => {
   const [user, setUser] = React.useState<UserProfile | null>(null)
+  const { user: currentAuthUser } = useAuthState(auth)
   const { setStatus } = useLoadingStore()
 
   React.useEffect(() => {
@@ -18,7 +21,7 @@ export const useGetUser = (username: string | null) => {
       setStatus('success')
     }
     setUserState()
-  }, [username, setStatus, user])
+  }, [username, setStatus, user, currentAuthUser])
 
   return { user }
 }
