@@ -59,10 +59,10 @@ export const useCreateUserWithEmailAndPassword = () => {
 
       await batch.commit()
 
-      toast.success('You successfully created your account.')
-      setStatus('success')
-
       router.push(`/${username}/edit`)
+      toast.success('You successfully created your account.')
+
+      setStatus('success')
     } catch (error) {
       setStatus('error')
       setSignUpError(error as FirebaseError)
