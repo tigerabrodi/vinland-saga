@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 
 export const useSignInWithEmailAndPassword = () => {
-  const [signInError, setSignInError] = useState(false)
+  const [isSignInError, setIsSignInError] = useState(false)
   const { setStatus } = useLoadingStore()
   const router = useRouter()
 
@@ -22,16 +22,16 @@ export const useSignInWithEmailAndPassword = () => {
       router.push('/')
       toast.success('Successfully signed in into your account.')
     } catch (error) {
-      setSignInError(true)
+      setIsSignInError(true)
       setStatus('error')
       setTimeout(() => {
-        setSignInError(false)
+        setIsSignInError(false)
       }, 3000)
     }
   }
 
   return {
     signInWithEmailAndPassword,
-    signInError,
+    isSignInError,
   }
 }

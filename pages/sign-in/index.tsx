@@ -25,7 +25,7 @@ const SignIn: NextPage = () => {
     email: '',
   })
 
-  const { signInError, signInWithEmailAndPassword } =
+  const { isSignInError, signInWithEmailAndPassword } =
     useSignInWithEmailAndPassword()
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -64,7 +64,7 @@ const SignIn: NextPage = () => {
             aria-required="true"
           />
         </FormGroup>
-        {signInError && (
+        {isSignInError && (
           <FormError role="alert" isLoginMode>
             Password or email is invalid.
           </FormError>
