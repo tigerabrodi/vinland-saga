@@ -135,8 +135,8 @@ const ProfileEdit: NextPage = () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setDoc(userRef, { avatarUrl: downloadURL }, { merge: true })
           setAvatarImage(downloadURL)
-          setStatus('success')
           toast.success('Successfully uploaded your avatar.')
+          setStatus('success')
         })
       }
     )
@@ -173,11 +173,10 @@ const ProfileEdit: NextPage = () => {
 
     await batch.commit()
 
-    setStatus('success')
-
     toast.success('Successfully updated your profile.')
 
     push(`/${queryUsername}`)
+    setStatus('success')
   }
 
   if (!user || queryUsername !== username) {

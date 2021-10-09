@@ -129,8 +129,8 @@ const RecipeEdit: NextPage = () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setDoc(recipeRef, { imageUrl: downloadURL }, { merge: true })
           setRecipeImage(downloadURL)
-          setStatus('success')
           toast.success('Successfully uploaded your recipe image.')
+          setStatus('success')
         })
       }
     )
@@ -166,11 +166,10 @@ const RecipeEdit: NextPage = () => {
         { merge: true }
       )
 
-      setStatus('success')
-
       toast.success(`Successfully updated your recipe ${title}.`)
 
       push(`/${username}/${recipe.slug}`)
+      setStatus('success')
     }
   }
 

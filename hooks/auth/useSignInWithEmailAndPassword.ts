@@ -18,9 +18,9 @@ export const useSignInWithEmailAndPassword = () => {
     try {
       await signInWithEmailAndPasswordAuth(auth, email, password)
 
-      setStatus('success')
       router.push('/')
       toast.success('Successfully signed in into your account.')
+      setStatus('success')
     } catch (error) {
       setIsSignInError(true)
       setStatus('error')

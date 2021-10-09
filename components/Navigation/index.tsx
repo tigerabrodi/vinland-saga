@@ -54,8 +54,8 @@ export const Navigation = () => {
     setIsMenuOpen(false)
     auth.signOut()
     push('/')
-    setStatus('success')
     toast.success('Successfully signed out of your account.')
+    setStatus('success')
   }
 
   return (
