@@ -5,7 +5,7 @@ beforeEach(() => {
   cy.visit('/sign-in')
 })
 
-it('Username validation', () => {
+it('Sign in validation', () => {
   const user = buildUser()
 
   cy.findByText('Password or email is invalid.').should('not.exist')
