@@ -3,7 +3,7 @@ import { pinkFocusStyles, yellowFocusStyles } from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 
-export const RecipeItemWrapper = styled.li`
+export const RecipeListItem = styled.li`
   width: 28rem;
   height: 28.5rem;
   display: grid;

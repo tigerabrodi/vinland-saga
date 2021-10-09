@@ -7,7 +7,7 @@ import ClapSVG from '../../assets/clap.svg'
 import BubbleSVG from '../../assets/bubble.svg'
 import Link from 'next/link'
 import {
-  RecipeItemWrapper,
+  RecipeListItem,
   RecipeImage,
   RecipeAvatar,
   AuthorLink,
@@ -46,7 +46,7 @@ export const RecipeItem = ({
   const formattedDate = formatDate(createdAt)
 
   return (
-    <RecipeItemWrapper aria-label={`Read the recipe ${title}`}>
+    <RecipeListItem aria-label={`Read the recipe ${title}`}>
       <RecipeImage
         src={imageUrl === '' ? PlaceholderImage2x.src : imageUrl}
         srcSet={imageSrcSet}
@@ -75,6 +75,6 @@ export const RecipeItem = ({
         <BubbleSVG /> {commentsCount}
       </CommentText>
       <ReadingTime>{readingTime}</ReadingTime>
-    </RecipeItemWrapper>
+    </RecipeListItem>
   )
 }
