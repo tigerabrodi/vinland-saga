@@ -13,13 +13,12 @@ import {
   NoFoundText,
 } from './styles'
 
-// Max recipes to query per page
-const LIMIT = 10
+const MAX_RECIPES_PER_PAGE = 10
 
 export async function getServerSideProps() {
   const recipesQuery = query(
     collectionGroup(firebaseDb, 'recipes'),
-    limit(LIMIT)
+    limit(MAX_RECIPES_PER_PAGE)
   )
 
   const recipes = (await getDocs(recipesQuery)).docs.map(
