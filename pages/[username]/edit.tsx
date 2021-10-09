@@ -47,6 +47,7 @@ import toast from 'react-hot-toast'
 import { useGetUser } from '@hooks/auth/useGetUser'
 import { useUserContext } from '@lib/context'
 import { useFormState } from '@hooks/useFormState'
+import { useUnload } from '@hooks/useUnload'
 
 type Router = NextRouter & {
   query: { username: string }
@@ -62,7 +63,6 @@ const ProfileEdit: NextPage = () => {
   const [avatarImage, setAvatarImage] = React.useState<string>('')
 
   const { user } = useGetUser(queryUsername)
-
   const { username } = useUserContext()
 
   const {
@@ -94,6 +94,14 @@ const ProfileEdit: NextPage = () => {
       })
     }
   }, [username, push, setFormState, user, queryUsername])
+
+  useUnload((event) => {
+    event.preventDefault()
+    const exit = confirm(
+      'Are you sure you want to leave? Changes may get lost if you do.'
+    )
+    if (exit) window.close()
+  })
 
   const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = Array.from(event.target.files as FileList)[0]

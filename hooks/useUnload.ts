@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const useUnload = (fn: () => void) => {
+export const useUnload = (fn: (event: Event) => void) => {
   const callback = React.useRef(fn)
 
   React.useEffect(() => {
