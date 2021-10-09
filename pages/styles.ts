@@ -1,7 +1,7 @@
 import { media } from '@styles/media'
 import { sectionStyles, whiteFocusStyles } from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const FeedSection = styled.div`
   ${sectionStyles}
@@ -66,7 +66,7 @@ export const ToolBarButton = styled.button`
   }
 `
 
-export const RecipesList = styled.ul`
+export const RecipesList = styled.ul<{ recipesLength: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,6 +82,12 @@ export const RecipesList = styled.ul`
   ${media.desktop} {
     margin-top: 3rem;
     column-gap: 2rem;
+    ${(props) =>
+      props.recipesLength < 4 &&
+      css`
+        justify-content: flex-start;
+        column-gap: 4rem;
+      `};
   }
 `
 
