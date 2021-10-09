@@ -35,6 +35,7 @@ declare global {
       assertRecipeDetail: typeof assertRecipeDetail
       clickItemInMenu: typeof clickItemInMenu
       assertAndClickOnRecipe: typeof assertAndClickOnRecipe
+      waitToBeAuthorized: typeof waitToBeAuthorized
     }
   }
 }
@@ -51,6 +52,7 @@ const createUserAndProfile = (user: User) => {
 
   // Create Profile
   cy.findByText('You successfully created your account.').should('exist')
+  cy.waitToBeAuthorized()
   cy.findByRole('heading', { name: 'Editing Profile', timeout: 8000 }).should(
     'exist'
   )
@@ -172,9 +174,13 @@ const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
   )
 }
 
+const waitToBeAuthorized = () =>
+  cy.findByRole('button', { name: 'Menu', timeout: 5000 }).should('exist')
+
 Cypress.Commands.add('clickItemInMenu', clickItemInMenu)
 Cypress.Commands.add('assertAndClickOnRecipe', assertAndClickOnRecipe)
 Cypress.Commands.add('createUserAndProfile', createUserAndProfile)
 Cypress.Commands.add('assertRecipeDetail', assertRecipeDetail)
 Cypress.Commands.add('createRecipe', createRecipe)
 Cypress.Commands.add('assertPreviewMode', assertPreviewMode)
+Cypress.Commands.add('waitToBeAuthorized', waitToBeAuthorized)
