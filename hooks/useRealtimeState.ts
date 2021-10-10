@@ -16,10 +16,8 @@ export const useRealtimeState = (path: string) => {
   React.useEffect(() => {
     setStatus('loading')
     const unsubscribe = onSnapshot(doc(firebaseDb, path), (doc) => {
-      if (doc.exists()) {
-        setState(doc)
-        setStatus('success')
-      }
+      setState(doc)
+      setStatus('success')
     })
 
     return unsubscribe
