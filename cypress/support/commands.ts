@@ -161,21 +161,23 @@ const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
       cy.findByRole('img', { name: recipe.title }).should('exist')
       cy.findByRole('img', { name: user.fullname }).should('exist')
 
-      cy.findByText('0 claps').should('exist')
-      cy.findByText('0 comments').should('exist')
+      cy.findByLabelText('0 claps').should('exist')
+      cy.findByLabelText('0 comments').should('exist')
 
       cy.findByText(/min read$/i).should('exist')
-      cy.findByText(/^Posted on 2021-10/i).should('exist')
+      cy.findByLabelText(/^Posted on 2021-10/i).should('exist')
 
       cy.findByRole('link', { name: recipe.title }).click()
 
-      cy.findByRole('heading', { name: recipe.title, level: 1 }).should('exist')
+      cy.findByRole('heading', {
+        name: recipe.title,
+      }).should('exist')
     }
   )
 }
 
 const waitToBeAuthorized = () =>
-  cy.findByRole('button', { name: 'Menu', timeout: 5000 }).should('exist')
+  cy.findByRole('button', { name: 'Menu', timeout: 8000 }).should('exist')
 
 Cypress.Commands.add('clickItemInMenu', clickItemInMenu)
 Cypress.Commands.add('assertAndClickOnRecipe', assertAndClickOnRecipe)
