@@ -28,6 +28,7 @@ export const TopContainer = styled.div`
 
 export const Title = styled.h1`
   grid-area: title;
+  text-align: center;
   font-weight: bold;
   font-size: 2.4rem;
   color: ${theme.Yellow};
