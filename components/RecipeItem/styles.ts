@@ -99,6 +99,7 @@ export const RecipeTitle = styled.h2`
   align-self: self-end;
   grid-area: title;
   justify-self: self-start;
+  padding-left: 2.2rem;
   ${linkHoverStyles}
   ${media.desktop} {
     align-self: self-start;
@@ -110,7 +111,6 @@ export const RecipeTitleLink = styled.a`
   font-size: 2rem;
   color: ${theme.Yellow};
   text-decoration: underline;
-  padding-left: 2.2rem;
   ${yellowFocusStyles}
   ${media.desktop} {
     font-size: 2.6rem;
