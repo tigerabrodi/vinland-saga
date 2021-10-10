@@ -62,7 +62,7 @@ type Props = {
 }
 
 const RecipeDetailPage: NextPage<Props> = (props) => {
-  const realtimeRecipe = useRealtimeState<Recipe>(props.path)
+  const realtimeRecipe = useRealtimeState(props.path)?.data() as Recipe
 
   if (!realtimeRecipe) {
     return <FullPageSpinner />

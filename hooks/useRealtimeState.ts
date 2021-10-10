@@ -1,17 +1,23 @@
 import * as React from 'react'
 import { useLoadingStore } from '@lib/store'
-import { doc, onSnapshot } from '@firebase/firestore'
+import {
+  doc,
+  DocumentData,
+  DocumentSnapshot,
+  onSnapshot,
+} from '@firebase/firestore'
 import { firebaseDb } from '@lib/firebase'
 
-export const useRealtimeState = <T>(path: string) => {
+export const useRealtimeState = (path: string) => {
   const { setStatus } = useLoadingStore()
-  const [state, setState] = React.useState<null | T>(null)
+  const [state, setState] =
+    React.useState<null | DocumentSnapshot<DocumentData>>(null)
 
   React.useEffect(() => {
     setStatus('loading')
     const unsubscribe = onSnapshot(doc(firebaseDb, path), (doc) => {
       if (doc.exists()) {
-        setState(doc.data() as T)
+        setState(doc)
         setStatus('success')
       }
     })
