@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 export const PageWrapper = styled.div`
   ${sectionStyles}
-  margin-bottom: 2rem;
+  margin-bottom: 5rem;
 `
 
 export const CommentsHeading = styled.h2`
