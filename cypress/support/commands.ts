@@ -73,7 +73,9 @@ const createUserAndProfile = (user: User) => {
   cy.findByText('Successfully updated your profile.').should('exist')
 
   // User Profile
-  cy.findByRole('heading', { name: user.fullname }).should('exist')
+  cy.findByRole('heading', { name: user.fullname, timeout: 8000 }).should(
+    'exist'
+  )
   cy.findByText(`@${user.username}`).should('exist')
   cy.findByText(`Age ${user.age}`).should('exist')
   cy.findByText(`Located in ${user.location}`).should('exist')
@@ -122,7 +124,7 @@ const assertPreviewMode = (recipe: Recipe, user: User) => {
   cy.assertRecipeDetail(recipe, user)
 
   // Turn off preview mode
-  cy.findByRole('button', { name: 'Preview' }).click()
+  cy.findByRole('button', { name: 'Preview' }).click({ force: true })
   cy.findByRole('heading', { name: 'Edit Recipe' }).should('exist')
 }
 
