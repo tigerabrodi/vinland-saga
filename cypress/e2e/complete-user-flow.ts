@@ -69,7 +69,7 @@ it('Complete users flow', () => {
   cy.findByRole('listitem', {
     name: `Read the recipe ${firstUserRecipe.title}`,
   }).within(() => {
-    cy.findByText('1 claps').should('exist')
+    cy.findByLabelText('1 claps').should('exist')
 
     // Go back to recipe detail
     cy.findByRole('link', { name: firstUserRecipe.title }).click()
