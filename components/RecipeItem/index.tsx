@@ -71,7 +71,7 @@ export const RecipeItem = ({
         <ClapSVG />
         {clapCount}
       </ClapText>
-      <CommentText>
+      <CommentText aria-label={`${commentsCount} comments`}>
         <BubbleSVG /> {commentsCount}
       </CommentText>
       <ReadingTime>{readingTime}</ReadingTime>
