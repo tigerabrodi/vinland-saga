@@ -95,6 +95,7 @@ export const NoFoundText = styled.p`
   font-size: 2rem;
   color: ${theme.Pink};
   font-weight: 500;
+  margin-top: 12rem;
   ${media.tablet} {
     margin-top: 20rem;
     font-size: 3rem;
