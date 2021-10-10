@@ -1,5 +1,5 @@
 import { RecipeItem } from '@components/RecipeItem'
-import { collectionGroup, getDocs, limit, query } from '@firebase/firestore'
+import { collectionGroup, getDocs, query } from '@firebase/firestore'
 import { firebaseDb, recipeToJSON } from '@lib/firebase'
 import { Recipe } from '@lib/types'
 import type { NextPage } from 'next'
@@ -13,13 +13,11 @@ import {
   NoFoundText,
 } from './styles'
 
-const MAX_RECIPES_PER_PAGE = 10
+// TODO use this to limit the the queries and add a load more button.
+// const MAX_RECIPES_PER_PAGE = 10
 
 export async function getServerSideProps() {
-  const recipesQuery = query(
-    collectionGroup(firebaseDb, 'recipes'),
-    limit(MAX_RECIPES_PER_PAGE)
-  )
+  const recipesQuery = query(collectionGroup(firebaseDb, 'recipes'))
 
   const recipes = (await getDocs(recipesQuery)).docs.map(
     recipeToJSON
