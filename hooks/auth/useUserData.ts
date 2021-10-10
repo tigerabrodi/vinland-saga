@@ -20,10 +20,8 @@ export function useUserData(): UserData {
 
     if (user) {
       unsubscribe = onSnapshot(doc(firebaseDb, 'users', user.uid), (doc) => {
-        if (doc.exists()) {
-          setUsername((doc.data() as User).username)
-          setStatus('success')
-        }
+        setUsername((doc.data() as User).username)
+        setStatus('success')
       })
     } else {
       setUsername(null)
