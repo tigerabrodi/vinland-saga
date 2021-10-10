@@ -7,6 +7,7 @@ import PlaceholderImage4x from '../../assets/placeholder-image4x.jpg'
 import PlaceholderImage3x from '../../assets/placeholder-image3x.jpg'
 import PlaceholderImage2x from '../../assets/placeholder-image2x.jpg'
 import ClapSVG from '../../assets/clap.svg'
+import ClapFilledSVG from '../../assets/clap-filled.svg'
 import BubbleSVG from '../../assets/bubble.svg'
 import TrashSVG from '../../assets/trash.svg'
 import PenSVG from '../../assets/pen.svg'
@@ -27,7 +28,11 @@ import {
   MarkDownWrapper,
 } from './styles'
 import { useUserContext } from '@lib/context'
-import { formatDate } from '@lib/firebase'
+import { auth, firebaseDb, formatDate } from '@lib/firebase'
+import { doc, increment, writeBatch } from '@firebase/firestore'
+import { useRealtimeState } from '@hooks/useRealtimeState'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/router'
 
 type Props = {
   recipe: Recipe
@@ -46,10 +51,12 @@ export const RecipeDetail = ({
     clapCount,
     commentsCount,
     slug,
+    uid,
   },
   buttons,
 }: Props) => {
-  const { username } = useUserContext()
+  const { username, user } = useUserContext()
+  const { push } = useRouter()
 
   const imageSrcSet =
     imageUrl === ''
@@ -57,6 +64,42 @@ export const RecipeDetail = ({
       : undefined
 
   const isUserAuthorized = authorUsername === username
+
+  const postPath = `users/${uid}/recipes/${slug}`
+  const postRef = doc(firebaseDb, postPath)
+
+  const clapPath = `${postPath}/claps/${auth.currentUser?.uid}`
+  const clapRef = doc(firebaseDb, clapPath)
+
+  const clapDoc = useRealtimeState(clapRef.path)
+  const isClapDocExist = clapDoc?.exists ? true : false
+
+  const addClap = async () => {
+    const uid = auth.currentUser?.uid
+    const batch = writeBatch(firebaseDb)
+
+    batch.update(postRef, { heartCount: increment(1) })
+    batch.set(clapRef, { uid })
+
+    await batch.commit()
+  }
+
+  const removeClap = async () => {
+    const batch = writeBatch(firebaseDb)
+
+    batch.update(postRef, { heartCount: increment(-1) })
+    batch.delete(clapRef)
+
+    await batch.commit()
+  }
+
+  const handleClap = () => {
+    if (!user) {
+      toast.error('You have to be authorized to clap a recipe.')
+      return push('/sign-in')
+    }
+    return isClapDocExist ? removeClap() : addClap()
+  }
 
   return (
     <Wrapper>
@@ -77,9 +120,12 @@ export const RecipeDetail = ({
           srcSet={imageSrcSet}
           alt={imageUrl === '' ? 'Placeholder' : title}
         />
-        {/* TODO Add Aria Pressed and clap functionality */}
-        <ClapButton aria-label={`Recipe ${clapCount} claps`}>
-          <ClapSVG />
+        <ClapButton
+          aria-label={`Recipe ${clapCount} claps`}
+          aria-pressed={isClapDocExist}
+          onClick={() => handleClap()}
+        >
+          {isClapDocExist ? <ClapFilledSVG /> : <ClapSVG />}
           {clapCount}
         </ClapButton>
         <Link passHref href="#comments">
