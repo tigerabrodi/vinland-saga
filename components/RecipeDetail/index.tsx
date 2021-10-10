@@ -30,9 +30,9 @@ import {
 import { useUserContext } from '@lib/context'
 import { auth, firebaseDb, formatDate } from '@lib/firebase'
 import { doc, increment, writeBatch } from '@firebase/firestore'
-import { useRealtimeState } from '@hooks/useRealtimeState'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
+import { useRealtimeState } from '@hooks/useRealtimeState'
 
 type Props = {
   recipe: Recipe
@@ -71,14 +71,13 @@ export const RecipeDetail = ({
   const clapPath = `${postPath}/claps/${auth.currentUser?.uid}`
   const clapRef = doc(firebaseDb, clapPath)
 
-  const clapDoc = useRealtimeState(clapRef.path)
-  const isClapDocExist = clapDoc?.exists ? true : false
+  const isClapDocExist = !!useRealtimeState(clapRef.path)?.exists()
 
   const addClap = async () => {
     const uid = auth.currentUser?.uid
     const batch = writeBatch(firebaseDb)
 
-    batch.update(postRef, { heartCount: increment(1) })
+    batch.update(postRef, { clapCount: increment(1) })
     batch.set(clapRef, { uid })
 
     await batch.commit()
@@ -87,7 +86,7 @@ export const RecipeDetail = ({
   const removeClap = async () => {
     const batch = writeBatch(firebaseDb)
 
-    batch.update(postRef, { heartCount: increment(-1) })
+    batch.update(postRef, { clapCount: increment(-1) })
     batch.delete(clapRef)
 
     await batch.commit()
@@ -98,6 +97,7 @@ export const RecipeDetail = ({
       toast.error('You have to be authorized to clap a recipe.')
       return push('/sign-in')
     }
+
     return isClapDocExist ? removeClap() : addClap()
   }
 
