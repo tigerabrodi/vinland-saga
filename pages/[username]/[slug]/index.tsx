@@ -35,7 +35,7 @@ export async function getStaticProps({ params }: Params) {
 
   return {
     props: { recipe, path },
-    revalidate: 100,
+    revalidate: 30,
   }
 }
 
@@ -64,11 +64,11 @@ type Props = {
 const RecipeDetailPage: NextPage<Props> = (props) => {
   const realtimeRecipe = useRealtimeState(props.path)?.data() as Recipe
 
+  const recipe = realtimeRecipe || props.recipe
+
   if (!realtimeRecipe) {
     return <FullPageSpinner />
   }
-
-  const recipe = props.recipe || realtimeRecipe
 
   return (
     <PageWrapper>
