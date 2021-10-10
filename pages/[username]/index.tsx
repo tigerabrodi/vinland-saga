@@ -51,7 +51,7 @@ type Props = {
   user: UserProfile
 }
 
-const Username: NextPage<Props> = ({ user }) => {
+const Profile: NextPage<Props> = ({ user }) => {
   const { username } = useUserContext()
 
   const { setIsModalOpen } = useNewRecipeStore()
@@ -116,4 +116,4 @@ const Username: NextPage<Props> = ({ user }) => {
   )
 }
 
-export default Username
+export default Profile
