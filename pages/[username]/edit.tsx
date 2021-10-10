@@ -266,7 +266,7 @@ const ProfileEdit: NextPage = () => {
           id="location"
           name="location"
           type="text"
-          placeholder="Los Angeles, California"
+          placeholder="San Diego, California"
           value={location}
           onChange={(event) => handleChange(event)}
           aria-required="true"
