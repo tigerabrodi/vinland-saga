@@ -268,10 +268,6 @@ const buttonStyles = css`
         box-shadow: 0 0.2rem 0.4rem black;
       }
     }
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
     svg {
       height: 2rem;
       width: 2rem;

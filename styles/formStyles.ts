@@ -137,10 +137,6 @@ export const SubmitButton = styled.button`
   padding: 1rem 3rem;
   margin-top: 5rem;
   box-shadow: 0 0.1rem 0.4rem black;
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
   ${pinkFocusStyles}
   ${media.tablet} {
     font-size: 2.5rem;

@@ -208,10 +208,6 @@ export const ButtonSave = styled.button`
   height: 3.3rem;
   box-shadow: 0 0.2rem 0.4rem black;
   transition: all ease 0.2s;
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
   ${pinkFocusStyles}
   ${media.tablet} {
     font-size: 2rem;
