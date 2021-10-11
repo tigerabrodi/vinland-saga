@@ -73,7 +73,7 @@ export const CommentForm = ({ recipe }: Props) => {
         value={textarea}
         placeholder="I liked this recipe of yours, because..."
       />
-      <PostButton type="submit">
+      <PostButton type="submit" disabled={!textarea.length}>
         <PenSVG /> Post
       </PostButton>
     </Form>
