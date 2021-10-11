@@ -18,12 +18,29 @@
 
 html {
   font-size: 62.5%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 18rem;
 }
 
 body {
   box-sizing: border-box;
   background: var(--brown);
   font-family: var(--inter);
+}
+
+body::-webkit-scrollbar {
+  width: 0.7rem;
+  background-color: #221704;
+}
+
+body::-webkit-scrollbar-track {
+  border-radius: 0.1rem;
+  background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 0.2rem;
+  background-color: var(--pink);
 }
 
 body div[id^='__next'] {
