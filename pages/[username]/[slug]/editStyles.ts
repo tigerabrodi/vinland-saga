@@ -79,10 +79,6 @@ export const Input = styled.input`
   padding-left: 0.7rem;
   transition: 0.2s all ease;
   margin-top: 1.5rem;
-  &::placeholder {
-    color: ${theme.Brown};
-    opacity: 0.6;
-  }
   &:focus {
     box-shadow: 0 0.2rem 0.2rem black;
   }
@@ -178,10 +174,6 @@ export const Textarea = styled.textarea`
   margin-top: 1.5rem;
   border: 0;
   background-color: ${theme.Pink};
-  &::placeholder {
-    opacity: 0.6;
-    color: ${theme.Brown};
-  }
   &:focus {
     box-shadow: 0 0.2rem 0.2rem black;
   }

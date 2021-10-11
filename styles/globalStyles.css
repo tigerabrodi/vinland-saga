@@ -78,12 +78,22 @@ input {
   border: none;
 }
 
+input::placeholder {
+  color: inherit;
+  opacity: 0.6;
+}
+
 input:focus {
   outline: none;
 }
 
 textarea {
   border: none;
+}
+
+textarea::placeholder {
+  color: inherit;
+  opacity: 0.6;
 }
 
 textarea:focus {

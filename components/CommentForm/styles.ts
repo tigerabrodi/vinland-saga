@@ -40,9 +40,6 @@ export const Textarea = styled.textarea`
   &:focus {
     box-shadow: 0 0.2rem 0.5rem black;
   }
-  &::placeholder {
-    opacity: 0.6;
-  }
   ${media.tablet} {
     width: 45rem;
     height: 14rem;

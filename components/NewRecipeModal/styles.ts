@@ -114,10 +114,6 @@ export const Input = styled.input`
   padding-left: 0.5rem;
   margin-top: 1.3rem;
   transition: all 0.2s ease;
-  &::placeholder {
-    color: ${theme.Pink};
-    opacity: 0.7;
-  }
   &:focus {
     box-shadow: 0 0.2rem 0.4rem black;
   }

@@ -41,10 +41,6 @@ export const formInputStyles = `
     box-shadow: 0 0.2rem 0.5rem black;
     outline: 0;
   }
-  &::placeholder {
-    opacity: 0.5;
-    color: ${theme.Brown};
-  }
   ${media.custom(360)} {
     margin-top: 1.5rem;
   }
