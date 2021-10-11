@@ -81,7 +81,7 @@ it('Complete users flow', () => {
   // Write a comment
   cy.findByRole('textbox', { name: 'Comment' }).type(secondUserComments.first)
   cy.findByRole('button', { name: 'Post' }).click()
-  cy.findByText('Successfully added your comment to this recipe.').should(
+  cy.findByText('You successfully added a comment to this recipe.').should(
     'exist'
   )
 
