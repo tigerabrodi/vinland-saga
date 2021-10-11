@@ -75,11 +75,49 @@ it('Complete users flow', () => {
     cy.findByRole('link', { name: firstUserRecipe.title }).click()
   })
 
-  // Click on Comments link
+  // Go to comments
+  cy.findByRole('link', { name: '0 comments' }).click()
+
   // Write a comment
+  cy.findByRole('textbox', { name: 'Comment' }).type(secondUserComments.first)
+  cy.findByRole('button', { name: 'Post' }).click()
+  cy.findByText('Successfully added your comment to this recipe.').should(
+    'exist'
+  )
+
   // Assert comments link length
-  // Edit comment itself
+  cy.findByRole('link', { name: '1 comments' }).click()
+
+  // Assert comment
+  cy.findByRole('listitem').within(() => {
+    cy.findByRole('link', { name: secondUser.fullname }).should('exist')
+    cy.findByRole('img', { name: secondUser.fullname }).should('exist')
+    cy.findByText(secondUserComments.first).should('exist')
+    cy.findByRole('button', { name: 'Comment 0 claps' }).should('exist')
+    cy.findByLabelText(/^Posted on 2021-10/i).should('exist')
+
+    // Edit comment
+    cy.findByRole('button', { name: 'Edit Comment' }).click()
+    cy.findByRole('textbox', { name: 'Edit Comment' })
+      .clear()
+      .type(secondUserComments.second)
+    cy.findByRole('button', { name: 'Save' }).click()
+  })
+
+  cy.findByText('Successfully edited your comment.').should('exist')
+
   // Delete Comment
+  cy.findByRole('button', { name: 'Delete Comment' }).click()
+  cy.findByRole('alertdialog', { name: 'Are you sure?' }).within(() => {
+    cy.findByText('Do you really want to delete your comment?').should('exist')
+    cy.findByRole('button', { name: 'Yes' }).click()
+  })
+
+  cy.findByText('Successfully deleted your comment.').should('exist')
+
+  // No comments should exist
+  cy.findByRole('listitem').should('not.exist')
+
   // Write two comments
   // Create two recipes
 
@@ -90,7 +128,7 @@ it('Complete users flow', () => {
   // Go to users page
   // Sort by both claps and recipes of the users
   // Click on the second user and see both its recipes on the profile page
-  // Go to your own profile and click on your recipe, also assert it has two comments and a clap
+  // Go to your own profile and click on your recipe, also assert it has two comments and a clap, clap and unclap one of the comments
 
   // Sign out (first user)
 
