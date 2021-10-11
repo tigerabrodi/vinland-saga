@@ -107,11 +107,6 @@ const RecipeEdit: NextPage = () => {
     const file = Array.from(event.target.files as FileList)[0]
     const extension = file.type.split('/')[1]
 
-    const recipeRef = doc(
-      firebaseDb,
-      `users/${auth.currentUser?.uid}/recipes/${slug}`
-    )
-
     const storage = getStorage()
     const recipeImageRef = ref(storage, `recipes/${slug}.${extension}`)
 
@@ -127,7 +122,11 @@ const RecipeEdit: NextPage = () => {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setDoc(recipeRef, { imageUrl: downloadURL }, { merge: true })
+          setDoc(
+            doc(firebaseDb, `users/${auth.currentUser?.uid}/recipes/${slug}`),
+            { imageUrl: downloadURL },
+            { merge: true }
+          )
           setRecipeImage(downloadURL)
           toast.success('Successfully uploaded your recipe image.')
           setStatus('success')

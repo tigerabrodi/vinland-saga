@@ -103,11 +103,11 @@ const ProfileEdit: NextPage = () => {
     if (exit) window.close()
   })
 
+  const userRef = doc(firebaseDb, `users/${auth.currentUser!.uid}`)
+
   const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = Array.from(event.target.files as FileList)[0]
     const extension = file.type.split('/')[1]
-
-    const userRef = doc(firebaseDb, `users/${auth.currentUser!.uid}`)
 
     const storage = getStorage()
     const avatarRef = ref(
@@ -145,7 +145,6 @@ const ProfileEdit: NextPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setStatus('loading')
-    const userRef = doc(firebaseDb, `users/${auth.currentUser!.uid}`)
 
     const recipeDocs = query(
       collection(firebaseDb, `users/${auth.currentUser!.uid}/recipes`)
