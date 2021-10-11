@@ -1,9 +1,11 @@
+import * as React from 'react'
 import { Recipe } from '@lib/types'
 import defaultAvatar from '../../assets/default-avatar.png'
 import PlaceholderImage4x from '../../assets/placeholder-image4x.jpg'
 import PlaceholderImage3x from '../../assets/placeholder-image3x.jpg'
 import PlaceholderImage2x from '../../assets/placeholder-image2x.jpg'
 import ClapSVG from '../../assets/clap.svg'
+import ClapFilledSVG from '../../assets/clap-filled.svg'
 import BubbleSVG from '../../assets/bubble.svg'
 import Link from 'next/link'
 import {
@@ -18,7 +20,8 @@ import {
   ReadingTime,
   RecipeTitleLink,
 } from './styles'
-import { formatDate } from '@lib/firebase'
+import { auth, firebaseDb, formatDate } from '@lib/firebase'
+import { doc, getDoc } from '@firebase/firestore'
 
 type Props = {
   recipe: Recipe
@@ -36,14 +39,32 @@ export const RecipeItem = ({
     commentsCount,
     slug,
     readingTime,
+    uid,
   },
 }: Props) => {
+  const [clapSnapshotExists, setClapSnapshotExists] = React.useState(false)
+
   const imageSrcSet =
     imageUrl === ''
       ? `${PlaceholderImage2x.src} 300w, ${PlaceholderImage3x.src} 768w, ${PlaceholderImage4x.src} 1280w`
       : undefined
 
   const formattedDate = formatDate(createdAt)
+
+  React.useEffect(() => {
+    const checkClapExists = async () => {
+      const clapRef = doc(
+        firebaseDb,
+        `users/${uid}/recipes/${slug}/claps/${auth.currentUser?.uid}`
+      )
+
+      const clapSnap = await getDoc(clapRef)
+
+      setClapSnapshotExists(!!clapSnap.exists())
+    }
+
+    checkClapExists()
+  }, [slug, uid])
 
   return (
     <RecipeListItem aria-label={`Read the recipe ${title}`}>
@@ -68,7 +89,7 @@ export const RecipeItem = ({
         </Link>
       </RecipeTitle>
       <ClapText aria-label={`${clapCount} claps`}>
-        <ClapSVG />
+        {clapSnapshotExists ? <ClapFilledSVG /> : <ClapSVG />}
         {clapCount}
       </ClapText>
       <CommentText aria-label={`${commentsCount} comments`}>
