@@ -74,8 +74,7 @@ export const RecipeDetail = ({
   const postPath = `users/${uid}/recipes/${slug}`
   const postRef = doc(firebaseDb, postPath)
 
-  const clapPath = `${postPath}/claps/${auth.currentUser?.uid}`
-  const clapRef = doc(firebaseDb, clapPath)
+  const clapRef = doc(firebaseDb, `${postPath}/claps/${auth.currentUser?.uid}`)
 
   const isClapDocExist = !!useRealtimeState(clapRef.path)?.exists()
 
