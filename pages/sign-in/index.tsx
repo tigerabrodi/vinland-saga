@@ -46,7 +46,7 @@ const SignIn: NextPage = () => {
             type="email"
             placeholder="naruto@gmail.com"
             value={email}
-            onChange={(event) => handleChange(event)}
+            onChange={handleChange}
             aria-required="true"
           />
         </FormGroup>
@@ -60,7 +60,7 @@ const SignIn: NextPage = () => {
             type="password"
             placeholder="Secret Password..."
             value={password}
-            onChange={(event) => handleChange(event)}
+            onChange={handleChange}
             aria-required="true"
           />
         </FormGroup>

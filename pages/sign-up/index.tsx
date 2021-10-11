@@ -138,8 +138,8 @@ const SignUp: NextPage = () => {
             placeholder="Naruto_Uzumaki..."
             type="text"
             value={username}
-            onChange={(event) => handleChange(event)}
             aria-invalid={isUsernameError ? 'true' : 'false'}
+            onChange={handleChange}
             aria-required="true"
           />
           {isUsernameError && (
@@ -179,7 +179,7 @@ const SignUp: NextPage = () => {
             type="password"
             placeholder="Secret Password..."
             value={password}
-            onChange={(event) => handleChange(event)}
+            onChange={handleChange}
             aria-invalid={isPasswordError ? 'true' : 'false'}
             aria-required="true"
           />
@@ -197,7 +197,7 @@ const SignUp: NextPage = () => {
             type="password"
             placeholder="Secret Password..."
             value={confirmPassword}
-            onChange={(event) => handleChange(event)}
+            onChange={handleChange}
             aria-invalid={isConfirmPasswordError ? 'true' : 'false'}
             aria-required="true"
           />

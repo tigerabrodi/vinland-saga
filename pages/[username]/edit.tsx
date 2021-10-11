@@ -232,7 +232,7 @@ const ProfileEdit: NextPage = () => {
           type="text"
           placeholder="Naruto Uzumaki"
           value={fullname}
-          onChange={(event) => handleChange(event)}
+          onChange={handleChange}
           aria-required="true"
         />
       </FormGroup>
@@ -244,7 +244,7 @@ const ProfileEdit: NextPage = () => {
           type="number"
           placeholder="20"
           value={age}
-          onChange={(event) => handleChange(event)}
+          onChange={handleChange}
           aria-required="true"
         />
       </AgeFormGroup>
@@ -256,7 +256,7 @@ const ProfileEdit: NextPage = () => {
           type="text"
           placeholder="Chef at Starship"
           value={work}
-          onChange={(event) => handleChange(event)}
+          onChange={handleChange}
           aria-required="true"
         />
       </FormGroup>
@@ -268,7 +268,7 @@ const ProfileEdit: NextPage = () => {
           type="text"
           placeholder="San Diego, California"
           value={location}
-          onChange={(event) => handleChange(event)}
+          onChange={handleChange}
           aria-required="true"
         />
       </FormGroup>
@@ -279,7 +279,7 @@ const ProfileEdit: NextPage = () => {
           name="bio"
           placeholder="I’m a Ninja who enjoys cooking and creating new recipes in my spare time."
           value={bio}
-          onChange={(event) => handleChange(event)}
+          onChange={handleChange}
         />
       </FormGroup>
       <ButtonWrapper>
