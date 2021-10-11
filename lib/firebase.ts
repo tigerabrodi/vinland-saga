@@ -12,6 +12,10 @@ import {
   getDoc,
   DocumentSnapshot,
   FieldValue,
+  writeBatch,
+  DocumentReference,
+  DocumentData,
+  increment,
 } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 import { Recipe, UserProfile } from './types'
@@ -99,3 +103,28 @@ export const formatDate = (createdAt: number | Timestamp | FieldValue) =>
   )
     .toISOString()
     .split('T')[0]
+
+export const addClap = async (
+  postRef: DocumentReference<DocumentData>,
+  clapRef: DocumentReference<DocumentData>
+) => {
+  const uid = auth.currentUser?.uid
+  const batch = writeBatch(firebaseDb)
+
+  batch.update(postRef, { clapCount: increment(1) })
+  batch.set(clapRef, { uid })
+
+  await batch.commit()
+}
+
+export const removeClap = async (
+  postRef: DocumentReference<DocumentData>,
+  clapRef: DocumentReference<DocumentData>
+) => {
+  const batch = writeBatch(firebaseDb)
+
+  batch.update(postRef, { clapCount: increment(-1) })
+  batch.delete(clapRef)
+
+  await batch.commit()
+}
