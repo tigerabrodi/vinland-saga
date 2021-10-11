@@ -94,7 +94,7 @@ it('Complete users flow', () => {
     cy.findByRole('img', { name: secondUser.fullname }).should('exist')
     cy.findByText(secondUserComments.first).should('exist')
     cy.findByRole('button', { name: 'Comment 0 claps' }).should('exist')
-    cy.findByLabelText(/^Posted on 2021-10/i).should('exist')
+    cy.findByText(/^On 2021-10/).should('exist')
 
     // Edit comment
     cy.findByRole('button', { name: 'Edit Comment' }).click()
