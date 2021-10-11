@@ -13,7 +13,6 @@ export const CommentsHeading = styled.h2`
   font-size: 3.6rem;
   color: ${theme.LightPink};
   text-decoration: underline;
-  margin: -2rem;
   ${media.tablet} {
     font-size: 6rem;
   }
