@@ -6,8 +6,6 @@ import defaultAvatar from '../../assets/default-avatar.png'
 import PlaceholderImage4x from '../../assets/placeholder-image4x.jpg'
 import PlaceholderImage3x from '../../assets/placeholder-image3x.jpg'
 import PlaceholderImage2x from '../../assets/placeholder-image2x.jpg'
-import ClapSVG from '../../assets/clap.svg'
-import ClapFilledSVG from '../../assets/clap-filled.svg'
 import BubbleSVG from '../../assets/bubble.svg'
 import TrashSVG from '../../assets/trash.svg'
 import PenSVG from '../../assets/pen.svg'
@@ -16,7 +14,6 @@ import {
   AuthorAvatar,
   AuthorLink,
   AuthorText,
-  ClapButton,
   CommentLink,
   DateText,
   DeleteButton,
@@ -39,6 +36,7 @@ import { doc } from '@firebase/firestore'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { useRealtimeState } from '@hooks/useRealtimeState'
+import { ClapButton } from '@components/ClapButton'
 
 type Props = {
   recipe: Recipe
@@ -109,13 +107,11 @@ export const RecipeDetail = ({
           alt={imageUrl === '' ? 'Placeholder' : title}
         />
         <ClapButton
-          aria-label={`Recipe ${clapCount} claps`}
-          aria-pressed={isClapDocExist}
-          onClick={() => handleClap()}
-        >
-          {isClapDocExist ? <ClapFilledSVG /> : <ClapSVG />}
-          {clapCount}
-        </ClapButton>
+          label="Recipe"
+          clapCount={clapCount}
+          isDocExist={isClapDocExist}
+          handleClap={handleClap}
+        />
         <Link passHref href="#comments">
           <CommentLink aria-label={`${commentsCount} comments`}>
             <BubbleSVG />

@@ -1,5 +1,9 @@
 import { media } from '@styles/media'
-import { pinkFocusStyles, sectionStyles } from '@styles/sharedStyles'
+import {
+  recipeDetailButtonStyles,
+  pinkFocusStyles,
+  sectionStyles,
+} from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 
@@ -94,51 +98,8 @@ export const RecipeImage = styled.img`
   }
 `
 
-const clapCommentStyles = css`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  font-weight: 400;
-  color: ${theme.Pink};
-  font-size: 1.6rem;
-  margin-top: 2rem;
-  column-gap: 0.5rem;
-  ${pinkFocusStyles}
-  svg {
-    width: 2.2rem;
-    height: 2.2rem;
-    ${media.tablet} {
-      width: 3rem;
-      height: 3rem;
-    }
-    ${media.desktop} {
-      width: 5rem;
-      height: 5rem;
-    }
-  }
-  ${media.tablet} {
-    font-size: 2rem;
-    transition: all 0.2s ease;
-    &:hover {
-      transform: translateY(-0.2rem);
-    }
-  }
-  ${media.desktop} {
-    margin-top: 3rem;
-    font-size: 3.5rem;
-  }
-`
-
-export const ClapButton = styled.button`
-  ${clapCommentStyles}
-  grid-area: clap;
-  ${media.desktop} {
-    justify-self: flex-end;
-  }
-`
-
 export const CommentLink = styled.a`
-  ${clapCommentStyles}
+  ${recipeDetailButtonStyles}
   grid-area: comment;
   ${media.desktop} {
     justify-self: flex-start;
