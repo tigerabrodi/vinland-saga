@@ -74,7 +74,7 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
   return (
     <PageWrapper>
       <RecipeDetail recipe={recipe} />
-      <CommentForm />
+      <CommentForm recipe={recipe} />
       <CommentsHeading id="comments">Comments</CommentsHeading>
       <NoCommentsText>This recipe currently has no comments.</NoCommentsText>
     </PageWrapper>

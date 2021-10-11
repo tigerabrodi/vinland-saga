@@ -35,3 +35,13 @@ export type Recipe = {
   authorAvatarUrl: string
   authorFullname: string
 }
+
+export type Comment = {
+  text: string
+  clapCount: number
+  createdAt: FieldValue | Timestamp | number
+  uid: string
+  authorUsername: string
+  authorAvatarUrl: string
+  authorFullname: string
+}
