@@ -7,6 +7,7 @@ import type { NextPage } from 'next'
 import { useRealtimeState } from '@hooks/useRealtimeState'
 import { CommentsHeading, NoCommentsText, PageWrapper } from './styles'
 import { RecipeDetail } from '@components/RecipeDetail'
+import { CommentForm } from '@components/CommentForm'
 
 type Params = {
   params: {
@@ -66,13 +67,14 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
 
   const recipe = realtimeRecipe || props.recipe
 
-  if (!realtimeRecipe) {
+  if (!realtimeRecipe && !props.recipe) {
     return <FullPageSpinner />
   }
 
   return (
     <PageWrapper>
       <RecipeDetail recipe={recipe} />
+      <CommentForm />
       <CommentsHeading id="comments">Comments</CommentsHeading>
       <NoCommentsText>This recipe currently has no comments.</NoCommentsText>
     </PageWrapper>
