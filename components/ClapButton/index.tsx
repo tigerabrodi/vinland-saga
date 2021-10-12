@@ -8,6 +8,7 @@ type Props = {
   handleClap: () => void
   label: string
   isDark?: boolean
+  className?: string
 }
 
 export const ClapButton = ({
@@ -16,6 +17,7 @@ export const ClapButton = ({
   handleClap,
   isDocExist,
   isDark,
+  className,
 }: Props) => {
   return (
     <Button
@@ -23,6 +25,7 @@ export const ClapButton = ({
       aria-pressed={isDocExist}
       onClick={() => handleClap()}
       isDark={isDark}
+      className={className}
     >
       {isDocExist ? <ClapFilledSVG /> : <ClapSVG />}
       {clapCount}
