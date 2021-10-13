@@ -3,7 +3,7 @@ import Link from 'next/link'
 import PenSVG from '../../assets/pen.svg'
 import CloseSVG from '../../assets/close.svg'
 import TrashSVG from '../../assets/trash.svg'
-import DummyAvatar from '../../cypress/fixtures/tiger-avatar.png'
+import defaultAvatar from '../../assets/default-avatar.png'
 import Dot from '../../assets/dot.svg'
 import {
   AuthorAvatar,
@@ -24,13 +24,34 @@ import { useFormState } from '@hooks/useFormState'
 import { useFocusTrap } from '@hooks/useFocusTrap'
 import { useClickOutside } from '@hooks/useClickOutside'
 import { useCloseEscape } from '@hooks/useCloseEscape'
+import { Comment, Recipe } from '@lib/types'
+import { auth, firebaseDb, formatDate } from '@lib/firebase'
+import { doc, setDoc } from '@firebase/firestore'
+import { useLoadingStore } from '@lib/store'
+import toast from 'react-hot-toast'
 
-export const CommentItem = () => {
+type Props = {
+  comment: Comment
+  recipe: Recipe
+}
+
+export const CommentItem = ({
+  comment: {
+    authorAvatarUrl,
+    authorFullname,
+    authorUsername,
+    text,
+    uid,
+    createdAt,
+  },
+  recipe,
+}: Props) => {
   const [isEditMode, setIsEditMode] = React.useState(false)
   const {
     formState: { editTextarea },
     handleChange,
-  } = useFormState({ editTextarea: '' })
+  } = useFormState({ editTextarea: text })
+  const { setStatus } = useLoadingStore()
 
   const editRef = useFocusTrap<HTMLFormElement>(isEditMode)
 
@@ -44,20 +65,46 @@ export const CommentItem = () => {
 
   const handleEditSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (!auth.currentUser) {
+      return
+    }
+
+    setStatus('loading')
+
+    const commentData = {
+      text: editTextarea,
+    }
+
+    await setDoc(
+      doc(
+        firebaseDb,
+        `users/${recipe.uid}/recipes/${recipe.slug}/comments/${uid}`
+      ),
+      commentData,
+      { merge: true }
+    )
+
+    toast.success('Successfully edited your comment.')
+    setStatus('success')
   }
+
+  const isUserAuthorized = uid === auth.currentUser?.uid
 
   const handleClap = () => {}
   return (
     <CommentListItem>
-      <AuthorAvatar src={DummyAvatar.src} />
+      <AuthorAvatar
+        src={authorAvatarUrl === '' ? defaultAvatar.src : authorAvatarUrl}
+        alt={authorFullname}
+      />
       <AuthorText>
         <Dot />
         By{' '}
-        <Link passHref href={`/`}>
-          <AuthorLink>Tiger Abrodi</AuthorLink>
+        <Link passHref href={`/${authorUsername}`}>
+          <AuthorLink>{authorFullname}</AuthorLink>
         </Link>
         <Dot />
-        On 2021-09-21
+        On {formatDate(createdAt)}
         <Dot />
       </AuthorText>
       {isEditMode ? (
@@ -88,16 +135,20 @@ export const CommentItem = () => {
         isDocExist={false}
         clapCount={0}
       />
-      <EditButton
-        aria-label="Edit Comment"
-        onClick={() => setIsEditMode(!isEditMode)}
-        aria-pressed={isEditMode}
-      >
-        {isEditMode ? <CloseSVG /> : <PenSVG />}
-      </EditButton>
-      <DeleteButton aria-label="Delete Comment">
-        <TrashSVG />
-      </DeleteButton>
+      {isUserAuthorized && (
+        <>
+          <EditButton
+            aria-label="Edit Comment"
+            onClick={() => setIsEditMode(!isEditMode)}
+            aria-pressed={isEditMode}
+          >
+            {isEditMode ? <CloseSVG /> : <PenSVG />}
+          </EditButton>
+          <DeleteButton aria-label="Delete Comment">
+            <TrashSVG />
+          </DeleteButton>
+        </>
+      )}
       <Line />
     </CommentListItem>
   )
