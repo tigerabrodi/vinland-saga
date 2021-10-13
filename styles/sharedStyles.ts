@@ -111,3 +111,49 @@ export const recipeDetailButtonStyles = css`
     font-size: 3.5rem;
   }
 `
+
+export const editDeleteStyles = css`
+  width: 2.8rem;
+  height: 2.8rem;
+  background-color: ${theme.LightPink};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.2rem;
+  box-shadow: 0 0.2rem 0.2rem black;
+  margin-top: 3rem;
+  ${pinkFocusStyles}
+  svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    path {
+      fill: ${theme.Brown};
+    }
+    ${media.tablet} {
+      width: 2rem;
+      height: 2rem;
+    }
+    ${media.desktop} {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+  ${media.tablet} {
+    width: 4rem;
+    height: 4rem;
+    transition: all 0.2s ease;
+    &:hover {
+      transform: translateY(-0.2rem);
+      box-shadow: 0 0.4rem 0.3rem black;
+    }
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 0.2rem 0.2rem black;
+    }
+  }
+  ${media.desktop} {
+    margin-top: 5rem;
+    width: 6rem;
+    height: 6rem;
+  }
+`
