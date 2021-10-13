@@ -1,5 +1,5 @@
 import { media } from '@styles/media'
-import { recipeDetailButtonStyles } from '@styles/sharedStyles'
+import { darkFocusStyles, recipeDetailButtonStyles } from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 
@@ -9,6 +9,8 @@ export const Button = styled.button<{ isDark?: boolean }>`
   ${(props) =>
     props.isDark &&
     css`
+      ${darkFocusStyles}
+      color: ${theme.Brown};
       path {
         fill: ${theme.Brown};
       }
