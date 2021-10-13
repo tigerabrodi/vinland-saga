@@ -20,9 +20,14 @@ import {
   Textarea,
   SaveButton,
 } from './styles'
+import { useFormState } from '@hooks/useFormState'
 
 export const CommentItem = () => {
   const [isEditMode, setIsEditMode] = React.useState(false)
+  const {
+    formState: { editTextarea },
+    handleChange,
+  } = useFormState({ editTextarea: '' })
 
   // TODO make sure edit form is accessible
 
@@ -50,8 +55,9 @@ export const CommentItem = () => {
           <Textarea
             placeholder="I liked this recipe of yours, because..."
             id="edit"
-            value="Did you ever try to bootstrap another project after this one started to
-        stall?"
+            value={editTextarea}
+            name="editTextarea"
+            onChange={handleChange}
           />
           <SaveButton type="submit">
             <PenSVG />
