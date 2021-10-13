@@ -44,4 +44,5 @@ export type Comment = {
   authorUsername: string
   authorAvatarUrl: string
   authorFullname: string
+  id: string
 }

@@ -1,6 +1,7 @@
 import { Form, Label, Textarea, PostButton } from './styles'
 import PenSVG from '../../assets/pen.svg'
 import { useFormState } from '@hooks/useFormState'
+import { v4 as uuidv4 } from 'uuid'
 import { auth, firebaseDb } from '@lib/firebase'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
@@ -48,6 +49,7 @@ export const CommentForm = ({ recipe }: Props) => {
         authorFullname: user.fullname,
         createdAt,
         uid: auth.currentUser.uid,
+        id: uuidv4(),
       }
 
       await setDoc(
