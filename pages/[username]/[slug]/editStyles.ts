@@ -79,9 +79,6 @@ export const Input = styled.input`
   padding-left: 0.7rem;
   transition: 0.2s all ease;
   margin-top: 1.5rem;
-  &:focus {
-    box-shadow: 0 0.2rem 0.2rem black;
-  }
   ${media.tablet} {
     height: 5rem;
     font-size: 2.3rem;
@@ -174,9 +171,6 @@ export const Textarea = styled.textarea`
   margin-top: 1.5rem;
   border: 0;
   background-color: ${theme.Pink};
-  &:focus {
-    box-shadow: 0 0.2rem 0.2rem black;
-  }
   ${media.tablet} {
     height: 15rem;
     font-size: 2rem;

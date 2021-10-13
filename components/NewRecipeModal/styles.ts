@@ -114,9 +114,6 @@ export const Input = styled.input`
   padding-left: 0.5rem;
   margin-top: 1.3rem;
   transition: all 0.2s ease;
-  &:focus {
-    box-shadow: 0 0.2rem 0.4rem black;
-  }
   ${media.tablet} {
     width: 35rem;
     height: 5rem;

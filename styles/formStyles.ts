@@ -37,10 +37,6 @@ export const formInputStyles = `
   width: 23rem;
   height: 2.5rem;
   margin-top: 1rem;
-  &:focus {
-    box-shadow: 0 0.2rem 0.5rem black;
-    outline: 0;
-  }
   ${media.custom(360)} {
     margin-top: 1.5rem;
   }

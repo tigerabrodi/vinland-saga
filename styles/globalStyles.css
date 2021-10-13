@@ -90,6 +90,7 @@ input::placeholder {
 
 input:focus {
   outline: none;
+  box-shadow: 0 0.2rem 0.5rem black;
 }
 
 textarea {
@@ -103,4 +104,5 @@ textarea::placeholder {
 
 textarea:focus {
   outline: none;
+  box-shadow: 0 0.2rem 0.5rem black;
 }

@@ -236,9 +236,6 @@ export const Textarea = styled.textarea`
   transition: all 0.2s ease;
   font-size: 1.1rem;
   padding: 0.5rem;
-  &:focus {
-    box-shadow: 0 0.2rem 0.5rem black;
-  }
   ${media.tablet} {
     width: 35rem;
     min-height: 12rem;
