@@ -1,16 +1,16 @@
 import * as React from 'react'
 
-type ClickOutsideParams = {
-  ref: React.RefObject<HTMLDivElement>
+type ClickOutsideParams<T extends HTMLElement = HTMLDivElement> = {
+  ref: React.RefObject<T>
   callback: () => void
   shouldTriggerCallback: boolean
 }
 
-export const useClickOutside = ({
+export const useClickOutside = <T extends HTMLElement>({
   ref,
   callback,
   shouldTriggerCallback,
-}: ClickOutsideParams) => {
+}: ClickOutsideParams<T>) => {
   const handleClick = React.useCallback(
     (event: Event) => {
       if (
