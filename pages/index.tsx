@@ -42,7 +42,7 @@ const RecipesFeed: NextPage<Props> = ({ recipes }) => {
           <ToolBarButton>Newest</ToolBarButton>
         </ToolBar>
       </TopWrapper>
-      {recipes.length > 0 ? (
+      {recipes.length ? (
         <RecipesList recipesLength={recipes.length}>
           {recipes.map((recipe) => (
             <RecipeItem key={recipe.slug} recipe={recipe} />
