@@ -262,6 +262,7 @@ export const SaveButton = styled.button`
   box-shadow: 0 0.2rem 0.2rem black;
   background-color: ${theme.Brown};
   margin-top: 2rem;
+  ${darkFocusStyles}
   svg {
     height: 1.5rem;
     width: 1.5rem;
