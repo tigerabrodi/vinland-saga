@@ -29,3 +29,15 @@ export const NoCommentsText = styled.p`
     margin-top: 5rem;
   }
 `
+
+export const CommentsList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  row-gap: 2rem;
+  margin-top: 2rem;
+  ${media.tablet} {
+    margin-top: 4rem;
+  }
+`

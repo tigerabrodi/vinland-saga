@@ -5,9 +5,15 @@ import { FullPageSpinner } from '@components/Spinner'
 import { Recipe } from '@lib/types'
 import type { NextPage } from 'next'
 import { useRealtimeState } from '@hooks/useRealtimeState'
-import { CommentsHeading, NoCommentsText, PageWrapper } from './styles'
+import {
+  CommentsHeading,
+  CommentsList,
+  NoCommentsText,
+  PageWrapper,
+} from './styles'
 import { RecipeDetail } from '@components/RecipeDetail'
 import { CommentForm } from '@components/CommentForm'
+import { CommentItem } from '@components/CommentItem'
 
 type Params = {
   params: {
@@ -77,6 +83,9 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
       <CommentForm recipe={recipe} />
       <CommentsHeading id="comments">Comments</CommentsHeading>
       {/*       <NoCommentsText>This recipe currently has no comments.</NoCommentsText> */}
+      <CommentsList>
+        <CommentItem />
+      </CommentsList>
     </PageWrapper>
   )
 }
