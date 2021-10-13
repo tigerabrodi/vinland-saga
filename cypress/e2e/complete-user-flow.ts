@@ -152,37 +152,3 @@ it('Complete users flow', () => {
 
   // Create over 10 recipes, assert that 10 recipes max are being shown and assert Load More button
 })
-
-/*
-  // Clap and unclap the recipe
-  cy.findByRole('button', { name: 'Recipe 0 claps' }).click()
-  cy.findByRole('button', { name: 'Recipe 1 claps' }).click()
-  cy.findByRole('button', { name: 'Recipe 0 claps' }).should('exist')
-
-     // Write a comment to the recipe
-  cy.findByLabelText('Comment').type(firstUserRecipe.comment)
-  cy.findByRole('button', { name: 'Post' }).click()
-  cy.findByText('Successfully added a comment to this recipe.').should('exist')
-  cy.findByText('This recipe currently has no comments.').should('not.exist')
-  cy.findByRole('link', { name: '1 comments' }).should('exist')
-
-  // Find Comment
-  cy.findByText(firstUserRecipe.comment).should('exist')
-
-  // Clap and unclap the comment
-  cy.findByRole('button', { name: 'Comment 0 claps' }).click()
-  cy.findByRole('button', { name: 'Comment 1 claps' }).click()
-  cy.findByRole('button', { name: 'Comment 0 claps' }).should('exist')
-
-  // Edit Comment
-  cy.findByRole('button', { name: 'Edit Comment' }).click()
-  cy.findByRole('textbox', { name: 'Edit Comment' }).clear()
-  cy.findByRole('textbox', { name: 'Edit Comment' }).type(
-    firstUserRecipe.editedComment
-  )
-  cy.findByRole('button', { name: 'Save' }).click()
-  cy.findByText(firstUserRecipe.editedComment).should('exist')
-  cy.findByText('Successfully edited your comment.').should('exist')
-
-  // Delete Comment
-  cy.findByRole('button', { name: 'Delete Comment' }).click() */
