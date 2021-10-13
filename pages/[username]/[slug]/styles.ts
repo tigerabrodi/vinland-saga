@@ -39,5 +39,6 @@ export const CommentsList = styled.ul`
   margin-top: 2rem;
   ${media.tablet} {
     margin-top: 4rem;
+    row-gap: 4rem;
   }
 `
