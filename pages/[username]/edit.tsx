@@ -153,7 +153,7 @@ const ProfileEdit: NextPage = () => {
 
     const batch = writeBatch(firebaseDb)
 
-    if (recipesSnapshot.docs.length > 0) {
+    if (recipesSnapshot.docs.length) {
       recipesSnapshot.forEach((recipeDoc) => {
         batch.update(recipeDoc.ref, {
           authorAvatarUrl: avatarImage === '' ? user!.avatarUrl : avatarImage,
