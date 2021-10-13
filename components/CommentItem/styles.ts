@@ -98,7 +98,6 @@ export const Text = styled.p`
   ${media.tablet} {
     width: 35rem;
     font-size: 1.9rem;
-    width: 35rem;
     margin: 1.5rem 0 3rem 3rem;
   }
   ${media.desktop} {
@@ -211,10 +210,17 @@ export const Line = styled.div`
 `
 
 export const Form = styled.form`
+  grid-area: text;
   display: flex;
   align-items: flex-end;
   justify-content: space-evenly;
   flex-direction: column;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  ${media.tablet} {
+    margin-bottom: 3rem;
+    margin-top: 1.5rem;
+  }
 `
 
 export const HiddenLabel = styled.label`
@@ -222,14 +228,29 @@ export const HiddenLabel = styled.label`
 `
 
 export const Textarea = styled.textarea`
-  width: 19rem;
-  height: 7.5rem;
+  width: 20rem;
+  min-height: 7.5rem;
   border-radius: 0.2rem;
   color: ${theme.Pink};
   background-color: ${theme.Brown};
   transition: all 0.2s ease;
+  font-size: 1.1rem;
+  padding: 0.5rem;
   &:focus {
-    box-shadow: 0 0.2rem 0.3rem black;
+    box-shadow: 0 0.2rem 0.5rem black;
+  }
+  ${media.tablet} {
+    width: 35rem;
+    min-height: 12rem;
+    font-size: 1.6rem;
+    padding: 0.8rem;
+  }
+  ${media.desktop} {
+    width: 46rem;
+    min-height: 18rem;
+    width: 45rem;
+    font-size: 2rem;
+    padding: 1rem;
   }
 `
 
@@ -242,11 +263,41 @@ export const SaveButton = styled.button`
   border-radius: 0.2rem;
   color: ${theme.LightPink};
   box-shadow: 0 0.2rem 0.2rem black;
+  background-color: ${theme.Brown};
+  margin-top: 2rem;
   svg {
     height: 1.5rem;
     width: 1.5rem;
     path {
       fill: ${theme.LightPink};
+    }
+  }
+  ${media.tablet} {
+    width: 11rem;
+    height: 5rem;
+    font-size: 2rem;
+    margin-top: 2.5rem;
+    transition: all 0.2s ease;
+    &:hover {
+      transform: translateY(-0.2rem);
+      box-shadow: 0 0.4rem 0.2rem black;
+    }
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 0.2rem 0.2rem black;
+    }
+    svg {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+  ${media.desktop} {
+    width: 13rem;
+    height: 5.5rem;
+    font-size: 2.5rem;
+    svg {
+      height: 2.4rem;
+      width: 2.4rem;
     }
   }
 `
