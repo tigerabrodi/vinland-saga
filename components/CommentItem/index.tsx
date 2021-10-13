@@ -21,6 +21,9 @@ import {
   SaveButton,
 } from './styles'
 import { useFormState } from '@hooks/useFormState'
+import { useFocusTrap } from '@hooks/useFocusTrap'
+import { useClickOutside } from '@hooks/useClickOutside'
+import { useCloseEscape } from '@hooks/useCloseEscape'
 
 export const CommentItem = () => {
   const [isEditMode, setIsEditMode] = React.useState(false)
@@ -29,7 +32,15 @@ export const CommentItem = () => {
     handleChange,
   } = useFormState({ editTextarea: '' })
 
-  // TODO make sure edit form is accessible
+  const editRef = useFocusTrap<HTMLFormElement>(isEditMode)
+
+  useClickOutside({
+    ref: editRef,
+    callback: () => setIsEditMode(false),
+    shouldTriggerCallback: isEditMode,
+  })
+
+  useCloseEscape(() => setIsEditMode(false))
 
   const handleEditSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -50,7 +61,7 @@ export const CommentItem = () => {
         <Dot />
       </AuthorText>
       {isEditMode ? (
-        <Form onSubmit={handleEditSubmit}>
+        <Form onSubmit={handleEditSubmit} ref={editRef}>
           <HiddenLabel htmlFor="edit">Edit Comment</HiddenLabel>
           <Textarea
             placeholder="I liked this recipe of yours, because..."
