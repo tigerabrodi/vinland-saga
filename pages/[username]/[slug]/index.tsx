@@ -1,8 +1,15 @@
 import * as React from 'react'
-import { getDocs, query, doc, getDoc, collection } from '@firebase/firestore'
+import {
+  getDocs,
+  query,
+  doc,
+  getDoc,
+  collection,
+  onSnapshot,
+} from '@firebase/firestore'
 import { firebaseDb, recipeToJSON, getUserWithUsername } from '@lib/firebase'
 import { FullPageSpinner } from '@components/Spinner'
-import { Recipe } from '@lib/types'
+import { Comment, Recipe } from '@lib/types'
 import type { NextPage } from 'next'
 import { useRealtimeState } from '@hooks/useRealtimeState'
 import {
@@ -14,6 +21,7 @@ import {
 import { RecipeDetail } from '@components/RecipeDetail'
 import { CommentForm } from '@components/CommentForm'
 import { CommentItem } from '@components/CommentItem'
+import { useLoadingStore } from '@lib/store'
 
 type Params = {
   params: {
@@ -28,20 +36,29 @@ export async function getStaticProps({ params }: Params) {
   const user = await getUserWithUsername(username)
 
   let recipe = {} as Recipe
-  let path = ''
+  let recipePath = ''
+  let comments = [] as Comment[]
 
   if (user) {
-    const recipeRef = doc(firebaseDb, `users/${user.uid}/recipes/${slug}`)
+    recipePath = `users/${user.uid}/recipes/${slug}`
+    const recipeRef = doc(firebaseDb, recipePath)
     const recipeSnap = await getDoc(recipeRef)
+
+    const commentsSnapshot = await getDocs(
+      collection(firebaseDb, `${recipePath}/comments`)
+    )
+
+    commentsSnapshot.forEach((doc) => {
+      comments = [...comments, doc.data() as Comment]
+    })
 
     if (recipeSnap.exists()) {
       recipe = recipeToJSON(recipeSnap)
-      path = recipeRef.path
     }
   }
 
   return {
-    props: { recipe, path },
+    props: { recipe, recipePath },
     revalidate: 30,
   }
 }
@@ -65,13 +82,32 @@ export async function getStaticPaths() {
 
 type Props = {
   recipe: Recipe
-  path: string
+  recipePath: string
+  comments: Comment[]
 }
 
 const RecipeDetailPage: NextPage<Props> = (props) => {
-  const realtimeRecipe = useRealtimeState(props.path)?.data() as Recipe
+  const { setStatus } = useLoadingStore()
+  const [realtimeComments, setRealtimeComments] = React.useState<Comment[]>([])
 
+  const realtimeRecipe = useRealtimeState(props.recipePath)?.data() as Recipe
   const recipe = realtimeRecipe || props.recipe
+
+  const comments = realtimeComments || props.comments
+
+  React.useEffect(() => {
+    setStatus('loading')
+    const unsubscribe = onSnapshot(
+      query(collection(firebaseDb, `${props.recipePath}/comments`)),
+      (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          setRealtimeComments([...realtimeComments, doc.data() as Comment])
+        })
+        setStatus('success')
+      }
+    )
+    return unsubscribe
+  }, [props.recipePath, realtimeComments, setStatus])
 
   if (!realtimeRecipe && !props.recipe) {
     return <FullPageSpinner />
@@ -82,10 +118,15 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
       <RecipeDetail recipe={recipe} />
       <CommentForm recipe={recipe} />
       <CommentsHeading id="comments">Comments</CommentsHeading>
-      {/*       <NoCommentsText>This recipe currently has no comments.</NoCommentsText> */}
-      <CommentsList>
-        <CommentItem />
-      </CommentsList>
+      {comments.length ? (
+        <CommentsList>
+          {comments.map((comment) => (
+            <CommentItem key={comment.id} comment={comment} recipe={recipe} />
+          ))}
+        </CommentsList>
+      ) : (
+        <NoCommentsText>This recipe currently has no comments.</NoCommentsText>
+      )}
     </PageWrapper>
   )
 }
