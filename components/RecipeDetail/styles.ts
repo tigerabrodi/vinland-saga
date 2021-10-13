@@ -3,15 +3,18 @@ import {
   recipeDetailButtonStyles,
   pinkFocusStyles,
   sectionStyles,
+  editDeleteStyles,
 } from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   ${sectionStyles}
-  margin: 2rem 0;
-  ${media.desktop} {
-    margin: 3rem 0;
+  margin-top: 2rem;
+  min-height: auto;
+  ${media.tablet} {
+    min-height: auto;
+    margin-top: 4rem;
   }
 `
 
@@ -138,52 +141,6 @@ export const DateText = styled.p`
   }
 `
 
-const editDeleteStyles = css`
-  width: 2.8rem;
-  height: 2.8rem;
-  background-color: ${theme.LightPink};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.2rem;
-  box-shadow: 0 0.2rem 0.2rem black;
-  margin-top: 3rem;
-  ${pinkFocusStyles}
-  svg {
-    width: 1.4rem;
-    height: 1.4rem;
-    path {
-      fill: ${theme.Brown};
-    }
-    ${media.tablet} {
-      width: 2rem;
-      height: 2rem;
-    }
-    ${media.desktop} {
-      width: 3rem;
-      height: 3rem;
-    }
-  }
-  ${media.tablet} {
-    width: 4rem;
-    height: 4rem;
-    transition: all 0.2s ease;
-    &:hover {
-      transform: translateY(-0.2rem);
-      box-shadow: 0 0.4rem 0.5rem black;
-    }
-    &:active {
-      transform: translateY(0);
-      box-shadow: 0 0.2rem 0.2rem black;
-    }
-  }
-  ${media.desktop} {
-    margin-top: 5rem;
-    width: 6rem;
-    height: 6rem;
-  }
-`
-
 export const EditLink = styled.a`
   ${editDeleteStyles}
   grid-area: edit;
@@ -208,13 +165,13 @@ export const MarkDownWrapper = styled.div`
   text-align: center;
   width: 28rem;
   row-gap: 1rem;
-  margin-top: 3rem;
+  margin-top: 2rem;
   border-bottom: 0.2rem solid;
   padding-bottom: 2rem;
   margin-bottom: 2rem;
   ${media.tablet} {
     width: 50rem;
-    margin-bottom: 4rem;
+    margin: 5rem 0;
     font-size: 2rem;
     h1 {
       font-size: 3rem;
@@ -224,9 +181,8 @@ export const MarkDownWrapper = styled.div`
     }
   }
   ${media.desktop} {
-    margin-top: 5rem;
     line-height: 1.5;
-    margin-bottom: 6rem;
+    margin-bottom: 7rem;
     width: 75rem;
     border-bottom: 0.4rem solid;
     h1 {
