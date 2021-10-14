@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { auth, firebaseDb } from '@lib/firebase'
 import type { NextPage } from 'next'
 import { NextRouter, useRouter } from 'next/router'
-import { Recipe, UserProfile } from '@lib/types'
+import { Comment, Recipe, UserProfile } from '@lib/types'
 import DefaultAvatar from '../../assets/default-avatar.png'
 import {
   Avatar,
@@ -37,10 +37,12 @@ import {
 } from '@firebase/storage'
 import {
   collection,
+  collectionGroup,
   doc,
   getDocs,
   query,
   setDoc,
+  where,
   writeBatch,
 } from '@firebase/firestore'
 import toast from 'react-hot-toast'
@@ -151,6 +153,12 @@ const ProfileEdit: NextPage = () => {
     )
     const recipesSnapshot = await getDocs(recipeDocs)
 
+    const commentDocs = query(
+      collectionGroup(firebaseDb, 'comments'),
+      where('uid', '==', auth.currentUser?.uid)
+    )
+    const commentsSnapshot = await getDocs(commentDocs)
+
     const batch = writeBatch(firebaseDb)
 
     if (recipesSnapshot.docs.length) {
@@ -159,6 +167,15 @@ const ProfileEdit: NextPage = () => {
           authorAvatarUrl: avatarImage === '' ? user!.avatarUrl : avatarImage,
           authorFullname: fullname,
         } as Recipe)
+      })
+    }
+
+    if (commentsSnapshot.docs.length) {
+      commentsSnapshot.forEach((commentDoc) => {
+        batch.update(commentDoc.ref, {
+          authorAvatarUrl: avatarImage === '' ? user!.avatarUrl : avatarImage,
+          authorFullname: fullname,
+        } as Comment)
       })
     }
 
