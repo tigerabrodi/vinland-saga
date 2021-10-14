@@ -73,7 +73,7 @@ const createUserAndProfile = (user: User) => {
   cy.findByText('Successfully updated your profile.').should('exist')
 
   // User Profile
-  cy.findByRole('heading', { name: user.fullname, timeout: 8000 }).should(
+  cy.findByRole('heading', { name: user.fullname, timeout: 10000 }).should(
     'exist'
   )
   cy.findByText(`@${user.username}`).should('exist')
