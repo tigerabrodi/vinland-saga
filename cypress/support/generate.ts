@@ -16,10 +16,10 @@ export type Recipe = {
   body: string
 }
 
-export type Comment = {
-  first: string
-  second: string
-  edited: string
+export type Comments = {
+  firstComment: string
+  secondComment: string
+  editedComment: string
 }
 
 export const buildUser = build<User>('User', {
@@ -42,10 +42,10 @@ export const buildRecipe = build<Recipe>('User', {
   },
 })
 
-export const buildComments = build<Comment>('User', {
+export const buildComments = build<Comments>('User', {
   fields: {
-    first: fake((f) => f.lorem.paragraph(1)),
-    second: fake((f) => f.lorem.paragraph(1)),
-    edited: fake((f) => f.lorem.paragraph(1)),
+    firstComment: fake((f) => f.lorem.paragraph(1)),
+    secondComment: fake((f) => f.lorem.paragraph(1)),
+    editedComment: fake((f) => f.lorem.paragraph(1)),
   },
 })

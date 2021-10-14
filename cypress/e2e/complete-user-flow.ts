@@ -79,7 +79,9 @@ it('Complete users flow', () => {
   cy.findByRole('link', { name: '0 comments' }).click()
 
   // Write a comment
-  cy.findByRole('textbox', { name: 'Comment' }).type(secondUserComments.first)
+  cy.findByRole('textbox', { name: 'Comment' }).type(
+    secondUserComments.firstComment
+  )
   cy.findByRole('button', { name: 'Post' }).click()
   cy.findByText('You successfully added a comment to this recipe.').should(
     'exist'
@@ -92,19 +94,22 @@ it('Complete users flow', () => {
   cy.findByRole('listitem').within(() => {
     cy.findByRole('link', { name: secondUser.fullname }).should('exist')
     cy.findByRole('img', { name: secondUser.fullname }).should('exist')
-    cy.findByText(secondUserComments.first).should('exist')
+    cy.findByText(secondUserComments.firstComment).should('exist')
     cy.findByRole('button', { name: 'Comment 0 claps' }).should('exist')
     cy.findByText(/^On 2021-10/).should('exist')
 
     // Edit comment
     cy.findByRole('button', { name: 'Edit Comment' }).click()
     cy.findByRole('textbox', { name: 'Edit Comment' })
+      .should('have.value', secondUserComments.firstComment)
       .clear()
-      .type(secondUserComments.second)
+      .type(secondUserComments.secondComment)
     cy.findByRole('button', { name: 'Save' }).click()
   })
 
+  // Assert edited comment
   cy.findByText('Successfully edited your comment.').should('exist')
+  cy.findByText(secondUserComments.secondComment).should('exist')
 
   // Delete Comment
   cy.findByRole('button', { name: 'Delete Comment' }).click()
@@ -128,6 +133,7 @@ it('Complete users flow', () => {
   // Go to users page
   // Sort by both claps and recipes of the users
   // Click on the second user and see both its recipes on the profile page
+  // Go to home and assert the recipe item comments length of your own recipe
   // Go to your own profile and click on your recipe, also assert it has two comments and a clap, clap and unclap one of the comments
 
   // Sign out (first user)
