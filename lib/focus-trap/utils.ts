@@ -41,9 +41,7 @@ export function getKeyDownEventHandler(
   lastElement: HTMLElement
 ) {
   return function (event: KeyboardEvent) {
-    if (!isTabKeyPressed(event)) {
-      return
-    }
+    if (!isTabKeyPressed(event)) return
 
     if (event.shiftKey && document.activeElement === firstElement) {
       event.preventDefault()
