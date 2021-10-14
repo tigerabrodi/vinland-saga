@@ -65,9 +65,7 @@ export const CommentItem = ({
 
   const handleEditSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!auth.currentUser) {
-      return
-    }
+    if (!auth.currentUser) return
 
     setStatus('loading')
 
@@ -91,6 +89,7 @@ export const CommentItem = ({
   const isUserAuthorized = uid === auth.currentUser?.uid
 
   const handleClap = () => {}
+
   return (
     <CommentListItem>
       <AuthorAvatar
