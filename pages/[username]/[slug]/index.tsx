@@ -7,7 +7,12 @@ import {
   collection,
   onSnapshot,
 } from '@firebase/firestore'
-import { firebaseDb, recipeToJSON, getUserWithUsername } from '@lib/firebase'
+import {
+  firebaseDb,
+  recipeToJSON,
+  getUserWithUsername,
+  commentsToJSON,
+} from '@lib/firebase'
 import { FullPageSpinner } from '@components/Spinner'
 import { Comment, Recipe } from '@lib/types'
 import type { NextPage } from 'next'
@@ -42,23 +47,23 @@ export async function getStaticProps({ params }: Params) {
   if (user) {
     recipePath = `users/${user.uid}/recipes/${slug}`
     const recipeRef = doc(firebaseDb, recipePath)
-    const recipeSnap = await getDoc(recipeRef)
+    const recipeSnapshot = await getDoc(recipeRef)
 
     const commentsSnapshot = await getDocs(
       collection(firebaseDb, `${recipePath}/comments`)
     )
 
-    commentsSnapshot.forEach((doc) => {
-      comments = [...comments, doc.data() as Comment]
-    })
+    if (!commentsSnapshot.empty) {
+      comments = commentsToJSON(commentsSnapshot)
+    }
 
-    if (recipeSnap.exists()) {
-      recipe = recipeToJSON(recipeSnap)
+    if (recipeSnapshot.exists()) {
+      recipe = recipeToJSON(recipeSnapshot)
     }
   }
 
   return {
-    props: { recipe, recipePath },
+    props: { recipe, recipePath, comments },
     revalidate: 30,
   }
 }
@@ -99,15 +104,13 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
     setStatus('loading')
     const unsubscribe = onSnapshot(
       query(collection(firebaseDb, `${props.recipePath}/comments`)),
-      (querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          setRealtimeComments([...realtimeComments, doc.data() as Comment])
-        })
+      (commentsSnapshot) => {
+        setRealtimeComments(commentsToJSON(commentsSnapshot))
         setStatus('success')
       }
     )
     return unsubscribe
-  }, [props.recipePath, realtimeComments, setStatus])
+  }, [props.recipePath, setStatus])
 
   if (!realtimeRecipe && !props.recipe) {
     return <FullPageSpinner />
