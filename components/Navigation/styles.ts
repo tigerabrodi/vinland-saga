@@ -4,7 +4,7 @@ import {
   darkFocusStyles,
   pinkFocusStyles,
   yellowFocusStyles,
-} from '@styles/sharedStyles'
+} from '@styles/focusStyles'
 import { media } from '@styles/media'
 
 export const NavigationWrapper = styled.nav`

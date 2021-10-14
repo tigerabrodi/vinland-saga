@@ -2,7 +2,7 @@ import { theme } from '@styles/theme'
 import ExternalSVG from '../../assets/external.svg'
 import styled from 'styled-components'
 import { media } from '@styles/media'
-import { pinkFocusStyles } from '@styles/sharedStyles'
+import { pinkFocusStyles } from '@styles/focusStyles'
 
 export const FooterContainer = styled.footer`
   width: 100%;

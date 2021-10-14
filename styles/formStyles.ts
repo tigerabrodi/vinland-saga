@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
+import { pinkFocusStyles } from './focusStyles'
 import { media } from './media'
-import { pinkFocusStyles, sectionStyles } from './sharedStyles'
+import { sectionStyles } from './sharedStyles'
 import { theme } from './theme'
 
 export const formGroupStyles = css`

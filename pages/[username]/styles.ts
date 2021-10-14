@@ -1,14 +1,10 @@
-import {
-  AssistiveTechnologyOnly,
-  darkFocusStyles,
-  pinkFocusStyles,
-  sectionStyles,
-} from '@styles/sharedStyles'
+import { AssistiveTechnologyOnly, sectionStyles } from '@styles/sharedStyles'
 import PenSVG from '../../assets/pen.svg'
 import DotSVG from '../../assets/dot.svg'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 import { media } from '@styles/media'
+import { darkFocusStyles, pinkFocusStyles } from '@styles/focusStyles'
 
 export const UsernameWrapper = styled.div`
   margin: 3rem 0;

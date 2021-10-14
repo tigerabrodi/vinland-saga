@@ -1,5 +1,6 @@
+import { whiteFocusStyles } from '@styles/focusStyles'
 import { media } from '@styles/media'
-import { sectionStyles, whiteFocusStyles } from '@styles/sharedStyles'
+import { sectionStyles } from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 

@@ -1,5 +1,5 @@
 import { media } from '@styles/media'
-import { pinkFocusStyles, yellowFocusStyles } from '@styles/sharedStyles'
+import { pinkFocusStyles, yellowFocusStyles } from '@styles/focusStyles'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 

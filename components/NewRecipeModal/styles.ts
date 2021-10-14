@@ -1,4 +1,4 @@
-import { darkFocusStyles } from '@styles/sharedStyles'
+import { darkFocusStyles } from '@styles/focusStyles'
 import { theme } from '@styles/theme'
 import CloseSVG from '../../assets/close.svg'
 import styled from 'styled-components'

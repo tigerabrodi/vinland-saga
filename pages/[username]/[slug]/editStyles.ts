@@ -1,13 +1,12 @@
 import {
-  darkFocusStyles,
   AssistiveTechnologyOnly,
   heightSectionStyles,
-  yellowFocusStyles,
 } from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
 import ImagesSVG from '../../../assets/images.svg'
 import styled, { css } from 'styled-components'
 import { media } from '@styles/media'
+import { darkFocusStyles, yellowFocusStyles } from '@styles/focusStyles'
 
 const formGroupStyles = css`
   display: flex;

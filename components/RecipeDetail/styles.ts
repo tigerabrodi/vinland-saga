@@ -1,7 +1,7 @@
+import { pinkFocusStyles } from '@styles/focusStyles'
 import { media } from '@styles/media'
 import {
   recipeDetailButtonStyles,
-  pinkFocusStyles,
   sectionStyles,
   editDeleteStyles,
 } from '@styles/sharedStyles'
