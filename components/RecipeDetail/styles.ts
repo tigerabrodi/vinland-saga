@@ -1,10 +1,10 @@
+import {
+  editDeleteStyles,
+  recipeDetailButtonStyles,
+} from '@styles/buttonStyles'
 import { pinkFocusStyles } from '@styles/focusStyles'
 import { media } from '@styles/media'
-import {
-  recipeDetailButtonStyles,
-  sectionStyles,
-  editDeleteStyles,
-} from '@styles/sharedStyles'
+import { sectionStyles } from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
 import styled from 'styled-components'
 

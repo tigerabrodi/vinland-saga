@@ -1,6 +1,6 @@
 import { darkFocusStyles } from '@styles/focusStyles'
 import { media } from '@styles/media'
-import { recipeDetailButtonStyles } from '@styles/sharedStyles'
+import { recipeDetailButtonStyles } from '@styles/buttonStyles'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 

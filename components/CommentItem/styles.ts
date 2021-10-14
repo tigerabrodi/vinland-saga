@@ -1,7 +1,8 @@
 import { ClapButton } from '@components/ClapButton'
+import { editDeleteStyles } from '@styles/buttonStyles'
 import { darkFocusStyles } from '@styles/focusStyles'
 import { media } from '@styles/media'
-import { AssistiveTechnologyOnly, editDeleteStyles } from '@styles/sharedStyles'
+import { AssistiveTechnologyOnly } from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
 import styled from 'styled-components'
 
