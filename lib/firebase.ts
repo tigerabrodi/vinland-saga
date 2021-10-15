@@ -57,7 +57,7 @@ export const getUserWithUsername = async (username: string) => {
   if (user && user.joined) {
     return {
       ...user,
-      joined: (user.joined as Timestamp).toMillis(),
+      joined: (user.joined as Timestamp)?.toMillis() || 0,
     }
   }
 }
@@ -80,7 +80,7 @@ export const getRecipeWithSlug = async (
 
     return {
       ...recipe,
-      createdAt: (recipe.createdAt as Timestamp).toMillis(),
+      createdAt: (recipe.createdAt as Timestamp)?.toMillis() || 0,
     } as Recipe
   }
 }
@@ -89,22 +89,20 @@ export const recipeToJSON = (recipeSnapshot: DocumentSnapshot): Recipe => {
   const recipe = recipeSnapshot.data() as Recipe
   return {
     ...recipe,
-    createdAt: (recipe.createdAt as Timestamp).toMillis() || 0,
+    createdAt: (recipe.createdAt as Timestamp)?.toMillis() || 0,
   }
 }
 
 export const commentsToJSON = (
   commentsSnapshot: QuerySnapshot<DocumentData>
 ): Comment[] =>
-  commentsSnapshot.docs.map(
-    (commentDoc) =>
-      ({
-        ...commentDoc.data(),
-        createdAt:
-          ((commentDoc.data() as Comment).createdAt as Timestamp).toMillis() ||
-          0,
-      } as Comment)
-  )
+  commentsSnapshot.docs.map((commentDoc) => {
+    const comment = commentDoc.data() as Comment
+    return {
+      ...comment,
+      createdAt: (comment.createdAt as Timestamp)?.toMillis() || 0,
+    } as Comment
+  })
 
 export const formatDate = (createdAt: number | Timestamp | FieldValue) =>
   (typeof createdAt === 'number'
