@@ -31,12 +31,6 @@ export const useCreateUserWithEmailAndPassword = () => {
 
       const userRef = doc(firebaseDb, `users/${user.user.uid}`)
 
-      // Workaround since serverTimestamp behavior is inconsistent and sometimes returns null.
-      let joined = null
-      do {
-        joined = serverTimestamp()
-      } while (joined === null)
-
       batch.set(userRef, {
         username,
         email,
@@ -48,7 +42,7 @@ export const useCreateUserWithEmailAndPassword = () => {
         avatarUrl: '',
         clapCount: 0,
         recipeCount: 0,
-        joined,
+        joined: serverTimestamp(),
         uid: user.user.uid,
       })
 
