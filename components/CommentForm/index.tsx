@@ -22,6 +22,7 @@ export const CommentForm = ({ recipe }: Props) => {
   const { user } = useGetUser(username)
   const {
     formState: { textarea },
+    setFormState,
     handleChange,
   } = useFormState({ textarea: '' })
 
@@ -36,18 +37,13 @@ export const CommentForm = ({ recipe }: Props) => {
     }
 
     if (user && username) {
-      let createdAt = null
-      do {
-        createdAt = serverTimestamp()
-      } while (createdAt === null)
-
       const commentData: Comment = {
         text: textarea,
         clapCount: 0,
         authorUsername: username,
         authorAvatarUrl: user.avatarUrl,
         authorFullname: user.fullname,
-        createdAt,
+        createdAt: serverTimestamp(),
         uid: auth.currentUser.uid,
         id: uuidv4(),
       }
@@ -55,13 +51,14 @@ export const CommentForm = ({ recipe }: Props) => {
       await setDoc(
         doc(
           firebaseDb,
-          `users/${recipe.uid}/recipes/${recipe.slug}/comments/${auth.currentUser.uid}`
+          `users/${recipe.uid}/recipes/${recipe.slug}/comments/${commentData.id}`
         ),
         commentData
       )
 
       toast.success('You successfully added a comment to this recipe.')
       setStatus('success')
+      setFormState({ textarea: '' })
     }
   }
 
