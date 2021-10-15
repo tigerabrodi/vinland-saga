@@ -63,11 +63,6 @@ export const NewRecipeModal = () => {
 
     setStatus('loading')
 
-    let createdAt = null
-    do {
-      createdAt = serverTimestamp()
-    } while (createdAt === null)
-
     if (username && user) {
       // Ensure slug is URL safe and unique
       const slug = encodeURI(kebabCase(title)) + uuidv4()
@@ -80,7 +75,7 @@ export const NewRecipeModal = () => {
         authorUsername: username,
         authorAvatarUrl: user.avatarUrl,
         authorFullname: user.fullname,
-        createdAt,
+        createdAt: serverTimestamp(),
         uid: user.uid,
         imageUrl: '',
         readingTime: '0 min read',
