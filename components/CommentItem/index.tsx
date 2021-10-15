@@ -122,10 +122,7 @@ export const CommentItem = ({
           </SaveButton>
         </Form>
       ) : (
-        <Text>
-          Did you ever try to bootstrap another project after this one started
-          to stall?
-        </Text>
+        <Text>{text}</Text>
       )}
       <CommentClapButton
         isDark={true}
