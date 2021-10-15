@@ -53,7 +53,7 @@ const createUserAndProfile = (user: User) => {
   // Create Profile
   cy.findByText('You successfully created your account.').should('exist')
   cy.waitToBeAuthorized()
-  cy.findByRole('heading', { name: 'Editing Profile', timeout: 8000 }).should(
+  cy.findByRole('heading', { name: 'Editing Profile', timeout: 16000 }).should(
     'exist'
   )
   cy.findByRole('button', { name: 'Save' }).should('have.attr', 'disabled')
@@ -73,7 +73,7 @@ const createUserAndProfile = (user: User) => {
   cy.findByText('Successfully updated your profile.').should('exist')
 
   // User Profile
-  cy.findByRole('heading', { name: user.fullname, timeout: 10000 }).should(
+  cy.findByRole('heading', { name: user.fullname, timeout: 12000 }).should(
     'exist'
   )
   cy.findByText(`@${user.username}`).should('exist')
@@ -129,7 +129,9 @@ const assertPreviewMode = (recipe: Recipe, user: User) => {
 }
 
 const assertRecipeDetail = (recipe: Recipe, user: User) => {
-  cy.findByRole('heading', { name: recipe.title }).should('exist')
+  cy.findByRole('heading', { name: recipe.title, timeout: 8000 }).should(
+    'exist'
+  )
   cy.findByText(recipe.body).should('exist')
   cy.findByRole('link', { name: user.fullname }).should('exist')
   cy.findByRole('img', { name: recipe.title }).should('exist')
