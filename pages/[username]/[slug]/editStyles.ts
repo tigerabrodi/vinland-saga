@@ -222,7 +222,9 @@ export const ButtonWrapper = styled.div`
   justify-content: space-evenly;
   border-radius: 0.2rem;
   width: 23.5rem;
+  margin-bottom: 2rem;
   ${media.tablet} {
+    margin-bottom: 4rem;
     height: 10rem;
     width: 45rem;
   }
