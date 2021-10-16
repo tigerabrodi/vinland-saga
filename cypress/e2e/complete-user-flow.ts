@@ -109,6 +109,7 @@ it('Complete users flow', () => {
 
   // Assert edited comment
   cy.findByText('Successfully edited your comment.').should('exist')
+  cy.findByRole('textbox', { name: 'Edit Comment' }).should('not.exist')
   cy.findByText(secondUserComments.secondComment).should('exist')
 
   // Delete Comment
