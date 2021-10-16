@@ -26,7 +26,8 @@ export const ProfileSection = styled.section`
   margin-bottom: 0.2rem;
   ${media.tablet} {
     grid-template-areas: 'avatar username fullname edit' 'avatar text text text' 'line line line line';
-    grid-template-columns: auto 12rem 18rem 18rem;
+    grid-template-columns: auto min-content 18rem auto;
+    column-gap: 1rem;
     width: 72rem;
     height: 32rem;
     justify-items: flex-start;
@@ -34,7 +35,6 @@ export const ProfileSection = styled.section`
   ${media.desktop} {
     width: 100rem;
     height: 35rem;
-    grid-template-columns: auto 18rem 21rem 34rem;
   }
 `
 
@@ -84,9 +84,12 @@ export const ProfileTitle = styled.h1<{ isNotAuthorizedUser: boolean }>`
   ${(props) =>
     props.isNotAuthorizedUser &&
     css`
-      margin-left: 9rem;
+      text-align: center;
+      width: 19rem;
+      margin-left: 5rem;
     `};
   ${media.tablet} {
+    width: auto;
     margin: 0;
     align-self: flex-end;
     font-size: 2.4rem;
