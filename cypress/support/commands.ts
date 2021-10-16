@@ -73,7 +73,7 @@ const createUserAndProfile = (user: User) => {
   cy.findByText('Successfully updated your profile.').should('exist')
 
   // User Profile
-  cy.findByRole('heading', { name: user.fullname, timeout: 12000 }).should(
+  cy.findByRole('heading', { name: user.fullname, timeout: 16000 }).should(
     'exist'
   )
   cy.findByText(`@${user.username}`).should('exist')
@@ -129,7 +129,7 @@ const assertPreviewMode = (recipe: Recipe, user: User) => {
 }
 
 const assertRecipeDetail = (recipe: Recipe, user: User) => {
-  cy.findByRole('heading', { name: recipe.title, timeout: 8000 }).should(
+  cy.findByRole('heading', { name: recipe.title, timeout: 12000 }).should(
     'exist'
   )
   cy.findByText(recipe.body).should('exist')
