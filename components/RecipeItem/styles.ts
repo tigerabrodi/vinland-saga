@@ -5,7 +5,8 @@ import styled, { css } from 'styled-components'
 
 export const RecipeListItem = styled.li`
   width: 28rem;
-  height: 28.5rem;
+  min-height: 32rem;
+  row-gap: 0.7rem;
   display: grid;
   grid-template-areas:
     'image image image image'
@@ -31,7 +32,7 @@ export const RecipeListItem = styled.li`
   }
   ${media.desktop} {
     width: 33rem;
-    height: 40rem;
+    min-height: 40rem;
     grid-template-columns: 30% 32% 5% 33%;
   }
 `
@@ -47,12 +48,10 @@ export const RecipeAvatar = styled.img`
   height: 4rem;
   width: 4rem;
   border-radius: 50%;
-  position: relative;
-  bottom: -0.4rem;
+  margin-top: 0.5rem;
   ${media.desktop} {
     height: 6rem;
     width: 6rem;
-    bottom: 0;
   }
 `
 
@@ -77,8 +76,6 @@ export const AuthorLink = styled.a`
   ${linkHoverStyles} 
   ${media.desktop} {
     font-size: 1.7rem;
-    position: relative;
-    bottom: 0.5rem;
   }
 `
 
@@ -88,10 +85,9 @@ export const Date = styled.p`
   color: ${theme.Pink};
   grid-area: date;
   justify-self: self-start;
+  align-self: self-start;
   ${media.desktop} {
     font-size: 1.4rem;
-    position: relative;
-    bottom: 0.7rem;
   }
 `
 
