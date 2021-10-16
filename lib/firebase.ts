@@ -104,7 +104,7 @@ export const commentsToJSON = (
     } as Comment
   })
 
-export const formatDate = (createdAt: number | Timestamp | FieldValue) =>
+export const formatDate = (createdAt: number | Timestamp | FieldValue = 0) =>
   (typeof createdAt === 'number'
     ? new Date(createdAt)
     : (createdAt as Timestamp).toDate()
