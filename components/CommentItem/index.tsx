@@ -35,23 +35,23 @@ type Props = {
   recipe: Recipe
 }
 
-export const CommentItem = ({
-  comment: {
+export const CommentItem = ({ comment, recipe }: Props) => {
+  const [isEditMode, setIsEditMode] = React.useState(false)
+  const {
+    formState: { editTextarea },
+    handleChange,
+  } = useFormState({ editTextarea: comment.text })
+  const { setStatus } = useLoadingStore()
+
+  const {
     authorAvatarUrl,
     authorFullname,
     authorUsername,
     text,
     uid,
     createdAt,
-  },
-  recipe,
-}: Props) => {
-  const [isEditMode, setIsEditMode] = React.useState(false)
-  const {
-    formState: { editTextarea },
-    handleChange,
-  } = useFormState({ editTextarea: text })
-  const { setStatus } = useLoadingStore()
+    id,
+  } = comment
 
   const editRef = useFocusTrap<HTMLFormElement>(isEditMode)
 
@@ -69,20 +69,21 @@ export const CommentItem = ({
 
     setStatus('loading')
 
-    const commentData = {
+    const commentData: Comment = {
+      ...comment,
       text: editTextarea,
     }
 
     await setDoc(
       doc(
         firebaseDb,
-        `users/${recipe.uid}/recipes/${recipe.slug}/comments/${uid}`
+        `users/${recipe.uid}/recipes/${recipe.slug}/comments/${id}`
       ),
-      commentData,
-      { merge: true }
+      commentData
     )
 
     toast.success('Successfully edited your comment.')
+    setIsEditMode(false)
     setStatus('success')
   }
 
@@ -103,7 +104,7 @@ export const CommentItem = ({
           <AuthorLink>{authorFullname}</AuthorLink>
         </Link>
         <Dot />
-        On {formatDate(createdAt)}
+        <span>On {formatDate(createdAt)}</span>
         <Dot />
       </AuthorText>
       {isEditMode ? (
