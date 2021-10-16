@@ -58,7 +58,8 @@ export const CommentForm = ({ recipe }: Props) => {
 
       await setDoc(
         doc(firebaseDb, `users/${recipe.uid}/recipes/${recipe.slug}`),
-        { commentsCount: increment(1) }
+        { commentsCount: increment(1) },
+        { merge: true }
       )
 
       toast.success('You successfully added a comment to this recipe.')
