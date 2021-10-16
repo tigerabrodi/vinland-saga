@@ -43,6 +43,13 @@ export const fromMillis = Timestamp.fromMillis
 // Storage export
 export const storage = getStorage(firebaseApp)
 
+const getTimestampInMillis = (date: number | FieldValue | Timestamp) =>
+  typeof date === 'number'
+    ? date
+    : typeof date === 'object' && date !== null
+    ? (date as Timestamp).toMillis()
+    : 0
+
 export const getUserWithUsername = async (username: string) => {
   if (!username) return
 
@@ -57,7 +64,7 @@ export const getUserWithUsername = async (username: string) => {
   if (user && user.joined) {
     return {
       ...user,
-      joined: (user.joined as Timestamp)?.toMillis() || 0,
+      joined: getTimestampInMillis(user.joined),
     }
   }
 }
@@ -76,12 +83,7 @@ export const getRecipeWithSlug = async (
   const recipeSnap = await getDoc(recipeRef)
 
   if (recipeSnap.exists()) {
-    const recipe = recipeSnap.data() as Recipe
-
-    return {
-      ...recipe,
-      createdAt: (recipe.createdAt as Timestamp)?.toMillis() || 0,
-    } as Recipe
+    return recipeToJSON(recipeSnap)
   }
 }
 
@@ -89,7 +91,7 @@ export const recipeToJSON = (recipeSnapshot: DocumentSnapshot): Recipe => {
   const recipe = recipeSnapshot.data() as Recipe
   return {
     ...recipe,
-    createdAt: (recipe.createdAt as Timestamp)?.toMillis() || 0,
+    createdAt: getTimestampInMillis(recipe.createdAt),
   }
 }
 
@@ -100,7 +102,7 @@ export const commentsToJSON = (
     const comment = commentDoc.data() as Comment
     return {
       ...comment,
-      createdAt: (comment.createdAt as Timestamp)?.toMillis() || 0,
+      createdAt: getTimestampInMillis(comment.createdAt),
     } as Comment
   })
 
