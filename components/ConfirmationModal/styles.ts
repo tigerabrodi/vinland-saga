@@ -1,3 +1,5 @@
+import { darkFocusStyles } from '@styles/focusStyles'
+import { media } from '@styles/media'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 
@@ -6,6 +8,13 @@ export const Text = styled.p`
   font-weight: 500;
   font-size: 1.5rem;
   text-align: center;
+  ${media.tablet} {
+    font-size: 3rem;
+  }
+  ${media.desktop} {
+    font-size: 3.5rem;
+    padding: 0 5rem;
+  }
 `
 
 export const ButtonWrapper = styled.div`
@@ -13,6 +22,12 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   column-gap: 5rem;
+  ${media.tablet} {
+    column-gap: 10rem;
+  }
+  ${media.desktop} {
+    column-gap: 16rem;
+  }
 `
 
 const buttonStyles = css`
@@ -23,6 +38,26 @@ const buttonStyles = css`
   width: 8.5rem;
   font-size: 2rem;
   box-shadow: 0 0.2rem 0.2rem black;
+  ${darkFocusStyles}
+  ${media.tablet} {
+    height: 5rem;
+    width: 12rem;
+    font-size: 2.5rem;
+    transition: all 0.2s ease;
+    &:hover {
+      transform: translateY(-0.2rem);
+      box-shadow: 0 0.4rem 0.2rem black;
+    }
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 0.2rem 0.2rem black;
+    }
+  }
+  ${media.desktop} {
+    height: 6.3rem;
+    width: 15rem;
+    font-size: 3.3rem;
+  }
 `
 
 export const ConfirmButton = styled.button`
