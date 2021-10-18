@@ -25,6 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { User, Recipe } from './generate'
+import { clickByRole, clickItemInMenu, waitToBeAuthorized } from './utils'
 
 declare global {
   namespace Cypress {
@@ -36,19 +37,20 @@ declare global {
       clickItemInMenu: typeof clickItemInMenu
       assertAndClickOnRecipe: typeof assertAndClickOnRecipe
       waitToBeAuthorized: typeof waitToBeAuthorized
+      clickByRole: typeof clickByRole
     }
   }
 }
 
 const createUserAndProfile = (user: User) => {
-  cy.findByRole('link', { name: 'Create Account' }).click()
+  cy.clickByRole('link', { name: 'Create Account' })
 
   // Create Account
   cy.findByLabelText('Username').type(user.username)
   cy.findByLabelText('Email').type(user.email)
   cy.findByLabelText('Password').type(user.password)
   cy.findByLabelText('Confirm Password').type(user.password)
-  cy.findByRole('button', { name: 'Sign Up' }).click()
+  cy.clickByRole('button', { name: 'Sign Up' })
 
   // Create Profile
   cy.findByText('You successfully created your account.').should('exist')
@@ -69,7 +71,7 @@ const createUserAndProfile = (user: User) => {
   cy.findByLabelText('Location *').type(`${user.location}`)
   cy.findByLabelText('Biography').type(user.bio)
 
-  cy.findByRole('button', { name: 'Save' }).click()
+  cy.clickByRole('button', { name: 'Save' })
   cy.findByText('Successfully updated your profile.').should('exist')
 
   // User Profile
@@ -92,7 +94,7 @@ const createRecipe = (recipe: Recipe) => {
   cy.findByRole('dialog', { name: 'Create Recipe' }).within(() => {
     cy.findByRole('heading', { name: 'Create Recipe' }).should('exist')
     cy.findByLabelText('Title').type(recipe.title)
-    cy.findByRole('button', { name: 'Create' }).click()
+    cy.clickByRole('button', { name: 'Create' })
   })
 
   cy.findByText(`You successfully created the recipe ${recipe.title}.`).should(
@@ -117,19 +119,21 @@ const createRecipe = (recipe: Recipe) => {
 
 const assertPreviewMode = (recipe: Recipe, user: User) => {
   // Turn on Preview Mode
-  cy.findByRole('button', { name: 'Preview' }).click()
+  cy.clickByRole('button', { name: 'Preview' })
   cy.findByRole('heading', { name: 'Edit Recipe' }).should('not.exist')
 
   // Assert preview page
   cy.assertRecipeDetail(recipe, user)
 
   // Turn off preview mode
-  cy.findByRole('button', { name: 'Preview' }).click({ force: true })
-  cy.findByRole('heading', { name: 'Edit Recipe' }).should('exist')
+  cy.clickByRole('button', { name: 'Preview', shouldForceClick: true })
+  cy.findByRole('heading', { name: 'Edit Recipe', timeout: 8000 }).should(
+    'exist'
+  )
 }
 
 const assertRecipeDetail = (recipe: Recipe, user: User) => {
-  cy.findByRole('heading', { name: recipe.title, timeout: 12000 }).should(
+  cy.findByRole('heading', { name: recipe.title, timeout: 16000 }).should(
     'exist'
   )
   cy.findByText(recipe.body).should('exist')
@@ -140,18 +144,6 @@ const assertRecipeDetail = (recipe: Recipe, user: User) => {
   cy.findByRole('link', { name: '0 comments' }).should('exist')
   cy.findByRole('link', { name: 'Edit Recipe' }).should('exist')
   cy.findByRole('button', { name: 'Delete Recipe' }).should('exist')
-}
-
-const clickItemInMenu = (itemName: string) => {
-  cy.findByRole('button', { name: 'Menu', timeout: 10000 }).should('exist')
-
-  cy.findByRole('button', { name: 'Menu' }).click({
-    force: true,
-  })
-
-  cy.findByRole('menu').within(() => {
-    cy.findByRole('menuitem', { name: itemName }).click()
-  })
 }
 
 const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
@@ -171,7 +163,7 @@ const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
       cy.findByText(/min read$/i).should('exist')
       cy.findByLabelText(/^Posted on 2021-10/i).should('exist')
 
-      cy.findByRole('link', { name: recipe.title }).click()
+      cy.clickByRole('link', { name: recipe.title })
 
       cy.findByRole('heading', {
         name: recipe.title,
@@ -180,9 +172,6 @@ const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
   )
 }
 
-const waitToBeAuthorized = () =>
-  cy.findByRole('button', { name: 'Menu', timeout: 8000 }).should('exist')
-
 Cypress.Commands.add('clickItemInMenu', clickItemInMenu)
 Cypress.Commands.add('assertAndClickOnRecipe', assertAndClickOnRecipe)
 Cypress.Commands.add('createUserAndProfile', createUserAndProfile)
@@ -190,3 +179,4 @@ Cypress.Commands.add('assertRecipeDetail', assertRecipeDetail)
 Cypress.Commands.add('createRecipe', createRecipe)
 Cypress.Commands.add('assertPreviewMode', assertPreviewMode)
 Cypress.Commands.add('waitToBeAuthorized', waitToBeAuthorized)
+Cypress.Commands.add('clickByRole', clickByRole)

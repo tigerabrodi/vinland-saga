@@ -18,12 +18,12 @@ it('Complete users flow', () => {
   const thirdUserRecipe = buildRecipe()
 
   cy.createUserAndProfile(firstUser)
-  cy.findByRole('button', { name: 'New Recipe' }).click()
+  cy.clickByRole('button', { name: 'New Recipe' })
   cy.createRecipe(firstUserRecipe)
   cy.assertPreviewMode(firstUserRecipe, firstUser)
 
   // Submit recipe (first user)
-  cy.findByRole('button', { name: 'Submit' }).click()
+  cy.clickByRole('button', { name: 'Submit' })
   cy.findByText(
     `Successfully updated your recipe ${firstUserRecipe.title}.`
   ).should('exist')
@@ -50,7 +50,7 @@ it('Complete users flow', () => {
   cy.createUserAndProfile(secondUser)
 
   // Go to recipes feed
-  cy.findByRole('link', { name: 'Home' }).click()
+  cy.clickByRole('link', { name: 'Home' })
 
   // Click on first user's recipe
   cy.findByRole('heading', { name: 'Recipes' }).should('exist')
@@ -59,11 +59,11 @@ it('Complete users flow', () => {
   })
 
   // Clap
-  cy.findByRole('button', { name: 'Recipe 0 claps' }).click()
+  cy.clickByRole('button', { name: 'Recipe 0 claps' })
   cy.findByRole('button', { name: 'Recipe 1 claps' }).should('exist')
 
   // Go to recipes feed
-  cy.findByRole('link', { name: 'Home' }).click()
+  cy.clickByRole('link', { name: 'Home' })
 
   // Ensure clap count
   cy.findByRole('listitem', {
@@ -72,23 +72,23 @@ it('Complete users flow', () => {
     cy.findByLabelText('1 claps').should('exist')
 
     // Go back to recipe detail
-    cy.findByRole('link', { name: firstUserRecipe.title }).click()
+    cy.clickByRole('link', { name: firstUserRecipe.title })
   })
 
   // Go to comments
-  cy.findByRole('link', { name: '0 comments' }).click()
+  cy.clickByRole('link', { name: '0 comments' })
 
   // Write a comment
   cy.findByRole('textbox', { name: 'Comment' }).type(
     secondUserComments.firstComment
   )
-  cy.findByRole('button', { name: 'Post' }).click()
+  cy.clickByRole('button', { name: 'Post' })
   cy.findByText('You successfully added a comment to this recipe.').should(
     'exist'
   )
 
   // Assert comments link length
-  cy.findByRole('link', { name: '1 comments' }).click()
+  cy.clickByRole('link', { name: '1 comments' })
 
   // Assert comment
   cy.findByRole('listitem').within(() => {
@@ -99,12 +99,12 @@ it('Complete users flow', () => {
     cy.findByText(/^On 2021-10/).should('exist')
 
     // Edit comment
-    cy.findByRole('button', { name: 'Edit Comment' }).click()
+    cy.clickByRole('button', { name: 'Edit Comment' })
     cy.findByRole('textbox', { name: 'Edit Comment' })
       .should('have.value', secondUserComments.firstComment)
       .clear()
       .type(secondUserComments.secondComment)
-    cy.findByRole('button', { name: 'Save' }).click()
+    cy.clickByRole('button', { name: 'Save' })
   })
 
   // Assert edited comment
@@ -113,10 +113,10 @@ it('Complete users flow', () => {
   cy.findByText(secondUserComments.secondComment).should('exist')
 
   // Delete Comment
-  cy.findByRole('button', { name: 'Delete Comment' }).click()
+  cy.clickByRole('button', { name: 'Delete Comment' })
   cy.findByRole('alertdialog', { name: 'Are you sure?' }).within(() => {
     cy.findByText('Do you really want to delete your comment?').should('exist')
-    cy.findByRole('button', { name: 'Yes' }).click()
+    cy.clickByRole('button', { name: 'Yes' })
   })
 
   cy.findByText('Successfully deleted your comment.').should('exist')
