@@ -6,7 +6,12 @@ import { auth, firebaseDb } from '@lib/firebase'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { Comment, Recipe } from '@lib/types'
-import { doc, increment, serverTimestamp, setDoc } from '@firebase/firestore'
+import {
+  doc,
+  increment,
+  serverTimestamp,
+  writeBatch,
+} from '@firebase/firestore'
 import { useUserContext } from '@lib/context'
 import { useGetUser } from '@hooks/auth/useGetUser'
 import { useLoadingStore } from '@lib/store'
@@ -48,7 +53,9 @@ export const CommentForm = ({ recipe }: Props) => {
         id: uuidv4(),
       }
 
-      await setDoc(
+      const batch = writeBatch(firebaseDb)
+
+      batch.set(
         doc(
           firebaseDb,
           `users/${recipe.uid}/recipes/${recipe.slug}/comments/${commentData.id}`
@@ -56,11 +63,12 @@ export const CommentForm = ({ recipe }: Props) => {
         commentData
       )
 
-      await setDoc(
+      batch.update(
         doc(firebaseDb, `users/${recipe.uid}/recipes/${recipe.slug}`),
-        { commentsCount: increment(1) },
-        { merge: true }
+        { commentsCount: increment(1) }
       )
+
+      await batch.commit()
 
       toast.success('You successfully added a comment to this recipe.')
       setStatus('success')
