@@ -26,3 +26,18 @@ export const addComment = (text: string) => {
     'exist'
   )
 }
+
+export const confirmDeletion = ({
+  text,
+  toastSuccessText,
+}: {
+  text: string
+  toastSuccessText: string
+}) => {
+  cy.findByRole('alertdialog', { name: 'Are you sure?' }).within(() => {
+    cy.findByText(text).should('exist')
+    cy.clickByRole('button', { name: 'Yes' })
+  })
+
+  cy.findByText(toastSuccessText).should('exist')
+}

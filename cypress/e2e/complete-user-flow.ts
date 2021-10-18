@@ -93,12 +93,11 @@ it('Complete users flow', () => {
 
   // Delete Comment
   cy.clickByRole('button', { name: 'Delete Comment' })
-  cy.findByRole('alertdialog', { name: 'Are you sure?' }).within(() => {
-    cy.findByText('Do you really want to delete your comment?').should('exist')
-    cy.clickByRole('button', { name: 'Yes' })
-  })
 
-  cy.findByText('Successfully deleted your comment.').should('exist')
+  cy.confirmDeletion({
+    text: 'Do you really want to delete your comment?',
+    toastSuccessText: 'Successfully deleted your comment.',
+  })
 
   // No comments should exist
   cy.findByRole('listitem').should('not.exist')

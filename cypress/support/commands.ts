@@ -37,6 +37,7 @@ import {
   clickItemInMenu,
   waitToBeAuthorized,
   addComment,
+  confirmDeletion,
 } from './utils'
 
 declare global {
@@ -52,6 +53,7 @@ declare global {
       clickByRole: typeof clickByRole
       addComment: typeof addComment
       assertAndEditComment: typeof assertAndEditComment
+      confirmDeletion: typeof confirmDeletion
     }
   }
 }
@@ -66,3 +68,4 @@ Cypress.Commands.add('waitToBeAuthorized', waitToBeAuthorized)
 Cypress.Commands.add('clickByRole', clickByRole)
 Cypress.Commands.add('addComment', addComment)
 Cypress.Commands.add('assertAndEditComment', assertAndEditComment)
+Cypress.Commands.add('confirmDeletion', confirmDeletion)
