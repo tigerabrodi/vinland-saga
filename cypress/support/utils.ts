@@ -4,7 +4,7 @@ import { ByRoleMatcher } from '@testing-library/dom'
 type Options = ByRoleOptions & { shouldForceClick?: boolean }
 
 export const clickByRole = (role: ByRoleMatcher, options?: Options) =>
-  cy.findByRole(role, options).click({ force: options.shouldForceClick })
+  cy.findByRole(role, options).click({ force: options?.shouldForceClick })
 
 export const clickItemInMenu = (itemName: string) => {
   cy.findByRole('button', { name: 'Menu', timeout: 10000 }).should('exist')
