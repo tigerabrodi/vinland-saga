@@ -10,8 +10,8 @@ it('Complete users flow', () => {
   const firstUserRecipe = buildRecipe()
 
   const secondUser = buildUser()
-  /*   const secondUserRecipe = buildRecipe()
-  const secondUserRecipe2 = buildRecipe() */
+  const secondUserRecipe = buildRecipe()
+  const secondUserRecipe2 = buildRecipe()
   const secondUserComments = buildComments()
 
   /*   const thirdUser = buildUser()
@@ -40,11 +40,7 @@ it('Complete users flow', () => {
   cy.findByRole('heading', { name: firstUser.fullname }).should('exist')
 
   // Sign Out (first user)
-  cy.clickItemInMenu('Sign Out')
-  cy.findByText('Successfully signed out of your account.').should('exist')
-  cy.findByRole('link', { name: 'Create Account', timeout: 8000 }).should(
-    'exist'
-  )
+  cy.signOut()
 
   // Create second user
   cy.createUserAndProfile(secondUser)
@@ -103,12 +99,33 @@ it('Complete users flow', () => {
   cy.findByRole('listitem').should('not.exist')
 
   // Write two comments
+  cy.addComment(secondUserComments.firstComment)
+  cy.addComment(secondUserComments.secondComment)
+
   // Create two recipes
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe)
+  cy.clickByRole('button', { name: 'Submit' })
+
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe2)
+  cy.clickByRole('button', { name: 'Submit' })
 
   // Sign Out (second user)
+  cy.signOut()
 
   // Login (first user)
+  cy.signIn(firstUser)
+
   // See recipe on first user's profile
+  cy.clickItemInMenu('Profile')
+  cy.findByRole('heading', { name: firstUser.fullname, level: 1 }).should(
+    'exist'
+  )
+  cy.findByRole('heading', { name: firstUserRecipe.title, level: 3 }).should(
+    'exist'
+  )
+
   // Go to users page
   // Sort by both claps and recipes of the users
   // Click on the second user and see both its recipes on the profile page
