@@ -41,3 +41,11 @@ export const confirmDeletion = ({
 
   cy.findByText(toastSuccessText).should('exist')
 }
+
+export const signOut = () => {
+  cy.clickItemInMenu('Sign Out')
+  cy.findByText('Successfully signed out of your account.').should('exist')
+  cy.findByRole('link', { name: 'Create Account', timeout: 8000 }).should(
+    'exist'
+  )
+}

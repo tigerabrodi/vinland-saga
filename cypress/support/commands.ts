@@ -38,6 +38,7 @@ import {
   waitToBeAuthorized,
   addComment,
   confirmDeletion,
+  signOut,
 } from './utils'
 
 declare global {
@@ -54,6 +55,7 @@ declare global {
       addComment: typeof addComment
       assertAndEditComment: typeof assertAndEditComment
       confirmDeletion: typeof confirmDeletion
+      signOut: typeof signOut
     }
   }
 }
@@ -69,3 +71,4 @@ Cypress.Commands.add('clickByRole', clickByRole)
 Cypress.Commands.add('addComment', addComment)
 Cypress.Commands.add('assertAndEditComment', assertAndEditComment)
 Cypress.Commands.add('confirmDeletion', confirmDeletion)
+Cypress.Commands.add('signOut', signOut)
