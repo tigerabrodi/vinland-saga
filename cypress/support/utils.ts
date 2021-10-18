@@ -1,5 +1,6 @@
 import { ByRoleOptions } from '@testing-library/cypress'
 import { ByRoleMatcher } from '@testing-library/dom'
+import { User } from './generate'
 
 type Options = ByRoleOptions & { shouldForceClick?: boolean }
 
@@ -48,4 +49,13 @@ export const signOut = () => {
   cy.findByRole('link', { name: 'Create Account', timeout: 8000 }).should(
     'exist'
   )
+}
+
+export const signIn = (user: User) => {
+  cy.visit('/sign-in')
+  cy.findByLabelText('Email').type(user.email)
+  cy.findByLabelText('Password').type(user.password)
+  cy.findByRole('submit', { name: 'Sign In' }).click()
+  cy.findByText('Successfully signed in into your account.').should('exist')
+  cy.waitToBeAuthorized()
 }

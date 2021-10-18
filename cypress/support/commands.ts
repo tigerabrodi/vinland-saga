@@ -39,6 +39,7 @@ import {
   addComment,
   confirmDeletion,
   signOut,
+  signIn,
 } from './utils'
 
 declare global {
@@ -56,6 +57,7 @@ declare global {
       assertAndEditComment: typeof assertAndEditComment
       confirmDeletion: typeof confirmDeletion
       signOut: typeof signOut
+      signIn: typeof signIn
     }
   }
 }
@@ -72,3 +74,4 @@ Cypress.Commands.add('addComment', addComment)
 Cypress.Commands.add('assertAndEditComment', assertAndEditComment)
 Cypress.Commands.add('confirmDeletion', confirmDeletion)
 Cypress.Commands.add('signOut', signOut)
+Cypress.Commands.add('signIn', signIn)
