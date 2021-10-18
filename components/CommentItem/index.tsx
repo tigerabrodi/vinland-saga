@@ -168,7 +168,10 @@ export const CommentItem = ({ comment, recipe }: Props) => {
             >
               {isEditMode ? <CloseSVG /> : <PenSVG />}
             </EditButton>
-            <DeleteButton aria-label="Delete Comment">
+            <DeleteButton
+              aria-label="Delete Comment"
+              onClick={() => setIsModalOpen(true)}
+            >
               <TrashSVG />
             </DeleteButton>
           </>
