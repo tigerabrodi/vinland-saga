@@ -30,8 +30,14 @@ import {
   assertRecipeDetail,
   createRecipe,
   createUserAndProfile,
+  assertAndEditComment,
 } from './assertions'
-import { clickByRole, clickItemInMenu, waitToBeAuthorized } from './utils'
+import {
+  clickByRole,
+  clickItemInMenu,
+  waitToBeAuthorized,
+  addComment,
+} from './utils'
 
 declare global {
   namespace Cypress {
@@ -44,6 +50,8 @@ declare global {
       assertAndClickOnRecipe: typeof assertAndClickOnRecipe
       waitToBeAuthorized: typeof waitToBeAuthorized
       clickByRole: typeof clickByRole
+      addComment: typeof addComment
+      assertAndEditComment: typeof assertAndEditComment
     }
   }
 }
@@ -56,3 +64,5 @@ Cypress.Commands.add('createRecipe', createRecipe)
 Cypress.Commands.add('assertPreviewMode', assertPreviewMode)
 Cypress.Commands.add('waitToBeAuthorized', waitToBeAuthorized)
 Cypress.Commands.add('clickByRole', clickByRole)
+Cypress.Commands.add('addComment', addComment)
+Cypress.Commands.add('assertAndEditComment', assertAndEditComment)

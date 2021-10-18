@@ -79,38 +79,17 @@ it('Complete users flow', () => {
   cy.clickByRole('link', { name: '0 comments' })
 
   // Write a comment
-  cy.findByRole('textbox', { name: 'Comment' }).type(
-    secondUserComments.firstComment
-  )
-  cy.clickByRole('button', { name: 'Post' })
-  cy.findByText('You successfully added a comment to this recipe.').should(
-    'exist'
-  )
+  cy.addComment(secondUserComments.firstComment)
 
   // Assert comments link length
   cy.clickByRole('link', { name: '1 comments' })
 
-  // Assert comment
-  cy.findByRole('listitem').within(() => {
-    cy.findByRole('link', { name: secondUser.fullname }).should('exist')
-    cy.findByRole('img', { name: secondUser.fullname }).should('exist')
-    cy.findByText(secondUserComments.firstComment).should('exist')
-    cy.findByRole('button', { name: 'Comment 0 claps' }).should('exist')
-    cy.findByText(/^On 2021-10/).should('exist')
-
-    // Edit comment
-    cy.clickByRole('button', { name: 'Edit Comment' })
-    cy.findByRole('textbox', { name: 'Edit Comment' })
-      .should('have.value', secondUserComments.firstComment)
-      .clear()
-      .type(secondUserComments.secondComment)
-    cy.clickByRole('button', { name: 'Save' })
+  // Assert and edit comment
+  cy.assertAndEditComment({
+    firstComment: secondUserComments.firstComment,
+    secondComment: secondUserComments.secondComment,
+    fullname: secondUser.fullname,
   })
-
-  // Assert edited comment
-  cy.findByText('Successfully edited your comment.').should('exist')
-  cy.findByRole('textbox', { name: 'Edit Comment' }).should('not.exist')
-  cy.findByText(secondUserComments.secondComment).should('exist')
 
   // Delete Comment
   cy.clickByRole('button', { name: 'Delete Comment' })
