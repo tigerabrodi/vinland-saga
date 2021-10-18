@@ -129,3 +129,33 @@ export const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
     }
   )
 }
+
+export const assertAndEditComment = ({
+  firstComment,
+  secondComment,
+  fullname,
+}: {
+  firstComment: string
+  secondComment: string
+  fullname: string
+}) => {
+  cy.findByRole('listitem').within(() => {
+    cy.findByRole('link', { name: fullname }).should('exist')
+    cy.findByRole('img', { name: fullname }).should('exist')
+    cy.findByText(firstComment).should('exist')
+    cy.findByRole('button', { name: 'Comment 0 claps' }).should('exist')
+    cy.findByText(/^On 2021-10/).should('exist')
+
+    // Edit comment
+    cy.clickByRole('button', { name: 'Edit Comment' })
+    cy.findByRole('textbox', { name: 'Edit Comment' })
+      .should('have.value', firstComment)
+      .clear()
+      .type(secondComment)
+    cy.clickByRole('button', { name: 'Save' })
+  })
+
+  cy.findByText('Successfully edited your comment.').should('exist')
+  cy.findByRole('textbox', { name: 'Edit Comment' }).should('not.exist')
+  cy.findByText(secondComment).should('exist')
+}
