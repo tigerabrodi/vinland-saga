@@ -4,8 +4,10 @@ import { User } from './generate'
 
 type Options = ByRoleOptions & { shouldForceClick?: boolean }
 
-export const clickByRole = (role: ByRoleMatcher, options?: Options) =>
-  cy.findByRole(role, options).click({ force: options?.shouldForceClick })
+export const clickByRole = (
+  role: ByRoleMatcher,
+  options: Options = { shouldForceClick: false }
+) => cy.findByRole(role, options).click({ force: options?.shouldForceClick })
 
 export const clickItemInMenu = (itemName: string) => {
   cy.findByRole('button', { name: 'Menu', timeout: 10000 }).should('exist')
@@ -55,7 +57,7 @@ export const signIn = (user: User) => {
   cy.visit('/sign-in')
   cy.findByLabelText('Email').type(user.email)
   cy.findByLabelText('Password').type(user.password)
-  cy.findByRole('submit', { name: 'Sign In' }).click()
+  cy.findByRole('button', { name: 'Sign In' }).click()
   cy.findByText('Successfully signed in into your account.').should('exist')
   cy.waitToBeAuthorized()
 }
