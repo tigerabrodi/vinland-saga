@@ -18,3 +18,11 @@ export const clickItemInMenu = (itemName: string) => {
 
 export const waitToBeAuthorized = () =>
   cy.findByRole('button', { name: 'Menu', timeout: 8000 }).should('exist')
+
+export const addComment = (text: string) => {
+  cy.findByRole('textbox', { name: 'Comment' }).type(text)
+  cy.clickByRole('button', { name: 'Post' })
+  cy.findByText('You successfully added a comment to this recipe.').should(
+    'exist'
+  )
+}
