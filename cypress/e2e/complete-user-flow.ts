@@ -10,12 +10,12 @@ it('Complete users flow', () => {
   const firstUserRecipe = buildRecipe()
 
   const secondUser = buildUser()
-  const secondUserRecipe = buildRecipe()
-  const secondUserRecipe2 = buildRecipe()
+  /*   const secondUserRecipe = buildRecipe()
+  const secondUserRecipe2 = buildRecipe() */
   const secondUserComments = buildComments()
 
-  const thirdUser = buildUser()
-  const thirdUserRecipe = buildRecipe()
+  /*   const thirdUser = buildUser()
+  const thirdUserRecipe = buildRecipe() */
 
   cy.createUserAndProfile(firstUser)
   cy.clickByRole('button', { name: 'New Recipe' })
