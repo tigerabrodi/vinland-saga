@@ -1,13 +1,20 @@
+import * as React from 'react'
 import { Modal } from '@components/Modal'
 import { Text, ButtonWrapper, ConfirmButton, CancelButton } from './styles'
 
 type Props = {
   isOpen: boolean
   text: string
-  setIsOpen: (state: boolean) => void
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  onSuccess: () => void
 }
 
-export const ConfirmationModal = ({ isOpen, setIsOpen, text }: Props) => {
+export const ConfirmationModal = ({
+  isOpen,
+  setIsOpen,
+  onSuccess,
+  text,
+}: Props) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -17,8 +24,8 @@ export const ConfirmationModal = ({ isOpen, setIsOpen, text }: Props) => {
     >
       <Text>{text}</Text>
       <ButtonWrapper>
-        <ConfirmButton>Yes</ConfirmButton>
-        <CancelButton>No</CancelButton>
+        <ConfirmButton onClick={() => onSuccess()}>Yes</ConfirmButton>
+        <CancelButton onClick={() => setIsOpen(false)}>No</CancelButton>
       </ButtonWrapper>
     </Modal>
   )
