@@ -26,9 +26,10 @@ import { useClickOutside } from '@hooks/useClickOutside'
 import { useCloseEscape } from '@hooks/useCloseEscape'
 import { Comment, Recipe } from '@lib/types'
 import { auth, firebaseDb, formatDate } from '@lib/firebase'
-import { doc, setDoc } from '@firebase/firestore'
+import { doc, increment, setDoc, writeBatch } from '@firebase/firestore'
 import { useLoadingStore } from '@lib/store'
 import toast from 'react-hot-toast'
+import { ConfirmationModal } from '@components/ConfirmationModal'
 
 type Props = {
   comment: Comment
@@ -42,6 +43,8 @@ export const CommentItem = ({ comment, recipe }: Props) => {
     handleChange,
   } = useFormState({ editTextarea: comment.text })
   const { setStatus } = useLoadingStore()
+
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   const {
     authorAvatarUrl,
@@ -65,7 +68,6 @@ export const CommentItem = ({ comment, recipe }: Props) => {
 
   const handleEditSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!auth.currentUser) return
 
     setStatus('loading')
 
@@ -87,66 +89,100 @@ export const CommentItem = ({ comment, recipe }: Props) => {
     setStatus('success')
   }
 
+  const handleDelete = async () => {
+    setStatus('loading')
+
+    const batch = writeBatch(firebaseDb)
+
+    batch.delete(
+      doc(
+        firebaseDb,
+        `users/${recipe.uid}/recipes/${recipe.slug}/comments/${id}`
+      )
+    )
+
+    batch.update(
+      doc(firebaseDb, `users/${recipe.uid}/recipes/${recipe.slug}`),
+      { commentsCount: increment(-1) }
+    )
+
+    await batch.commit()
+
+    toast.success('Successfully deleted your comment.')
+    setIsModalOpen(false)
+    setStatus('success')
+  }
+
   const isUserAuthorized = uid === auth.currentUser?.uid
 
   const handleClap = () => {}
 
   return (
-    <CommentListItem>
-      <AuthorAvatar
-        src={authorAvatarUrl === '' ? defaultAvatar.src : authorAvatarUrl}
-        alt={authorFullname}
-      />
-      <AuthorText>
-        <Dot />
-        By{' '}
-        <Link passHref href={`/${authorUsername}`}>
-          <AuthorLink>{authorFullname}</AuthorLink>
-        </Link>
-        <Dot />
-        <span>On {formatDate(createdAt)}</span>
-        <Dot />
-      </AuthorText>
-      {isEditMode ? (
-        <Form onSubmit={handleEditSubmit} ref={editRef}>
-          <HiddenLabel htmlFor="edit">Edit Comment</HiddenLabel>
-          <Textarea
-            placeholder="I liked this recipe of yours, because..."
-            id="edit"
-            value={editTextarea}
-            name="editTextarea"
-            onChange={handleChange}
-          />
-          <SaveButton type="submit">
-            <PenSVG />
-            Save
-          </SaveButton>
-        </Form>
-      ) : (
-        <Text>{text}</Text>
+    <>
+      <CommentListItem>
+        <AuthorAvatar
+          src={authorAvatarUrl === '' ? defaultAvatar.src : authorAvatarUrl}
+          alt={authorFullname}
+        />
+        <AuthorText>
+          <Dot />
+          By{' '}
+          <Link passHref href={`/${authorUsername}`}>
+            <AuthorLink>{authorFullname}</AuthorLink>
+          </Link>
+          <Dot />
+          <span>On {formatDate(createdAt)}</span>
+          <Dot />
+        </AuthorText>
+        {isEditMode ? (
+          <Form onSubmit={handleEditSubmit} ref={editRef}>
+            <HiddenLabel htmlFor="edit">Edit Comment</HiddenLabel>
+            <Textarea
+              placeholder="I liked this recipe of yours, because..."
+              id="edit"
+              value={editTextarea}
+              name="editTextarea"
+              onChange={handleChange}
+            />
+            <SaveButton type="submit">
+              <PenSVG />
+              Save
+            </SaveButton>
+          </Form>
+        ) : (
+          <Text>{text}</Text>
+        )}
+        <CommentClapButton
+          isDark={true}
+          label="Comment"
+          handleClap={handleClap}
+          isDocExist={false}
+          clapCount={0}
+        />
+        {isUserAuthorized && (
+          <>
+            <EditButton
+              aria-label="Edit Comment"
+              onClick={() => setIsEditMode(!isEditMode)}
+              aria-pressed={isEditMode}
+            >
+              {isEditMode ? <CloseSVG /> : <PenSVG />}
+            </EditButton>
+            <DeleteButton aria-label="Delete Comment">
+              <TrashSVG />
+            </DeleteButton>
+          </>
+        )}
+        <Line />
+      </CommentListItem>
+      {isModalOpen && (
+        <ConfirmationModal
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          onSuccess={handleDelete}
+          text="Do you really want to delete your comment?"
+        />
       )}
-      <CommentClapButton
-        isDark={true}
-        label="Comment"
-        handleClap={handleClap}
-        isDocExist={false}
-        clapCount={0}
-      />
-      {isUserAuthorized && (
-        <>
-          <EditButton
-            aria-label="Edit Comment"
-            onClick={() => setIsEditMode(!isEditMode)}
-            aria-pressed={isEditMode}
-          >
-            {isEditMode ? <CloseSVG /> : <PenSVG />}
-          </EditButton>
-          <DeleteButton aria-label="Delete Comment">
-            <TrashSVG />
-          </DeleteButton>
-        </>
-      )}
-      <Line />
-    </CommentListItem>
+    </>
   )
 }
