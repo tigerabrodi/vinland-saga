@@ -89,6 +89,8 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
     return <FullPageSpinner />
   }
 
+  const isUserAuthorized = user.username === username
+
   return (
     <>
       <UsernameWrapper>
@@ -101,11 +103,11 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
           <ProfileUsername>@{user.username}</ProfileUsername>
           <ProfileTitle
             aria-hidden="true"
-            isNotAuthorizedUser={user.username !== username}
+            isNotAuthorizedUser={!isUserAuthorized}
           >
             {user.fullname}
           </ProfileTitle>
-          {user.username === username && (
+          {isUserAuthorized && (
             <Link passHref href={`/${username}/edit`}>
               <EditLink aria-label="Edit Your Profile">
                 <Pen />
@@ -133,7 +135,9 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
           ) : (
             <>
               <NoRecipesText>
-                You currently have written no recipes.
+                {isUserAuthorized
+                  ? 'You currently have written no recipes.'
+                  : `${user.fullname} has currently have written no recipes.`}
               </NoRecipesText>
               <NewRecipeButton onClick={() => setIsModalOpen(true)}>
                 New Recipe
