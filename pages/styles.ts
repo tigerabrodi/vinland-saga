@@ -67,7 +67,7 @@ export const ToolBarButton = styled.button`
   }
 `
 
-export const RecipesList = styled.ul<{ recipesLength: number }>`
+export const RecipesList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,12 +83,6 @@ export const RecipesList = styled.ul<{ recipesLength: number }>`
   ${media.desktop} {
     margin-top: 3rem;
     column-gap: 2rem;
-    ${(props) =>
-      props.recipesLength < 4 &&
-      css`
-        justify-content: flex-start;
-        column-gap: 4rem;
-      `};
   }
 `
 
