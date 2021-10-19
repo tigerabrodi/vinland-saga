@@ -8,10 +8,10 @@ export const FOCUSABLE_ELEMENTS = [
 ]
 
 export function isVisible(element: HTMLElement) {
-  return !!(
+  return Boolean(
     element.offsetWidth ||
-    element.offsetHeight ||
-    element.getClientRects().length
+      element.offsetHeight ||
+      element.getClientRects().length
   )
 }
 
