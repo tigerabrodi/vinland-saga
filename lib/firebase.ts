@@ -69,6 +69,14 @@ export const getUserWithUsername = async (username: string) => {
   }
 }
 
+export const recipeToJSON = (recipeSnapshot: DocumentSnapshot): Recipe => {
+  const recipe = recipeSnapshot.data() as Recipe
+  return {
+    ...recipe,
+    createdAt: getTimestampInMillis(recipe.createdAt),
+  }
+}
+
 export const getRecipeWithSlug = async (
   slug: string,
   options?: { userToGetRecipeFrom: User | null | undefined }
@@ -84,14 +92,6 @@ export const getRecipeWithSlug = async (
 
   if (recipeSnap.exists()) {
     return recipeToJSON(recipeSnap)
-  }
-}
-
-export const recipeToJSON = (recipeSnapshot: DocumentSnapshot): Recipe => {
-  const recipe = recipeSnapshot.data() as Recipe
-  return {
-    ...recipe,
-    createdAt: getTimestampInMillis(recipe.createdAt),
   }
 }
 
