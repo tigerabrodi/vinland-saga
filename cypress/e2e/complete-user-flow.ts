@@ -127,6 +127,7 @@ it('Complete users flow', () => {
   )
 
   // Go to users page
+  cy.clickByRole('link', { name: 'users' })
   // Sort by both claps and recipes of the users
   // Click on the second user and see both its recipes on the profile page
   // Go to home and assert the recipe item comments length of your own recipe
