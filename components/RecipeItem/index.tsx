@@ -25,6 +25,7 @@ import { doc, getDoc } from '@firebase/firestore'
 
 type Props = {
   recipe: Recipe
+  isWithinSecondSection?: boolean
 }
 
 export const RecipeItem = ({
@@ -41,6 +42,7 @@ export const RecipeItem = ({
     readingTime,
     uid,
   },
+  isWithinSecondSection,
 }: Props) => {
   const [clapSnapshotExists, setClapSnapshotExists] = React.useState(false)
 
@@ -83,7 +85,7 @@ export const RecipeItem = ({
         </AuthorLink>
       </Link>
       <Date aria-label={`Posted on ${formattedDate}`}>{formattedDate}</Date>
-      <RecipeTitle>
+      <RecipeTitle as={isWithinSecondSection ? 'h3' : 'h2'}>
         <Link passHref href={`/${authorUsername}/${slug}`}>
           <RecipeTitleLink>{title}</RecipeTitleLink>
         </Link>

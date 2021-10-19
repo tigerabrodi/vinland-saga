@@ -127,7 +127,7 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
         <RecipesSection>
           <RecipesHeading>Recipes</RecipesHeading>
           {recipes.length ? (
-            <RecipesFeed recipes={recipes} />
+            <RecipesFeed recipes={recipes} isWithinSecondSection />
           ) : (
             <>
               <NoRecipesText>
