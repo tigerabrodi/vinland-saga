@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { getUserWithUsername } from '@lib/firebase'
+import { firebaseDb, getUserWithUsername, recipeToJSON } from '@lib/firebase'
 import defaultAvatar from '../../assets/default-avatar.png'
-import { UserProfile } from '@lib/types'
+import { Recipe, UserProfile } from '@lib/types'
 import type { NextPage } from 'next'
 import { useUserContext } from '@lib/context'
 import {
@@ -21,9 +21,16 @@ import {
   Dot,
   Line,
 } from './styles'
-import { Timestamp } from '@firebase/firestore'
+import {
+  Timestamp,
+  query as fbQuery,
+  collection,
+  where,
+  getDocs,
+} from '@firebase/firestore'
 import { FullPageSpinner } from '@components/Spinner'
 import { useNewRecipeStore } from '@lib/store'
+import { RecipeItem } from '@components/RecipeItem'
 
 type ServerProps = {
   query: {
@@ -36,6 +43,19 @@ export async function getServerSideProps({ query }: ServerProps) {
 
   const user = await getUserWithUsername(username)
 
+  let recipes = [] as Recipe[]
+
+  const recipeDocs = fbQuery(
+    collection(firebaseDb, `users/${user?.uid}/recipes`),
+    where('username', '==', username)
+  )
+
+  const recipesSnapshot = await getDocs(recipeDocs)
+
+  if (!recipesSnapshot.empty) {
+    recipes = recipesSnapshot.docs.map((recipeDoc) => recipeToJSON(recipeDoc))
+  }
+
   if (!user) {
     return {
       notFound: true,
@@ -43,15 +63,16 @@ export async function getServerSideProps({ query }: ServerProps) {
   }
 
   return {
-    props: { user },
+    props: { user, recipes },
   }
 }
 
 type Props = {
   user: UserProfile
+  recipes: Recipe[]
 }
 
-const Profile: NextPage<Props> = ({ user }) => {
+const Profile: NextPage<Props> = ({ user, recipes }) => {
   const { username } = useUserContext()
 
   const { setIsModalOpen } = useNewRecipeStore()
@@ -105,11 +126,20 @@ const Profile: NextPage<Props> = ({ user }) => {
         </ProfileSection>
         <RecipesSection>
           <RecipesHeading>Recipes</RecipesHeading>
-          {/* TODO Recipes should be returned if they exist */}
-          <NoRecipesText>You currently have written no recipes.</NoRecipesText>
-          <NewRecipeButton onClick={() => setIsModalOpen(true)}>
-            New Recipe
-          </NewRecipeButton>
+          {recipes.length ? (
+            recipes.map((recipe) => (
+              <RecipeItem key={recipe.slug} recipe={recipe} />
+            ))
+          ) : (
+            <>
+              <NoRecipesText>
+                You currently have written no recipes.
+              </NoRecipesText>
+              <NewRecipeButton onClick={() => setIsModalOpen(true)}>
+                New Recipe
+              </NewRecipeButton>
+            </>
+          )}
         </RecipesSection>
       </UsernameWrapper>
     </>
