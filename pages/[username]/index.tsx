@@ -43,18 +43,16 @@ export async function getServerSideProps({ query }: ServerProps) {
 
   const user = await getUserWithUsername(username)
 
-  let recipes = [] as Recipe[]
-
   const recipeDocs = fbQuery(
     collection(firebaseDb, `users/${user?.uid}/recipes`),
-    where('username', '==', username)
+    where('authorUsername', '==', username)
   )
 
   const recipesSnapshot = await getDocs(recipeDocs)
 
-  if (!recipesSnapshot.empty) {
-    recipes = recipesSnapshot.docs.map((recipeDoc) => recipeToJSON(recipeDoc))
-  }
+  const recipes = recipesSnapshot.docs.map((recipeDoc) =>
+    recipeToJSON(recipeDoc)
+  )
 
   if (!user) {
     return {
