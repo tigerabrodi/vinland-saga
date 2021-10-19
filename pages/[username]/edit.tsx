@@ -86,6 +86,7 @@ const ProfileEdit: NextPage = () => {
       push('/')
       return
     }
+
     if (user) {
       setFormState({
         fullname: user.fullname,
