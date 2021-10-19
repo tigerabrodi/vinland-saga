@@ -1,4 +1,4 @@
-import { RecipeItem } from '@components/RecipeItem'
+import { RecipesFeed } from '@components/RecipesFeed'
 import { collectionGroup, getDocs, query } from '@firebase/firestore'
 import { firebaseDb, recipeToJSON } from '@lib/firebase'
 import { Recipe } from '@lib/types'
@@ -9,7 +9,6 @@ import {
   Title,
   ToolBar,
   ToolBarButton,
-  RecipesList,
   NoFoundText,
 } from './styles'
 
@@ -32,7 +31,7 @@ type Props = {
   recipes: Recipe[]
 }
 
-const RecipesFeed: NextPage<Props> = ({ recipes }) => {
+const RecipesFeedHome: NextPage<Props> = ({ recipes }) => {
   return (
     <FeedSection>
       <TopWrapper>
@@ -43,11 +42,7 @@ const RecipesFeed: NextPage<Props> = ({ recipes }) => {
         </ToolBar>
       </TopWrapper>
       {recipes.length ? (
-        <RecipesList>
-          {recipes.map((recipe) => (
-            <RecipeItem key={recipe.slug} recipe={recipe} />
-          ))}
-        </RecipesList>
+        <RecipesFeed recipes={recipes} />
       ) : (
         <NoFoundText>Currently no recipes exist.</NoFoundText>
       )}
@@ -55,4 +50,4 @@ const RecipesFeed: NextPage<Props> = ({ recipes }) => {
   )
 }
 
-export default RecipesFeed
+export default RecipesFeedHome

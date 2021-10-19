@@ -30,8 +30,7 @@ import {
 } from '@firebase/firestore'
 import { FullPageSpinner } from '@components/Spinner'
 import { useNewRecipeStore } from '@lib/store'
-import { RecipeItem } from '@components/RecipeItem'
-import { RecipesList } from 'pages/styles'
+import { RecipesFeed } from '@components/RecipesFeed'
 
 type ServerProps = {
   query: {
@@ -128,11 +127,7 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
         <RecipesSection>
           <RecipesHeading>Recipes</RecipesHeading>
           {recipes.length ? (
-            <RecipesList>
-              {recipes.map((recipe) => (
-                <RecipeItem key={recipe.slug} recipe={recipe} />
-              ))}
-            </RecipesList>
+            <RecipesFeed recipes={recipes} />
           ) : (
             <>
               <NoRecipesText>
