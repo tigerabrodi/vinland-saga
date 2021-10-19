@@ -74,11 +74,11 @@ export const RecipeDetail = ({
 
   const clapRef = doc(firebaseDb, `${postPath}/claps/${auth.currentUser?.uid}`)
 
-  const isClapDocExist = !!useRealtimeState(clapRef.path)?.exists()
+  const isClapDocExist = Boolean(useRealtimeState(clapRef.path)?.exists())
 
   const handleClap = () => {
     if (!user) {
-      toast.error('You have to be authorized to clap a recipe.')
+      toast.error('You have to be logged in to clap a recipe.')
       return push('/sign-in')
     }
 
