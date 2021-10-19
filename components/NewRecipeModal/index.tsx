@@ -1,5 +1,10 @@
 import * as React from 'react'
-import { doc, serverTimestamp, setDoc } from '@firebase/firestore'
+import {
+  doc,
+  increment,
+  serverTimestamp,
+  writeBatch,
+} from '@firebase/firestore'
 import { useFormState } from '@hooks/useFormState'
 import { v4 as uuidv4 } from 'uuid'
 import kebabCase from 'lodash.kebabcase'
@@ -45,6 +50,8 @@ export const NewRecipeModal = () => {
       // Ensure slug is URL safe and unique
       const slug = encodeURI(kebabCase(title)) + uuidv4()
 
+      const batch = writeBatch(firebaseDb)
+
       const recipeData: Recipe = {
         title,
         body: '',
@@ -60,10 +67,16 @@ export const NewRecipeModal = () => {
         slug,
       }
 
-      await setDoc(
+      batch.set(
         doc(firebaseDb, `users/${user.uid}/recipes/${slug}`),
         recipeData
       )
+
+      batch.update(doc(firebaseDb, `users/${user.uid}`), {
+        recipeCount: increment(1),
+      })
+
+      await batch.commit()
 
       setIsModalOpen(false)
       toast.success(`You successfully created the recipe ${title}.`)
