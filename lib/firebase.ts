@@ -115,12 +115,14 @@ export const formatDate = (createdAt: number | Timestamp | FieldValue = 0) =>
     .split('T')[0]
 
 export const addClap = async (
+  userRef: DocumentReference<DocumentData>,
   postRef: DocumentReference<DocumentData>,
   clapRef: DocumentReference<DocumentData>
 ) => {
   const uid = auth.currentUser?.uid
   const batch = writeBatch(firebaseDb)
 
+  batch.update(userRef, { clapCount: increment(1) })
   batch.update(postRef, { clapCount: increment(1) })
   batch.set(clapRef, { uid })
 
@@ -128,11 +130,13 @@ export const addClap = async (
 }
 
 export const removeClap = async (
+  userRef: DocumentReference<DocumentData>,
   postRef: DocumentReference<DocumentData>,
   clapRef: DocumentReference<DocumentData>
 ) => {
   const batch = writeBatch(firebaseDb)
 
+  batch.update(userRef, { clapCount: increment(-1) })
   batch.update(postRef, { clapCount: increment(-1) })
   batch.delete(clapRef)
 

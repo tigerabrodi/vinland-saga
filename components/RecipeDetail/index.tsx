@@ -73,6 +73,7 @@ export const RecipeDetail = ({
   const postRef = doc(firebaseDb, postPath)
 
   const clapRef = doc(firebaseDb, `${postPath}/claps/${auth.currentUser?.uid}`)
+  const userRef = doc(firebaseDb, `users/${uid}`)
 
   const isClapDocExist = Boolean(useRealtimeState(clapRef.path)?.exists())
 
@@ -83,8 +84,8 @@ export const RecipeDetail = ({
     }
 
     return isClapDocExist
-      ? removeClap(postRef, clapRef)
-      : addClap(postRef, clapRef)
+      ? removeClap(userRef, postRef, clapRef)
+      : addClap(userRef, postRef, clapRef)
   }
 
   return (
