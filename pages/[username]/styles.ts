@@ -197,12 +197,14 @@ export const RecipesSection = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: 2rem;
+  margin-top: 3rem;
   ${media.tablet} {
     margin-top: 5rem;
+    width: 65rem;
   }
   ${media.desktop} {
     margin-top: 8rem;
+    width: 80%;
   }
 `
 
@@ -211,6 +213,7 @@ export const RecipesHeading = styled.h2`
   font-size: 3.6rem;
   color: ${theme.LightPink};
   text-decoration: underline;
+  margin-bottom: 1rem;
   ${media.tablet} {
     font-size: 6rem;
   }
@@ -221,7 +224,7 @@ export const NoRecipesText = styled.p`
   font-size: 1.5rem;
   color: ${theme.LightPink};
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 1rem;
   ${media.tablet} {
     font-size: 3rem;
     margin-top: 5rem;

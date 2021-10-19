@@ -31,6 +31,7 @@ import {
 import { FullPageSpinner } from '@components/Spinner'
 import { useNewRecipeStore } from '@lib/store'
 import { RecipeItem } from '@components/RecipeItem'
+import { RecipesList } from 'pages/styles'
 
 type ServerProps = {
   query: {
@@ -127,9 +128,11 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
         <RecipesSection>
           <RecipesHeading>Recipes</RecipesHeading>
           {recipes.length ? (
-            recipes.map((recipe) => (
-              <RecipeItem key={recipe.slug} recipe={recipe} />
-            ))
+            <RecipesList>
+              {recipes.map((recipe) => (
+                <RecipeItem key={recipe.slug} recipe={recipe} />
+              ))}
+            </RecipesList>
           ) : (
             <>
               <NoRecipesText>
