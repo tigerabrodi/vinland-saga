@@ -60,7 +60,7 @@ export const RecipeItem = ({
 
       const clapSnap = await getDoc(clapRef)
 
-      setClapSnapshotExists(!!clapSnap.exists())
+      setClapSnapshotExists(Boolean(clapSnap.exists()))
     }
 
     checkClapExists()
