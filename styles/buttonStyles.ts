@@ -7,7 +7,6 @@ export const recipeDetailButtonStyles = css`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  font-weight: 400;
   color: ${theme.Pink};
   font-size: 1.6rem;
   margin-top: 2rem;

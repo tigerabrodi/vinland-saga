@@ -86,7 +86,6 @@ export const AuthorLink = styled.a`
 export const Text = styled.p`
   grid-area: text;
   align-self: self-start;
-  font-weight: 400;
   font-size: 1.2rem;
   line-height: 1.3;
   color: ${theme.Brown};

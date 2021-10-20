@@ -52,7 +52,6 @@ export const AuthorText = styled.p`
   font-size: 1.1rem;
   color: ${theme.Pink};
   margin-top: 1rem;
-  font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

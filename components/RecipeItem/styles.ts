@@ -117,7 +117,6 @@ const textStyles = css`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  font-weight: 400;
   column-gap: 0.4rem;
   font-size: 1.3rem;
   color: ${theme.Pink};
@@ -149,7 +148,6 @@ export const ReadingTime = styled.p`
   grid-area: time;
   color: ${theme.Yellow};
   font-size: 1.2rem;
-  font-weight: 400;
   margin-right: 1rem;
   ${media.desktop} {
     font-size: 1.8rem;

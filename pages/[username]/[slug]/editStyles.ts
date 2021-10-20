@@ -187,7 +187,6 @@ export const Textarea = styled.textarea`
 export const Text = styled.p`
   text-align: center;
   grid-area: text;
-  font-weight: 400;
   font-size: 1rem;
   color: ${theme.Yellow};
   justify-self: center;
