@@ -4,36 +4,57 @@ import {
   FeedContainer,
   TopWrapper,
   Title,
-  ToolBar,
-  ToolBarButton,
+  RadioContainer,
+  RadioLabel,
+  Input,
 } from './styles'
 
 type Props = {
   children: React.ReactNode
-  toolbarButtonLabels: [string, string]
+  labels: [string, string]
   title: string
   itemsLength: number
 }
 
-export const Feed = ({
-  children,
-  toolbarButtonLabels,
-  title,
-  itemsLength,
-}: Props) => {
-  const [firstLabel, secondLabel] = toolbarButtonLabels
+export const Feed = ({ children, labels, title, itemsLength }: Props) => {
+  const [firstLabel, secondLabel] = labels
+
+  const [selectedSortOption, setSelectedSortOption] = React.useState(firstLabel)
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedSortOption(event.target.value)
+  }
 
   return (
     <FeedContainer>
       <TopWrapper>
         <Title>{title}</Title>
-        <ToolBar
-          role="toolbar"
-          aria-label={`Sort by ${firstLabel} or ${secondLabel}`}
-        >
-          <ToolBarButton>{firstLabel}</ToolBarButton>
-          <ToolBarButton>{secondLabel}</ToolBarButton>
-        </ToolBar>
+        <RadioContainer>
+          <Input
+            type="radio"
+            id={firstLabel}
+            value={firstLabel}
+            checked={selectedSortOption === firstLabel}
+            onChange={handleSortChange}
+          />
+          <RadioLabel htmlFor={firstLabel} aria-label={`Sort by ${firstLabel}`}>
+            {firstLabel}
+          </RadioLabel>
+
+          <Input
+            type="radio"
+            id={secondLabel}
+            value={secondLabel}
+            checked={selectedSortOption === secondLabel}
+            onChange={handleSortChange}
+          />
+          <RadioLabel
+            htmlFor={secondLabel}
+            aria-label={`Sort by ${secondLabel}`}
+          >
+            {secondLabel}
+          </RadioLabel>
+        </RadioContainer>
       </TopWrapper>
       {itemsLength ? (
         children

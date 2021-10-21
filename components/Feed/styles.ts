@@ -1,6 +1,5 @@
-import { whiteFocusStyles } from '@styles/focusStyles'
 import { media } from '@styles/media'
-import { sectionStyles } from '@styles/sharedStyles'
+import { AssistiveTechnologyOnly, sectionStyles } from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
 import styled from 'styled-components'
 
@@ -37,7 +36,7 @@ export const Title = styled.h1`
   }
 `
 
-export const ToolBar = styled.div`
+export const RadioContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -50,11 +49,11 @@ export const ToolBar = styled.div`
   }
 `
 
-export const ToolBarButton = styled.button`
+export const RadioLabel = styled.label`
   color: white;
   font-weight: bold;
   font-size: 1.4rem;
-  ${whiteFocusStyles}
+  cursor: pointer;
   ${media.tablet} {
     font-size: 2.3rem;
     transition: all 0.2s ease;
@@ -78,5 +77,26 @@ export const NoFoundText = styled.p`
   }
   ${media.desktop} {
     font-size: 4rem;
+  }
+`
+
+export const Input = styled.input`
+  ${AssistiveTechnologyOnly}
+
+  &:checked + label {
+    transform: translateY(-0.5rem);
+    text-decoration: underline;
+    font-size: 1.5rem;
+    ${media.tablet} {
+      font-size: 2.7rem;
+    }
+    ${media.desktop} {
+      font-size: 3.4rem;
+    }
+  }
+
+  &:focus + label {
+    outline: 0.2rem ridge white;
+    outline-offset: 0.3rem;
   }
 `

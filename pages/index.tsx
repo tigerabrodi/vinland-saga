@@ -27,7 +27,7 @@ type Props = {
 const RecipesFeedHome: NextPage<Props> = ({ recipes }) => {
   return (
     <Feed
-      toolbarButtonLabels={['Claps', 'Newest']}
+      labels={['Claps', 'Newest']}
       title="Recipes"
       itemsLength={recipes.length}
     >
