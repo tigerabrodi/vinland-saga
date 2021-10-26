@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Link from 'next/link'
-import { auth, firebaseDb } from '@lib/firebase'
+import { auth, firebaseDb } from '@lib/firebase/firebase'
 import type { NextPage } from 'next'
 import { NextRouter, useRouter } from 'next/router'
 import { Comment, Recipe, UserProfile } from '@lib/types'

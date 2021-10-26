@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { signInWithEmailAndPassword as signInWithEmailAndPasswordAuth } from '@firebase/auth'
-import { auth } from '@lib/firebase'
+import { auth } from '@lib/firebase/firebase'
 import { useLoadingStore } from '@lib/store'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'

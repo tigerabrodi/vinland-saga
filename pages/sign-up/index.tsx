@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { FormValid } from './styles'
 import debounce from 'lodash.debounce'
 import { doc, getDoc } from '@firebase/firestore'
-import { firebaseDb } from '@lib/firebase'
+import { firebaseDb } from '@lib/firebase/firebase'
 import { useCreateUserWithEmailAndPassword } from '@hooks/auth/useCreateUserWithEmailAndPassword'
 import { useLoadingStore } from '@lib/store'
 import {

@@ -6,7 +6,7 @@ import {
   DocumentSnapshot,
   onSnapshot,
 } from '@firebase/firestore'
-import { firebaseDb } from '@lib/firebase'
+import { firebaseDb } from '@lib/firebase/firebase'
 
 export const useRealtimeState = (path: string) => {
   const { setStatus } = useLoadingStore()

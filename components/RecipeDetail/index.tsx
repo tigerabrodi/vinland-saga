@@ -31,7 +31,7 @@ import {
   formatDate,
   removeClap,
   addClap,
-} from '@lib/firebase'
+} from '@lib/firebase/firebase'
 import { doc } from '@firebase/firestore'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'

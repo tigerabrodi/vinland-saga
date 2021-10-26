@@ -1,5 +1,9 @@
 import Link from 'next/link'
-import { firebaseDb, getUserWithUsername, recipeToJSON } from '@lib/firebase'
+import {
+  firebaseDb,
+  getUserWithUsername,
+  recipeToJSON,
+} from '@lib/firebase/firebase'
 import defaultAvatar from '../../assets/default-avatar.png'
 import { Recipe, UserProfile } from '@lib/types'
 import type { NextPage } from 'next'

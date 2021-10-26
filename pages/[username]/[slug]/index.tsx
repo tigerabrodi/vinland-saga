@@ -12,7 +12,7 @@ import {
   recipeToJSON,
   getUserWithUsername,
   commentsToJSON,
-} from '@lib/firebase'
+} from '@lib/firebase/firebase'
 import { FullPageSpinner } from '@components/Spinner'
 import { Comment, Recipe } from '@lib/types'
 import type { NextPage } from 'next'

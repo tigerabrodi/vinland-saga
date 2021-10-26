@@ -19,7 +19,7 @@ import {
   QuerySnapshot,
 } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
-import { Comment, Recipe, UserProfile } from './types'
+import { Comment, Recipe, UserProfile } from '../types'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_APP_API_KEY,
