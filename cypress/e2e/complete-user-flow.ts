@@ -63,7 +63,7 @@ it('Complete users flow', () => {
 
   // Ensure clap count
   cy.findByRole('listitem', {
-    name: `Read the recipe ${firstUserRecipe.title}`,
+    name: firstUserRecipe.title,
   }).within(() => {
     cy.findByLabelText('1 claps').should('exist')
 
@@ -128,8 +128,10 @@ it('Complete users flow', () => {
 
   // Go to users page
   cy.clickByRole('link', { name: 'users' })
-  // Sort by both claps and recipes of the users
+
   // Click on the second user and see both its recipes on the profile page
+  cy.assertAndClickOnSecondUser(secondUser)
+
   // Go to home and assert the recipe item comments length of your own recipe
   // Go to your own profile and click on your recipe, also assert it has two comments and a clap, clap and unclap one of the comments
 
@@ -140,10 +142,8 @@ it('Complete users flow', () => {
   // Sign out (Third User)
 
   // Login (second user) and go to users page
-  // Sort by both claps and recipes, third user should always come last
   // Go to third user's profile
   // Assert text that the user has no recipes
-  // Go to the feed page and be able to sort by claps and newest date
   // Go to your profile and click on the first recipe, then delete it and assert you get redirected to your profile
   // Then assert the recipe is no longer there
 
