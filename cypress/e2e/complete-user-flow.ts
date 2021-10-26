@@ -117,8 +117,10 @@ it('Complete users flow', () => {
   // Login (first user)
   cy.signIn(firstUser)
 
-  // See recipe on first user's profile
+  // Go to profile
   cy.clickItemInMenu('Profile')
+
+  // Assert the recipe exist
   cy.findByRole('heading', { name: firstUser.fullname, level: 1 }).should(
     'exist'
   )
@@ -129,13 +131,47 @@ it('Complete users flow', () => {
   // Go to users page
   cy.clickByRole('link', { name: 'users' })
 
-  // Click on the second user and see both its recipes on the profile page
+  // Click on the second user
   cy.assertAndClickOnSecondUser(secondUser)
 
-  // Go to home and assert the recipe item comments length of your own recipe
-  // Go to your own profile and click on your recipe, also assert it has two comments and a clap, clap and unclap one of the comments
+  // See two recipes
+  cy.findByRole('heading', { name: 'Recipes', level: 2 }).should('exist')
+  cy.findByRole('heading', { name: secondUserRecipe.title, level: 3 }).should(
+    'exist'
+  )
+  cy.findByRole('heading', { name: secondUserRecipe2.title, level: 3 }).should(
+    'exist'
+  )
+
+  // Go to home
+  cy.clickByRole('link', { name: 'Home' })
+
+  // Assert first user recipe comments
+  cy.findByRole('listitem', { name: firstUserRecipe.title }).within(() => {
+    cy.findByLabelText('2 comments').should('exist')
+  })
+
+  // Go to profile
+  cy.clickItemInMenu('Profile')
+
+  // Click on recipe
+  cy.clickByRole('link', { name: `Read more about ${firstUserRecipe.title}` })
+
+  // Assert two comments do exist
+  cy.findByText(secondUserComments.firstComment).should('exist')
+  cy.findByText(secondUserComments.secondComment).should('exist')
+
+  // Clap and Unclap first comment
+  cy.findAllByRole('listitem')
+    .first()
+    .within(() => {
+      cy.clickByRole('button', { name: 'Comment 0 claps' })
+      cy.clickByRole('button', { name: 'Comment 1 claps' })
+      cy.findByRole('button', { name: 'Comment 0 claps' }).should('exist')
+    })
 
   // Sign out (first user)
+  cy.signOut()
 
   // Create third user
   // Go to the first user's recipe and clap on one of the comments, and unclap it, assert it too
