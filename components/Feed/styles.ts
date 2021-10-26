@@ -84,7 +84,7 @@ export const Input = styled.input`
   ${AssistiveTechnologyOnly}
 
   &:checked + label {
-    transform: translateY(-0.5rem);
+    transform: translateY(-0.2rem);
     text-decoration: underline;
     font-size: 1.5rem;
     ${media.tablet} {
