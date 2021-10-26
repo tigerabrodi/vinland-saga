@@ -69,7 +69,7 @@ export const RecipeItem = ({
   }, [slug, uid])
 
   return (
-    <RecipeListItem aria-label={`Read the recipe ${title}`}>
+    <RecipeListItem aria-label={title}>
       <RecipeImage
         src={imageUrl === '' ? PlaceholderImage2x.src : imageUrl}
         srcSet={imageSrcSet}
@@ -87,7 +87,9 @@ export const RecipeItem = ({
       <Date aria-label={`Posted on ${formattedDate}`}>{formattedDate}</Date>
       <RecipeTitle as={isWithinSecondSection ? 'h3' : 'h2'}>
         <Link passHref href={`/${authorUsername}/${slug}`}>
-          <RecipeTitleLink>{title}</RecipeTitleLink>
+          <RecipeTitleLink aria-label={`Read more about ${title}`}>
+            {title}
+          </RecipeTitleLink>
         </Link>
       </RecipeTitle>
       <ClapText aria-label={`${clapCount} claps`}>

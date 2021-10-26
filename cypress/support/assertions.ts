@@ -30,29 +30,25 @@ export const assertRecipeDetail = (recipe: Recipe, user: User) => {
 }
 
 export const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
-  cy.findByRole('listitem', { name: `The recipe ${recipe.title}` }).within(
-    () => {
-      cy.findByRole('heading', { name: recipe.title, level: 2 }).should('exist')
-      cy.findByRole('link', { name: `Author: ${user.fullname}` }).should(
-        'exist'
-      )
+  cy.findByRole('listitem', { name: recipe.title }).within(() => {
+    cy.findByRole('heading', { name: recipe.title, level: 2 }).should('exist')
+    cy.findByRole('link', { name: `Author: ${user.fullname}` }).should('exist')
 
-      cy.findByRole('img', { name: recipe.title }).should('exist')
-      cy.findByRole('img', { name: user.fullname }).should('exist')
+    cy.findByRole('img', { name: recipe.title }).should('exist')
+    cy.findByRole('img', { name: user.fullname }).should('exist')
 
-      cy.findByLabelText('0 claps').should('exist')
-      cy.findByLabelText('0 comments').should('exist')
+    cy.findByLabelText('0 claps').should('exist')
+    cy.findByLabelText('0 comments').should('exist')
 
-      cy.findByText(/min read$/i).should('exist')
-      cy.findByLabelText(/^Posted on 2021-10/i).should('exist')
+    cy.findByText(/min read$/i).should('exist')
+    cy.findByLabelText(/^Posted on 2021-10/i).should('exist')
 
-      cy.clickByRole('link', { name: `Read more about ${recipe.title}` })
+    cy.clickByRole('link', { name: `Read more about ${recipe.title}` })
 
-      cy.findByRole('heading', {
-        name: recipe.title,
-      }).should('exist')
-    }
-  )
+    cy.findByRole('heading', {
+      name: recipe.title,
+    }).should('exist')
+  })
 }
 
 export const assertAndEditComment = ({
