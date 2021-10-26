@@ -110,7 +110,7 @@ export const RecipeDetail = ({
         <ClapButton
           label="Recipe"
           clapCount={clapCount}
-          isDocExist={isClapDocExist}
+          hasUserClapped={isClapDocExist}
           handleClap={handleClap}
         />
         <Link passHref href="#comments">
