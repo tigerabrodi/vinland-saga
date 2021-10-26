@@ -25,13 +25,8 @@ import {
   MarkDownWrapper,
 } from './styles'
 import { useUserContext } from '@lib/context'
-import {
-  auth,
-  firebaseDb,
-  removeRecipeClap,
-  addRecipeClap,
-} from '@lib/firebase/firebase'
-import { doc } from '@firebase/firestore'
+import { auth, firebaseDb } from '@lib/firebase/firebase'
+import { doc, increment, writeBatch } from '@firebase/firestore'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { useRealtimeState } from '@hooks/useRealtimeState'
@@ -77,15 +72,34 @@ export const RecipeDetail = ({
 
   const isClapDocExist = Boolean(useRealtimeState(clapRef.path)?.exists())
 
+  const addRecipeClap = async () => {
+    const uid = auth.currentUser?.uid
+    const batch = writeBatch(firebaseDb)
+
+    batch.update(userRef, { clapCount: increment(1) })
+    batch.update(postRef, { clapCount: increment(1) })
+    batch.set(clapRef, { uid })
+
+    await batch.commit()
+  }
+
+  const removeRecipeClap = async () => {
+    const batch = writeBatch(firebaseDb)
+
+    batch.update(userRef, { clapCount: increment(-1) })
+    batch.update(postRef, { clapCount: increment(-1) })
+    batch.delete(clapRef)
+
+    await batch.commit()
+  }
+
   const handleClap = () => {
     if (!user) {
       toast.error('You have to be logged in to clap a recipe.')
       return push('/sign-in')
     }
 
-    return isClapDocExist
-      ? removeRecipeClap(userRef, postRef, clapRef)
-      : addRecipeClap(userRef, postRef, clapRef)
+    return isClapDocExist ? removeRecipeClap() : addRecipeClap()
   }
 
   return (
