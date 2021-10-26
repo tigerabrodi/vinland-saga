@@ -4,7 +4,7 @@ import { Button } from './styles'
 
 type Props = {
   clapCount: number
-  hasUserClapped: boolean
+  hasUserClap: boolean
   handleClap: () => void
   label: string
   isDark?: boolean
@@ -15,19 +15,19 @@ export const ClapButton = ({
   label,
   clapCount,
   handleClap,
-  hasUserClapped,
+  hasUserClap,
   isDark,
   className,
 }: Props) => {
   return (
     <Button
       aria-label={`${label} ${clapCount} claps`}
-      aria-pressed={hasUserClapped}
+      aria-pressed={hasUserClap}
       onClick={() => handleClap()}
       isDark={isDark}
       className={className}
     >
-      {hasUserClapped ? <ClapFilledSVG /> : <ClapSVG />}
+      {hasUserClap ? <ClapFilledSVG /> : <ClapSVG />}
       {clapCount}
     </Button>
   )
