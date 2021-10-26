@@ -31,6 +31,7 @@ import { useLoadingStore } from '@lib/store'
 import toast from 'react-hot-toast'
 import { ConfirmationModal } from '@components/ConfirmationModal'
 import { formatDate } from '@lib/firebase/format-utils'
+import { useRealtimeState } from '@hooks/useRealtimeState'
 
 type Props = {
   comment: Comment
@@ -67,6 +68,15 @@ export const CommentItem = ({ comment, recipe }: Props) => {
   })
 
   useCloseEscape(() => setIsEditMode(false))
+
+  const clapRef = doc(
+    firebaseDb,
+    `users/${recipe.uid}/recipes/${recipe.slug}/comments/${id}/claps/${auth.currentUser?.uid}`
+  )
+
+  const hasUserClappedComment = Boolean(
+    useRealtimeState(clapRef.path)?.exists()
+  )
 
   const handleEditSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -158,7 +168,7 @@ export const CommentItem = ({ comment, recipe }: Props) => {
           isDark={true}
           label="Comment"
           handleClap={handleClap}
-          hasUserClapped={false}
+          hasUserClap={hasUserClappedComment}
           clapCount={clapCount}
         />
         {isUserAuthorized && (
