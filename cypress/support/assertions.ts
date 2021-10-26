@@ -82,11 +82,13 @@ export const assertAndEditComment = ({
 }
 
 export const assertAndClickOnSecondUser = (user: User) => {
-  cy.findByRole('img', { name: user.fullname }).should('exist')
-  cy.findByRole('heading', { name: user.fullname }).should('exist')
-  cy.findByText(`@${user.username}`).should('exist')
-  cy.findByText(user.location).should('exist')
-  cy.findByLabelText('Has 2 recipes').should('exist')
-  cy.findByLabelText('Has 0 claps').should('exist')
-  cy.clickByRole('link', { name: user.fullname })
+  cy.findByRole('listitem', { name: user.fullname }).within(() => {
+    cy.findByRole('img', { name: user.fullname }).should('exist')
+    cy.findByRole('heading', { name: user.fullname }).should('exist')
+    cy.findByText(`@${user.username}`).should('exist')
+    cy.findByText(user.location).should('exist')
+    cy.findByLabelText('Has 2 recipes').should('exist')
+    cy.findByLabelText('Has 0 claps').should('exist')
+    cy.clickByRole('link', { name: user.fullname })
+  })
 }

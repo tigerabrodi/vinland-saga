@@ -28,10 +28,10 @@ import {
   assertAndClickOnRecipe,
   assertPreviewMode,
   assertRecipeDetail,
-  createRecipe,
-  createUserAndProfile,
   assertAndEditComment,
+  assertAndClickOnSecondUser,
 } from './assertions'
+import { createRecipe, createUserAndProfile } from './creations'
 import {
   clickByRole,
   clickItemInMenu,
@@ -58,6 +58,7 @@ declare global {
       confirmDeletion: typeof confirmDeletion
       signOut: typeof signOut
       signIn: typeof signIn
+      assertAndClickOnSecondUser: typeof assertAndClickOnSecondUser
     }
   }
 }
@@ -75,3 +76,4 @@ Cypress.Commands.add('assertAndEditComment', assertAndEditComment)
 Cypress.Commands.add('confirmDeletion', confirmDeletion)
 Cypress.Commands.add('signOut', signOut)
 Cypress.Commands.add('signIn', signIn)
+Cypress.Commands.add('assertAndClickOnUser', assertAndClickOnSecondUser)
