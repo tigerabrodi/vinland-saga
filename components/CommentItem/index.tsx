@@ -32,6 +32,8 @@ import toast from 'react-hot-toast'
 import { ConfirmationModal } from '@components/ConfirmationModal'
 import { formatDate } from '@lib/firebase/format-utils'
 import { useRealtimeState } from '@hooks/useRealtimeState'
+import { useUserContext } from '@lib/context'
+import { useRouter } from 'next/router'
 
 type Props = {
   comment: Comment
@@ -39,6 +41,8 @@ type Props = {
 }
 
 export const CommentItem = ({ comment, recipe }: Props) => {
+  const { push } = useRouter()
+  const { user } = useUserContext()
   const [isEditMode, setIsEditMode] = React.useState(false)
   const {
     formState: { editTextarea },
@@ -69,9 +73,10 @@ export const CommentItem = ({ comment, recipe }: Props) => {
 
   useCloseEscape(() => setIsEditMode(false))
 
+  const commentPath = `users/${recipe.uid}/recipes/${recipe.slug}/comments/${id}`
   const clapRef = doc(
     firebaseDb,
-    `users/${recipe.uid}/recipes/${recipe.slug}/comments/${id}/claps/${auth.currentUser?.uid}`
+    `${commentPath}/claps/${auth.currentUser?.uid}`
   )
 
   const hasUserClappedComment = Boolean(
@@ -88,13 +93,7 @@ export const CommentItem = ({ comment, recipe }: Props) => {
       text: editTextarea,
     }
 
-    await setDoc(
-      doc(
-        firebaseDb,
-        `users/${recipe.uid}/recipes/${recipe.slug}/comments/${id}`
-      ),
-      commentData
-    )
+    await setDoc(doc(firebaseDb, commentPath), commentData)
 
     toast.success('Successfully edited your comment.')
     setIsEditMode(false)
@@ -106,12 +105,7 @@ export const CommentItem = ({ comment, recipe }: Props) => {
 
     const batch = writeBatch(firebaseDb)
 
-    batch.delete(
-      doc(
-        firebaseDb,
-        `users/${recipe.uid}/recipes/${recipe.slug}/comments/${id}`
-      )
-    )
+    batch.delete(doc(firebaseDb, commentPath))
 
     batch.update(
       doc(firebaseDb, `users/${recipe.uid}/recipes/${recipe.slug}`),
@@ -127,7 +121,35 @@ export const CommentItem = ({ comment, recipe }: Props) => {
 
   const isUserAuthorized = uid === auth.currentUser?.uid
 
-  const handleClap = () => {}
+  const commentRef = doc(firebaseDb, commentPath)
+
+  const addRecipeClap = async () => {
+    const uid = auth.currentUser?.uid
+    const batch = writeBatch(firebaseDb)
+
+    batch.update(commentRef, { clapCount: increment(1) })
+    batch.set(clapRef, { uid })
+
+    await batch.commit()
+  }
+
+  const removeRecipeClap = async () => {
+    const batch = writeBatch(firebaseDb)
+
+    batch.update(commentRef, { clapCount: increment(-1) })
+    batch.delete(clapRef)
+
+    await batch.commit()
+  }
+
+  const handleClap = () => {
+    if (!user) {
+      toast.error('You have to be logged in to clap a comment.')
+      return push('/sign-in')
+    }
+
+    return hasUserClappedComment ? removeRecipeClap() : addRecipeClap()
+  }
 
   return (
     <>
