@@ -70,7 +70,7 @@ export const RecipeDetail = ({
   const clapRef = doc(firebaseDb, `${postPath}/claps/${auth.currentUser?.uid}`)
   const userRef = doc(firebaseDb, `users/${uid}`)
 
-  const isClapDocExist = Boolean(useRealtimeState(clapRef.path)?.exists())
+  const hasUserClappedRecipe = Boolean(useRealtimeState(clapRef.path)?.exists())
 
   const addRecipeClap = async () => {
     const uid = auth.currentUser?.uid
@@ -99,7 +99,7 @@ export const RecipeDetail = ({
       return push('/sign-in')
     }
 
-    return isClapDocExist ? removeRecipeClap() : addRecipeClap()
+    return hasUserClappedRecipe ? removeRecipeClap() : addRecipeClap()
   }
 
   return (
@@ -124,7 +124,7 @@ export const RecipeDetail = ({
         <ClapButton
           label="Recipe"
           clapCount={clapCount}
-          hasUserClapped={isClapDocExist}
+          hasUserClap={hasUserClappedRecipe}
           handleClap={handleClap}
         />
         <Link passHref href="#comments">
