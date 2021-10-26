@@ -54,6 +54,7 @@ export const CommentItem = ({ comment, recipe }: Props) => {
     uid,
     createdAt,
     id,
+    clapCount,
   } = comment
 
   const editRef = useFocusTrap<HTMLFormElement>(isEditMode)
@@ -156,8 +157,8 @@ export const CommentItem = ({ comment, recipe }: Props) => {
           isDark={true}
           label="Comment"
           handleClap={handleClap}
-          isDocExist={false}
-          clapCount={0}
+          hasUserClapped={false}
+          clapCount={clapCount}
         />
         {isUserAuthorized && (
           <>
