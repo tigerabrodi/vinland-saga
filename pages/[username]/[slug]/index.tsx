@@ -7,7 +7,7 @@ import {
   collection,
   onSnapshot,
 } from '@firebase/firestore'
-import { firebaseDb, getUserWithUsername } from '@lib/firebase/firebase'
+import { firebaseDb } from '@lib/firebase/firebase'
 import { FullPageSpinner } from '@components/Spinner'
 import { Comment, Recipe } from '@lib/types'
 import type { NextPage } from 'next'
@@ -23,6 +23,7 @@ import { CommentForm } from '@components/CommentForm'
 import { CommentItem } from '@components/CommentItem'
 import { useLoadingStore } from '@lib/store'
 import { commentsToJSON, recipeToJSON } from '@lib/firebase/format-utils'
+import { getUserWithUsername } from '@lib/firebase/get-utils'
 
 type Params = {
   params: {

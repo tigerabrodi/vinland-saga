@@ -1,4 +1,4 @@
-import { getUserWithUsername } from '@lib/firebase/firebase'
+import { getUserWithUsername } from '@lib/firebase/get-utils'
 import { useLoadingStore } from '@lib/store'
 import { UserProfile } from '@lib/types'
 import * as React from 'react'

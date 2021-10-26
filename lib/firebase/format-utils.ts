@@ -6,7 +6,7 @@ import {
   QuerySnapshot,
 } from 'firebase/firestore'
 import { Comment, Recipe } from '../types'
-import { getTimestampInMillis } from './firebase'
+import { getTimestampInMillis } from './get-utils'
 
 export const recipeToJSON = (recipeSnapshot: DocumentSnapshot): Recipe => {
   const recipe = recipeSnapshot.data() as Recipe
