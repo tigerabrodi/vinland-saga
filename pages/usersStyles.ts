@@ -1,3 +1,4 @@
+import { media } from '@styles/media'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 
@@ -9,6 +10,16 @@ export const UsersList = styled.ul`
   margin-top: 2rem;
   row-gap: 2rem;
   width: 100%;
+  ${media.tablet} {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  ${media.desktop} {
+    justify-content: flex-start;
+    column-gap: 5rem;
+    margin-top: 4rem;
+  }
 `
 
 export const UserItemWrapper = styled.li`
@@ -24,6 +35,13 @@ export const UserItemWrapper = styled.li`
   box-shadow: 0 0.2rem 0.2rem black;
   grid-template-rows: auto 1rem auto;
   width: 100%;
+  ${media.tablet} {
+    width: 45%;
+  }
+  ${media.desktop} {
+    width: 32%;
+    max-width: 32rem;
+  }
 `
 
 export const AvatarImage = styled.img`
@@ -32,6 +50,10 @@ export const AvatarImage = styled.img`
   width: 6rem;
   border-radius: 50%;
   margin: 1.3rem 0;
+  ${media.desktop} {
+    height: 7rem;
+    width: 7rem;
+  }
 `
 
 export const Fullname = styled.h2`
@@ -42,6 +64,9 @@ export const Fullname = styled.h2`
   justify-self: self-start;
   margin-left: 0.7rem;
   text-decoration: underline;
+  ${media.desktop} {
+    font-size: 1.6rem;
+  }
 `
 
 export const Username = styled.p`
@@ -51,6 +76,9 @@ export const Username = styled.p`
   color: ${theme.Pink};
   justify-self: self-start;
   margin-left: 0.7rem;
+  ${media.desktop} {
+    font-size: 1.4rem;
+  }
 `
 
 export const Location = styled.p`
@@ -60,6 +88,9 @@ export const Location = styled.p`
   color: ${theme.Pink};
   justify-self: self-start;
   margin-left: 0.7rem;
+  ${media.desktop} {
+    font-size: 1.2rem;
+  }
 `
 
 const countStyles = css`
@@ -74,6 +105,14 @@ const countStyles = css`
     width: 2rem;
     path {
       fill: ${theme.Pink};
+    }
+  }
+  ${media.desktop} {
+    font-size: 1.5rem;
+    column-gap: 0.7rem;
+    svg {
+      height: 2.4rem;
+      width: 2.4rem;
     }
   }
 `
