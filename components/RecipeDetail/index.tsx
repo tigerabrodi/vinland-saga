@@ -25,7 +25,12 @@ import {
   MarkDownWrapper,
 } from './styles'
 import { useUserContext } from '@lib/context'
-import { auth, firebaseDb, removeClap, addClap } from '@lib/firebase/firebase'
+import {
+  auth,
+  firebaseDb,
+  removeRecipeClap,
+  addRecipeClap,
+} from '@lib/firebase/firebase'
 import { doc } from '@firebase/firestore'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
@@ -79,8 +84,8 @@ export const RecipeDetail = ({
     }
 
     return isClapDocExist
-      ? removeClap(userRef, postRef, clapRef)
-      : addClap(userRef, postRef, clapRef)
+      ? removeRecipeClap(userRef, postRef, clapRef)
+      : addRecipeClap(userRef, postRef, clapRef)
   }
 
   return (

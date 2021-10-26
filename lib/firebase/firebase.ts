@@ -32,7 +32,7 @@ export const fromMillis = Timestamp.fromMillis
 // Storage export
 export const storage = getStorage(firebaseApp)
 
-export const addClap = async (
+export const addRecipeClap = async (
   userRef: DocumentReference<DocumentData>,
   postRef: DocumentReference<DocumentData>,
   clapRef: DocumentReference<DocumentData>
@@ -47,7 +47,7 @@ export const addClap = async (
   await batch.commit()
 }
 
-export const removeClap = async (
+export const removeRecipeClap = async (
   userRef: DocumentReference<DocumentData>,
   postRef: DocumentReference<DocumentData>,
   clapRef: DocumentReference<DocumentData>
