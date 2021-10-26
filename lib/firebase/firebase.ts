@@ -10,16 +10,15 @@ import {
   limit,
   doc,
   getDoc,
-  DocumentSnapshot,
   FieldValue,
   writeBatch,
   DocumentReference,
   DocumentData,
   increment,
-  QuerySnapshot,
 } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
-import { Comment, Recipe, UserProfile } from '../types'
+import { UserProfile } from '../types'
+import { recipeToJSON } from './format-utils'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_APP_API_KEY,
@@ -43,7 +42,7 @@ export const fromMillis = Timestamp.fromMillis
 // Storage export
 export const storage = getStorage(firebaseApp)
 
-const getTimestampInMillis = (date: number | FieldValue | Timestamp) =>
+export const getTimestampInMillis = (date: number | FieldValue | Timestamp) =>
   typeof date === 'number'
     ? date
     : typeof date === 'object' && date !== null
@@ -69,14 +68,6 @@ export const getUserWithUsername = async (username: string) => {
   }
 }
 
-export const recipeToJSON = (recipeSnapshot: DocumentSnapshot): Recipe => {
-  const recipe = recipeSnapshot.data() as Recipe
-  return {
-    ...recipe,
-    createdAt: getTimestampInMillis(recipe.createdAt),
-  }
-}
-
 export const getRecipeWithSlug = async (
   slug: string,
   options?: { userToGetRecipeFrom: User | null | undefined }
@@ -94,25 +85,6 @@ export const getRecipeWithSlug = async (
     return recipeToJSON(recipeSnap)
   }
 }
-
-export const commentsToJSON = (
-  commentsSnapshot: QuerySnapshot<DocumentData>
-): Comment[] =>
-  commentsSnapshot.docs.map((commentDoc) => {
-    const comment = commentDoc.data() as Comment
-    return {
-      ...comment,
-      createdAt: getTimestampInMillis(comment.createdAt),
-    } as Comment
-  })
-
-export const formatDate = (createdAt: number | Timestamp | FieldValue = 0) =>
-  (typeof createdAt === 'number'
-    ? new Date(createdAt)
-    : (createdAt as Timestamp).toDate()
-  )
-    .toISOString()
-    .split('T')[0]
 
 export const addClap = async (
   userRef: DocumentReference<DocumentData>,

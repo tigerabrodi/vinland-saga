@@ -1,7 +1,8 @@
 import { Feed } from '@components/Feed'
 import { RecipesFeed } from '@components/RecipesFeed'
 import { collectionGroup, getDocs, query } from '@firebase/firestore'
-import { firebaseDb, recipeToJSON } from '@lib/firebase/firebase'
+import { firebaseDb } from '@lib/firebase/firebase'
+import { recipeToJSON } from '@lib/firebase/format-utils'
 import { Recipe } from '@lib/types'
 import type { NextPage } from 'next'
 

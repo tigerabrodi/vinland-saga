@@ -25,18 +25,13 @@ import {
   MarkDownWrapper,
 } from './styles'
 import { useUserContext } from '@lib/context'
-import {
-  auth,
-  firebaseDb,
-  formatDate,
-  removeClap,
-  addClap,
-} from '@lib/firebase/firebase'
+import { auth, firebaseDb, removeClap, addClap } from '@lib/firebase/firebase'
 import { doc } from '@firebase/firestore'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { useRealtimeState } from '@hooks/useRealtimeState'
 import { ClapButton } from '@components/ClapButton'
+import { formatDate } from '@lib/firebase/format-utils'
 
 type Props = {
   recipe: Recipe

@@ -1,9 +1,5 @@
 import Link from 'next/link'
-import {
-  firebaseDb,
-  getUserWithUsername,
-  recipeToJSON,
-} from '@lib/firebase/firebase'
+import { firebaseDb, getUserWithUsername } from '@lib/firebase/firebase'
 import defaultAvatar from '../../assets/default-avatar.png'
 import { Recipe, UserProfile } from '@lib/types'
 import type { NextPage } from 'next'
@@ -35,6 +31,7 @@ import {
 import { FullPageSpinner } from '@components/Spinner'
 import { useNewRecipeStore } from '@lib/store'
 import { RecipesFeed } from '@components/RecipesFeed'
+import { recipeToJSON } from '@lib/firebase/format-utils'
 
 type ServerProps = {
   query: {

@@ -20,8 +20,9 @@ import {
   ReadingTime,
   RecipeTitleLink,
 } from './styles'
-import { auth, firebaseDb, formatDate } from '@lib/firebase/firebase'
+import { auth, firebaseDb } from '@lib/firebase/firebase'
 import { doc, getDoc } from '@firebase/firestore'
+import { formatDate } from '@lib/firebase/format-utils'
 
 type Props = {
   recipe: Recipe

@@ -25,11 +25,12 @@ import { useFocusTrap } from '@hooks/useFocusTrap'
 import { useClickOutside } from '@hooks/useClickOutside'
 import { useCloseEscape } from '@hooks/useCloseEscape'
 import { Comment, Recipe } from '@lib/types'
-import { auth, firebaseDb, formatDate } from '@lib/firebase/firebase'
+import { auth, firebaseDb } from '@lib/firebase/firebase'
 import { doc, increment, setDoc, writeBatch } from '@firebase/firestore'
 import { useLoadingStore } from '@lib/store'
 import toast from 'react-hot-toast'
 import { ConfirmationModal } from '@components/ConfirmationModal'
+import { formatDate } from '@lib/firebase/format-utils'
 
 type Props = {
   comment: Comment
