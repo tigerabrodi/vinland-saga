@@ -2,7 +2,7 @@ import { media } from '@styles/media'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 
-export const UsersList = styled.ol`
+export const List = styled.ol`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -22,7 +22,7 @@ export const UsersList = styled.ol`
   }
 `
 
-export const UserItemWrapper = styled.li`
+export const ListItem = styled.li`
   display: grid;
   grid-template-areas:
     'avatar fullname recipesCount'

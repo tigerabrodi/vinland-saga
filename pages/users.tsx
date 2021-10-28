@@ -5,8 +5,8 @@ import DummyAvatar from '../cypress/fixtures/tiger-avatar.png'
 import RecipeSVG from '../assets/recipe.svg'
 import ClapSVG from '../assets/clap.svg'
 import {
-  UsersList,
-  UserItemWrapper,
+  List,
+  ListItem,
   AvatarImage,
   Fullname,
   Username,
@@ -18,8 +18,8 @@ import {
 const UsersFeed: NextPage = () => {
   return (
     <Feed labels={['Hearts', 'Recipes']} title="Users" itemsLength={1}>
-      <UsersList>
-        <UserItemWrapper>
+      <List>
+        <ListItem>
           <AvatarImage src={DummyAvatar.src} />
           <Fullname>Tiger Abrodi</Fullname>
           <Username>@tigerabrodi</Username>
@@ -32,8 +32,8 @@ const UsersFeed: NextPage = () => {
             <ClapSVG />
             <span>12</span>
           </ClapsCount>
-        </UserItemWrapper>
-        <UserItemWrapper>
+        </ListItem>
+        <ListItem>
           <AvatarImage src={DummyAvatar.src} />
           <Fullname>
             <Link passHref href={`/`}>
@@ -50,8 +50,8 @@ const UsersFeed: NextPage = () => {
             <ClapSVG />
             <span>12</span>
           </ClapsCount>
-        </UserItemWrapper>
-        <UserItemWrapper>
+        </ListItem>
+        <ListItem>
           <AvatarImage src={DummyAvatar.src} />
           <Fullname>Tiger Abrodi</Fullname>
           <Username>@tigerabrodi</Username>
@@ -64,8 +64,8 @@ const UsersFeed: NextPage = () => {
             <ClapSVG />
             <span>12</span>
           </ClapsCount>
-        </UserItemWrapper>
-      </UsersList>
+        </ListItem>
+      </List>
     </Feed>
   )
 }
