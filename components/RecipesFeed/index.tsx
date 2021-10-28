@@ -1,6 +1,6 @@
 import { RecipeItem } from '@components/RecipeItem'
 import { Recipe } from '@lib/types'
-import { RecipesList } from './styles'
+import { List } from './styles'
 
 type Props = {
   recipes: Recipe[]
@@ -11,7 +11,7 @@ export const RecipesFeed = ({
   recipes,
   isWithinSecondSection = false,
 }: Props) => (
-  <RecipesList>
+  <List>
     {recipes.map((recipe) => (
       <RecipeItem
         key={recipe.slug}
@@ -19,5 +19,5 @@ export const RecipesFeed = ({
         isWithinSecondSection={isWithinSecondSection}
       />
     ))}
-  </RecipesList>
+  </List>
 )

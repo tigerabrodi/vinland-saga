@@ -1,7 +1,7 @@
 import { media } from '@styles/media'
 import styled from 'styled-components'
 
-export const RecipesList = styled.ul`
+export const List = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
