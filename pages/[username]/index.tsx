@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import { firebaseDb } from '@lib/firebase/firebase'
 import defaultAvatar from '../../assets/default-avatar.png'
+import PenSVG from '../../assets/pen.svg'
 import { Recipe, UserProfile } from '@lib/types'
 import type { NextPage } from 'next'
 import { useUserContext } from '@lib/context'
 import {
   Avatar,
   EditLink,
-  Pen,
   ProfileTitle,
   ProfileUsername,
   RecipesSection,
@@ -110,7 +110,7 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
           {isUserAuthorized && (
             <Link passHref href={`/${username}/edit`}>
               <EditLink aria-label="Edit Your Profile">
-                <Pen />
+                <PenSVG />
               </EditLink>
             </Link>
           )}

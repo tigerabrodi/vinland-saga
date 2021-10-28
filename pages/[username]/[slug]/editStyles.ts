@@ -3,7 +3,6 @@ import {
   heightSectionStyles,
 } from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
-import ImagesSVG from '../../../assets/images.svg'
 import styled, { css } from 'styled-components'
 import { media } from '@styles/media'
 import { darkFocusStyles, yellowFocusStyles } from '@styles/focusStyles'
@@ -136,18 +135,18 @@ export const UploadLabel = styled.label`
     width: 8rem;
     height: 6rem;
   }
-`
 
-export const ImageIcon = styled(ImagesSVG)`
-  height: 2.4rem;
-  width: 2.4rem;
-  ${media.tablet} {
-    height: 3rem;
-    width: 3rem;
-  }
-  ${media.desktop} {
-    width: 3.5rem;
-    height: 3.5rem;
+  svg {
+    height: 2.4rem;
+    width: 2.4rem;
+    ${media.tablet} {
+      height: 3rem;
+      width: 3rem;
+    }
+    ${media.desktop} {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
   }
 `
 

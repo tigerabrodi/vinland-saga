@@ -6,6 +6,7 @@ import PlaceholderImage3x from '../../../assets/placeholder-image3x.jpg'
 import PlaceholderImage2x from '../../../assets/placeholder-image2x.jpg'
 import Eye from '../../../assets/eye.svg'
 import Rocket from '../../../assets/rocket.svg'
+import ImageIconSVG from '../../../assets/images.svg'
 import {
   RecipeEditWrapper,
   Heading,
@@ -14,7 +15,6 @@ import {
   UploadLabel,
   Input,
   FileInput,
-  ImageIcon,
   Image,
   BodyFormGroup,
   Textarea,
@@ -224,7 +224,7 @@ const RecipeEdit: NextPage = () => {
           />
           <UploadLabel htmlFor="upload">
             {' '}
-            <ImageIcon />{' '}
+            <ImageIconSVG />{' '}
           </UploadLabel>
           <BodyFormGroup>
             <Label htmlFor="body">Body</Label>

@@ -1,5 +1,4 @@
 import { AssistiveTechnologyOnly, sectionStyles } from '@styles/sharedStyles'
-import PenSVG from '../../assets/pen.svg'
 import DotSVG from '../../assets/dot.svg'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
@@ -127,18 +126,18 @@ export const EditLink = styled.a`
   ${media.desktop} {
     padding: 1.2rem;
   }
-`
 
-export const Pen = styled(PenSVG)`
-  height: 1.5rem;
-  width: 1.5rem;
-  ${media.tablet} {
-    height: 2rem;
-    width: 2rem;
-  }
-  ${media.desktop} {
-    height: 2.5rem;
-    width: 2.5rem;
+  svg {
+    height: 1.5rem;
+    width: 1.5rem;
+    ${media.tablet} {
+      height: 2rem;
+      width: 2rem;
+    }
+    ${media.desktop} {
+      height: 2.5rem;
+      width: 2.5rem;
+    }
   }
 `
 
@@ -169,7 +168,6 @@ export const Dot = styled(DotSVG)`
   height: 0.4rem;
   width: 0.4rem;
   margin: 0 1rem 0.25rem;
-  fill: ${theme.Brown};
   g {
     fill: ${theme.Brown};
   }
