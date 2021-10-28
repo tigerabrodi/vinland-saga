@@ -135,7 +135,7 @@ const SignUp: NextPage = () => {
           <Input
             id="username"
             name="username"
-            placeholder="Naruto_Uzumaki..."
+            placeholder="Naruto Uzumaki"
             type="text"
             value={username}
             aria-invalid={isUsernameError ? 'true' : 'false'}
@@ -177,7 +177,6 @@ const SignUp: NextPage = () => {
             id="password"
             name="password"
             type="password"
-            placeholder="Secret Password..."
             value={password}
             onChange={handleChange}
             aria-invalid={isPasswordError ? 'true' : 'false'}
@@ -195,7 +194,6 @@ const SignUp: NextPage = () => {
             id="confirm-password"
             name="confirmPassword"
             type="password"
-            placeholder="Secret Password..."
             value={confirmPassword}
             onChange={handleChange}
             aria-invalid={isConfirmPasswordError ? 'true' : 'false'}
