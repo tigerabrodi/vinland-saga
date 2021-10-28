@@ -9,16 +9,16 @@ import ClapFilledSVG from '../../assets/clap-filled.svg'
 import BubbleSVG from '../../assets/bubble.svg'
 import Link from 'next/link'
 import {
-  RecipeListItem,
-  RecipeImage,
-  RecipeAvatar,
+  ListItem,
+  Image,
+  Avatar,
   AuthorLink,
   Date,
-  RecipeTitle,
+  Title,
   ClapText,
   CommentText,
   ReadingTime,
-  RecipeTitleLink,
+  TitleLink,
 } from './styles'
 import { auth, firebaseDb } from '@lib/firebase/firebase'
 import { doc, getDoc } from '@firebase/firestore'
@@ -70,13 +70,13 @@ export const RecipeItem = ({
   }, [slug, uid])
 
   return (
-    <RecipeListItem aria-label={title}>
-      <RecipeImage
+    <ListItem aria-label={title}>
+      <Image
         src={imageUrl === '' ? PlaceholderImage2x.src : imageUrl}
         srcSet={imageSrcSet}
         alt={title}
       />
-      <RecipeAvatar
+      <Avatar
         src={authorAvatarUrl === '' ? defaultAvatar.src : authorAvatarUrl}
         alt={authorFullname}
       />
@@ -86,13 +86,11 @@ export const RecipeItem = ({
         </AuthorLink>
       </Link>
       <Date aria-label={`Posted on ${formattedDate}`}>{formattedDate}</Date>
-      <RecipeTitle as={isWithinSecondSection ? 'h3' : 'h2'}>
+      <Title as={isWithinSecondSection ? 'h3' : 'h2'}>
         <Link passHref href={`/${authorUsername}/${slug}`}>
-          <RecipeTitleLink aria-label={`Read more about ${title}`}>
-            {title}
-          </RecipeTitleLink>
+          <TitleLink aria-label={`Read more about ${title}`}>{title}</TitleLink>
         </Link>
-      </RecipeTitle>
+      </Title>
       <ClapText aria-label={`${clapCount} claps`}>
         {clapSnapshotExists ? <ClapFilledSVG /> : <ClapSVG />}
         {clapCount}
@@ -101,6 +99,6 @@ export const RecipeItem = ({
         <BubbleSVG /> {commentsCount}
       </CommentText>
       <ReadingTime>{readingTime}</ReadingTime>
-    </RecipeListItem>
+    </ListItem>
   )
 }

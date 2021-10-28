@@ -3,7 +3,7 @@ import { pinkFocusStyles, yellowFocusStyles } from '@styles/focusStyles'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 
-export const RecipeListItem = styled.li`
+export const ListItem = styled.li`
   width: 28rem;
   min-height: 32rem;
   row-gap: 0.7rem;
@@ -37,13 +37,13 @@ export const RecipeListItem = styled.li`
   }
 `
 
-export const RecipeImage = styled.img`
+export const Image = styled.img`
   grid-area: image;
   width: 100%;
   height: auto;
 `
 
-export const RecipeAvatar = styled.img`
+export const Avatar = styled.img`
   grid-area: avatar;
   height: 4rem;
   width: 4rem;
@@ -91,7 +91,7 @@ export const Date = styled.p`
   }
 `
 
-export const RecipeTitle = styled.h2`
+export const Title = styled.h2`
   align-self: self-end;
   grid-area: title;
   justify-self: self-start;
@@ -102,7 +102,7 @@ export const RecipeTitle = styled.h2`
   }
 `
 
-export const RecipeTitleLink = styled.a`
+export const TitleLink = styled.a`
   font-weight: bold;
   font-size: 2rem;
   color: ${theme.Yellow};
