@@ -97,7 +97,7 @@ export const UploadLabel = styled.label`
   }
 `
 
-export const UploadProgress = styled.span`
+export const UploadProgress = styled.div`
   grid-area: progress;
   font-weight: 600;
   font-size: 1.2rem;

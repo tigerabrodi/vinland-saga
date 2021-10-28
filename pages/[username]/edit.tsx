@@ -219,7 +219,15 @@ const ProfileEdit: NextPage = () => {
           alt={image === DefaultAvatar.src ? 'default' : 'avatar'}
         />
         {uploadProgress !== 0 && (
-          <UploadProgress>{uploadProgress}%</UploadProgress>
+          <UploadProgress
+            role="progressbar"
+            aria-valuenow={uploadProgress}
+            aria-valuetext="Uploading image"
+            aria-valuemin={0}
+            aria-valuemax={100}
+          >
+            {uploadProgress}%
+          </UploadProgress>
         )}
         <UploadInput
           type="file"
