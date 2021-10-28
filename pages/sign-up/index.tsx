@@ -2,7 +2,7 @@ import * as React from 'react'
 import type { NextPage } from 'next'
 import Link from 'next/link'
 import { FormValid } from './styles'
-import debounce from 'lodash.debounce'
+import { functionsDebounce } from 'all-of-just'
 import { doc, getDoc } from '@firebase/firestore'
 import { firebaseDb } from '@lib/firebase/firebase'
 import { useCreateUserWithEmailAndPassword } from '@hooks/auth/useCreateUserWithEmailAndPassword'
@@ -92,7 +92,7 @@ const SignUp: NextPage = () => {
   // useCallback is required for debounce to work
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkUsername = React.useCallback(
-    debounce(async (username: string) => {
+    functionsDebounce(async (username: string) => {
       if (username.length >= 3) {
         setStatus('loading')
         const usernameDocRef = doc(firebaseDb, `usernames/${username}`)

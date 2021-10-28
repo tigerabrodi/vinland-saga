@@ -7,7 +7,6 @@ import {
 } from '@firebase/firestore'
 import { useFormState } from '@hooks/useFormState'
 import { v4 as uuidv4 } from 'uuid'
-import kebabCase from 'lodash.kebabcase'
 import { useLoadingStore, useNewRecipeStore } from '@lib/store'
 import { Form, CreateButton, Label, Input } from './styles'
 import { useUserContext } from '@lib/context'
@@ -17,6 +16,7 @@ import toast from 'react-hot-toast'
 import { Recipe } from '@lib/types'
 import { useGetUser } from '@hooks/auth/useGetUser'
 import { Modal } from '@components/Modal'
+import { stringsKebabCase } from 'all-of-just'
 
 export const NewRecipeModal = () => {
   const {
@@ -48,7 +48,7 @@ export const NewRecipeModal = () => {
 
     if (username && user) {
       // Ensure slug is URL safe and unique
-      const slug = encodeURI(kebabCase(title)) + uuidv4()
+      const slug = encodeURI(stringsKebabCase(title)) + uuidv4()
 
       const batch = writeBatch(firebaseDb)
 
