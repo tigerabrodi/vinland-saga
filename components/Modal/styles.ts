@@ -1,5 +1,4 @@
 import { darkFocusStyles } from '@styles/focusStyles'
-import CloseSVG from '../../assets/close.svg'
 import { media } from '@styles/media'
 import { theme } from '@styles/theme'
 import styled from 'styled-components'
@@ -74,12 +73,11 @@ export const CloseButton = styled.button`
     margin-top: 2.2rem;
     margin-right: 2.4rem;
   }
-`
-
-export const Close = styled(CloseSVG)`
-  height: 100%;
-  width: 100%;
-  path {
-    fill: ${theme.Brown};
+  svg {
+    height: 100%;
+    width: 100%;
+    path {
+      fill: ${theme.Brown};
+    }
   }
 `
