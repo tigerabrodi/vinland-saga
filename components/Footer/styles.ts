@@ -1,5 +1,4 @@
 import { theme } from '@styles/theme'
-import ExternalSVG from '../../assets/external.svg'
 import styled from 'styled-components'
 import { media } from '@styles/media'
 import { pinkFocusStyles } from '@styles/focusStyles'
@@ -34,25 +33,24 @@ export const FooterLink = styled.a`
   color: ${theme.LightPink};
   text-decoration: underline;
   ${pinkFocusStyles}
-`
+  svg {
+    position: absolute;
+    top: -1.2rem;
+    right: -1rem;
+    height: 1.2rem;
+    width: 1.2rem;
+    ${media.tablet} {
+      top: -1.8rem;
+      right: -1.4rem;
+      height: 1.7rem;
+      width: 1.7rem;
+    }
 
-export const External = styled(ExternalSVG)`
-  position: absolute;
-  top: -1.2rem;
-  right: -1rem;
-  height: 1.2rem;
-  width: 1.2rem;
-  ${media.tablet} {
-    top: -1.8rem;
-    right: -1.4rem;
-    height: 1.7rem;
-    width: 1.7rem;
-  }
-
-  ${media.desktop} {
-    top: -2.2rem;
-    right: -1.6rem;
-    height: 1.9rem;
-    width: 1.9rem;
+    ${media.desktop} {
+      top: -2.2rem;
+      right: -1.6rem;
+      height: 1.9rem;
+      width: 1.9rem;
+    }
   }
 `
