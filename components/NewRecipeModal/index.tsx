@@ -78,9 +78,9 @@ export const NewRecipeModal = () => {
 
       await batch.commit()
 
-      setIsModalOpen(false)
       toast.success(`You successfully created the recipe ${title}.`)
       push(`/${username}/${slug}/edit`)
+      setIsModalOpen(false)
       setStatus('success')
     }
   }
