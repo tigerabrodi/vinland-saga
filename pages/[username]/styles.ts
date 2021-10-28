@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components'
 import { media } from '@styles/media'
 import { darkFocusStyles, pinkFocusStyles } from '@styles/focusStyles'
 
-export const UsernameWrapper = styled.div`
+export const Wrapper = styled.div`
   margin: 3rem 0;
   ${sectionStyles}
   ${media.tablet} {

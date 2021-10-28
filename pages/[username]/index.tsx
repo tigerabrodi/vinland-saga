@@ -17,7 +17,7 @@ import {
   RecipesHeading,
   NoRecipesText,
   NewRecipeButton,
-  UsernameWrapper,
+  Wrapper,
   Dot,
   Line,
 } from './styles'
@@ -93,7 +93,7 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
 
   return (
     <>
-      <UsernameWrapper>
+      <Wrapper>
         <ProfileSection>
           <HiddenProfileTitle>{user.fullname}</HiddenProfileTitle>
           <Avatar
@@ -143,7 +143,7 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
             </>
           )}
         </RecipesSection>
-      </UsernameWrapper>
+      </Wrapper>
     </>
   )
 }
