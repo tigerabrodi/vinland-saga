@@ -117,16 +117,20 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
     <PageWrapper>
       <RecipeDetail recipe={recipe} />
       <CommentForm recipe={recipe} />
-      <CommentsHeading id="comments">Comments</CommentsHeading>
-      {comments.length ? (
-        <CommentsList>
-          {comments.map((comment) => (
-            <CommentItem key={comment.id} comment={comment} recipe={recipe} />
-          ))}
-        </CommentsList>
-      ) : (
-        <NoCommentsText>This recipe currently has no comments.</NoCommentsText>
-      )}
+      <section>
+        <CommentsHeading id="comments">Comments</CommentsHeading>
+        {comments.length ? (
+          <CommentsList>
+            {comments.map((comment) => (
+              <CommentItem key={comment.id} comment={comment} recipe={recipe} />
+            ))}
+          </CommentsList>
+        ) : (
+          <NoCommentsText>
+            This recipe currently has no comments.
+          </NoCommentsText>
+        )}
+      </section>
     </PageWrapper>
   )
 }
