@@ -95,7 +95,7 @@ export const Text = styled.p`
   ${media.tablet} {
     width: 35rem;
     font-size: 1.9rem;
-    margin: 1.5rem 0 3rem 3rem;
+    margin: 1.5rem 0 3rem 3.4rem;
   }
   ${media.desktop} {
     font-size: 2.4rem;
