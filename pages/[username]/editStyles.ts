@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { media } from '@styles/media'
 import { darkFocusStyles, pinkFocusStyles } from '@styles/focusStyles'
 
-export const UserEditForm = styled.form`
+export const EditForm = styled.form`
   ${sectionStyles}
   margin: 3rem 0;
   ${media.tablet} {
@@ -16,7 +16,7 @@ export const UserEditForm = styled.form`
   }
 `
 
-export const UserEditWrapper = styled.div`
+export const EditWrapper = styled.div`
   width: 25rem;
   height: 29rem;
   background-color: ${theme.LightPink};
@@ -36,7 +36,7 @@ export const UserEditWrapper = styled.div`
 `
 
 // Heading should come first due to accessibility, hence this hidden heading exists
-export const UserEditTitle = styled.h1`
+export const HiddenEditTitle = styled.h1`
   ${AssistiveTechnologyOnly}
 `
 
@@ -120,7 +120,7 @@ export const UploadInput = styled.input`
   }
 `
 
-export const UserEditVisibleTitle = styled.h1`
+export const VisibleTitle = styled.h1`
   grid-area: editTitle;
   font-weight: bold;
   font-size: 1.6rem;

@@ -11,10 +11,10 @@ import {
   CancelLink,
   UploadInput,
   UploadLabel,
-  UserEditForm,
-  UserEditTitle,
-  UserEditVisibleTitle,
-  UserEditWrapper,
+  EditForm,
+  HiddenEditTitle,
+  VisibleTitle,
+  EditWrapper,
   FileUpload,
   LinkCancel,
   ButtonSave,
@@ -211,9 +211,9 @@ const ProfileEdit: NextPage = () => {
     !fullname.length || !age.length || !work.length || !location.length
 
   return (
-    <UserEditForm onSubmit={handleSubmit}>
-      <UserEditWrapper>
-        <UserEditTitle>Editing Profile</UserEditTitle>
+    <EditForm onSubmit={handleSubmit}>
+      <EditWrapper>
+        <HiddenEditTitle>Editing Profile</HiddenEditTitle>
         <Avatar
           src={image}
           alt={image === DefaultAvatar.src ? 'default' : 'avatar'}
@@ -231,16 +231,14 @@ const ProfileEdit: NextPage = () => {
           Avatar Upload
           <FileUpload />
         </UploadLabel>
-        <UserEditVisibleTitle aria-hidden="true">
-          Editing Profile
-        </UserEditVisibleTitle>
+        <VisibleTitle aria-hidden="true">Editing Profile</VisibleTitle>
 
         <Link passHref href={`/${user.username}`}>
           <CancelLink aria-label="Cancel">
             <Cancel />
           </CancelLink>
         </Link>
-      </UserEditWrapper>
+      </EditWrapper>
       <FormGroup>
         <Label htmlFor="fullname">Full Name *</Label>
         <Input
@@ -308,7 +306,7 @@ const ProfileEdit: NextPage = () => {
           <LinkCancel>Cancel</LinkCancel>
         </Link>
       </ButtonWrapper>
-    </UserEditForm>
+    </EditForm>
   )
 }
 
