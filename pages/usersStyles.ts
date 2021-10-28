@@ -14,11 +14,11 @@ export const UsersList = styled.ul`
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 3rem;
   }
   ${media.desktop} {
-    justify-content: flex-start;
-    column-gap: 5rem;
     margin-top: 4rem;
+    justify-content: flex-start;
   }
 `
 
@@ -36,11 +36,11 @@ export const UserItemWrapper = styled.li`
   grid-template-rows: auto 1rem auto;
   width: 100%;
   ${media.tablet} {
-    width: 45%;
+    flex: 0 0 30rem;
   }
   ${media.desktop} {
-    width: 32%;
-    max-width: 32rem;
+    flex: 1 0 30rem;
+    max-width: 40rem;
   }
 `
 
