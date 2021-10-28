@@ -2,7 +2,7 @@ import { media } from '@styles/media'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 
-export const UsersList = styled.ul`
+export const UsersList = styled.ol`
   display: flex;
   align-items: center;
   flex-direction: column;
