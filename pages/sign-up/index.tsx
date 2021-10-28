@@ -1,7 +1,7 @@
 import * as React from 'react'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { FormValid } from './styles'
+import { FormIsValidText } from './styles'
 import { functionsDebounce } from 'all-of-just'
 import { doc, getDoc } from '@firebase/firestore'
 import { firebaseDb } from '@lib/firebase/firebase'
@@ -146,7 +146,7 @@ const SignUp: NextPage = () => {
             <FormError role="alert">Username is already taken.</FormError>
           )}
           {isUsernameValid && (
-            <FormValid role="alert">Username is valid.</FormValid>
+            <FormIsValidText role="alert">Username is valid.</FormIsValidText>
           )}
         </FormGroup>
         <FormGroup>
