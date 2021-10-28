@@ -1,8 +1,5 @@
 import { AssistiveTechnologyOnly, sectionStyles } from '@styles/sharedStyles'
 import { formGroupStyles, formInputStyles } from '@styles/formStyles'
-import CancelSVG from '../../assets/close.svg'
-import ProfileSVG from '../../assets/profile.svg'
-import FileUploadSVG from '../../assets/file-upload.svg'
 import { theme } from '@styles/theme'
 import styled from 'styled-components'
 import { media } from '@styles/media'
@@ -87,6 +84,17 @@ export const UploadLabel = styled.label`
   ${media.desktop} {
     padding: 1.4rem 2.2rem;
   }
+
+  svg {
+    height: 1.8rem;
+    width: 1.8rem;
+    fill: ${theme.LightPink};
+    margin-left: 1rem;
+    ${media.tablet} {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
 `
 
 export const UploadProgress = styled.span`
@@ -99,17 +107,6 @@ export const UploadProgress = styled.span`
   }
   ${media.desktop} {
     font-size: 1.8rem;
-  }
-`
-
-export const FileUpload = styled(FileUploadSVG)`
-  height: 1.8rem;
-  width: 1.8rem;
-  fill: ${theme.LightPink};
-  margin-left: 1rem;
-  ${media.tablet} {
-    width: 2.5rem;
-    height: 2.5rem;
   }
 `
 
@@ -165,14 +162,13 @@ export const CancelLink = styled.a`
     height: 4.5rem;
     width: 4.5rem;
   }
-`
-
-export const Cancel = styled(CancelSVG)`
-  height: 1.8rem;
-  width: 1.8rem;
-  ${media.tablet} {
-    height: 2.2rem;
-    width: 2.2rem;
+  svg {
+    height: 1.8rem;
+    width: 1.8rem;
+    ${media.tablet} {
+      height: 2.2rem;
+      width: 2.2rem;
+    }
   }
 `
 
@@ -221,6 +217,15 @@ export const ButtonSave = styled.button`
     font-size: 2.2rem;
     width: 12rem;
   }
+  svg {
+    fill: ${theme.Brown};
+    height: 2rem;
+    width: 2rem;
+    ${media.desktop} {
+      height: 3rem;
+      width: 3rem;
+    }
+  }
 `
 
 export const LinkCancel = styled.a`
@@ -238,16 +243,6 @@ export const LinkCancel = styled.a`
   }
   ${media.desktop} {
     font-size: 2.2rem;
-  }
-`
-
-export const Profile = styled(ProfileSVG)`
-  fill: ${theme.Brown};
-  height: 2rem;
-  width: 2rem;
-  ${media.desktop} {
-    height: 3rem;
-    width: 3rem;
   }
 `
 

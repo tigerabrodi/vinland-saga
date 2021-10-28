@@ -4,10 +4,12 @@ import { auth, firebaseDb } from '@lib/firebase/firebase'
 import type { NextPage } from 'next'
 import { NextRouter, useRouter } from 'next/router'
 import { Comment, Recipe, UserProfile } from '@lib/types'
+import FileUploadSVG from '../../assets/file-upload.svg'
+import CancelSVG from '../../assets/close.svg'
+import ProfileSVG from '../../assets/profile.svg'
 import DefaultAvatar from '../../assets/default-avatar.png'
 import {
   Avatar,
-  Cancel,
   CancelLink,
   UploadInput,
   UploadLabel,
@@ -15,11 +17,9 @@ import {
   HiddenEditTitle,
   VisibleTitle,
   EditWrapper,
-  FileUpload,
   LinkCancel,
   ButtonSave,
   ButtonWrapper,
-  Profile,
   Textarea,
   AgeInput,
   Input,
@@ -229,13 +229,13 @@ const ProfileEdit: NextPage = () => {
         />
         <UploadLabel htmlFor="upload">
           Avatar Upload
-          <FileUpload />
+          <FileUploadSVG />
         </UploadLabel>
         <VisibleTitle aria-hidden="true">Editing Profile</VisibleTitle>
 
         <Link passHref href={`/${user.username}`}>
           <CancelLink aria-label="Cancel">
-            <Cancel />
+            <CancelSVG />
           </CancelLink>
         </Link>
       </EditWrapper>
@@ -299,7 +299,7 @@ const ProfileEdit: NextPage = () => {
       </FormGroup>
       <ButtonWrapper>
         <ButtonSave type="submit" disabled={isButtonDisabled}>
-          <Profile />
+          <ProfileSVG />
           Save
         </ButtonSave>
         <Link passHref href={`/${user.username}`}>
