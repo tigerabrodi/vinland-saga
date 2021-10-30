@@ -22,7 +22,10 @@ export const UserItem = ({
   user: { username, fullname, location, recipeCount, clapCount, avatarUrl },
 }: Props) => (
   <ListItem>
-    <AvatarImage src={avatarUrl === '' ? defaultAvatar.src : avatarUrl} />
+    <AvatarImage
+      src={avatarUrl === '' ? defaultAvatar.src : avatarUrl}
+      alt={fullname}
+    />
     <Fullname>
       <Link href={`/${username}`} passHref>
         <FullnameLink>{fullname}</FullnameLink>
@@ -32,11 +35,11 @@ export const UserItem = ({
     <Location>{location}</Location>
     <RecipesCount aria-label={`${recipeCount} recipes`}>
       <RecipeSVG />
-      <span>12</span>
+      <span>{recipeCount}</span>
     </RecipesCount>
     <ClapsCount aria-label={`${clapCount} claps`}>
       <ClapSVG />
-      <span>12</span>
+      <span>{clapCount}</span>
     </ClapsCount>
   </ListItem>
 )
