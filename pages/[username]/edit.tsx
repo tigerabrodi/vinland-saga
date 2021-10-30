@@ -49,7 +49,6 @@ import toast from 'react-hot-toast'
 import { useGetUser } from '@hooks/auth/useGetUser'
 import { useUserContext } from '@lib/context'
 import { useFormState } from '@hooks/useFormState'
-import { useUnload } from '@hooks/useUnload'
 
 type Router = NextRouter & {
   query: { username: string }
@@ -97,14 +96,6 @@ const ProfileEdit: NextPage = () => {
       })
     }
   }, [username, push, setFormState, user, queryUsername])
-
-  useUnload((event) => {
-    event.preventDefault()
-    const exit = confirm(
-      'Are you sure you want to leave? Changes may get lost if you do.'
-    )
-    if (exit) window.close()
-  })
 
   const userRef = doc(firebaseDb, `users/${auth.currentUser!.uid}`)
 

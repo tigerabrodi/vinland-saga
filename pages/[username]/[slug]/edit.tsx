@@ -41,7 +41,6 @@ import { FullPageSpinner } from '@components/Spinner'
 import { useUserContext } from '@lib/context'
 import { useGetUser } from '@hooks/auth/useGetUser'
 import { RecipeDetail } from '@components/RecipeDetail'
-import { useUnload } from '@hooks/useUnload'
 import { getRecipeWithSlug } from '@lib/firebase/get-utils'
 
 type Router = NextRouter & {
@@ -95,14 +94,6 @@ const RecipeEdit: NextPage = () => {
       setRecipeState()
     }
   }, [recipe, setFormState, setStatus, slug, currentAuthUser])
-
-  useUnload((event) => {
-    event.preventDefault()
-    const exit = confirm(
-      'Are you sure you want to leave? Changes may get lost if you do.'
-    )
-    if (exit) window.close()
-  })
 
   const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = Array.from(event.target.files as FileList)[0]
