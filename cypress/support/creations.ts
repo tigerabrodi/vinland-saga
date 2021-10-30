@@ -27,7 +27,7 @@ export const createUserAndProfile = (user: User) => {
   cy.findByLabelText('Age *').type(`${user.age}`)
   cy.findByLabelText('Work *').type(`Chef at ${user.work}`)
   cy.findByLabelText('Location *').type(`${user.location}`)
-  cy.findByLabelText('Biography').type(user.bio)
+  cy.findByLabelText('Biography *').type(user.bio)
 
   cy.clickByRole('button', { name: 'Save' })
   cy.findByText('Successfully updated your profile.').should('exist')

@@ -208,7 +208,11 @@ const ProfileEdit: NextPage = () => {
       : DefaultAvatar.src
 
   const isButtonDisabled =
-    !fullname.length || !age.length || !work.length || !location.length
+    !fullname.length ||
+    !age.length ||
+    !work.length ||
+    !location.length ||
+    !bio.length
 
   return (
     <EditForm onSubmit={handleSubmit}>
@@ -296,7 +300,7 @@ const ProfileEdit: NextPage = () => {
         />
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="bio">Biography</Label>
+        <Label htmlFor="bio">Biography *</Label>
         <Textarea
           id="bio"
           name="bio"
