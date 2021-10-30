@@ -173,13 +173,7 @@ it('Complete users flow', () => {
   // Sign out (first user)
   cy.signOut()
 
-  // Create third user
-  // Go to the first user's recipe and clap on one of the comments, and unclap it, assert it too
-  // Sign out (Third User)
-
-  // Login (second user) and go to users page
-  // Go to third user's profile
-  // Assert text that the user has no recipes
+  // Login (second user)
   // Go to your profile and click on the first recipe, then delete it and assert you get redirected to your profile
   // Then assert the recipe is no longer there
 
@@ -187,7 +181,6 @@ it('Complete users flow', () => {
 
   // Sign Out
 
-  // Sign in Third User
-
-  // Create over 10 recipes, assert that 10 recipes max are being shown and assert Load More button
+  // TODO Load More Button
+  // TODO Sorting functionalities
 })
