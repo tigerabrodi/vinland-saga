@@ -58,7 +58,6 @@ const SignIn: NextPage = () => {
             id="password"
             name="password"
             type="password"
-            placeholder="Secret Password..."
             value={password}
             onChange={handleChange}
             aria-required="true"
