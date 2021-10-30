@@ -23,7 +23,6 @@ import ProfileSVG from '../../assets/profile.svg'
 import MoonSVG from '../../assets/moon.svg'
 import { useMedia } from '@hooks/useMedia'
 import { useUserContext } from '@lib/context'
-import { useGetUser } from '@hooks/auth/useGetUser'
 import { auth } from '@lib/firebase/firebase'
 import toast from 'react-hot-toast'
 import { useLoadingStore, useNewRecipeStore } from '@lib/store'
@@ -31,12 +30,13 @@ import { useRouter } from 'next/router'
 import { useFocusTrap } from '@hooks/useFocusTrap'
 import { useClickOutside } from '@hooks/useClickOutside'
 import { useCloseEscape } from '@hooks/useCloseEscape'
+import { UserProfile } from '@lib/types'
+import { useRealtimeState } from '@hooks/useRealtimeState'
 
 export const Navigation = () => {
   const isTabletLayout = useMedia('min', '768')
   const { push } = useRouter()
   const { username } = useUserContext()
-  const { user } = useGetUser(username)
   const { setIsModalOpen } = useNewRecipeStore()
   const { setStatus } = useLoadingStore()
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
@@ -57,6 +57,10 @@ export const Navigation = () => {
     toast.success('Successfully signed out of your account.')
     setStatus('success')
   }
+
+  const user = useRealtimeState(
+    `users/${auth.currentUser?.uid}`
+  )?.data() as UserProfile
 
   return (
     <NavigationWrapper>
