@@ -24,13 +24,7 @@ export const dataToJSON = <
 export const commentsToJSON = (
   commentsSnapshot: QuerySnapshot<DocumentData>
 ): Comment[] =>
-  commentsSnapshot.docs.map((commentDoc) => {
-    const comment = commentDoc.data() as Comment
-    return {
-      ...comment,
-      createdAt: getTimestampInMillis(comment.createdAt),
-    } as Comment
-  })
+  commentsSnapshot.docs.map((commentDoc) => dataToJSON(commentDoc))
 
 export const formatDate = (createdAt: number | Timestamp | FieldValue = 0) =>
   (typeof createdAt === 'number'
