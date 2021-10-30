@@ -5,7 +5,7 @@ import {
   DocumentData,
   QuerySnapshot,
 } from 'firebase/firestore'
-import { Comment, Recipe } from '../types'
+import { Comment, Recipe, UserProfile } from '@lib/types'
 import { getTimestampInMillis } from './get-utils'
 
 export const recipeToJSON = (recipeSnapshot: DocumentSnapshot): Recipe => {
@@ -13,6 +13,14 @@ export const recipeToJSON = (recipeSnapshot: DocumentSnapshot): Recipe => {
   return {
     ...recipe,
     createdAt: getTimestampInMillis(recipe.createdAt),
+  }
+}
+
+export const userToJSON = (userSnapshot: DocumentSnapshot): UserProfile => {
+  const user = userSnapshot.data() as UserProfile
+  return {
+    ...user,
+    joined: getTimestampInMillis(user.joined),
   }
 }
 
