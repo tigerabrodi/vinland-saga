@@ -20,7 +20,7 @@ export const userToJSON = (userSnapshot: DocumentSnapshot): UserProfile => {
   const user = userSnapshot.data() as UserProfile
   return {
     ...user,
-    joined: getTimestampInMillis(user.joined),
+    createdAt: getTimestampInMillis(user.createdAt),
   }
 }
 

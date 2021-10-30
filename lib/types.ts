@@ -17,7 +17,7 @@ export type UserProfile = {
   avatarUrl: string
   clapCount: number
   recipeCount: number
-  joined: FieldValue | Timestamp | number
+  createdAt: FieldValue | Timestamp | number
   uid: string
 }
 

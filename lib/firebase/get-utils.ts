@@ -32,10 +32,10 @@ export const getUserWithUsername = async (username: string) => {
 
   const user = (await getDocs(userQuery)).docs[0].data() as UserProfile
 
-  if (user && user.joined) {
+  if (user && user.createdAt) {
     return {
       ...user,
-      joined: getTimestampInMillis(user.joined),
+      joined: getTimestampInMillis(user.createdAt),
     }
   }
 }

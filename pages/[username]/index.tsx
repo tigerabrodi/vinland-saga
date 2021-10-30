@@ -78,9 +78,9 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
   const { setIsModalOpen } = useNewRecipeStore()
 
   const joined = (
-    typeof user.joined === 'number'
-      ? new Date(user.joined)
-      : (user.joined as Timestamp).toDate()
+    typeof user.createdAt === 'number'
+      ? new Date(user.createdAt)
+      : (user.createdAt as Timestamp).toDate()
   )
     .toISOString()
     .split('T')[0]
