@@ -1,70 +1,39 @@
 import { Feed } from '@components/Feed'
-import Link from 'next/link'
+import { UserItem } from '@components/UserItem'
+import { collection, getDocs, query } from '@firebase/firestore'
+import { firebaseDb } from '@lib/firebase/firebase'
+import { userToJSON } from '@lib/firebase/format-utils'
+import { UserProfile } from '@lib/types'
 import type { NextPage } from 'next'
-import DummyAvatar from '../cypress/fixtures/tiger-avatar.png'
-import RecipeSVG from '../assets/recipe.svg'
-import ClapSVG from '../assets/clap.svg'
-import {
-  List,
-  ListItem,
-  AvatarImage,
-  Fullname,
-  Username,
-  Location,
-  RecipesCount,
-  ClapsCount,
-} from './usersStyles'
+import { List } from './usersStyles'
 
-const UsersFeed: NextPage = () => {
+export async function getServerSideProps() {
+  const usersQuery = query(collection(firebaseDb, 'users'))
+
+  const users = (await getDocs(usersQuery)).docs.map(
+    userToJSON
+  ) as UserProfile[]
+
+  return {
+    props: { users },
+  }
+}
+
+type Props = {
+  users: UserProfile[]
+}
+
+const UsersFeed: NextPage<Props> = ({ users }) => {
   return (
-    <Feed labels={['Hearts', 'Recipes']} title="Users" itemsLength={1}>
+    <Feed
+      labels={['Hearts', 'Recipes']}
+      title="Users"
+      itemsLength={users.length}
+    >
       <List>
-        <ListItem>
-          <AvatarImage src={DummyAvatar.src} />
-          <Fullname>Tiger Abrodi</Fullname>
-          <Username>@tigerabrodi</Username>
-          <Location>San Diego, California</Location>
-          <RecipesCount aria-label={`8 recipes`}>
-            <RecipeSVG />
-            <span>12</span>
-          </RecipesCount>
-          <ClapsCount aria-label={`8 claps`}>
-            <ClapSVG />
-            <span>12</span>
-          </ClapsCount>
-        </ListItem>
-        <ListItem>
-          <AvatarImage src={DummyAvatar.src} />
-          <Fullname>
-            <Link passHref href={`/`}>
-              <a>Tiger Abrodi</a>
-            </Link>
-          </Fullname>
-          <Username>@tigerabrodi</Username>
-          <Location>San Diego, California</Location>
-          <RecipesCount aria-label={`8 recipes`}>
-            <RecipeSVG />
-            <span>12</span>
-          </RecipesCount>
-          <ClapsCount aria-label={`8 claps`}>
-            <ClapSVG />
-            <span>12</span>
-          </ClapsCount>
-        </ListItem>
-        <ListItem>
-          <AvatarImage src={DummyAvatar.src} />
-          <Fullname>Tiger Abrodi</Fullname>
-          <Username>@tigerabrodi</Username>
-          <Location>San Diego, California</Location>
-          <RecipesCount aria-label={`8 recipes`}>
-            <RecipeSVG />
-            <span>12</span>
-          </RecipesCount>
-          <ClapsCount aria-label={`8 claps`}>
-            <ClapSVG />
-            <span>12</span>
-          </ClapsCount>
-        </ListItem>
+        {users.map((user) => (
+          <UserItem key={user.uid} user={user} />
+        ))}
       </List>
     </Feed>
   )
