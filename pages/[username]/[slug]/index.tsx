@@ -6,6 +6,8 @@ import {
   getDoc,
   collection,
   onSnapshot,
+  CollectionReference,
+  DocumentReference,
 } from '@firebase/firestore'
 import { firebaseDb } from '@lib/firebase/firebase'
 import { FullPageSpinner } from '@components/Spinner'
@@ -43,11 +45,14 @@ export async function getStaticProps({ params }: Params) {
 
   if (user) {
     recipePath = `users/${user.uid}/recipes/${slug}`
-    const recipeRef = doc(firebaseDb, recipePath)
-    const recipeSnapshot = await getDoc(recipeRef)
+    const recipeRef = doc(firebaseDb, recipePath) as DocumentReference<Recipe>
+    const recipeSnapshot = await getDoc<Recipe>(recipeRef)
 
-    const commentsSnapshot = await getDocs(
-      collection(firebaseDb, `${recipePath}/comments`)
+    const commentsSnapshot = await getDocs<Comment>(
+      collection(
+        firebaseDb,
+        `${recipePath}/comments`
+      ) as CollectionReference<Comment>
     )
 
     if (!commentsSnapshot.empty) {
@@ -100,7 +105,12 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
   React.useEffect(() => {
     setStatus('loading')
     const unsubscribe = onSnapshot(
-      query(collection(firebaseDb, `${props.recipePath}/comments`)),
+      query(
+        collection(
+          firebaseDb,
+          `${props.recipePath}/comments`
+        ) as CollectionReference<Comment>
+      ),
       (commentsSnapshot) => {
         setRealtimeComments(commentsToJSON(commentsSnapshot))
         setStatus('success')

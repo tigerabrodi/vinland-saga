@@ -27,6 +27,7 @@ import {
   collection,
   where,
   getDocs,
+  CollectionReference,
 } from '@firebase/firestore'
 import { FullPageSpinner } from '@components/Spinner'
 import { useNewRecipeStore } from '@lib/store'
@@ -45,12 +46,15 @@ export async function getServerSideProps({ query }: ServerProps) {
 
   const user = await getUserWithUsername(username)
 
-  const recipeDocs = fbQuery(
-    collection(firebaseDb, `users/${user?.uid}/recipes`),
+  const recipeDocs = fbQuery<Recipe>(
+    collection(
+      firebaseDb,
+      `users/${user?.uid}/recipes`
+    ) as CollectionReference<Recipe>,
     where('authorUsername', '==', username)
   )
 
-  const recipesSnapshot = await getDocs(recipeDocs)
+  const recipesSnapshot = await getDocs<Recipe>(recipeDocs)
 
   const recipes = recipesSnapshot.docs.map((recipeDoc) => dataToJSON(recipeDoc))
 

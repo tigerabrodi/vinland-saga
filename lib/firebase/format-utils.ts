@@ -2,7 +2,6 @@ import {
   Timestamp,
   DocumentSnapshot,
   FieldValue,
-  DocumentData,
   QuerySnapshot,
 } from 'firebase/firestore'
 import { Comment } from '@lib/types'
@@ -11,7 +10,7 @@ import { getTimestampInMillis } from './get-utils'
 export const dataToJSON = <
   Data extends { createdAt: FieldValue | Timestamp | number }
 >(
-  snapshot: DocumentSnapshot
+  snapshot: DocumentSnapshot<Data>
 ): Data => {
   const data = snapshot.data() as Data
 
@@ -22,7 +21,7 @@ export const dataToJSON = <
 }
 
 export const commentsToJSON = (
-  commentsSnapshot: QuerySnapshot<DocumentData>
+  commentsSnapshot: QuerySnapshot<Comment>
 ): Comment[] =>
   commentsSnapshot.docs.map((commentDoc) => dataToJSON(commentDoc))
 

@@ -1,6 +1,11 @@
 import { Feed } from '@components/Feed'
 import { UserItem } from '@components/UserItem'
-import { collection, getDocs, query } from '@firebase/firestore'
+import {
+  collection,
+  CollectionReference,
+  getDocs,
+  query,
+} from '@firebase/firestore'
 import { firebaseDb } from '@lib/firebase/firebase'
 import { dataToJSON } from '@lib/firebase/format-utils'
 import { UserProfile } from '@lib/types'
@@ -8,11 +13,11 @@ import type { NextPage } from 'next'
 import { List } from './usersStyles'
 
 export async function getServerSideProps() {
-  const usersQuery = query(collection(firebaseDb, 'users'))
+  const usersQuery = query(
+    collection(firebaseDb, 'users') as CollectionReference<UserProfile>
+  )
 
-  const users = (await getDocs(usersQuery)).docs.map(
-    dataToJSON
-  ) as UserProfile[]
+  const users = (await getDocs(usersQuery)).docs.map(dataToJSON)
 
   return {
     props: { users },

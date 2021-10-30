@@ -8,9 +8,10 @@ import {
   doc,
   getDoc,
   FieldValue,
+  DocumentReference,
 } from 'firebase/firestore'
 import { User } from 'firebase/auth'
-import { UserProfile } from '../types'
+import { Recipe, UserProfile } from '../types'
 import { dataToJSON } from './format-utils'
 import { firebaseDb } from './firebase'
 
@@ -50,8 +51,8 @@ export const getRecipeWithSlug = async (
     ? `users/${options.userToGetRecipeFrom.uid}/recipes/${slug}`
     : `recipes/${slug}`
 
-  const recipeRef = doc(firebaseDb, queryPath)
-  const recipeSnap = await getDoc(recipeRef)
+  const recipeRef = doc(firebaseDb, queryPath) as DocumentReference<Recipe>
+  const recipeSnap = await getDoc<Recipe>(recipeRef)
 
   if (recipeSnap.exists()) {
     return dataToJSON(recipeSnap)
