@@ -44,6 +44,16 @@ export const Fullname = styled.h2`
   justify-self: self-start;
   margin-left: 0.7rem;
   text-decoration: underline;
+  ${media.tablet} {
+    transition: all 0.2s;
+    &:hover {
+      transform: translateY(-0.2rem);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
   ${media.desktop} {
     font-size: 1.6rem;
   }
