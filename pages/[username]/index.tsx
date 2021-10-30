@@ -31,8 +31,8 @@ import {
 import { FullPageSpinner } from '@components/Spinner'
 import { useNewRecipeStore } from '@lib/store'
 import { RecipesFeed } from '@components/RecipesFeed'
-import { recipeToJSON } from '@lib/firebase/format-utils'
 import { getUserWithUsername } from '@lib/firebase/get-utils'
+import { dataToJSON } from '@lib/firebase/format-utils'
 
 type ServerProps = {
   query: {
@@ -52,9 +52,7 @@ export async function getServerSideProps({ query }: ServerProps) {
 
   const recipesSnapshot = await getDocs(recipeDocs)
 
-  const recipes = recipesSnapshot.docs.map((recipeDoc) =>
-    recipeToJSON(recipeDoc)
-  )
+  const recipes = recipesSnapshot.docs.map((recipeDoc) => dataToJSON(recipeDoc))
 
   if (!user) {
     return {
@@ -77,7 +75,7 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
 
   const { setIsModalOpen } = useNewRecipeStore()
 
-  const joined = (
+  const createdAt = (
     typeof user.createdAt === 'number'
       ? new Date(user.createdAt)
       : (user.createdAt as Timestamp).toDate()
@@ -122,7 +120,7 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
             <Dot />
             <span>{user.work}</span>
             <Dot />
-            <span>Since {joined}</span>
+            <span>Since {createdAt}</span>
           </ProfileText>
           <Line />
         </ProfileSection>

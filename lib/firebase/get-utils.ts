@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore'
 import { User } from 'firebase/auth'
 import { UserProfile } from '../types'
-import { recipeToJSON } from './format-utils'
+import { dataToJSON } from './format-utils'
 import { firebaseDb } from './firebase'
 
 export const getTimestampInMillis = (date: number | FieldValue | Timestamp) =>
@@ -35,7 +35,7 @@ export const getUserWithUsername = async (username: string) => {
   if (user && user.createdAt) {
     return {
       ...user,
-      joined: getTimestampInMillis(user.createdAt),
+      createdAt: getTimestampInMillis(user.createdAt),
     }
   }
 }
@@ -54,6 +54,6 @@ export const getRecipeWithSlug = async (
   const recipeSnap = await getDoc(recipeRef)
 
   if (recipeSnap.exists()) {
-    return recipeToJSON(recipeSnap)
+    return dataToJSON(recipeSnap)
   }
 }

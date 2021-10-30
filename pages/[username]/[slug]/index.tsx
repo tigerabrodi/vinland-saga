@@ -22,7 +22,7 @@ import { RecipeDetail } from '@components/RecipeDetail'
 import { CommentForm } from '@components/CommentForm'
 import { CommentItem } from '@components/CommentItem'
 import { useLoadingStore } from '@lib/store'
-import { commentsToJSON, recipeToJSON } from '@lib/firebase/format-utils'
+import { commentsToJSON, dataToJSON } from '@lib/firebase/format-utils'
 import { getUserWithUsername } from '@lib/firebase/get-utils'
 
 type Params = {
@@ -55,7 +55,7 @@ export async function getStaticProps({ params }: Params) {
     }
 
     if (recipeSnapshot.exists()) {
-      recipe = recipeToJSON(recipeSnapshot)
+      recipe = dataToJSON(recipeSnapshot)
     }
   }
 

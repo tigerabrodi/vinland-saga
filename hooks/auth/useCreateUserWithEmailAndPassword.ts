@@ -42,7 +42,7 @@ export const useCreateUserWithEmailAndPassword = () => {
         avatarUrl: '',
         clapCount: 0,
         recipeCount: 0,
-        joined: serverTimestamp(),
+        createdAt: serverTimestamp(),
         uid: user.user.uid,
       })
 

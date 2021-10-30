@@ -2,7 +2,7 @@ import { Feed } from '@components/Feed'
 import { UserItem } from '@components/UserItem'
 import { collection, getDocs, query } from '@firebase/firestore'
 import { firebaseDb } from '@lib/firebase/firebase'
-import { userToJSON } from '@lib/firebase/format-utils'
+import { dataToJSON } from '@lib/firebase/format-utils'
 import { UserProfile } from '@lib/types'
 import type { NextPage } from 'next'
 import { List } from './usersStyles'
@@ -11,7 +11,7 @@ export async function getServerSideProps() {
   const usersQuery = query(collection(firebaseDb, 'users'))
 
   const users = (await getDocs(usersQuery)).docs.map(
-    userToJSON
+    dataToJSON
   ) as UserProfile[]
 
   return {
