@@ -2,10 +2,10 @@ import * as React from 'react'
 import { useRef, useEffect } from 'react'
 import { setUpFocusTrap } from '../lib/focus-trap'
 
-export const useFocusTrap = <T extends HTMLElement = HTMLDivElement>(
+export const useFocusTrap = <Element extends HTMLElement = HTMLDivElement>(
   stateOfComponent: boolean
-): React.RefObject<T> => {
-  const ref = useRef<T>(null)
+): React.RefObject<Element> => {
+  const ref = useRef<Element>(null)
 
   useEffect(() => {
     if (ref.current) {

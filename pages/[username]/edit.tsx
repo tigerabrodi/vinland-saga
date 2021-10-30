@@ -61,8 +61,8 @@ const ProfileEdit: NextPage = () => {
     push,
   } = useRouter() as Router
   const { setStatus } = useLoadingStore()
-  const [uploadProgress, setUploadProgress] = React.useState<number>(0)
-  const [avatarImage, setAvatarImage] = React.useState<string>('')
+  const [uploadProgress, setUploadProgress] = React.useState(0)
+  const [avatarImage, setAvatarImage] = React.useState('')
 
   const { user } = useGetUser(queryUsername)
   const { username } = useUserContext()

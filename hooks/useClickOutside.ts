@@ -6,11 +6,11 @@ type ClickOutsideParams<T extends HTMLElement = HTMLDivElement> = {
   shouldTriggerCallback: boolean
 }
 
-export const useClickOutside = <T extends HTMLElement>({
+export const useClickOutside = <Element extends HTMLElement>({
   ref,
   callback,
   shouldTriggerCallback,
-}: ClickOutsideParams<T>) => {
+}: ClickOutsideParams<Element>) => {
   const handleClick = React.useCallback(
     (event: Event) => {
       if (
