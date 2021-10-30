@@ -1,3 +1,4 @@
+import { pinkFocusStyles } from '@styles/focusStyles'
 import { media } from '@styles/media'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
@@ -57,6 +58,10 @@ export const Fullname = styled.h2`
   ${media.desktop} {
     font-size: 1.6rem;
   }
+`
+
+export const FullnameLink = styled.a`
+  ${pinkFocusStyles}
 `
 
 export const Username = styled.p`

@@ -10,6 +10,7 @@ import {
   Location,
   RecipesCount,
   ClapsCount,
+  FullnameLink,
 } from './styles'
 import { UserProfile } from '@lib/types'
 
@@ -24,7 +25,7 @@ export const UserItem = ({
     <AvatarImage src={avatarUrl === '' ? defaultAvatar.src : avatarUrl} />
     <Fullname>
       <Link href={`/${username}`} passHref>
-        {fullname}
+        <FullnameLink>{fullname}</FullnameLink>
       </Link>
     </Fullname>
     <Username>@{username}</Username>
