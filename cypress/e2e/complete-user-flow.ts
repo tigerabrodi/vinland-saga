@@ -54,6 +54,12 @@ it('Complete users flow', () => {
     cy.assertAndClickOnRecipe(firstUserRecipe, firstUser)
   })
 
+  // Detail page
+  cy.findByRole('heading', {
+    name: firstUserRecipe.title,
+    level: 1,
+  }).should('exist')
+
   // Clap
   cy.clickByRole('button', { name: 'Recipe 0 claps' })
   cy.findByRole('button', { name: 'Recipe 1 claps' }).should('exist')
@@ -68,7 +74,7 @@ it('Complete users flow', () => {
     cy.findByLabelText('1 claps').should('exist')
 
     // Go back to recipe detail
-    cy.clickByRole('link', { name: firstUserRecipe.title })
+    cy.clickByRole('link', { name: `Read more about ${firstUserRecipe.title}` })
   })
 
   // Go to comments
@@ -124,24 +130,27 @@ it('Complete users flow', () => {
   cy.findByRole('heading', { name: firstUser.fullname, level: 1 }).should(
     'exist'
   )
-  cy.findByRole('heading', { name: firstUserRecipe.title, level: 3 }).should(
-    'exist'
-  )
+  cy.findByRole('heading', {
+    name: `Read more about ${firstUserRecipe.title}`,
+    level: 3,
+  }).should('exist')
 
   // Go to users page
-  cy.clickByRole('link', { name: 'users' })
+  cy.clickByRole('link', { name: 'Users' })
 
   // Click on the second user
   cy.assertAndClickOnSecondUser(secondUser)
 
   // See two recipes
   cy.findByRole('heading', { name: 'Recipes', level: 2 }).should('exist')
-  cy.findByRole('heading', { name: secondUserRecipe.title, level: 3 }).should(
-    'exist'
-  )
-  cy.findByRole('heading', { name: secondUserRecipe2.title, level: 3 }).should(
-    'exist'
-  )
+  cy.findByRole('heading', {
+    name: `Read more about ${secondUserRecipe.title}`,
+    level: 3,
+  }).should('exist')
+  cy.findByRole('heading', {
+    name: `Read more about ${secondUserRecipe2.title}`,
+    level: 3,
+  }).should('exist')
 
   // Go to home
   cy.clickByRole('link', { name: 'Home' })

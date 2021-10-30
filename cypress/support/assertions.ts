@@ -16,9 +16,7 @@ export const assertPreviewMode = (recipe: Recipe, user: User) => {
 }
 
 export const assertRecipeDetail = (recipe: Recipe, user: User) => {
-  cy.findByRole('heading', { name: recipe.title, timeout: 16000 }).should(
-    'exist'
-  )
+  cy.findByRole('heading', { name: recipe.title }).should('exist')
   cy.findByText(recipe.body).should('exist')
   cy.findByRole('link', { name: user.fullname }).should('exist')
   cy.findByRole('img', { name: recipe.title }).should('exist')
@@ -31,7 +29,10 @@ export const assertRecipeDetail = (recipe: Recipe, user: User) => {
 
 export const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
   cy.findByRole('listitem', { name: recipe.title }).within(() => {
-    cy.findByRole('heading', { name: recipe.title, level: 2 }).should('exist')
+    cy.findByRole('heading', {
+      name: `Read more about ${recipe.title}`,
+      level: 2,
+    }).should('exist')
     cy.findByRole('link', { name: `Author: ${user.fullname}` }).should('exist')
 
     cy.findByRole('img', { name: recipe.title }).should('exist')
@@ -44,10 +45,6 @@ export const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
     cy.findByLabelText(/^Posted on 2021-10/i).should('exist')
 
     cy.clickByRole('link', { name: `Read more about ${recipe.title}` })
-
-    cy.findByRole('heading', {
-      name: recipe.title,
-    }).should('exist')
   })
 }
 
@@ -82,13 +79,9 @@ export const assertAndEditComment = ({
 }
 
 export const assertAndClickOnSecondUser = (user: User) => {
-  cy.findByRole('listitem', { name: user.fullname }).within(() => {
-    cy.findByRole('img', { name: user.fullname }).should('exist')
-    cy.findByRole('heading', { name: user.fullname }).should('exist')
-    cy.findByText(`@${user.username}`).should('exist')
-    cy.findByText(user.location).should('exist')
-    cy.findByLabelText('Has 2 recipes').should('exist')
-    cy.findByLabelText('Has 0 claps').should('exist')
-    cy.clickByRole('link', { name: user.fullname })
-  })
+  cy.findByRole('img', { name: user.fullname }).should('exist')
+  cy.findByRole('heading', { name: user.fullname }).should('exist')
+  cy.findByText(`@${user.username}`).should('exist')
+  cy.findByText(user.location).should('exist')
+  cy.clickByRole('link', { name: user.fullname })
 }
