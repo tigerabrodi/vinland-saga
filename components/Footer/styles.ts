@@ -4,17 +4,20 @@ import { media } from '@styles/media'
 import { pinkFocusStyles } from '@styles/focusStyles'
 
 export const FooterContainer = styled.footer`
+  position: relative;
+  z-index: 1;
+  background-color: ${theme.Brown};
   width: 100%;
-  height: 6rem;
+  flex: 0 0 8rem;
   border-top: solid 0.2rem ${theme.Pink};
   display: flex;
   align-items: center;
   justify-content: center;
   ${media.tablet} {
-    height: 9rem;
+    flex: 0 0 9rem;
   }
   ${media.desktop} {
-    height: 11rem;
+    flex: 0 0 10.5rem;
     border-top: solid 0.3rem ${theme.Pink};
   }
 `
