@@ -208,11 +208,12 @@ it('Complete users flow', () => {
     name: `Read more about ${secondUserRecipe.title}`,
   }).should('not.exist')
 
+  // Sign out (second user)
+  cy.signOut()
+
   // Authorization: Try editing first user profile
 
   // Authorization: Try editing first user's recipe
-
-  // Sign Out
 
   // TODO Load More Button
   // TODO Sorting functionalities
