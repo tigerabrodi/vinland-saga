@@ -1,6 +1,6 @@
 import {
   AssistiveTechnologyOnly,
-  heightSectionStyles,
+  baseSectionStyles,
 } from '@styles/sharedStyles'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
@@ -16,7 +16,7 @@ const formGroupStyles = css`
 `
 
 export const RecipeEditWrapper = styled.div`
-  ${heightSectionStyles}
+  ${baseSectionStyles}
   display: grid;
   grid-template-areas: 'heading' 'title' 'image' 'upload' 'body' 'text' 'buttons';
   align-items: center;
