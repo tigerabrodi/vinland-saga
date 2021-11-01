@@ -144,7 +144,6 @@ export const RecipeDetail = ({
                 <PenSVG />
               </EditLink>
             </Link>
-            {/* TODO Add functionality to delete recipe */}
             <DeleteButton aria-label="Delete Recipe">
               <TrashSVG />
             </DeleteButton>

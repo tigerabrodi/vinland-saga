@@ -183,10 +183,34 @@ it('Complete users flow', () => {
   cy.signOut()
 
   // Login (second user)
-  // Go to your profile and click on the first recipe, then delete it and assert you get redirected to your profile
-  // Then assert the recipe is no longer there
+  cy.signIn(secondUser)
 
-  // Assert authorization of pages (both as second user and logged out user)
+  // Go to Profile
+  cy.clickItemInMenu('Profile')
+
+  // Click on first recipe
+  cy.clickByRole('link', { name: `Read more about ${secondUserRecipe.title}` })
+
+  // Delete recipe
+  cy.clickByRole('button', { name: 'Delete Recipe' })
+  cy.confirmDeletion({
+    text: 'Do you really want to delete your recipe?',
+    toastSuccessText: 'Successfully deleted your recipe.',
+  })
+
+  // Back to profile
+  cy.findByRole('heading', { name: secondUser.fullname, level: 1 }).should(
+    'exist'
+  )
+
+  // Recipe shouldn't exist
+  cy.findByRole('link', {
+    name: `Read more about ${secondUserRecipe.title}`,
+  }).should('not.exist')
+
+  // Authorization: Try editing first user profile
+
+  // Authorization: Try editing first user's recipe
 
   // Sign Out
 
