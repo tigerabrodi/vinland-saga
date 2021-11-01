@@ -18,6 +18,12 @@ export const ListItem = styled.li`
   width: 100%;
   ${media.tablet} {
     flex: 0 0 30rem;
+    transition: all 0.2s;
+    &:hover {
+      transform: translateY(-0.2rem);
+      box-shadow: 0 0.4rem 0.2rem black;
+      filter: brightness(110%);
+    }
   }
   ${media.desktop} {
     flex: 1 0 30rem;
@@ -49,6 +55,7 @@ export const Fullname = styled.h2`
     transition: all 0.2s;
     &:hover {
       transform: translateY(-0.2rem);
+      filter: brightness(120%);
     }
 
     &:active {
