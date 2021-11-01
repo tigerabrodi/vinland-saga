@@ -26,12 +26,21 @@ import {
 } from './styles'
 import { useUserContext } from '@lib/context'
 import { auth, firebaseDb } from '@lib/firebase/firebase'
-import { doc, increment, writeBatch } from '@firebase/firestore'
+import {
+  collection,
+  doc,
+  getDocs,
+  increment,
+  query,
+  writeBatch,
+} from '@firebase/firestore'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { useRealtimeState } from '@hooks/useRealtimeState'
 import { ClapButton } from '@components/ClapButton'
 import { formatDate } from '@lib/firebase/format-utils'
+import { ConfirmationModal } from '@components/ConfirmationModal'
+import { useLoadingStore } from '@lib/store'
 
 type Props = {
   recipe: Recipe
@@ -56,6 +65,8 @@ export const RecipeDetail = ({
 }: Props) => {
   const { username, user } = useUserContext()
   const { push } = useRouter()
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const { setStatus } = useLoadingStore()
 
   const imageSrcSet =
     imageUrl === ''
@@ -102,58 +113,98 @@ export const RecipeDetail = ({
     return hasUserClappedRecipe ? removeRecipeClap() : addRecipeClap()
   }
 
+  const handleDelete = async () => {
+    setStatus('loading')
+
+    const batch = writeBatch(firebaseDb)
+
+    batch.update(doc(firebaseDb, `users/${uid}}`), {
+      clapCount: increment(-clapCount),
+      recipeCount: increment(-1),
+    })
+
+    const recipePath = `users/${uid}/recipes/${slug}`
+
+    const commentDocs = query(collection(firebaseDb, `${recipePath}/comments`))
+    const commentsSnapshot = await getDocs(commentDocs)
+    if (commentsSnapshot.docs.length) {
+      commentsSnapshot.forEach((commentDoc) => {
+        batch.delete(commentDoc.ref)
+      })
+    }
+
+    batch.delete(doc(firebaseDb, recipePath))
+
+    await batch.commit()
+
+    toast.success('Successfully deleted your recipe.')
+    setIsModalOpen(false)
+    push(`/${authorUsername}`)
+    setStatus('success')
+  }
+
   return (
-    <Wrapper>
-      <TopContainer>
-        <Title>{title}</Title>
-        <AuthorText>
-          by{' '}
-          <Link passHref href={`/${authorUsername}`}>
-            <AuthorLink>{authorFullname}</AuthorLink>
-          </Link>{' '}
-          <AuthorAvatar
-            src={authorAvatarUrl === '' ? defaultAvatar.src : authorAvatarUrl}
-            alt={authorFullname}
-          />{' '}
-        </AuthorText>
-        <RecipeImage
-          src={imageUrl === '' ? PlaceholderImage2x.src : imageUrl}
-          srcSet={imageSrcSet}
-          alt={imageUrl === '' ? 'Placeholder' : title}
+    <>
+      <Wrapper>
+        <TopContainer>
+          <Title>{title}</Title>
+          <AuthorText>
+            by{' '}
+            <Link passHref href={`/${authorUsername}`}>
+              <AuthorLink>{authorFullname}</AuthorLink>
+            </Link>{' '}
+            <AuthorAvatar
+              src={authorAvatarUrl === '' ? defaultAvatar.src : authorAvatarUrl}
+              alt={authorFullname}
+            />{' '}
+          </AuthorText>
+          <RecipeImage
+            src={imageUrl === '' ? PlaceholderImage2x.src : imageUrl}
+            srcSet={imageSrcSet}
+            alt={imageUrl === '' ? 'Placeholder' : title}
+          />
+          <ClapButton
+            label="Recipe"
+            clapCount={clapCount}
+            hasUserClap={hasUserClappedRecipe}
+            handleClap={handleClap}
+          />
+          <Link passHref href="#comments">
+            <CommentLink aria-label={`${commentsCount} comments`}>
+              <BubbleSVG />
+              {commentsCount}
+            </CommentLink>
+          </Link>
+          <DateText>
+            {' '}
+            <ClockSVG /> Posted on {formatDate(createdAt)}{' '}
+          </DateText>
+          {isUserAuthorized && (
+            <>
+              <Link passHref href={`/${authorUsername}/${slug}/edit`}>
+                <EditLink aria-label="Edit Recipe">
+                  <PenSVG />
+                </EditLink>
+              </Link>
+              <DeleteButton aria-label="Delete Recipe">
+                <TrashSVG />
+              </DeleteButton>
+            </>
+          )}
+        </TopContainer>
+        <MarkDownWrapper>
+          <ReactMarkdown>{body}</ReactMarkdown>
+        </MarkDownWrapper>
+        {buttons}
+      </Wrapper>
+      {isModalOpen && (
+        <ConfirmationModal
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          onSuccess={handleDelete}
+          text="Do you really want to delete your recipe?"
         />
-        <ClapButton
-          label="Recipe"
-          clapCount={clapCount}
-          hasUserClap={hasUserClappedRecipe}
-          handleClap={handleClap}
-        />
-        <Link passHref href="#comments">
-          <CommentLink aria-label={`${commentsCount} comments`}>
-            <BubbleSVG />
-            {commentsCount}
-          </CommentLink>
-        </Link>
-        <DateText>
-          {' '}
-          <ClockSVG /> Posted on {formatDate(createdAt)}{' '}
-        </DateText>
-        {isUserAuthorized && (
-          <>
-            <Link passHref href={`/${authorUsername}/${slug}/edit`}>
-              <EditLink aria-label="Edit Recipe">
-                <PenSVG />
-              </EditLink>
-            </Link>
-            <DeleteButton aria-label="Delete Recipe">
-              <TrashSVG />
-            </DeleteButton>
-          </>
-        )}
-      </TopContainer>
-      <MarkDownWrapper>
-        <ReactMarkdown>{body}</ReactMarkdown>
-      </MarkDownWrapper>
-      {buttons}
-    </Wrapper>
+      )}
+    </>
   )
 }
