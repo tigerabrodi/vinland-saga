@@ -149,7 +149,7 @@ const RecipeEdit: NextPage = () => {
         title,
         body,
         readingTime: `${minutesToRead} min read`,
-      } as Recipe
+      }
 
       await setDoc(
         doc(firebaseDb, `users/${uid}/recipes/${recipe.slug}`),

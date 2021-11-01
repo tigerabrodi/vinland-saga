@@ -39,7 +39,7 @@ export async function getStaticProps({ params }: Params) {
 
   const user = await getUserWithUsername(username)
 
-  let recipe = {} as Recipe
+  let recipe = {}
   let recipePath = ''
   let comments = [] as Comment[]
 
