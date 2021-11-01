@@ -120,7 +120,7 @@ export const RecipeDetail = ({
 
     const batch = writeBatch(firebaseDb)
 
-    batch.update(doc(firebaseDb, `users/${uid}}`), {
+    batch.update(doc(firebaseDb, `users/${uid}`), {
       clapCount: increment(-clapCount),
       recipeCount: increment(-1),
     })
@@ -188,7 +188,10 @@ export const RecipeDetail = ({
                   <PenSVG />
                 </EditLink>
               </Link>
-              <DeleteButton aria-label="Delete Recipe">
+              <DeleteButton
+                aria-label="Delete Recipe"
+                onClick={() => setIsModalOpen(true)}
+              >
                 <TrashSVG />
               </DeleteButton>
             </>
