@@ -6,7 +6,7 @@ import {
   Title,
   RadioContainer,
   RadioLabel,
-  Input,
+  RadioInput,
 } from './styles'
 
 type Props = {
@@ -30,7 +30,7 @@ export const Feed = ({ children, labels, title, itemsLength }: Props) => {
       <TopWrapper>
         <Title>{title}</Title>
         <RadioContainer>
-          <Input
+          <RadioInput
             type="radio"
             id={firstLabel}
             value={firstLabel}
@@ -41,7 +41,7 @@ export const Feed = ({ children, labels, title, itemsLength }: Props) => {
             {firstLabel}
           </RadioLabel>
 
-          <Input
+          <RadioInput
             type="radio"
             id={secondLabel}
             value={secondLabel}

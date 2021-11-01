@@ -72,7 +72,7 @@ export const NoFoundText = styled.p`
   font-weight: 500;
   margin-top: 12rem;
   ${media.tablet} {
-    margin-top: 20rem;
+    margin-top: 22rem;
     font-size: 3rem;
   }
   ${media.desktop} {
@@ -80,7 +80,7 @@ export const NoFoundText = styled.p`
   }
 `
 
-export const Input = styled.input`
+export const RadioInput = styled.input`
   ${AssistiveTechnologyOnly}
 
   &:checked + label {
@@ -95,7 +95,7 @@ export const Input = styled.input`
     }
   }
 
-  &:focus + label {
+  &:focus-visible + label {
     outline: 0.2rem ridge white;
     outline-offset: 0.3rem;
   }
