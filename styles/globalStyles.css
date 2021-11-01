@@ -20,12 +20,14 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
   scroll-padding-top: 18rem;
+  height: 100%;
 }
 
 body {
   box-sizing: border-box;
   background: var(--brown);
   font-family: var(--inter);
+  height: 100%;
 }
 
 body::-webkit-scrollbar {
@@ -51,16 +53,17 @@ body div[id^='__next'] {
   width: 100vw;
   max-width: 100%;
   font-weight: 500;
+  min-height: 100%;
 }
 
 main {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
-  width: 100vw;
-  max-width: 100%;
   position: relative;
+  width: 100%;
+  flex: 1 0 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 a {
