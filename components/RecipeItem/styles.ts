@@ -27,7 +27,7 @@ export const ListItem = styled.li`
     &:hover {
       transform: translateY(-0.2rem);
       box-shadow: 0 0.3rem 0.3rem black;
-      filter: brightness(120%);
+      filter: brightness(105%);
     }
   }
   ${media.desktop} {
