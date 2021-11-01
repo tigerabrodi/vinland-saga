@@ -80,7 +80,7 @@ export const CommentItem = ({ comment, recipe }: Props) => {
   )
 
   const hasUserClappedComment = Boolean(
-    useRealtimeState(clapRef.path)?.exists()
+    useRealtimeState<{ uid: string }>(clapRef.path)?.exists()
   )
 
   const handleEditSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

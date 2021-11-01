@@ -58,9 +58,9 @@ export const Navigation = () => {
     setStatus('success')
   }
 
-  const user = useRealtimeState(
+  const user = useRealtimeState<UserProfile>(
     `users/${auth.currentUser?.uid}`
-  )?.data() as UserProfile
+  )?.data()
 
   return (
     <NavigationWrapper>

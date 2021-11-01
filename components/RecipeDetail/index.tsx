@@ -81,7 +81,9 @@ export const RecipeDetail = ({
   const clapRef = doc(firebaseDb, `${postPath}/claps/${auth.currentUser?.uid}`)
   const userRef = doc(firebaseDb, `users/${uid}`)
 
-  const hasUserClappedRecipe = Boolean(useRealtimeState(clapRef.path)?.exists())
+  const hasUserClappedRecipe = Boolean(
+    useRealtimeState<{ uid: string }>(clapRef.path)?.exists()
+  )
 
   const addRecipeClap = async () => {
     const uid = auth.currentUser?.uid

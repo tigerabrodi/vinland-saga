@@ -97,7 +97,7 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
   const { setStatus } = useLoadingStore()
   const [realtimeComments, setRealtimeComments] = React.useState<Comment[]>([])
 
-  const realtimeRecipe = useRealtimeState(props.recipePath)?.data() as Recipe
+  const realtimeRecipe = useRealtimeState<Recipe>(props.recipePath)?.data()
   const recipe = realtimeRecipe || props.recipe
 
   const comments = realtimeComments || props.comments
