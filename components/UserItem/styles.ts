@@ -50,7 +50,23 @@ export const Fullname = styled.h2`
   color: ${theme.Pink};
   justify-self: self-start;
   margin-left: 0.7rem;
+  ${media.desktop} {
+    font-size: 1.6rem;
+  }
+`
+
+export const UsernameLink = styled.a`
+  ${pinkFocusStyles}
   text-decoration: underline;
+`
+
+export const Username = styled.p`
+  grid-area: username;
+  font-weight: 500;
+  font-size: 1.3rem;
+  color: ${theme.Pink};
+  justify-self: self-start;
+  margin-left: 0.7rem;
   ${media.tablet} {
     transition: all 0.2s;
     &:hover {
@@ -62,22 +78,6 @@ export const Fullname = styled.h2`
       transform: translateY(0);
     }
   }
-  ${media.desktop} {
-    font-size: 1.6rem;
-  }
-`
-
-export const FullnameLink = styled.a`
-  ${pinkFocusStyles}
-`
-
-export const Username = styled.p`
-  grid-area: username;
-  font-weight: 500;
-  font-size: 1.3rem;
-  color: ${theme.Pink};
-  justify-self: self-start;
-  margin-left: 0.7rem;
   ${media.desktop} {
     font-size: 1.4rem;
   }

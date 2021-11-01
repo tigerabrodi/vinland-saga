@@ -10,7 +10,7 @@ import {
   Location,
   RecipesCount,
   ClapsCount,
-  FullnameLink,
+  UsernameLink,
 } from './styles'
 import { UserProfile } from '@lib/types'
 
@@ -24,14 +24,14 @@ export const UserItem = ({
   <ListItem>
     <AvatarImage
       src={avatarUrl === '' ? defaultAvatar.src : avatarUrl}
-      alt={fullname}
+      alt={fullname !== '' ? fullname : username}
     />
-    <Fullname>
+    <Fullname>{fullname}</Fullname>
+    <Username>
       <Link href={`/${username}`} passHref>
-        <FullnameLink>{fullname}</FullnameLink>
+        <UsernameLink>@{username}</UsernameLink>
       </Link>
-    </Fullname>
-    <Username>@{username}</Username>
+    </Username>
     <Location>{location}</Location>
     <RecipesCount aria-label={`${recipeCount} recipes`}>
       <RecipeSVG />

@@ -83,5 +83,5 @@ export const assertAndClickOnSecondUser = (user: User) => {
   cy.findByRole('heading', { name: user.fullname }).should('exist')
   cy.findByText(`@${user.username}`).should('exist')
   cy.findByText(user.location).should('exist')
-  cy.clickByRole('link', { name: user.fullname })
+  cy.clickByRole('link', { name: user.username })
 }
