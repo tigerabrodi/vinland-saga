@@ -12,7 +12,7 @@ export const NavigationWrapper = styled.nav`
   background-color: ${theme.Brown};
   z-index: 10;
   top: 0;
-  height: 7rem;
+  flex: 0 0 8rem;
   width: 100%;
   box-shadow: 0 0.2rem 0.2rem black;
   border-bottom: 0.3rem solid ${theme.Pink};
@@ -20,10 +20,10 @@ export const NavigationWrapper = styled.nav`
   align-items: center;
   justify-content: center;
   ${media.tablet} {
-    height: 8rem;
+    flex: 0 0 9rem;
   }
   ${media.desktop} {
-    height: 9rem;
+    flex: 0 0 10rem;
   }
 `
 
