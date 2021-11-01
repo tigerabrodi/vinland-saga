@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { auth, firebaseDb } from '@lib/firebase/firebase'
 import type { NextPage } from 'next'
 import { NextRouter, useRouter } from 'next/router'
-import { Comment, Recipe, UserProfile } from '@lib/types'
 import FileUploadSVG from '../../assets/file-upload.svg'
 import CancelSVG from '../../assets/close.svg'
 import ProfileSVG from '../../assets/profile.svg'
@@ -140,34 +139,31 @@ const ProfileEdit: NextPage = () => {
     event.preventDefault()
     setStatus('loading')
 
+    const batch = writeBatch(firebaseDb)
+
+    const updatedUserProperties = {
+      authorAvatarUrl: avatarImage === '' ? user!.avatarUrl : avatarImage,
+      authorFullname: fullname,
+    }
+
     const recipeDocs = query(
       collection(firebaseDb, `users/${auth.currentUser!.uid}/recipes`)
     )
     const recipesSnapshot = await getDocs(recipeDocs)
+    if (recipesSnapshot.docs.length) {
+      recipesSnapshot.forEach((recipeDoc) => {
+        batch.update(recipeDoc.ref, updatedUserProperties)
+      })
+    }
 
     const commentDocs = query(
       collectionGroup(firebaseDb, 'comments'),
       where('uid', '==', auth.currentUser?.uid)
     )
     const commentsSnapshot = await getDocs(commentDocs)
-
-    const batch = writeBatch(firebaseDb)
-
-    if (recipesSnapshot.docs.length) {
-      recipesSnapshot.forEach((recipeDoc) => {
-        batch.update(recipeDoc.ref, {
-          authorAvatarUrl: avatarImage === '' ? user!.avatarUrl : avatarImage,
-          authorFullname: fullname,
-        } as Recipe)
-      })
-    }
-
     if (commentsSnapshot.docs.length) {
       commentsSnapshot.forEach((commentDoc) => {
-        batch.update(commentDoc.ref, {
-          authorAvatarUrl: avatarImage === '' ? user!.avatarUrl : avatarImage,
-          authorFullname: fullname,
-        } as Comment)
+        batch.update(commentDoc.ref, updatedUserProperties)
       })
     }
 
@@ -177,7 +173,7 @@ const ProfileEdit: NextPage = () => {
       location,
       fullname,
       age,
-    } as UserProfile)
+    })
 
     await batch.commit()
 
