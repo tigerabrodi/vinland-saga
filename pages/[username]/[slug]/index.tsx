@@ -71,10 +71,12 @@ export async function getStaticProps({ params }: Params) {
 }
 
 export async function getStaticPaths() {
-  const recipesQuery = query(collection(firebaseDb, 'recipes'))
+  const recipesQuery = query(
+    collection(firebaseDb, 'recipes') as CollectionReference<Recipe>
+  )
 
-  const paths = (await getDocs(recipesQuery)).docs.map((doc) => {
-    const { slug, authorUsername } = doc.data() as Recipe
+  const paths = (await getDocs<Recipe>(recipesQuery)).docs.map((doc) => {
+    const { slug, authorUsername } = doc.data()
 
     return {
       params: { slug, authorUsername },

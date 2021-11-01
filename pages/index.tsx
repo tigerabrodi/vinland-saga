@@ -1,6 +1,11 @@
 import { Feed } from '@components/Feed'
 import { RecipesFeed } from '@components/RecipesFeed'
-import { collectionGroup, getDocs, Query, query } from '@firebase/firestore'
+import {
+  collectionGroup,
+  CollectionReference,
+  getDocs,
+  query,
+} from '@firebase/firestore'
 import { firebaseDb } from '@lib/firebase/firebase'
 import { dataToJSON } from '@lib/firebase/format-utils'
 import { Recipe } from '@lib/types'
@@ -11,7 +16,7 @@ import type { NextPage } from 'next'
 
 export async function getServerSideProps() {
   const recipesQuery = query<Recipe>(
-    collectionGroup(firebaseDb, 'recipes') as Query<Recipe>
+    collectionGroup(firebaseDb, 'recipes') as CollectionReference<Recipe>
   )
 
   const recipes = (await getDocs<Recipe>(recipesQuery)).docs.map(dataToJSON)
