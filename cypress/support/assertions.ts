@@ -20,7 +20,7 @@ export const assertRecipeDetail = (recipe: Recipe, user: User) => {
   cy.findByText(recipe.body).should('exist')
   cy.findByRole('link', { name: user.fullname }).should('exist')
   cy.findByRole('img', { name: recipe.title }).should('exist')
-  cy.findByText(/^Posted on 2021-10/i).should('exist')
+  cy.findByText(/^Posted on 2021-11/i).should('exist')
   cy.findByRole('button', { name: 'Recipe 0 claps' }).should('exist')
   cy.findByRole('link', { name: '0 comments' }).should('exist')
   cy.findByRole('link', { name: 'Edit Recipe' }).should('exist')
@@ -42,7 +42,7 @@ export const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
     cy.findByLabelText('0 comments').should('exist')
 
     cy.findByText(/min read$/i).should('exist')
-    cy.findByLabelText(/^Posted on 2021-10/i).should('exist')
+    cy.findByLabelText(/^Posted on 2021-11/i).should('exist')
 
     cy.clickByRole('link', { name: `Read more about ${recipe.title}` })
   })
@@ -62,7 +62,7 @@ export const assertAndEditComment = ({
     cy.findByRole('img', { name: fullname }).should('exist')
     cy.findByText(firstComment).should('exist')
     cy.findByRole('button', { name: 'Comment 0 claps' }).should('exist')
-    cy.findByText(/^On 2021-10/).should('exist')
+    cy.findByText(/^On 2021-11/).should('exist')
 
     // Edit comment
     cy.clickByRole('button', { name: 'Edit Comment' })
