@@ -228,6 +228,12 @@ it('Complete users flow', () => {
   cy.findByText('You are not authorized to edit this recipe.').should('exist')
   cy.location('pathname').should('eq', '/')
 
+  // Authorization: Try clapping a recipe
+  cy.visit(`/${firstUser.username}/${firstUserRecipeSlug}`)
+  cy.findByRole('button', { name: 'Recipe 1 claps' }).click()
+  cy.findByText('You have to be logged in to clap a recipe.').should('exist')
+  cy.location('pathname').should('eq', '/sign-in')
+
   // TODO Load More Button
   // TODO Sorting functionalities
 })
