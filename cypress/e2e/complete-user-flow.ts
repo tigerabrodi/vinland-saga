@@ -31,6 +31,12 @@ it('Complete users flow', () => {
   // Recipe Detail Page
   cy.assertRecipeDetail(firstUserRecipe, firstUser)
 
+  // Get slug to test authorization of edit page
+  let firstUserRecipeSlug = ''
+  cy.location('pathname').then((pathname) => {
+    firstUserRecipeSlug = pathname.split('/')[2]
+  })
+
   // Currently no comments
   cy.findByRole('heading', { name: 'Comments' }).should('exist')
   cy.findByText('This recipe currently has no comments.')
@@ -218,6 +224,9 @@ it('Complete users flow', () => {
   cy.location('pathname').should('eq', '/')
 
   // Authorization: Try editing first user's recipe
+  cy.visit(`/${firstUser.username}/${firstUserRecipeSlug}/edit`)
+  cy.findByText('You are not authorized to edit this recipe.').should('exist')
+  cy.location('pathname').should('eq', '/')
 
   // TODO Load More Button
   // TODO Sorting functionalities
