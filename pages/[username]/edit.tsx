@@ -77,10 +77,9 @@ const ProfileEdit: NextPage = () => {
     bio: '',
   })
 
-  // TODO Assert this functionality in Test.
   React.useEffect(() => {
     if (queryUsername !== username) {
-      toast.error("You are not authorized to edit the user's profile.")
+      toast.error('You are not authorized to edit this profile.')
       push('/')
       return
     }
