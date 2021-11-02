@@ -14,9 +14,6 @@ it('Complete users flow', () => {
   const secondUserRecipe2 = buildRecipe()
   const secondUserComments = buildComments()
 
-  /*   const thirdUser = buildUser()
-  const thirdUserRecipe = buildRecipe() */
-
   cy.createUserAndProfile(firstUser)
   cy.clickByRole('button', { name: 'New Recipe' })
   cy.createRecipe(firstUserRecipe)
@@ -30,12 +27,6 @@ it('Complete users flow', () => {
 
   // Recipe Detail Page
   cy.assertRecipeDetail(firstUserRecipe, firstUser)
-
-  // Get slug to test authorization of edit page
-  let firstUserRecipeSlug = ''
-  cy.location('pathname').then((pathname) => {
-    firstUserRecipeSlug = pathname.split('/')[2]
-  })
 
   // Currently no comments
   cy.findByRole('heading', { name: 'Comments' }).should('exist')
@@ -223,13 +214,8 @@ it('Complete users flow', () => {
   cy.findByText('You are not authorized to edit this profile.').should('exist')
   cy.location('pathname').should('eq', '/')
 
-  // Authorization: Try editing first user's recipe
-  cy.visit(`/${firstUser.username}/${firstUserRecipeSlug}/edit`)
-  cy.findByText('You are not authorized to edit this recipe.').should('exist')
-  cy.location('pathname').should('eq', '/')
-
   // Authorization: Try clapping a recipe
-  cy.visit(`/${firstUser.username}/${firstUserRecipeSlug}`)
+  cy.clickByRole('link', { name: `Read more about ${firstUserRecipe.title}` })
   cy.findByRole('button', { name: 'Recipe 1 claps' }).click()
   cy.findByText('You have to be logged in to clap a recipe.').should('exist')
   cy.location('pathname').should('eq', '/sign-in')
