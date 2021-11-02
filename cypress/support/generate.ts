@@ -28,24 +28,24 @@ export const buildUser = build<User>('User', {
     email: fake((f) => f.internet.email()),
     password: fake((f) => f.internet.password()),
     fullname: fake((f) => f.name.firstName()),
-    age: fake((f) => f.random.number(80)),
+    age: fake((f) => f.random.number(40)),
     work: fake((f) => f.company.companyName()),
     location: fake((f) => f.address.city()),
-    bio: fake((f) => f.random.words(10)),
+    bio: fake((f) => f.random.words(3)),
   },
 })
 
 export const buildRecipe = build<Recipe>('User', {
   fields: {
     title: fake((f) => f.name.title()),
-    body: fake((f) => f.random.words(10)),
+    body: fake((f) => f.random.words(3)),
   },
 })
 
 export const buildComments = build<Comments>('User', {
   fields: {
-    firstComment: fake((f) => f.lorem.paragraph(1)),
-    secondComment: fake((f) => f.lorem.paragraph(1)),
-    editedComment: fake((f) => f.lorem.paragraph(1)),
+    firstComment: fake((f) => f.lorem.words(3)),
+    secondComment: fake((f) => f.lorem.words(3)),
+    editedComment: fake((f) => f.lorem.words(3)),
   },
 })
