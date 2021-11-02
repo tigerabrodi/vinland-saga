@@ -46,6 +46,7 @@ import { getRecipeWithSlug } from '@lib/firebase/get-utils'
 type Router = NextRouter & {
   query: {
     slug: string
+    username: string
   }
 }
 
@@ -67,13 +68,25 @@ const RecipeEdit: NextPage = () => {
   const isButtonSaveDisabled = !body.length || title.length < 3
 
   const {
-    query: { slug },
+    query: { slug, username: queryUsername },
     push,
   } = useRouter() as Router
 
   const { user } = useGetUser(username)
 
   React.useEffect(() => {
+    if (queryUsername !== username) {
+      toast.error('You are not authorized to edit this recipe.')
+      push('/')
+      return
+    }
+  }, [push, queryUsername, username])
+
+  React.useEffect(() => {
+    if (!currentAuthUser) {
+      return
+    }
+
     const setRecipeState = async () => {
       setStatus('loading')
       setRecipe(
