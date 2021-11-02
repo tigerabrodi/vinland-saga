@@ -66,7 +66,7 @@ export const RadioLabel = styled.label`
   }
 `
 
-export const NoFoundText = styled.p`
+export const NoExistText = styled.p`
   font-size: 2rem;
   color: ${theme.Pink};
   font-weight: 500;

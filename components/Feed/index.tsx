@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {
-  NoFoundText,
+  NoExistText,
   FeedContainer,
   TopWrapper,
   Title,
@@ -59,7 +59,7 @@ export const Feed = ({ children, labels, title, itemsLength }: Props) => {
       {itemsLength ? (
         children
       ) : (
-        <NoFoundText>Currently no {title.toLowerCase()} exist.</NoFoundText>
+        <NoExistText>Currently no {title.toLowerCase()} exist.</NoExistText>
       )}
     </FeedContainer>
   )
