@@ -132,17 +132,19 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
           <RecipesHeading>Recipes</RecipesHeading>
           {recipes.length ? (
             <RecipesFeed recipes={recipes} isWithinSecondSection />
-          ) : (
+          ) : isUserAuthorized ? (
             <>
               <NoRecipesText>
-                {isUserAuthorized
-                  ? 'You currently have written no recipes.'
-                  : `${user.fullname} has currently have written no recipes.`}
+                You currently have written no recipes.
               </NoRecipesText>
               <NewRecipeButton onClick={() => setIsModalOpen(true)}>
                 New Recipe
               </NewRecipeButton>
             </>
+          ) : (
+            <NoRecipesText>
+              @{user.username} has currently have written no recipes.
+            </NoRecipesText>
           )}
         </RecipesSection>
       </Wrapper>
