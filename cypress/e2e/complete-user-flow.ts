@@ -212,6 +212,10 @@ it('Complete users flow', () => {
   cy.signOut()
 
   // Authorization: Try editing first user profile
+  cy.visit(`/${firstUser.username}/edit`)
+
+  cy.findByText('You are not authorized to edit this profile.').should('exist')
+  cy.location('pathname').should('eq', '/')
 
   // Authorization: Try editing first user's recipe
 
