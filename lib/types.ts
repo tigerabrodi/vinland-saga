@@ -1,6 +1,10 @@
 import { User } from '@firebase/auth'
 import { FieldValue, Timestamp } from '@firebase/firestore'
 
+export type DateType = FieldValue | Timestamp | number
+
+export type CreatedAt = { createdAt: DateType }
+
 export type UserData = {
   username: string | null
   user: User | null | undefined
@@ -17,16 +21,16 @@ export type UserProfile = {
   avatarUrl: string
   clapCount: number
   recipeCount: number
-  createdAt: FieldValue | Timestamp | number
+  createdAt: DateType
   uid: string
-}
+} & CreatedAt
 
 export type Recipe = {
   title: string
   body: string
   commentsCount: number
   clapCount: number
-  createdAt: FieldValue | Timestamp | number
+  createdAt: DateType
   uid: string
   imageUrl: string
   slug: string
@@ -34,15 +38,14 @@ export type Recipe = {
   authorUsername: string
   authorAvatarUrl: string
   authorFullname: string
-}
+} & CreatedAt
 
 export type Comment = {
   text: string
   clapCount: number
-  createdAt: FieldValue | Timestamp | number
   uid: string
   authorUsername: string
   authorAvatarUrl: string
   authorFullname: string
   id: string
-}
+} & CreatedAt
