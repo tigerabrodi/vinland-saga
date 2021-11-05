@@ -13,7 +13,7 @@ import { dataToJSON } from '@lib/firebase/format-utils'
 import { UserProfile } from '@lib/types'
 import type { NextPage } from 'next'
 import { List } from './usersStyles'
-import { useLoadingStore } from '@lib/store'
+import { useHandleSort } from '@hooks/useHandleSort'
 
 export async function getServerSideProps() {
   const usersQuery = query(
@@ -33,38 +33,13 @@ type Props = {
 }
 
 const UsersFeed: NextPage<Props> = ({ ssrUsers }) => {
-  const [sortedUsers, setSortedUsers] = React.useState<UserProfile[] | null>(
-    null
-  )
-  const [sortingValue, setSortingValue] = React.useState('')
-  const { setStatus } = useLoadingStore()
+  const { sortedItems: sortedUsers, setSortingValue } =
+    useHandleSort<UserProfile>({
+      queryValue: 'users',
+      secondOrderByValue: 'recipeCount',
+    })
 
   const users = sortedUsers || ssrUsers
-
-  React.useEffect(() => {
-    if (sortingValue === '') {
-      return
-    }
-
-    const setUsers = async () => {
-      setStatus('loading')
-      const usersQuery = query<UserProfile>(
-        collection(firebaseDb, 'users') as CollectionReference<UserProfile>,
-        sortingValue === 'Claps'
-          ? orderBy('clapCount', 'desc')
-          : orderBy('recipeCount', 'desc')
-      )
-
-      const users = (await getDocs<UserProfile>(usersQuery)).docs.map(
-        dataToJSON
-      )
-
-      setSortedUsers(users)
-      setStatus('success')
-    }
-
-    setUsers()
-  }, [setStatus, sortingValue])
 
   return (
     <Feed
