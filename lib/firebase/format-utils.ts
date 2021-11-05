@@ -4,12 +4,10 @@ import {
   FieldValue,
   QuerySnapshot,
 } from 'firebase/firestore'
-import { Comment } from '@lib/types'
+import { Comment, CreatedAt } from '@lib/types'
 import { getTimestampInMillis } from './get-utils'
 
-export const dataToJSON = <
-  Data extends { createdAt: FieldValue | Timestamp | number }
->(
+export const dataToJSON = <Data extends CreatedAt>(
   snapshot: DocumentSnapshot<Data>
 ): Data => {
   const data = snapshot.data() as Data
