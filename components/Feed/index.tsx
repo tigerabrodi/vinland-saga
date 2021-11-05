@@ -28,10 +28,11 @@ export const Feed = ({
 
   const [selectedSortOption, setSelectedSortOption] = React.useState(firstLabel)
 
-  /* TODO Check if items length is greater than 1 */
   const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedSortOption(event.target.value)
-    setSortingValue(event.target.value)
+    if (itemsLength > 1) {
+      setSelectedSortOption(event.target.value)
+      setSortingValue(event.target.value)
+    }
   }
 
   return (
