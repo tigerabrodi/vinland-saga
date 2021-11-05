@@ -257,6 +257,55 @@ it('Complete users flow', () => {
     })
 
   // Users Sorting
+  cy.clickByRole('link', { name: 'Users' })
+  cy.wait(1000)
+
+  // First user should be first since default sorting is by claps.
+  cy.findAllByRole('listitem')
+    .first()
+    .within(() => {
+      cy.findByRole('heading', { name: firstUser.fullname }).should('exist')
+    })
+
+  // Sign out (first user)
+  cy.signOut()
+
+  // Sign In (second user)
+  cy.signIn(secondUser)
+
+  // Create three recipes
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe)
+  cy.clickByRole('button', { name: 'Submit' })
+
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe)
+  cy.clickByRole('button', { name: 'Submit' })
+
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe)
+  cy.clickByRole('button', { name: 'Submit' })
+
+  cy.clickByRole('link', { name: 'Users' })
+  cy.wait(1000)
+
+  // Default sorting is by claps hence the first user should be first and not the second user.
+  cy.findAllByRole('listitem')
+    .first()
+    .within(() => {
+      cy.findByRole('heading', { name: firstUser.fullname }).should('exist')
+    })
+
+  // Sort by recipes
+  cy.findByLabelText('Sort by Recipes').click()
+  cy.wait(1000)
+
+  // Second user should now be first since it has more recipes than the first user.
+  cy.findAllByRole('listitem')
+    .first()
+    .within(() => {
+      cy.findByRole('heading', { name: secondUser.fullname }).should('exist')
+    })
 
   // TODO Load More Button
 })
