@@ -8,6 +8,7 @@ beforeEach(() => {
 it('Complete users flow', () => {
   const firstUser = buildUser()
   const firstUserRecipe = buildRecipe()
+  const firstUserRecipe2 = buildRecipe()
 
   const secondUser = buildUser()
   const secondUserRecipe = buildRecipe()
@@ -220,6 +221,42 @@ it('Complete users flow', () => {
   cy.findByText('You have to be logged in to clap a recipe.').should('exist')
   cy.location('pathname').should('eq', '/sign-in')
 
+  // Sign In (First user)
+  cy.signIn(firstUser)
+
+  // Clap first user recipe
+  cy.clickByRole('link', { name: `Read more about ${firstUserRecipe.title}` })
+  cy.clickByRole('button', { name: 'Recipe 1 claps' })
+  cy.findByRole('button', { name: 'Recipe 2 claps' }).should('exist')
+  cy.visit('/')
+
+  // Default sorting by claps, first user's recipe has two claps, hence it should be the first one in the list.
+  cy.findAllByRole('listitem')
+    .first()
+    .within(() => {
+      cy.findByRole('link', {
+        name: `Read more about ${firstUserRecipe.title}`,
+      }).should('exist')
+      cy.findByLabelText('2 claps').should('exist')
+    })
+
+  // Sort by newest recipes by creating a new recipe and ensuring it is the first one.
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(firstUserRecipe2)
+  cy.visit('/')
+  cy.findByLabelText('Sort by Newest').click()
+
+  cy.wait(1000)
+
+  cy.findAllByRole('listitem')
+    .first()
+    .within(() => {
+      cy.findByRole('link', {
+        name: `Read more about ${firstUserRecipe2.title}`,
+      }).should('exist')
+    })
+
+  // Users Sorting
+
   // TODO Load More Button
-  // TODO Sorting functionalities
 })
