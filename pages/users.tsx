@@ -33,13 +33,12 @@ type Props = {
 }
 
 const UsersFeed: NextPage<Props> = ({ ssrUsers }) => {
-  const { sortedItems: sortedUsers, setSortingValue } =
-    useHandleSort<UserProfile>({
-      queryValue: 'users',
-      secondOrderByValue: 'recipeCount',
-    })
-
-  const users = sortedUsers || ssrUsers
+  const [users, setUsers] = React.useState(ssrUsers)
+  const { setSortingValue } = useHandleSort<UserProfile>({
+    queryValue: 'users',
+    secondOrderByValue: 'recipeCount',
+    setItems: setUsers,
+  })
 
   return (
     <Feed
