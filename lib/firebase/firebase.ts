@@ -16,11 +16,8 @@ const firebaseApp = initializeApp(firebaseConfig)
 
 export const firebaseDb = getFirestore(firebaseApp)
 
-// Auth export
 export const auth = getAuth(firebaseApp)
 
-// Firestore Utils
 export const fromMillis = Timestamp.fromMillis
 
-// Storage export
 export const storage = getStorage(firebaseApp)
