@@ -14,15 +14,24 @@ type Props = {
   labels: [string, string]
   title: string
   itemsLength: number
+  setSortingValue: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const Feed = ({ children, labels, title, itemsLength }: Props) => {
+export const Feed = ({
+  children,
+  labels,
+  title,
+  itemsLength,
+  setSortingValue,
+}: Props) => {
   const [firstLabel, secondLabel] = labels
 
   const [selectedSortOption, setSelectedSortOption] = React.useState(firstLabel)
 
+  /* TODO Check if items length is greater than 1 */
   const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedSortOption(event.target.value)
+    setSortingValue(event.target.value)
   }
 
   return (
