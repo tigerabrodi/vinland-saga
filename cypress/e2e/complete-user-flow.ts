@@ -273,7 +273,7 @@ it('Complete users flow', () => {
   // Sign In (second user)
   cy.signIn(secondUser)
 
-  // Create three recipes
+  // Create 3 recipes
   cy.clickItemInMenu('New Recipe')
   cy.createRecipe(secondUserRecipe)
   cy.clickByRole('button', { name: 'Submit' })
@@ -307,5 +307,50 @@ it('Complete users flow', () => {
       cy.findByRole('heading', { name: secondUser.fullname }).should('exist')
     })
 
-  // TODO Load More Button
+  // Go to recipes feed
+  cy.clickByRole('link', { name: 'Home' })
+
+  // Load more button shouldn't exist if less than 10 recipes are loaded
+  cy.findByRole('button', { name: 'Load More' }).should('not.exist')
+
+  // Create 7 recipes
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe)
+  cy.clickByRole('button', { name: 'Submit' })
+
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe)
+  cy.clickByRole('button', { name: 'Submit' })
+
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe)
+  cy.clickByRole('button', { name: 'Submit' })
+
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe)
+  cy.clickByRole('button', { name: 'Submit' })
+
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe)
+  cy.clickByRole('button', { name: 'Submit' })
+
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe)
+  cy.clickByRole('button', { name: 'Submit' })
+
+  cy.clickItemInMenu('New Recipe')
+  cy.createRecipe(secondUserRecipe)
+  cy.clickByRole('button', { name: 'Submit' })
+
+  // Go back to home
+  cy.clickByRole('link', { name: 'Home' })
+
+  // Length of recipes should be 10
+  cy.findAllByRole('listitem').should('have.length', 10)
+
+  // Click load more button
+  cy.clickByRole('button', { name: 'Load More' })
+
+  // Length of recipes should be greater than 10
+  cy.findAllByRole('listitem').should('have.length.above', 10)
 })
