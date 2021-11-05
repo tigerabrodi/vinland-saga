@@ -1,9 +1,11 @@
+import * as React from 'react'
 import { Feed } from '@components/Feed'
 import { RecipesFeed } from '@components/RecipesFeed'
 import {
   collectionGroup,
   CollectionReference,
   getDocs,
+  orderBy,
   query,
 } from '@firebase/firestore'
 import { firebaseDb } from '@lib/firebase/firebase'
@@ -16,26 +18,56 @@ import type { NextPage } from 'next'
 
 export async function getServerSideProps() {
   const recipesQuery = query<Recipe>(
-    collectionGroup(firebaseDb, 'recipes') as CollectionReference<Recipe>
+    collectionGroup(firebaseDb, 'recipes') as CollectionReference<Recipe>,
+    orderBy('clapCount', 'desc')
   )
 
   const recipes = (await getDocs<Recipe>(recipesQuery)).docs.map(dataToJSON)
 
   return {
-    props: { recipes },
+    props: { ssrRecipes: recipes },
   }
 }
 
 type Props = {
-  recipes: Recipe[]
+  ssrRecipes: Recipe[]
 }
 
-const RecipesFeedHome: NextPage<Props> = ({ recipes }) => {
+const RecipesFeedHome: NextPage<Props> = ({ ssrRecipes }) => {
+  const [sortedRecipes, setSortedRecipes] = React.useState<Recipe[] | null>(
+    null
+  )
+  const [sortingValue, setSortingValue] = React.useState('')
+
+  React.useEffect(() => {
+    if (sortingValue === '') {
+      return
+    }
+
+    const setRecipes = async () => {
+      const recipesQuery = query<Recipe>(
+        collectionGroup(firebaseDb, 'recipes') as CollectionReference<Recipe>,
+        sortingValue === 'Claps'
+          ? orderBy('clapCount', 'desc')
+          : orderBy('createdAt', 'desc')
+      )
+
+      const recipes = (await getDocs<Recipe>(recipesQuery)).docs.map(dataToJSON)
+
+      setSortedRecipes(recipes)
+    }
+
+    setRecipes()
+  }, [sortingValue])
+
+  const recipes = sortedRecipes || ssrRecipes
+
   return (
     <Feed
       labels={['Claps', 'Newest']}
       title="Recipes"
       itemsLength={recipes.length}
+      setSortingValue={setSortingValue}
     >
       <RecipesFeed recipes={recipes} />
     </Feed>
