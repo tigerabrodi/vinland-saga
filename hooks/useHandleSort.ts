@@ -11,16 +11,17 @@ import { useLoadingStore } from '@lib/store'
 import { CreatedAt } from '@lib/types'
 import * as React from 'react'
 
-type Params = {
+type Params<Item> = {
   queryValue: string
   secondOrderByValue: string
+  setItems: React.Dispatch<React.SetStateAction<Item[]>>
 }
 
 export const useHandleSort = <Item extends CreatedAt>({
   queryValue,
   secondOrderByValue,
-}: Params) => {
-  const [sortedItems, setSortedItems] = React.useState<Item[] | null>(null)
+  setItems,
+}: Params<Item>) => {
   const [sortingValue, setSortingValue] = React.useState('')
   const { setStatus } = useLoadingStore()
 
@@ -29,7 +30,7 @@ export const useHandleSort = <Item extends CreatedAt>({
       return
     }
 
-    const setItems = async () => {
+    const getSortedItems = async () => {
       setStatus('loading')
       const itemsQuery = query<Item>(
         collectionGroup(firebaseDb, queryValue) as CollectionReference<Item>,
@@ -40,12 +41,12 @@ export const useHandleSort = <Item extends CreatedAt>({
 
       const items = (await getDocs<Item>(itemsQuery)).docs.map(dataToJSON)
 
-      setSortedItems(items)
+      setItems(items)
       setStatus('success')
     }
 
-    setItems()
-  }, [queryValue, secondOrderByValue, setStatus, sortingValue])
+    getSortedItems()
+  }, [queryValue, secondOrderByValue, setItems, setStatus, sortingValue])
 
-  return { sortedItems, setSortingValue }
+  return { setSortingValue }
 }
