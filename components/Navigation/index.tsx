@@ -66,7 +66,7 @@ export const Navigation = () => {
     <NavigationWrapper>
       <NavigationContainer>
         <Link passHref href="/">
-          <NavLink>Home</NavLink>
+          <NavLink>Recipes</NavLink>
         </Link>
         <Link passHref href="/chefs">
           <NavLink>Chefs</NavLink>

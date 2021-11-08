@@ -44,7 +44,7 @@ it('Complete flow', () => {
   cy.createUserAndProfile(secondChef)
 
   // Go to recipes feed
-  cy.clickByRole('link', { name: 'Home' })
+  cy.clickByRole('link', { name: 'Recipes' })
 
   // Click on first chef's recipe
   cy.findByRole('heading', { name: 'Recipes' }).should('exist')
@@ -63,7 +63,7 @@ it('Complete flow', () => {
   cy.findByRole('button', { name: 'Recipe 1 claps' }).should('exist')
 
   // Go to recipes feed
-  cy.clickByRole('link', { name: 'Home' })
+  cy.clickByRole('link', { name: 'Recipes' })
 
   // Ensure clap count
   cy.findByRole('listitem', {
@@ -151,7 +151,7 @@ it('Complete flow', () => {
   }).should('exist')
 
   // Go to home
-  cy.clickByRole('link', { name: 'Home' })
+  cy.clickByRole('link', { name: 'Recipes' })
 
   // Assert first chef recipe comments
   cy.findByRole('listitem', { name: firstChefRecipe.title }).within(() => {
