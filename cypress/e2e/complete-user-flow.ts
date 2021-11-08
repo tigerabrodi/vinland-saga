@@ -6,28 +6,28 @@ beforeEach(() => {
 })
 
 it('Complete flow', () => {
-  const firstUser = buildUser()
-  const firstUserRecipe = buildRecipe()
-  const firstUserRecipe2 = buildRecipe()
+  const firstChef = buildUser()
+  const firstChefRecipe = buildRecipe()
+  const firstChefRecipe2 = buildRecipe()
 
-  const secondUser = buildUser()
-  const secondUserRecipe = buildRecipe()
-  const secondUserRecipe2 = buildRecipe()
-  const secondUserComments = buildComments()
+  const secondChef = buildUser()
+  const secondChefRecipe = buildRecipe()
+  const secondChefRecipe2 = buildRecipe()
+  const secondChefComments = buildComments()
 
-  cy.createUserAndProfile(firstUser)
+  cy.createUserAndProfile(firstChef)
   cy.clickByRole('button', { name: 'New Recipe' })
-  cy.createRecipe(firstUserRecipe)
-  cy.assertPreviewMode(firstUserRecipe, firstUser)
+  cy.createRecipe(firstChefRecipe)
+  cy.assertPreviewMode(firstChefRecipe, firstChef)
 
   // Submit recipe (first user)
   cy.clickByRole('button', { name: 'Submit' })
   cy.findByText(
-    `Successfully updated your recipe ${firstUserRecipe.title}.`
+    `Successfully updated your recipe ${firstChefRecipe.title}.`
   ).should('exist')
 
   // Recipe Detail Page
-  cy.assertRecipeDetail(firstUserRecipe, firstUser)
+  cy.assertRecipeDetail(firstChefRecipe, firstChef)
 
   // Currently no comments
   cy.findByRole('heading', { name: 'Comments' }).should('exist')
@@ -35,13 +35,13 @@ it('Complete flow', () => {
 
   // Go to Profile via Menu
   cy.clickItemInMenu('Profile')
-  cy.findByRole('heading', { name: firstUser.fullname }).should('exist')
+  cy.findByRole('heading', { name: firstChef.fullname }).should('exist')
 
   // Sign Out (first user)
   cy.signOut()
 
   // Create second user
-  cy.createUserAndProfile(secondUser)
+  cy.createUserAndProfile(secondChef)
 
   // Go to recipes feed
   cy.clickByRole('link', { name: 'Home' })
@@ -49,12 +49,12 @@ it('Complete flow', () => {
   // Click on first user's recipe
   cy.findByRole('heading', { name: 'Recipes' }).should('exist')
   cy.findByRole('list').within(() => {
-    cy.assertAndClickOnRecipe(firstUserRecipe, firstUser)
+    cy.assertAndClickOnRecipe(firstChefRecipe, firstChef)
   })
 
   // Detail page
   cy.findByRole('heading', {
-    name: firstUserRecipe.title,
+    name: firstChefRecipe.title,
     level: 1,
   }).should('exist')
 
@@ -67,28 +67,28 @@ it('Complete flow', () => {
 
   // Ensure clap count
   cy.findByRole('listitem', {
-    name: firstUserRecipe.title,
+    name: firstChefRecipe.title,
   }).within(() => {
     cy.findByLabelText('1 claps').should('exist')
 
     // Go back to recipe detail
-    cy.clickByRole('link', { name: `Read more about ${firstUserRecipe.title}` })
+    cy.clickByRole('link', { name: `Read more about ${firstChefRecipe.title}` })
   })
 
   // Go to comments
   cy.clickByRole('link', { name: '0 comments' })
 
   // Write a comment
-  cy.addComment(secondUserComments.firstComment)
+  cy.addComment(secondChefComments.firstComment)
 
   // Assert comments link length
   cy.clickByRole('link', { name: '1 comments' })
 
   // Assert and edit comment
   cy.assertAndEditComment({
-    firstComment: secondUserComments.firstComment,
-    secondComment: secondUserComments.secondComment,
-    fullname: secondUser.fullname,
+    firstComment: secondChefComments.firstComment,
+    secondComment: secondChefComments.secondComment,
+    fullname: secondChef.fullname,
   })
 
   // Delete Comment
@@ -103,33 +103,33 @@ it('Complete flow', () => {
   cy.findByRole('listitem').should('not.exist')
 
   // Write two comments
-  cy.addComment(secondUserComments.firstComment)
-  cy.addComment(secondUserComments.secondComment)
+  cy.addComment(secondChefComments.firstComment)
+  cy.addComment(secondChefComments.secondComment)
 
   // Create two recipes
   cy.clickItemInMenu('New Recipe')
-  cy.createRecipe(secondUserRecipe)
+  cy.createRecipe(secondChefRecipe)
   cy.clickByRole('button', { name: 'Submit' })
 
   cy.clickItemInMenu('New Recipe')
-  cy.createRecipe(secondUserRecipe2)
+  cy.createRecipe(secondChefRecipe2)
   cy.clickByRole('button', { name: 'Submit' })
 
   // Sign Out (second user)
   cy.signOut()
 
   // Login (first user)
-  cy.signIn(firstUser)
+  cy.signIn(firstChef)
 
   // Go to profile
   cy.clickItemInMenu('Profile')
 
   // Assert the recipe exist
-  cy.findByRole('heading', { name: firstUser.fullname, level: 1 }).should(
+  cy.findByRole('heading', { name: firstChef.fullname, level: 1 }).should(
     'exist'
   )
   cy.findByRole('heading', {
-    name: `Read more about ${firstUserRecipe.title}`,
+    name: `Read more about ${firstChefRecipe.title}`,
     level: 3,
   }).should('exist')
 
@@ -137,16 +137,16 @@ it('Complete flow', () => {
   cy.clickByRole('link', { name: 'Chefs' })
 
   // Click on the second user
-  cy.assertAndClickOnSecondUser(secondUser)
+  cy.assertAndClickOnSecondUser(secondChef)
 
   // See two recipes
   cy.findByRole('heading', { name: 'Recipes', level: 2 }).should('exist')
   cy.findByRole('heading', {
-    name: `Read more about ${secondUserRecipe.title}`,
+    name: `Read more about ${secondChefRecipe.title}`,
     level: 3,
   }).should('exist')
   cy.findByRole('heading', {
-    name: `Read more about ${secondUserRecipe2.title}`,
+    name: `Read more about ${secondChefRecipe2.title}`,
     level: 3,
   }).should('exist')
 
@@ -154,7 +154,7 @@ it('Complete flow', () => {
   cy.clickByRole('link', { name: 'Home' })
 
   // Assert first user recipe comments
-  cy.findByRole('listitem', { name: firstUserRecipe.title }).within(() => {
+  cy.findByRole('listitem', { name: firstChefRecipe.title }).within(() => {
     cy.findByLabelText('2 comments').should('exist')
   })
 
@@ -162,11 +162,11 @@ it('Complete flow', () => {
   cy.clickItemInMenu('Profile')
 
   // Click on recipe
-  cy.clickByRole('link', { name: `Read more about ${firstUserRecipe.title}` })
+  cy.clickByRole('link', { name: `Read more about ${firstChefRecipe.title}` })
 
   // Assert two comments do exist
-  cy.findByText(secondUserComments.firstComment).should('exist')
-  cy.findByText(secondUserComments.secondComment).should('exist')
+  cy.findByText(secondChefComments.firstComment).should('exist')
+  cy.findByText(secondChefComments.secondComment).should('exist')
 
   // Clap and Unclap first comment
   cy.findAllByRole('listitem')
@@ -181,13 +181,13 @@ it('Complete flow', () => {
   cy.signOut()
 
   // Login (second user)
-  cy.signIn(secondUser)
+  cy.signIn(secondChef)
 
   // Go to Profile
   cy.clickItemInMenu('Profile')
 
   // Click on first recipe
-  cy.clickByRole('link', { name: `Read more about ${secondUserRecipe.title}` })
+  cy.clickByRole('link', { name: `Read more about ${secondChefRecipe.title}` })
 
   // Delete recipe
   cy.clickByRole('button', { name: 'Delete Recipe' })
@@ -197,35 +197,35 @@ it('Complete flow', () => {
   })
 
   // Back to profile
-  cy.findByRole('heading', { name: secondUser.fullname, level: 1 }).should(
+  cy.findByRole('heading', { name: secondChef.fullname, level: 1 }).should(
     'exist'
   )
 
   // Recipe shouldn't exist
   cy.findByRole('link', {
-    name: `Read more about ${secondUserRecipe.title}`,
+    name: `Read more about ${secondChefRecipe.title}`,
   }).should('not.exist')
 
   // Sign out (second user)
   cy.signOut()
 
   // Authorization: Try editing first user profile
-  cy.visit(`/${firstUser.username}/edit`)
+  cy.visit(`/${firstChef.username}/edit`)
 
   cy.findByText('You are not authorized to edit this profile.').should('exist')
   cy.location('pathname').should('eq', '/')
 
   // Authorization: Try clapping a recipe
-  cy.clickByRole('link', { name: `Read more about ${firstUserRecipe.title}` })
+  cy.clickByRole('link', { name: `Read more about ${firstChefRecipe.title}` })
   cy.findByRole('button', { name: 'Recipe 1 claps' }).click()
   cy.findByText('You have to be logged in to clap a recipe.').should('exist')
   cy.location('pathname').should('eq', '/sign-in')
 
   // Sign In (First user)
-  cy.signIn(firstUser)
+  cy.signIn(firstChef)
 
   // Clap first user recipe
-  cy.clickByRole('link', { name: `Read more about ${firstUserRecipe.title}` })
+  cy.clickByRole('link', { name: `Read more about ${firstChefRecipe.title}` })
   cy.clickByRole('button', { name: 'Recipe 1 claps' })
   cy.findByRole('button', { name: 'Recipe 2 claps' }).should('exist')
   cy.visit('/')
@@ -235,14 +235,14 @@ it('Complete flow', () => {
     .first()
     .within(() => {
       cy.findByRole('link', {
-        name: `Read more about ${firstUserRecipe.title}`,
+        name: `Read more about ${firstChefRecipe.title}`,
       }).should('exist')
       cy.findByLabelText('2 claps').should('exist')
     })
 
   // Sort by newest recipes by creating a new recipe and ensuring it is the first one.
   cy.clickItemInMenu('New Recipe')
-  cy.createRecipe(firstUserRecipe2)
+  cy.createRecipe(firstChefRecipe2)
   cy.visit('/')
   cy.findByLabelText('Sort by Newest').click()
 
@@ -252,7 +252,7 @@ it('Complete flow', () => {
     .first()
     .within(() => {
       cy.findByRole('link', {
-        name: `Read more about ${firstUserRecipe2.title}`,
+        name: `Read more about ${firstChefRecipe2.title}`,
       }).should('exist')
     })
 
@@ -264,26 +264,26 @@ it('Complete flow', () => {
   cy.findAllByRole('listitem')
     .first()
     .within(() => {
-      cy.findByRole('heading', { name: firstUser.fullname }).should('exist')
+      cy.findByRole('heading', { name: firstChef.fullname }).should('exist')
     })
 
   // Sign out (first user)
   cy.signOut()
 
   // Sign In (second user)
-  cy.signIn(secondUser)
+  cy.signIn(secondChef)
 
   // Create 3 recipes
   cy.clickItemInMenu('New Recipe')
-  cy.createRecipe(secondUserRecipe)
+  cy.createRecipe(secondChefRecipe)
   cy.clickByRole('button', { name: 'Submit' })
 
   cy.clickItemInMenu('New Recipe')
-  cy.createRecipe(secondUserRecipe)
+  cy.createRecipe(secondChefRecipe)
   cy.clickByRole('button', { name: 'Submit' })
 
   cy.clickItemInMenu('New Recipe')
-  cy.createRecipe(secondUserRecipe)
+  cy.createRecipe(secondChefRecipe)
   cy.clickByRole('button', { name: 'Submit' })
 
   cy.clickByRole('link', { name: 'Chefs' })
@@ -293,7 +293,7 @@ it('Complete flow', () => {
   cy.findAllByRole('listitem')
     .first()
     .within(() => {
-      cy.findByRole('heading', { name: firstUser.fullname }).should('exist')
+      cy.findByRole('heading', { name: firstChef.fullname }).should('exist')
     })
 
   // Sort by recipes
@@ -304,6 +304,6 @@ it('Complete flow', () => {
   cy.findAllByRole('listitem')
     .first()
     .within(() => {
-      cy.findByRole('heading', { name: secondUser.fullname }).should('exist')
+      cy.findByRole('heading', { name: secondChef.fullname }).should('exist')
     })
 })
