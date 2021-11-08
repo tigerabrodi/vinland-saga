@@ -91,7 +91,7 @@ const RecipeEdit: NextPage = () => {
       setStatus('loading')
       setRecipe(
         (await getRecipeWithSlug(slug, {
-          userToGetRecipeFrom: currentAuthUser,
+          chefToGetRecipeFrom: currentAuthUser,
         })) as Recipe
       )
       setStatus('success')

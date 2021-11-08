@@ -32,7 +32,7 @@ import {
 import { FullPageSpinner } from '@components/Spinner'
 import { useNewRecipeStore } from '@lib/store'
 import { RecipesFeed } from '@components/RecipesFeed'
-import { getUserWithUsername } from '@lib/firebase/get-utils'
+import { getChefWithUsername } from '@lib/firebase/get-utils'
 import { dataToJSON } from '@lib/firebase/format-utils'
 
 type ServerProps = {
@@ -44,7 +44,7 @@ type ServerProps = {
 export async function getServerSideProps({ query }: ServerProps) {
   const { username } = query
 
-  const user = await getUserWithUsername(username)
+  const user = await getChefWithUsername(username)
 
   const recipeDocs = fbQuery<Recipe>(
     collection(

@@ -22,33 +22,33 @@ export const getTimestampInMillis = (date: number | FieldValue | Timestamp) =>
     ? (date as Timestamp).toMillis()
     : 0
 
-export const getUserWithUsername = async (username: string) => {
+export const getChefWithUsername = async (username: string) => {
   if (!username) return
 
-  const userQuery = query(
+  const chefsQuery = query(
     collection(firebaseDb, 'chefs'),
     where('username', '==', username),
     limit(1)
   )
 
-  const user = (await getDocs(userQuery)).docs[0].data() as ChefProfile
+  const chef = (await getDocs(chefsQuery)).docs[0].data() as ChefProfile
 
-  if (user && user.createdAt) {
+  if (chef && chef.createdAt) {
     return {
-      ...user,
-      createdAt: getTimestampInMillis(user.createdAt),
+      ...chef,
+      createdAt: getTimestampInMillis(chef.createdAt),
     }
   }
 }
 
 export const getRecipeWithSlug = async (
   slug: string,
-  options?: { userToGetRecipeFrom: User | null | undefined }
+  options?: { chefToGetRecipeFrom: User | null | undefined }
 ) => {
   if (!slug) return
 
-  const queryPath = options?.userToGetRecipeFrom
-    ? `chefs/${options.userToGetRecipeFrom.uid}/recipes/${slug}`
+  const queryPath = options?.chefToGetRecipeFrom
+    ? `chefs/${options.chefToGetRecipeFrom.uid}/recipes/${slug}`
     : `recipes/${slug}`
 
   const recipeRef = doc(firebaseDb, queryPath) as DocumentReference<Recipe>

@@ -25,7 +25,7 @@ import { CommentForm } from '@components/CommentForm'
 import { CommentItem } from '@components/CommentItem'
 import { useLoadingStore } from '@lib/store'
 import { commentsToJSON, dataToJSON } from '@lib/firebase/format-utils'
-import { getUserWithUsername } from '@lib/firebase/get-utils'
+import { getChefWithUsername } from '@lib/firebase/get-utils'
 
 type Params = {
   params: {
@@ -37,7 +37,7 @@ type Params = {
 export async function getStaticProps({ params }: Params) {
   const { username, slug } = params
 
-  const user = await getUserWithUsername(username)
+  const user = await getChefWithUsername(username)
 
   let recipe = {}
   let recipePath = ''

@@ -1,4 +1,4 @@
-import { getUserWithUsername } from '@lib/firebase/get-utils'
+import { getChefWithUsername } from '@lib/firebase/get-utils'
 import { useLoadingStore } from '@lib/store'
 import { ChefProfile } from '@lib/types'
 import * as React from 'react'
@@ -16,7 +16,7 @@ export const useGetChef = (username: string | null) => {
 
     const setChefState = async () => {
       setStatus('loading')
-      setChef((await getUserWithUsername(username)) as ChefProfile)
+      setChef((await getChefWithUsername(username)) as ChefProfile)
       setStatus('success')
     }
     setChefState()
