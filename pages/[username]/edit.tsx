@@ -95,7 +95,7 @@ const ProfileEdit: NextPage = () => {
     }
   }, [username, push, setFormState, user, queryUsername])
 
-  const userRef = doc(firebaseDb, `users/${auth.currentUser?.uid}`)
+  const userRef = doc(firebaseDb, `chefs/${auth.currentUser?.uid}`)
 
   const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = Array.from(event.target.files as FileList)[0]
@@ -146,7 +146,7 @@ const ProfileEdit: NextPage = () => {
     }
 
     const recipeDocs = query(
-      collection(firebaseDb, `users/${auth.currentUser!.uid}/recipes`)
+      collection(firebaseDb, `chefs/${auth.currentUser!.uid}/recipes`)
     )
     const recipesSnapshot = await getDocs(recipeDocs)
     if (recipesSnapshot.docs.length) {

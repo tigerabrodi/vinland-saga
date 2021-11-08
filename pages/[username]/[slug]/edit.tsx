@@ -128,7 +128,7 @@ const RecipeEdit: NextPage = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setDoc(
-            doc(firebaseDb, `users/${auth.currentUser?.uid}/recipes/${slug}`),
+            doc(firebaseDb, `chefs/${auth.currentUser?.uid}/recipes/${slug}`),
             { imageUrl: downloadURL },
             { merge: true }
           )
@@ -165,7 +165,7 @@ const RecipeEdit: NextPage = () => {
       }
 
       await setDoc(
-        doc(firebaseDb, `users/${uid}/recipes/${recipe.slug}`),
+        doc(firebaseDb, `chefs/${uid}/recipes/${recipe.slug}`),
         recipeData,
         { merge: true }
       )

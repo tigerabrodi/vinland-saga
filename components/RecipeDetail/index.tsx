@@ -75,11 +75,11 @@ export const RecipeDetail = ({
 
   const isUserAuthorized = authorUsername === username
 
-  const postPath = `users/${uid}/recipes/${slug}`
+  const postPath = `chefs/${uid}/recipes/${slug}`
   const postRef = doc(firebaseDb, postPath)
 
   const clapRef = doc(firebaseDb, `${postPath}/claps/${auth.currentUser?.uid}`)
-  const userRef = doc(firebaseDb, `users/${uid}`)
+  const userRef = doc(firebaseDb, `chefs/${uid}`)
 
   const hasUserClappedRecipe = Boolean(
     useRealtimeState<{ uid: string }>(clapRef.path)?.exists()
@@ -120,12 +120,12 @@ export const RecipeDetail = ({
 
     const batch = writeBatch(firebaseDb)
 
-    batch.update(doc(firebaseDb, `users/${uid}`), {
+    batch.update(doc(firebaseDb, `chefs/${uid}`), {
       clapCount: increment(-clapCount),
       recipeCount: increment(-1),
     })
 
-    const recipePath = `users/${uid}/recipes/${slug}`
+    const recipePath = `chefs/${uid}/recipes/${slug}`
 
     const commentDocs = query(collection(firebaseDb, `${recipePath}/comments`))
     const commentsSnapshot = await getDocs(commentDocs)

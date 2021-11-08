@@ -49,7 +49,7 @@ export async function getServerSideProps({ query }: ServerProps) {
   const recipeDocs = fbQuery<Recipe>(
     collection(
       firebaseDb,
-      `users/${user?.uid}/recipes`
+      `chefs/${user?.uid}/recipes`
     ) as CollectionReference<Recipe>,
     where('authorUsername', '==', username)
   )

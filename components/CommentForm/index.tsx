@@ -58,13 +58,13 @@ export const CommentForm = ({ recipe }: Props) => {
       batch.set(
         doc(
           firebaseDb,
-          `users/${recipe.uid}/recipes/${recipe.slug}/comments/${commentData.id}`
+          `chefs/${recipe.uid}/recipes/${recipe.slug}/comments/${commentData.id}`
         ),
         commentData
       )
 
       batch.update(
-        doc(firebaseDb, `users/${recipe.uid}/recipes/${recipe.slug}`),
+        doc(firebaseDb, `chefs/${recipe.uid}/recipes/${recipe.slug}`),
         { commentsCount: increment(1) }
       )
 

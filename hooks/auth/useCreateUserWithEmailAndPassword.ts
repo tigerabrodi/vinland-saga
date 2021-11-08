@@ -29,7 +29,7 @@ export const useCreateUserWithEmailAndPassword = () => {
         password
       )
 
-      const userRef = doc(firebaseDb, `users/${user.user.uid}`)
+      const userRef = doc(firebaseDb, `chefs/${user.user.uid}`)
 
       batch.set(userRef, {
         username,

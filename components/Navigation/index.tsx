@@ -59,7 +59,7 @@ export const Navigation = () => {
   }
 
   const user = useRealtimeState<UserProfile>(
-    `users/${auth.currentUser?.uid}`
+    `chefs/${auth.currentUser?.uid}`
   )?.data()
 
   return (
@@ -68,7 +68,7 @@ export const Navigation = () => {
         <Link passHref href="/">
           <NavLink>Home</NavLink>
         </Link>
-        <Link passHref href="/users">
+        <Link passHref href="/chefs">
           <NavLink>Chefs</NavLink>
         </Link>
         <Link passHref href="/">

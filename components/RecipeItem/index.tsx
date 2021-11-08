@@ -58,7 +58,7 @@ export const RecipeItem = ({
     const checkClapExists = async () => {
       const clapRef = doc(
         firebaseDb,
-        `users/${uid}/recipes/${slug}/claps/${auth.currentUser?.uid}`
+        `chefs/${uid}/recipes/${slug}/claps/${auth.currentUser?.uid}`
       )
 
       const clapSnap = await getDoc(clapRef)

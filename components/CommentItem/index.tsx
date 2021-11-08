@@ -73,7 +73,7 @@ export const CommentItem = ({ comment, recipe }: Props) => {
 
   useCloseEscape(() => setIsEditMode(false))
 
-  const commentPath = `users/${recipe.uid}/recipes/${recipe.slug}/comments/${id}`
+  const commentPath = `chefs/${recipe.uid}/recipes/${recipe.slug}/comments/${id}`
   const clapRef = doc(
     firebaseDb,
     `${commentPath}/claps/${auth.currentUser?.uid}`
@@ -108,7 +108,7 @@ export const CommentItem = ({ comment, recipe }: Props) => {
     batch.delete(doc(firebaseDb, commentPath))
 
     batch.update(
-      doc(firebaseDb, `users/${recipe.uid}/recipes/${recipe.slug}`),
+      doc(firebaseDb, `chefs/${recipe.uid}/recipes/${recipe.slug}`),
       { commentsCount: increment(-1) }
     )
 

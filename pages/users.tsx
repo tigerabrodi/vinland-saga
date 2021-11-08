@@ -16,15 +16,15 @@ import { List } from './usersStyles'
 import { useHandleSort } from '@hooks/useHandleSort'
 
 export async function getServerSideProps() {
-  const usersQuery = query(
-    collection(firebaseDb, 'users') as CollectionReference<UserProfile>,
+  const chefsQuery = query(
+    collection(firebaseDb, 'chefs') as CollectionReference<UserProfile>,
     orderBy('clapCount', 'desc')
   )
 
-  const users = (await getDocs(usersQuery)).docs.map(dataToJSON)
+  const chefs = (await getDocs(chefsQuery)).docs.map(dataToJSON)
 
   return {
-    props: { ssrChefs: users },
+    props: { ssrChefs: chefs },
   }
 }
 
@@ -33,9 +33,9 @@ type Props = {
 }
 
 const ChefsFeed: NextPage<Props> = ({ ssrChefs }) => {
-  const [users, setChefs] = React.useState(ssrChefs)
+  const [chefs, setChefs] = React.useState(ssrChefs)
   const { setSortingValue } = useHandleSort<UserProfile>({
-    queryValue: 'users',
+    queryValue: 'chefs',
     secondOrderByValue: 'recipeCount',
     setItems: setChefs,
   })
@@ -44,11 +44,11 @@ const ChefsFeed: NextPage<Props> = ({ ssrChefs }) => {
     <Feed
       labels={['Claps', 'Recipes']}
       title="Chefs"
-      itemsLength={users.length}
+      itemsLength={chefs.length}
       setSortingValue={setSortingValue}
     >
       <List>
-        {users.map((user) => (
+        {chefs.map((user) => (
           <UserItem key={user.uid} user={user} />
         ))}
       </List>

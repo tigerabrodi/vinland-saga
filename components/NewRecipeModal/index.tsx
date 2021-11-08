@@ -68,11 +68,11 @@ export const NewRecipeModal = () => {
       }
 
       batch.set(
-        doc(firebaseDb, `users/${user.uid}/recipes/${slug}`),
+        doc(firebaseDb, `chefs/${user.uid}/recipes/${slug}`),
         recipeData
       )
 
-      batch.update(doc(firebaseDb, `users/${user.uid}`), {
+      batch.update(doc(firebaseDb, `chefs/${user.uid}`), {
         recipeCount: increment(1),
       })
 

@@ -26,7 +26,7 @@ export const getUserWithUsername = async (username: string) => {
   if (!username) return
 
   const userQuery = query(
-    collection(firebaseDb, 'users'),
+    collection(firebaseDb, 'chefs'),
     where('username', '==', username),
     limit(1)
   )
@@ -48,7 +48,7 @@ export const getRecipeWithSlug = async (
   if (!slug) return
 
   const queryPath = options?.userToGetRecipeFrom
-    ? `users/${options.userToGetRecipeFrom.uid}/recipes/${slug}`
+    ? `chefs/${options.userToGetRecipeFrom.uid}/recipes/${slug}`
     : `recipes/${slug}`
 
   const recipeRef = doc(firebaseDb, queryPath) as DocumentReference<Recipe>

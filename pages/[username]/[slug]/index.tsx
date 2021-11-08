@@ -44,7 +44,7 @@ export async function getStaticProps({ params }: Params) {
   let comments = [] as Comment[]
 
   if (user) {
-    recipePath = `users/${user.uid}/recipes/${slug}`
+    recipePath = `chefs/${user.uid}/recipes/${slug}`
     const recipeRef = doc(firebaseDb, recipePath) as DocumentReference<Recipe>
     const recipeSnapshot = await getDoc<Recipe>(recipeRef)
 

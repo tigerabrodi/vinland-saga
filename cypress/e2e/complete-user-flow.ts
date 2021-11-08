@@ -5,7 +5,7 @@ beforeEach(() => {
   cy.visit('/')
 })
 
-it('Complete users flow', () => {
+it('Complete flow', () => {
   const firstUser = buildUser()
   const firstUserRecipe = buildRecipe()
   const firstUserRecipe2 = buildRecipe()
@@ -133,7 +133,7 @@ it('Complete users flow', () => {
     level: 3,
   }).should('exist')
 
-  // Go to users page
+  // Go to chefs page
   cy.clickByRole('link', { name: 'Chefs' })
 
   // Click on the second user

@@ -19,7 +19,7 @@ export function useUserData(): UserData {
     setStatus('loading')
 
     if (user) {
-      unsubscribe = onSnapshot(doc(firebaseDb, 'users', user.uid), (doc) => {
+      unsubscribe = onSnapshot(doc(firebaseDb, 'chefs', user.uid), (doc) => {
         setUsername((doc.data() as User).username)
         setStatus('success')
       })
