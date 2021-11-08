@@ -48,8 +48,8 @@ const ChefsFeed: NextPage<Props> = ({ ssrChefs }) => {
       setSortingValue={setSortingValue}
     >
       <List>
-        {chefs.map((user) => (
-          <UserItem key={user.uid} user={user} />
+        {chefs.map((chef) => (
+          <UserItem key={chef.uid} chef={chef} />
         ))}
       </List>
     </Feed>

@@ -5,7 +5,7 @@ import { useAuthState } from '@hooks/auth/useAuthState'
 import { UserData } from '@lib/types'
 import { useLoadingStore } from '@lib/store'
 
-type User = {
+type Chef = {
   username: string
 }
 
@@ -20,7 +20,7 @@ export function useUserData(): UserData {
 
     if (user) {
       unsubscribe = onSnapshot(doc(firebaseDb, 'chefs', user.uid), (doc) => {
-        setUsername((doc.data() as User).username)
+        setUsername((doc.data() as Chef).username)
         setStatus('success')
       })
     } else {
