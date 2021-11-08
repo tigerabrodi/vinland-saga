@@ -44,12 +44,12 @@ type ServerProps = {
 export async function getServerSideProps({ query }: ServerProps) {
   const { username } = query
 
-  const user = await getChefWithUsername(username)
+  const chef = await getChefWithUsername(username)
 
   const recipeDocs = fbQuery<Recipe>(
     collection(
       firebaseDb,
-      `chefs/${user?.uid}/recipes`
+      `chefs/${chef?.uid}/recipes`
     ) as CollectionReference<Recipe>,
     where('authorUsername', '==', username)
   )
@@ -58,56 +58,56 @@ export async function getServerSideProps({ query }: ServerProps) {
 
   const recipes = recipesSnapshot.docs.map((recipeDoc) => dataToJSON(recipeDoc))
 
-  if (!user) {
+  if (!chef) {
     return {
       notFound: true,
     }
   }
 
   return {
-    props: { user, recipes },
+    props: { chef, recipes },
   }
 }
 
 type Props = {
-  user: ChefProfile
+  chef: ChefProfile
   recipes: Recipe[]
 }
 
-const Profile: NextPage<Props> = ({ user, recipes }) => {
+const Profile: NextPage<Props> = ({ chef, recipes }) => {
   const { username } = useUserContext()
 
   const { setIsModalOpen } = useNewRecipeStore()
 
   const createdAt = (
-    typeof user.createdAt === 'number'
-      ? new Date(user.createdAt)
-      : (user.createdAt as Timestamp).toDate()
+    typeof chef.createdAt === 'number'
+      ? new Date(chef.createdAt)
+      : (chef.createdAt as Timestamp).toDate()
   )
     .toISOString()
     .split('T')[0]
 
-  if (!user) {
+  if (!chef) {
     return <FullPageSpinner />
   }
 
-  const isUserAuthorized = user.username === username
+  const isUserAuthorized = chef.username === username
 
   return (
     <>
       <Wrapper>
         <ProfileSection>
-          <HiddenProfileTitle>{user.fullname}</HiddenProfileTitle>
+          <HiddenProfileTitle>{chef.fullname}</HiddenProfileTitle>
           <Avatar
-            src={user.avatarUrl === '' ? defaultAvatar.src : user.avatarUrl}
-            alt={user.fullname}
+            src={chef.avatarUrl === '' ? defaultAvatar.src : chef.avatarUrl}
+            alt={chef.fullname}
           />
-          <ProfileUsername>@{user.username}</ProfileUsername>
+          <ProfileUsername>@{chef.username}</ProfileUsername>
           <ProfileTitle
             aria-hidden="true"
             isNotAuthorizedUser={!isUserAuthorized}
           >
-            {user.fullname}
+            {chef.fullname}
           </ProfileTitle>
           {isUserAuthorized && (
             <Link passHref href={`/${username}/edit`}>
@@ -117,12 +117,12 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
             </Link>
           )}
           <ProfileText>
-            <span>Age {user.age}</span>
+            <span>Age {chef.age}</span>
             <Dot />
-            <span>Located in {user.location}</span> <Dot />
-            <span>{user.bio}</span>
+            <span>Located in {chef.location}</span> <Dot />
+            <span>{chef.bio}</span>
             <Dot />
-            <span>{user.work}</span>
+            <span>{chef.work}</span>
             <Dot />
             <span>Since {createdAt}</span>
           </ProfileText>
@@ -143,7 +143,7 @@ const Profile: NextPage<Props> = ({ user, recipes }) => {
             </>
           ) : (
             <NoRecipesText>
-              @{user.username} has currently have written no recipes.
+              @{chef.username} has currently have written no recipes.
             </NoRecipesText>
           )}
         </RecipesSection>
