@@ -10,14 +10,14 @@ import {
 } from '@firebase/firestore'
 import { firebaseDb } from '@lib/firebase/firebase'
 import { dataToJSON } from '@lib/firebase/format-utils'
-import { UserProfile } from '@lib/types'
+import { ChefProfile } from '@lib/types'
 import type { NextPage } from 'next'
 import { List } from './chefsStyles'
 import { useHandleSort } from '@hooks/useHandleSort'
 
 export async function getServerSideProps() {
   const chefsQuery = query(
-    collection(firebaseDb, 'chefs') as CollectionReference<UserProfile>,
+    collection(firebaseDb, 'chefs') as CollectionReference<ChefProfile>,
     orderBy('clapCount', 'desc')
   )
 
@@ -29,12 +29,12 @@ export async function getServerSideProps() {
 }
 
 type Props = {
-  ssrChefs: UserProfile[]
+  ssrChefs: ChefProfile[]
 }
 
 const ChefsFeed: NextPage<Props> = ({ ssrChefs }) => {
   const [chefs, setChefs] = React.useState(ssrChefs)
-  const { setSortingValue } = useHandleSort<UserProfile>({
+  const { setSortingValue } = useHandleSort<ChefProfile>({
     queryValue: 'chefs',
     secondOrderByValue: 'recipeCount',
     setItems: setChefs,

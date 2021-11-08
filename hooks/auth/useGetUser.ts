@@ -1,11 +1,11 @@
 import { getUserWithUsername } from '@lib/firebase/get-utils'
 import { useLoadingStore } from '@lib/store'
-import { UserProfile } from '@lib/types'
+import { ChefProfile } from '@lib/types'
 import * as React from 'react'
 import { useUserData } from './useUserData'
 
 export const useGetUser = (username: string | null) => {
-  const [user, setUser] = React.useState<UserProfile | null>(null)
+  const [user, setUser] = React.useState<ChefProfile | null>(null)
   const { user: currentAuthUser } = useUserData()
   const { setStatus } = useLoadingStore()
 
@@ -16,7 +16,7 @@ export const useGetUser = (username: string | null) => {
 
     const setUserState = async () => {
       setStatus('loading')
-      setUser((await getUserWithUsername(username)) as UserProfile)
+      setUser((await getUserWithUsername(username)) as ChefProfile)
       setStatus('success')
     }
     setUserState()

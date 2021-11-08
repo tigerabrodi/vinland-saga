@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { firebaseDb } from '@lib/firebase/firebase'
 import defaultAvatar from '../../assets/default-avatar.png'
 import PenSVG from '../../assets/pen.svg'
-import { Recipe, UserProfile } from '@lib/types'
+import { Recipe, ChefProfile } from '@lib/types'
 import type { NextPage } from 'next'
 import { useUserContext } from '@lib/context'
 import {
@@ -70,7 +70,7 @@ export async function getServerSideProps({ query }: ServerProps) {
 }
 
 type Props = {
-  user: UserProfile
+  user: ChefProfile
   recipes: Recipe[]
 }
 

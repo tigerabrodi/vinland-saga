@@ -10,7 +10,7 @@ export type UserData = {
   user: User | null | undefined
 }
 
-export type UserProfile = {
+export type ChefProfile = {
   username: string
   email: string
   fullname: string

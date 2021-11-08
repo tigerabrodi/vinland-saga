@@ -12,10 +12,10 @@ import {
   ClapsCount,
   UsernameLink,
 } from './styles'
-import { UserProfile } from '@lib/types'
+import { ChefProfile } from '@lib/types'
 
 type Props = {
-  user: UserProfile
+  user: ChefProfile
 }
 
 export const UserItem = ({

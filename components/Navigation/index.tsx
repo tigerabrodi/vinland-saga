@@ -30,7 +30,7 @@ import { useRouter } from 'next/router'
 import { useFocusTrap } from '@hooks/useFocusTrap'
 import { useClickOutside } from '@hooks/useClickOutside'
 import { useCloseEscape } from '@hooks/useCloseEscape'
-import { UserProfile } from '@lib/types'
+import { ChefProfile } from '@lib/types'
 import { useRealtimeState } from '@hooks/useRealtimeState'
 
 export const Navigation = () => {
@@ -58,7 +58,7 @@ export const Navigation = () => {
     setStatus('success')
   }
 
-  const user = useRealtimeState<UserProfile>(
+  const user = useRealtimeState<ChefProfile>(
     `chefs/${auth.currentUser?.uid}`
   )?.data()
 

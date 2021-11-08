@@ -11,7 +11,7 @@ import {
   DocumentReference,
 } from 'firebase/firestore'
 import { User } from 'firebase/auth'
-import { Recipe, UserProfile } from '../types'
+import { Recipe, ChefProfile } from '../types'
 import { dataToJSON } from './format-utils'
 import { firebaseDb } from './firebase'
 
@@ -31,7 +31,7 @@ export const getUserWithUsername = async (username: string) => {
     limit(1)
   )
 
-  const user = (await getDocs(userQuery)).docs[0].data() as UserProfile
+  const user = (await getDocs(userQuery)).docs[0].data() as ChefProfile
 
   if (user && user.createdAt) {
     return {
