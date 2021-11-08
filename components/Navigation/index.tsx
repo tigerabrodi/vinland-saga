@@ -58,7 +58,7 @@ export const Navigation = () => {
     setStatus('success')
   }
 
-  const user = useRealtimeState<ChefProfile>(
+  const chef = useRealtimeState<ChefProfile>(
     `chefs/${auth.currentUser?.uid}`
   )?.data()
 
@@ -78,7 +78,7 @@ export const Navigation = () => {
           </NavLogoLink>
         </Link>
 
-        {user && username ? (
+        {chef && username ? (
           <NavMenuWrapper>
             <NavMenuButton
               aria-label="Menu"
@@ -86,7 +86,7 @@ export const Navigation = () => {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <Avatar
-                src={user.avatarUrl !== '' ? user.avatarUrl : defaultAvatar.src}
+                src={chef.avatarUrl !== '' ? chef.avatarUrl : defaultAvatar.src}
                 alt=""
               />
             </NavMenuButton>

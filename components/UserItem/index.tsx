@@ -15,11 +15,11 @@ import {
 import { ChefProfile } from '@lib/types'
 
 type Props = {
-  user: ChefProfile
+  chef: ChefProfile
 }
 
 export const UserItem = ({
-  user: { username, fullname, location, recipeCount, clapCount, avatarUrl },
+  chef: { username, fullname, location, recipeCount, clapCount, avatarUrl },
 }: Props) => (
   <ListItem>
     <AvatarImage
