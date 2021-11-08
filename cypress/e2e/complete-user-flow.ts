@@ -20,7 +20,7 @@ it('Complete flow', () => {
   cy.createRecipe(firstChefRecipe)
   cy.assertPreviewMode(firstChefRecipe, firstChef)
 
-  // Submit recipe (first user)
+  // Submit recipe (first chef)
   cy.clickByRole('button', { name: 'Submit' })
   cy.findByText(
     `Successfully updated your recipe ${firstChefRecipe.title}.`
@@ -37,16 +37,16 @@ it('Complete flow', () => {
   cy.clickItemInMenu('Profile')
   cy.findByRole('heading', { name: firstChef.fullname }).should('exist')
 
-  // Sign Out (first user)
+  // Sign Out (first chef)
   cy.signOut()
 
-  // Create second user
+  // Create second chef
   cy.createUserAndProfile(secondChef)
 
   // Go to recipes feed
   cy.clickByRole('link', { name: 'Home' })
 
-  // Click on first user's recipe
+  // Click on first chef's recipe
   cy.findByRole('heading', { name: 'Recipes' }).should('exist')
   cy.findByRole('list').within(() => {
     cy.assertAndClickOnRecipe(firstChefRecipe, firstChef)
@@ -115,10 +115,10 @@ it('Complete flow', () => {
   cy.createRecipe(secondChefRecipe2)
   cy.clickByRole('button', { name: 'Submit' })
 
-  // Sign Out (second user)
+  // Sign Out (second chef)
   cy.signOut()
 
-  // Login (first user)
+  // Login (first chef)
   cy.signIn(firstChef)
 
   // Go to profile
@@ -136,7 +136,7 @@ it('Complete flow', () => {
   // Go to chefs page
   cy.clickByRole('link', { name: 'Chefs' })
 
-  // Click on the second user
+  // Click on the second chef
   cy.assertAndClickOnSecondChef(secondChef)
 
   // See two recipes
@@ -153,7 +153,7 @@ it('Complete flow', () => {
   // Go to home
   cy.clickByRole('link', { name: 'Home' })
 
-  // Assert first user recipe comments
+  // Assert first chef recipe comments
   cy.findByRole('listitem', { name: firstChefRecipe.title }).within(() => {
     cy.findByLabelText('2 comments').should('exist')
   })
@@ -177,10 +177,10 @@ it('Complete flow', () => {
       cy.findByRole('button', { name: 'Comment 0 claps' }).should('exist')
     })
 
-  // Sign out (first user)
+  // Sign out (first chef)
   cy.signOut()
 
-  // Login (second user)
+  // Login (second chef)
   cy.signIn(secondChef)
 
   // Go to Profile
@@ -206,10 +206,10 @@ it('Complete flow', () => {
     name: `Read more about ${secondChefRecipe.title}`,
   }).should('not.exist')
 
-  // Sign out (second user)
+  // Sign out (second chef)
   cy.signOut()
 
-  // Authorization: Try editing first user profile
+  // Authorization: Try editing first chef profile
   cy.visit(`/${firstChef.username}/edit`)
 
   cy.findByText('You are not authorized to edit this profile.').should('exist')
@@ -221,16 +221,16 @@ it('Complete flow', () => {
   cy.findByText('You have to be logged in to clap a recipe.').should('exist')
   cy.location('pathname').should('eq', '/sign-in')
 
-  // Sign In (First user)
+  // Sign In (First chef)
   cy.signIn(firstChef)
 
-  // Clap first user recipe
+  // Clap first chef recipe
   cy.clickByRole('link', { name: `Read more about ${firstChefRecipe.title}` })
   cy.clickByRole('button', { name: 'Recipe 1 claps' })
   cy.findByRole('button', { name: 'Recipe 2 claps' }).should('exist')
   cy.visit('/')
 
-  // Default sorting by claps, first user's recipe has two claps, hence it should be the first one in the list.
+  // Default sorting by claps, first chef's recipe has two claps, hence it should be the first one in the list.
   cy.findAllByRole('listitem')
     .first()
     .within(() => {
@@ -260,17 +260,17 @@ it('Complete flow', () => {
   cy.clickByRole('link', { name: 'Chefs' })
   cy.wait(1000)
 
-  // First user should be first since default sorting is by claps.
+  // First chef should be first since default sorting is by claps.
   cy.findAllByRole('listitem')
     .first()
     .within(() => {
       cy.findByRole('heading', { name: firstChef.fullname }).should('exist')
     })
 
-  // Sign out (first user)
+  // Sign out (first chef)
   cy.signOut()
 
-  // Sign In (second user)
+  // Sign In (second chef)
   cy.signIn(secondChef)
 
   // Create 3 recipes
@@ -289,7 +289,7 @@ it('Complete flow', () => {
   cy.clickByRole('link', { name: 'Chefs' })
   cy.wait(1000)
 
-  // Default sorting is by claps hence the first user should be first and not the second user.
+  // Default sorting is by claps hence the first chef should be first in the position and not the second chef.
   cy.findAllByRole('listitem')
     .first()
     .within(() => {
@@ -300,7 +300,7 @@ it('Complete flow', () => {
   cy.findByLabelText('Sort by Recipes').click()
   cy.wait(1000)
 
-  // Second user should now be first since it has more recipes than the first user.
+  // Second chef should now be first since it has more recipes than the first chef.
   cy.findAllByRole('listitem')
     .first()
     .within(() => {
