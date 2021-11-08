@@ -78,7 +78,7 @@ export const assertAndEditComment = ({
   cy.findByText(secondComment).should('exist')
 }
 
-export const assertAndClickOnSecondUser = (chef: Chef) => {
+export const assertAndClickOnSecondChef = (chef: Chef) => {
   cy.findByRole('img', { name: chef.fullname }).should('exist')
   cy.findByRole('heading', { name: chef.fullname }).should('exist')
   cy.findByText(`@${chef.username}`).should('exist')

@@ -22,7 +22,7 @@ export type Comments = {
   editedComment: string
 }
 
-export const buildUser = build<Chef>('User', {
+export const buildUser = build<Chef>('Chef', {
   fields: {
     username: fake((f) => f.internet.userName().toLowerCase()),
     email: fake((f) => f.internet.email()),
@@ -35,14 +35,14 @@ export const buildUser = build<Chef>('User', {
   },
 })
 
-export const buildRecipe = build<Recipe>('User', {
+export const buildRecipe = build<Recipe>('Recipe', {
   fields: {
     title: fake((f) => f.name.title()),
     body: fake((f) => f.random.words(3)),
   },
 })
 
-export const buildComments = build<Comments>('User', {
+export const buildComments = build<Comments>('Comment', {
   fields: {
     firstComment: fake((f) => f.lorem.words(3)),
     secondComment: fake((f) => f.lorem.words(3)),

@@ -1,6 +1,6 @@
 import { Recipe, Chef } from './generate'
 
-export const createUserAndProfile = (chef: Chef) => {
+export const createAccountAndChefProfile = (chef: Chef) => {
   cy.clickByRole('link', { name: 'Create Account' })
 
   // Create Account

@@ -137,7 +137,7 @@ it('Complete flow', () => {
   cy.clickByRole('link', { name: 'Chefs' })
 
   // Click on the second user
-  cy.assertAndClickOnSecondUser(secondChef)
+  cy.assertAndClickOnSecondChef(secondChef)
 
   // See two recipes
   cy.findByRole('heading', { name: 'Recipes', level: 2 }).should('exist')

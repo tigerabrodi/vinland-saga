@@ -29,9 +29,9 @@ import {
   assertPreviewMode,
   assertRecipeDetail,
   assertAndEditComment,
-  assertAndClickOnSecondUser,
+  assertAndClickOnSecondChef,
 } from './assertions'
-import { createRecipe, createUserAndProfile } from './creations'
+import { createRecipe, createAccountAndChefProfile } from './creations'
 import {
   clickByRole,
   clickItemInMenu,
@@ -45,7 +45,7 @@ import {
 declare global {
   namespace Cypress {
     interface Chainable {
-      createUserAndProfile: typeof createUserAndProfile
+      createUserAndProfile: typeof createAccountAndChefProfile
       createRecipe: typeof createRecipe
       assertPreviewMode: typeof assertPreviewMode
       assertRecipeDetail: typeof assertRecipeDetail
@@ -58,14 +58,14 @@ declare global {
       confirmDeletion: typeof confirmDeletion
       signOut: typeof signOut
       signIn: typeof signIn
-      assertAndClickOnSecondUser: typeof assertAndClickOnSecondUser
+      assertAndClickOnSecondChef: typeof assertAndClickOnSecondChef
     }
   }
 }
 
 Cypress.Commands.add('clickItemInMenu', clickItemInMenu)
 Cypress.Commands.add('assertAndClickOnRecipe', assertAndClickOnRecipe)
-Cypress.Commands.add('createUserAndProfile', createUserAndProfile)
+Cypress.Commands.add('createUserAndProfile', createAccountAndChefProfile)
 Cypress.Commands.add('assertRecipeDetail', assertRecipeDetail)
 Cypress.Commands.add('createRecipe', createRecipe)
 Cypress.Commands.add('assertPreviewMode', assertPreviewMode)
@@ -76,4 +76,4 @@ Cypress.Commands.add('assertAndEditComment', assertAndEditComment)
 Cypress.Commands.add('confirmDeletion', confirmDeletion)
 Cypress.Commands.add('signOut', signOut)
 Cypress.Commands.add('signIn', signIn)
-Cypress.Commands.add('assertAndClickOnSecondUser', assertAndClickOnSecondUser)
+Cypress.Commands.add('assertAndClickOnSecondChef', assertAndClickOnSecondChef)
