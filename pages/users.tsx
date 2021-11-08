@@ -24,26 +24,26 @@ export async function getServerSideProps() {
   const users = (await getDocs(usersQuery)).docs.map(dataToJSON)
 
   return {
-    props: { ssrUsers: users },
+    props: { ssrChefs: users },
   }
 }
 
 type Props = {
-  ssrUsers: UserProfile[]
+  ssrChefs: UserProfile[]
 }
 
-const UsersFeed: NextPage<Props> = ({ ssrUsers }) => {
-  const [users, setUsers] = React.useState(ssrUsers)
+const ChefsFeed: NextPage<Props> = ({ ssrChefs }) => {
+  const [users, setChefs] = React.useState(ssrChefs)
   const { setSortingValue } = useHandleSort<UserProfile>({
     queryValue: 'users',
     secondOrderByValue: 'recipeCount',
-    setItems: setUsers,
+    setItems: setChefs,
   })
 
   return (
     <Feed
       labels={['Claps', 'Recipes']}
-      title="Users"
+      title="Chefs"
       itemsLength={users.length}
       setSortingValue={setSortingValue}
     >
@@ -56,4 +56,4 @@ const UsersFeed: NextPage<Props> = ({ ssrUsers }) => {
   )
 }
 
-export default UsersFeed
+export default ChefsFeed

@@ -134,7 +134,7 @@ it('Complete users flow', () => {
   }).should('exist')
 
   // Go to users page
-  cy.clickByRole('link', { name: 'Users' })
+  cy.clickByRole('link', { name: 'Chefs' })
 
   // Click on the second user
   cy.assertAndClickOnSecondUser(secondUser)
@@ -256,8 +256,8 @@ it('Complete users flow', () => {
       }).should('exist')
     })
 
-  // Users Sorting
-  cy.clickByRole('link', { name: 'Users' })
+  // Chefs Sorting
+  cy.clickByRole('link', { name: 'Chefs' })
   cy.wait(1000)
 
   // First user should be first since default sorting is by claps.
@@ -286,7 +286,7 @@ it('Complete users flow', () => {
   cy.createRecipe(secondUserRecipe)
   cy.clickByRole('button', { name: 'Submit' })
 
-  cy.clickByRole('link', { name: 'Users' })
+  cy.clickByRole('link', { name: 'Chefs' })
   cy.wait(1000)
 
   // Default sorting is by claps hence the first user should be first and not the second user.

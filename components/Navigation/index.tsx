@@ -69,7 +69,7 @@ export const Navigation = () => {
           <NavLink>Home</NavLink>
         </Link>
         <Link passHref href="/users">
-          <NavLink>Users</NavLink>
+          <NavLink>Chefs</NavLink>
         </Link>
         <Link passHref href="/">
           <NavLogoLink>
