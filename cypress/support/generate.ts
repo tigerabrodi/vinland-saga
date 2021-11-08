@@ -1,6 +1,6 @@
 import { build, fake } from '@jackfranklin/test-data-bot'
 
-export type User = {
+export type Chef = {
   email: string
   username: string
   password: string
@@ -22,7 +22,7 @@ export type Comments = {
   editedComment: string
 }
 
-export const buildUser = build<User>('User', {
+export const buildUser = build<Chef>('User', {
   fields: {
     username: fake((f) => f.internet.userName().toLowerCase()),
     email: fake((f) => f.internet.email()),

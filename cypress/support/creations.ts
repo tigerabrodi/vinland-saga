@@ -1,13 +1,13 @@
-import { Recipe, User } from './generate'
+import { Recipe, Chef } from './generate'
 
-export const createUserAndProfile = (user: User) => {
+export const createUserAndProfile = (chef: Chef) => {
   cy.clickByRole('link', { name: 'Create Account' })
 
   // Create Account
-  cy.findByLabelText('Username').type(user.username)
-  cy.findByLabelText('Email').type(user.email)
-  cy.findByLabelText('Password').type(user.password)
-  cy.findByLabelText('Confirm Password').type(user.password)
+  cy.findByLabelText('Username').type(chef.username)
+  cy.findByLabelText('Email').type(chef.email)
+  cy.findByLabelText('Password').type(chef.password)
+  cy.findByLabelText('Confirm Password').type(chef.password)
   cy.clickByRole('button', { name: 'Sign Up' })
 
   // Create Profile
@@ -23,26 +23,26 @@ export const createUserAndProfile = (user: User) => {
   cy.findByRole('img', { name: 'avatar' }).should('exist')
   cy.findByText('Successfully uploaded your avatar.').should('exist')
 
-  cy.findByLabelText('Full Name *').type(user.fullname)
-  cy.findByLabelText('Age *').type(`${user.age}`)
-  cy.findByLabelText('Work *').type(`Chef at ${user.work}`)
-  cy.findByLabelText('Location *').type(`${user.location}`)
-  cy.findByLabelText('Biography *').type(user.bio)
+  cy.findByLabelText('Full Name *').type(chef.fullname)
+  cy.findByLabelText('Age *').type(`${chef.age}`)
+  cy.findByLabelText('Work *').type(`Chef at ${chef.work}`)
+  cy.findByLabelText('Location *').type(`${chef.location}`)
+  cy.findByLabelText('Biography *').type(chef.bio)
 
   cy.clickByRole('button', { name: 'Save' })
   cy.findByText('Successfully updated your profile.').should('exist')
 
   // User Profile
-  cy.findByRole('heading', { name: user.fullname, timeout: 16000 }).should(
+  cy.findByRole('heading', { name: chef.fullname, timeout: 16000 }).should(
     'exist'
   )
-  cy.findByText(`@${user.username}`).should('exist')
-  cy.findByText(`Age ${user.age}`).should('exist')
-  cy.findByText(`Located in ${user.location}`).should('exist')
-  cy.findByText(`Chef at ${user.work}`).should('exist')
-  cy.findByText(user.bio).should('exist')
+  cy.findByText(`@${chef.username}`).should('exist')
+  cy.findByText(`Age ${chef.age}`).should('exist')
+  cy.findByText(`Located in ${chef.location}`).should('exist')
+  cy.findByText(`Chef at ${chef.work}`).should('exist')
+  cy.findByText(chef.bio).should('exist')
   cy.findByRole('link', { name: 'Edit Your Profile' }).should('exist')
-  cy.findByRole('img', { name: user.fullname }).should('exist')
+  cy.findByRole('img', { name: chef.fullname }).should('exist')
 
   cy.findByRole('heading', { name: 'Recipes' }).should('exist')
   cy.findByText('You currently have written no recipes.')

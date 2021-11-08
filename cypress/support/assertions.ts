@@ -1,12 +1,12 @@
-import { Recipe, User } from './generate'
+import { Recipe, Chef } from './generate'
 
-export const assertPreviewMode = (recipe: Recipe, user: User) => {
+export const assertPreviewMode = (recipe: Recipe, chef: Chef) => {
   // Turn on Preview Mode
   cy.clickByRole('button', { name: 'Preview' })
   cy.findByRole('heading', { name: 'Edit Recipe' }).should('not.exist')
 
   // Assert preview page
-  cy.assertRecipeDetail(recipe, user)
+  cy.assertRecipeDetail(recipe, chef)
 
   // Turn off preview mode
   cy.clickByRole('button', { name: 'Preview', shouldForceClick: true })
@@ -15,10 +15,10 @@ export const assertPreviewMode = (recipe: Recipe, user: User) => {
   )
 }
 
-export const assertRecipeDetail = (recipe: Recipe, user: User) => {
+export const assertRecipeDetail = (recipe: Recipe, chef: Chef) => {
   cy.findByRole('heading', { name: recipe.title }).should('exist')
   cy.findByText(recipe.body).should('exist')
-  cy.findByRole('link', { name: user.fullname }).should('exist')
+  cy.findByRole('link', { name: chef.fullname }).should('exist')
   cy.findByRole('img', { name: recipe.title }).should('exist')
   cy.findByText(/^Posted on 2021-11/i).should('exist')
   cy.findByRole('button', { name: 'Recipe 0 claps' }).should('exist')
@@ -27,16 +27,16 @@ export const assertRecipeDetail = (recipe: Recipe, user: User) => {
   cy.findByRole('button', { name: 'Delete Recipe' }).should('exist')
 }
 
-export const assertAndClickOnRecipe = (recipe: Recipe, user: User) => {
+export const assertAndClickOnRecipe = (recipe: Recipe, chef: Chef) => {
   cy.findByRole('listitem', { name: recipe.title }).within(() => {
     cy.findByRole('heading', {
       name: `Read more about ${recipe.title}`,
       level: 2,
     }).should('exist')
-    cy.findByRole('link', { name: `Author: ${user.fullname}` }).should('exist')
+    cy.findByRole('link', { name: `Author: ${chef.fullname}` }).should('exist')
 
     cy.findByRole('img', { name: recipe.title }).should('exist')
-    cy.findByRole('img', { name: user.fullname }).should('exist')
+    cy.findByRole('img', { name: chef.fullname }).should('exist')
 
     cy.findByLabelText('0 claps').should('exist')
     cy.findByLabelText('0 comments').should('exist')
@@ -78,10 +78,10 @@ export const assertAndEditComment = ({
   cy.findByText(secondComment).should('exist')
 }
 
-export const assertAndClickOnSecondUser = (user: User) => {
-  cy.findByRole('img', { name: user.fullname }).should('exist')
-  cy.findByRole('heading', { name: user.fullname }).should('exist')
-  cy.findByText(`@${user.username}`).should('exist')
-  cy.findByText(user.location).should('exist')
-  cy.clickByRole('link', { name: `@${user.username}` })
+export const assertAndClickOnSecondUser = (chef: Chef) => {
+  cy.findByRole('img', { name: chef.fullname }).should('exist')
+  cy.findByRole('heading', { name: chef.fullname }).should('exist')
+  cy.findByText(`@${chef.username}`).should('exist')
+  cy.findByText(chef.location).should('exist')
+  cy.clickByRole('link', { name: `@${chef.username}` })
 }

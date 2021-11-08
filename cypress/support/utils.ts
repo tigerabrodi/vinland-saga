@@ -1,6 +1,6 @@
 import { ByRoleOptions } from '@testing-library/cypress'
 import { ByRoleMatcher } from '@testing-library/dom'
-import { User } from './generate'
+import { Chef } from './generate'
 
 type Options = ByRoleOptions & { shouldForceClick?: boolean }
 
@@ -53,10 +53,10 @@ export const signOut = () => {
   )
 }
 
-export const signIn = (user: User) => {
+export const signIn = (chef: Chef) => {
   cy.visit('/sign-in')
-  cy.findByLabelText('Email').type(user.email)
-  cy.findByLabelText('Password').type(user.password)
+  cy.findByLabelText('Email').type(chef.email)
+  cy.findByLabelText('Password').type(chef.password)
   cy.findByRole('button', { name: 'Sign In' }).click()
   cy.findByText('Successfully signed in into your account.').should('exist')
   cy.waitToBeAuthorized()
