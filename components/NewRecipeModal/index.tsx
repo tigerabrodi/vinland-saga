@@ -14,7 +14,7 @@ import { firebaseDb } from '@lib/firebase/firebase'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import { Recipe } from '@lib/types'
-import { useGetUser } from '@hooks/auth/useGetUser'
+import { useGetChef } from '@hooks/auth/useGetChef'
 import { Modal } from '@components/Modal'
 import { stringsKebabCase } from 'all-of-just'
 
@@ -32,7 +32,7 @@ export const NewRecipeModal = () => {
 
   const { username } = useUserContext()
 
-  const { user } = useGetUser(username)
+  const { chef } = useGetChef(username)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -46,7 +46,7 @@ export const NewRecipeModal = () => {
 
     setStatus('loading')
 
-    if (username && user) {
+    if (username && chef) {
       // Ensure slug is URL safe and unique
       const slug = encodeURI(stringsKebabCase(title)) + uuidv4()
 
@@ -58,21 +58,21 @@ export const NewRecipeModal = () => {
         commentsCount: 0,
         clapCount: 0,
         authorUsername: username,
-        authorAvatarUrl: user.avatarUrl,
-        authorFullname: user.fullname,
+        authorAvatarUrl: chef.avatarUrl,
+        authorFullname: chef.fullname,
         createdAt: serverTimestamp(),
-        uid: user.uid,
+        uid: chef.uid,
         imageUrl: '',
         readingTime: '0 min read',
         slug,
       }
 
       batch.set(
-        doc(firebaseDb, `chefs/${user.uid}/recipes/${slug}`),
+        doc(firebaseDb, `chefs/${chef.uid}/recipes/${slug}`),
         recipeData
       )
 
-      batch.update(doc(firebaseDb, `chefs/${user.uid}`), {
+      batch.update(doc(firebaseDb, `chefs/${chef.uid}`), {
         recipeCount: increment(1),
       })
 

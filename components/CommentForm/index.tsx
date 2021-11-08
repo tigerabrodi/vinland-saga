@@ -13,7 +13,7 @@ import {
   writeBatch,
 } from '@firebase/firestore'
 import { useUserContext } from '@lib/context'
-import { useGetUser } from '@hooks/auth/useGetUser'
+import { useGetChef } from '@hooks/auth/useGetChef'
 import { useLoadingStore } from '@lib/store'
 
 type Props = {
@@ -24,7 +24,7 @@ export const CommentForm = ({ recipe }: Props) => {
   const { push } = useRouter()
   const { setStatus } = useLoadingStore()
   const { username } = useUserContext()
-  const { user } = useGetUser(username)
+  const { chef } = useGetChef(username)
   const {
     formState: { textarea },
     setFormState,
@@ -41,13 +41,13 @@ export const CommentForm = ({ recipe }: Props) => {
       return push('/sign-in')
     }
 
-    if (user && username) {
+    if (chef && username) {
       const commentData: Comment = {
         text: textarea,
         clapCount: 0,
         authorUsername: username,
-        authorAvatarUrl: user.avatarUrl,
-        authorFullname: user.fullname,
+        authorAvatarUrl: chef.avatarUrl,
+        authorFullname: chef.fullname,
         createdAt: serverTimestamp(),
         uid: auth.currentUser.uid,
         id: uuidv4(),

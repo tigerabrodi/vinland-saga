@@ -4,23 +4,23 @@ import { ChefProfile } from '@lib/types'
 import * as React from 'react'
 import { useUserData } from './useUserData'
 
-export const useGetUser = (username: string | null) => {
-  const [user, setUser] = React.useState<ChefProfile | null>(null)
+export const useGetChef = (username: string | null) => {
+  const [chef, setChef] = React.useState<ChefProfile | null>(null)
   const { user: currentAuthUser } = useUserData()
   const { setStatus } = useLoadingStore()
 
   React.useEffect(() => {
-    if (user || !username) {
+    if (chef || !username) {
       return
     }
 
-    const setUserState = async () => {
+    const setChefState = async () => {
       setStatus('loading')
-      setUser((await getUserWithUsername(username)) as ChefProfile)
+      setChef((await getUserWithUsername(username)) as ChefProfile)
       setStatus('success')
     }
-    setUserState()
-  }, [username, setStatus, user, currentAuthUser])
+    setChefState()
+  }, [username, setStatus, chef, currentAuthUser])
 
-  return { user }
+  return { chef }
 }

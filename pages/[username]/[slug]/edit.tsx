@@ -39,7 +39,7 @@ import {
 import toast from 'react-hot-toast'
 import { FullPageSpinner } from '@components/Spinner'
 import { useUserContext } from '@lib/context'
-import { useGetUser } from '@hooks/auth/useGetUser'
+import { useGetChef } from '@hooks/auth/useGetChef'
 import { RecipeDetail } from '@components/RecipeDetail'
 import { getRecipeWithSlug } from '@lib/firebase/get-utils'
 
@@ -72,7 +72,7 @@ const RecipeEdit: NextPage = () => {
     push,
   } = useRouter() as Router
 
-  const { user } = useGetUser(username)
+  const { chef } = useGetChef(username)
 
   React.useEffect(() => {
     if (queryUsername !== username) {
@@ -140,7 +140,7 @@ const RecipeEdit: NextPage = () => {
     )
   }
 
-  if (!recipe || !user) {
+  if (!recipe || !chef) {
     return <FullPageSpinner />
   }
 

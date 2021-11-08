@@ -45,7 +45,7 @@ import {
   writeBatch,
 } from '@firebase/firestore'
 import toast from 'react-hot-toast'
-import { useGetUser } from '@hooks/auth/useGetUser'
+import { useGetChef } from '@hooks/auth/useGetChef'
 import { useUserContext } from '@lib/context'
 import { useFormState } from '@hooks/useFormState'
 
@@ -62,7 +62,7 @@ const ProfileEdit: NextPage = () => {
   const [uploadProgress, setUploadProgress] = React.useState(0)
   const [avatarImage, setAvatarImage] = React.useState('')
 
-  const { user } = useGetUser(queryUsername)
+  const { chef } = useGetChef(queryUsername)
   const { username } = useUserContext()
 
   const {
@@ -84,16 +84,16 @@ const ProfileEdit: NextPage = () => {
       return
     }
 
-    if (user) {
+    if (chef) {
       setFormState({
-        fullname: user.fullname,
-        age: user.age,
-        work: user.work,
-        location: user.location,
-        bio: user.bio,
+        fullname: chef.fullname,
+        age: chef.age,
+        work: chef.work,
+        location: chef.location,
+        bio: chef.bio,
       })
     }
-  }, [username, push, setFormState, user, queryUsername])
+  }, [username, push, setFormState, chef, queryUsername])
 
   const userRef = doc(firebaseDb, `chefs/${auth.currentUser?.uid}`)
 
@@ -141,7 +141,7 @@ const ProfileEdit: NextPage = () => {
     const batch = writeBatch(firebaseDb)
 
     const updatedUserProperties = {
-      authorAvatarUrl: avatarImage === '' ? user!.avatarUrl : avatarImage,
+      authorAvatarUrl: avatarImage === '' ? chef!.avatarUrl : avatarImage,
       authorFullname: fullname,
     }
 
@@ -182,15 +182,15 @@ const ProfileEdit: NextPage = () => {
     setStatus('success')
   }
 
-  if (!user || queryUsername !== username) {
+  if (!chef || queryUsername !== username) {
     return <FullPageSpinner />
   }
 
   const image =
     avatarImage !== ''
       ? avatarImage
-      : user.avatarUrl !== ''
-      ? user.avatarUrl
+      : chef.avatarUrl !== ''
+      ? chef.avatarUrl
       : DefaultAvatar.src
 
   const isButtonDisabled =
@@ -231,7 +231,7 @@ const ProfileEdit: NextPage = () => {
         </UploadLabel>
         <VisibleTitle aria-hidden="true">Editing Profile</VisibleTitle>
 
-        <Link passHref href={`/${user.username}`}>
+        <Link passHref href={`/${chef.username}`}>
           <CancelLink aria-label="Cancel">
             <CancelSVG />
           </CancelLink>
@@ -300,7 +300,7 @@ const ProfileEdit: NextPage = () => {
           <ProfileSVG />
           Save
         </ButtonSave>
-        <Link passHref href={`/${user.username}`}>
+        <Link passHref href={`/${chef.username}`}>
           <LinkCancel>Cancel</LinkCancel>
         </Link>
       </ButtonWrapper>
