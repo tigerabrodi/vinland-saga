@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,27 +17,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "@components/*": [
-        "components/*"
-      ],
-      "@styles/*": [
-        "styles/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
-      ],
-      "@lib/*": [
-        "lib/*"
-      ]
+      "@components/*": ["components/*"],
+      "@styles/*": ["styles/*"],
+      "@hooks/*": ["hooks/*"],
+      "@lib/*": ["lib/*"]
     },
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "cypress"]
 }
