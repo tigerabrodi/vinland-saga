@@ -20,7 +20,9 @@ export function useUserData(): UserData {
 
     if (user) {
       unsubscribe = onSnapshot(doc(firebaseDb, 'chefs', user.uid), (doc) => {
-        setUsername((doc.data() as Chef).username)
+        if (doc.data()) {
+          setUsername((doc.data() as Chef).username)
+        }
         setStatus('success')
       })
     } else {
