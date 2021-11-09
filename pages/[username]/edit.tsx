@@ -149,7 +149,7 @@ const ProfileEdit: NextPage = () => {
       collection(firebaseDb, `chefs/${auth.currentUser!.uid}/recipes`)
     )
     const recipesSnapshot = await getDocs(recipeDocs)
-    if (recipesSnapshot.docs.length) {
+    if (recipesSnapshot.docs.length > 0) {
       recipesSnapshot.forEach((recipeDoc) => {
         batch.update(recipeDoc.ref, updatedUserProperties)
       })
@@ -160,7 +160,7 @@ const ProfileEdit: NextPage = () => {
       where('uid', '==', auth.currentUser?.uid)
     )
     const commentsSnapshot = await getDocs(commentDocs)
-    if (commentsSnapshot.docs.length) {
+    if (commentsSnapshot.docs.length > 0) {
       commentsSnapshot.forEach((commentDoc) => {
         batch.update(commentDoc.ref, updatedUserProperties)
       })
