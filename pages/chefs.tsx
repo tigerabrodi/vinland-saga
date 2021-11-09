@@ -12,7 +12,7 @@ import { firebaseDb } from '@lib/firebase/firebase'
 import { dataToJSON } from '@lib/firebase/format-utils'
 import { ChefProfile } from '@lib/types'
 import type { NextPage } from 'next'
-import { List } from './chefsStyles'
+import { List } from '../styles/chefsStyles'
 import { useHandleSort } from '@hooks/useHandleSort'
 
 export async function getServerSideProps() {

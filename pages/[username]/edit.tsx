@@ -24,7 +24,7 @@ import {
   Input,
   AgeFormGroup,
   UploadProgress,
-} from './editStyles'
+} from '../../styles/editStyles'
 import { useLoadingStore } from '@lib/store'
 import { FullPageSpinner } from '@components/Spinner'
 import { FormGroup, Label } from '@styles/formStyles'

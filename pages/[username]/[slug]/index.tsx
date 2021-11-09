@@ -19,7 +19,7 @@ import {
   CommentsList,
   NoCommentsText,
   PageWrapper,
-} from './styles'
+} from '../../../styles/recipeDetailStyles'
 import { RecipeDetail } from '@components/RecipeDetail'
 import { CommentForm } from '@components/CommentForm'
 import { CommentItem } from '@components/CommentItem'

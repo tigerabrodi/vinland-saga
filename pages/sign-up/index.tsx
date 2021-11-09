@@ -1,7 +1,7 @@
 import * as React from 'react'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { FormIsValidText } from './styles'
+import { FormIsValidText } from '../../styles/signUpStyles'
 import { functionsDebounce } from 'all-of-just'
 import { doc, getDoc } from '@firebase/firestore'
 import { firebaseDb } from '@lib/firebase/firebase'

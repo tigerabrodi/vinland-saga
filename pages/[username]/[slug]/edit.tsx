@@ -23,7 +23,7 @@ import {
   ButtonWrapper,
   ButtonSave,
   ButtonPreview,
-} from './editStyles'
+} from '../../../styles/recipeDetailEditStyles'
 import { useFormState } from '@hooks/useFormState'
 import { Router as NextRouter, useRouter } from 'next/router'
 import { Recipe } from '@lib/types'

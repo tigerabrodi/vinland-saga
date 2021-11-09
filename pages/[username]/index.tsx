@@ -20,7 +20,7 @@ import {
   Wrapper,
   Dot,
   Line,
-} from './styles'
+} from '../../styles/profileStyles'
 import {
   Timestamp,
   query as fbQuery,

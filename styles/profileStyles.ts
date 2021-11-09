@@ -1,5 +1,5 @@
 import { AssistiveTechnologyOnly, sectionStyles } from '@styles/sharedStyles'
-import DotSVG from '../../assets/dot.svg'
+import DotSVG from '../assets/dot.svg'
 import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 import { media } from '@styles/media'
