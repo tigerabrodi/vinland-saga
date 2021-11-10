@@ -3,7 +3,6 @@ import Link from 'next/link'
 import PenSVG from '../../assets/pen.svg'
 import TrashSVG from '../../assets/trash.svg'
 import defaultAvatar from '../../assets/default-avatar.png'
-import Dot from '../../assets/dot.svg'
 import {
   AuthorAvatar,
   AuthorLink,
@@ -33,7 +32,8 @@ import { formatDate } from '@lib/firebase/format-utils'
 import { useRealtimeState } from '@hooks/useRealtimeState'
 import { useUserContext } from '@lib/context'
 import { useRouter } from 'next/router'
-import { CloseIcon } from 'Icons/Close'
+import { CloseIcon } from 'icons/Close'
+import { Dot } from '@icons/Dot'
 
 type Props = {
   comment: Comment

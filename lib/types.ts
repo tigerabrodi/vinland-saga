@@ -49,3 +49,7 @@ export type Comment = {
   authorFullname: string
   id: string
 } & CreatedAt
+
+export type Styleable = {
+  className?: string
+}
