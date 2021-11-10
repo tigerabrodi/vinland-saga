@@ -20,7 +20,6 @@ import {
 import defaultAvatar from '../../assets/default-avatar.png'
 import RecipeSVG from '../../assets/recipe.svg'
 import ProfileSVG from '../../assets/profile.svg'
-import MoonSVG from '../../assets/moon.svg'
 import { useMedia } from '@hooks/useMedia'
 import { useUserContext } from '@lib/context'
 import { auth } from '@lib/firebase/firebase'
@@ -32,6 +31,7 @@ import { useClickOutside } from '@hooks/useClickOutside'
 import { useCloseEscape } from '@hooks/useCloseEscape'
 import { ChefProfile } from '@lib/types'
 import { useRealtimeState } from '@hooks/useRealtimeState'
+import { MoonIcon } from '@icons/Moon'
 
 export const Navigation = () => {
   const isTabletLayout = useMedia('min', '768')
@@ -110,7 +110,7 @@ export const Navigation = () => {
                   <RecipeSVG /> New Recipe
                 </MenuItemButton>
                 <MenuItemButton role="menuitem" onClick={() => signOut()}>
-                  <MoonSVG /> Sign Out
+                  <MoonIcon /> Sign Out
                 </MenuItemButton>
               </Menu>
             )}
