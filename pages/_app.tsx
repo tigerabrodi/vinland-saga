@@ -20,8 +20,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <main>
         <LoadingSpinner />
         <Component {...pageProps} />
-        {isModalOpen && <NewRecipeModal />}
       </main>
+      {isModalOpen && <NewRecipeModal />}
       <Footer />
       <Toaster position="top-center" toastOptions={ToastOptions} />
     </UserContext.Provider>
