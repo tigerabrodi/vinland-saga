@@ -4,7 +4,6 @@ import { auth, firebaseDb } from '@lib/firebase/firebase'
 import type { NextPage } from 'next'
 import { NextRouter, useRouter } from 'next/router'
 import FileUploadSVG from '../../assets/file-upload.svg'
-import CancelSVG from '../../assets/close.svg'
 import ProfileSVG from '../../assets/profile.svg'
 import DefaultAvatar from '../../assets/default-avatar.png'
 import {
@@ -49,6 +48,7 @@ import { useGetChef } from '@hooks/auth/useGetChef'
 import { useUserContext } from '@lib/context'
 import { useFormState } from '@hooks/useFormState'
 import { Metatags } from '@components/Metatags'
+import { CloseIcon } from 'Icons/Close'
 
 type Router = NextRouter & {
   query: { username: string }
@@ -236,7 +236,7 @@ const ProfileEdit: NextPage = () => {
 
           <Link passHref href={`/${chef.username}`}>
             <CancelLink aria-label="Cancel">
-              <CancelSVG />
+              <CloseIcon />
             </CancelLink>
           </Link>
         </EditWrapper>

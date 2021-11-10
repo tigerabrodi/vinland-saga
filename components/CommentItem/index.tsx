@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Link from 'next/link'
 import PenSVG from '../../assets/pen.svg'
-import CloseSVG from '../../assets/close.svg'
 import TrashSVG from '../../assets/trash.svg'
 import defaultAvatar from '../../assets/default-avatar.png'
 import Dot from '../../assets/dot.svg'
@@ -34,6 +33,7 @@ import { formatDate } from '@lib/firebase/format-utils'
 import { useRealtimeState } from '@hooks/useRealtimeState'
 import { useUserContext } from '@lib/context'
 import { useRouter } from 'next/router'
+import { CloseIcon } from 'Icons/Close'
 
 type Props = {
   comment: Comment
@@ -200,7 +200,7 @@ export const CommentItem = ({ comment, recipe }: Props) => {
               onClick={() => setIsEditMode(!isEditMode)}
               aria-pressed={isEditMode}
             >
-              {isEditMode ? <CloseSVG /> : <PenSVG />}
+              {isEditMode ? <CloseIcon /> : <PenSVG />}
             </EditButton>
             <DeleteButton
               aria-label="Delete Comment"

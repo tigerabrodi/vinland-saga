@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useFocusTrap } from '@hooks/useFocusTrap'
 import { useCloseEscape } from '@hooks/useCloseEscape'
 import { useClickOutside } from '@hooks/useClickOutside'
-import CloseSVG from '../../assets/close.svg'
 import { CloseButton, ModalBackground, ModalWrapper, Title } from './styles'
+import { CloseIcon } from 'Icons/Close'
 
 type Props = {
   children: React.ReactNode
@@ -44,7 +44,7 @@ export const Modal = ({
           onClick={() => setIsOpen(false)}
           aria-label="Close"
         >
-          <CloseSVG />
+          <CloseIcon />
         </CloseButton>
         {children}
       </ModalWrapper>
