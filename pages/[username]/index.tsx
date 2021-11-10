@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { firebaseDb } from '@lib/firebase/firebase'
 import defaultAvatar from '../../assets/default-avatar.png'
-import PenSVG from '../../assets/pen.svg'
 import { Recipe, ChefProfile } from '@lib/types'
 import type { NextPage } from 'next'
 import { useUserContext } from '@lib/context'
@@ -35,6 +34,7 @@ import { RecipesFeed } from '@components/RecipesFeed'
 import { getChefWithUsername } from '@lib/firebase/get-utils'
 import { dataToJSON } from '@lib/firebase/format-utils'
 import { Metatags } from '@components/Metatags'
+import { PenIcon } from '@icons/Pen'
 
 type ServerProps = {
   query: {
@@ -117,7 +117,7 @@ const Profile: NextPage<Props> = ({ chef, recipes }) => {
           {isUserAuthorized && (
             <Link passHref href={`/${username}/edit`}>
               <EditLink aria-label="Edit Your Profile">
-                <PenSVG />
+                <PenIcon />
               </EditLink>
             </Link>
           )}

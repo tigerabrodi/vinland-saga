@@ -8,7 +8,6 @@ import PlaceholderImage3x from '../../assets/placeholder-image3x.jpg'
 import PlaceholderImage2x from '../../assets/placeholder-image2x.jpg'
 import BubbleSVG from '../../assets/bubble.svg'
 import TrashSVG from '../../assets/trash.svg'
-import PenSVG from '../../assets/pen.svg'
 import ClockSVG from '../../assets/clock.svg'
 import {
   AuthorAvatar,
@@ -41,6 +40,7 @@ import { ClapButton } from '@components/ClapButton'
 import { formatDate } from '@lib/firebase/format-utils'
 import { ConfirmationModal } from '@components/ConfirmationModal'
 import { useLoadingStore } from '@lib/store'
+import { PenIcon } from '@icons/Pen'
 
 type Props = {
   recipe: Recipe
@@ -185,7 +185,7 @@ export const RecipeDetail = ({
             <>
               <Link passHref href={`/${authorUsername}/${slug}/edit`}>
                 <EditLink aria-label="Edit Recipe">
-                  <PenSVG />
+                  <PenIcon />
                 </EditLink>
               </Link>
               <DeleteButton

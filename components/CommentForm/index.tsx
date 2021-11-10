@@ -1,5 +1,4 @@
 import { Form, Label, Textarea, PostButton } from './styles'
-import PenSVG from '../../assets/pen.svg'
 import { useFormState } from '@hooks/useFormState'
 import { v4 as uuidv4 } from 'uuid'
 import { auth, firebaseDb } from '@lib/firebase/firebase'
@@ -15,6 +14,7 @@ import {
 import { useUserContext } from '@lib/context'
 import { useGetChef } from '@hooks/auth/useGetChef'
 import { useLoadingStore } from '@lib/store'
+import { PenIcon } from '@icons/Pen'
 
 type Props = {
   recipe: Recipe
@@ -87,7 +87,7 @@ export const CommentForm = ({ recipe }: Props) => {
         placeholder="I liked this recipe of yours, because..."
       />
       <PostButton type="submit" disabled={!textarea.length}>
-        <PenSVG /> Post
+        <PenIcon /> Post
       </PostButton>
     </Form>
   )

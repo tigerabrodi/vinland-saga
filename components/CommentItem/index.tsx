@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Link from 'next/link'
-import PenSVG from '../../assets/pen.svg'
 import TrashSVG from '../../assets/trash.svg'
 import defaultAvatar from '../../assets/default-avatar.png'
 import {
@@ -34,6 +33,7 @@ import { useUserContext } from '@lib/context'
 import { useRouter } from 'next/router'
 import { CloseIcon } from 'icons/Close'
 import { DotIcon } from '@icons/Dot'
+import { PenIcon } from '@icons/Pen'
 
 type Props = {
   comment: Comment
@@ -179,7 +179,7 @@ export const CommentItem = ({ comment, recipe }: Props) => {
               onChange={handleChange}
             />
             <SaveButton type="submit">
-              <PenSVG />
+              <PenIcon />
               Save
             </SaveButton>
           </Form>
@@ -200,7 +200,7 @@ export const CommentItem = ({ comment, recipe }: Props) => {
               onClick={() => setIsEditMode(!isEditMode)}
               aria-pressed={isEditMode}
             >
-              {isEditMode ? <CloseIcon /> : <PenSVG />}
+              {isEditMode ? <CloseIcon /> : <PenIcon />}
             </EditButton>
             <DeleteButton
               aria-label="Delete Comment"
