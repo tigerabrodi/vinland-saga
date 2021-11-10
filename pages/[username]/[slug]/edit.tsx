@@ -4,7 +4,6 @@ import type { NextPage } from 'next'
 import PlaceholderImage4x from '../../../assets/placeholder-image4x.jpg'
 import PlaceholderImage3x from '../../../assets/placeholder-image3x.jpg'
 import PlaceholderImage2x from '../../../assets/placeholder-image2x.jpg'
-import Rocket from '../../../assets/rocket.svg'
 import ImageIconSVG from '../../../assets/images.svg'
 import {
   RecipeEditWrapper,
@@ -43,6 +42,7 @@ import { RecipeDetail } from '@components/RecipeDetail'
 import { getRecipeWithSlug } from '@lib/firebase/get-utils'
 import { Metatags } from '@components/Metatags'
 import { EyeIcon } from '@icons/Eye'
+import { RocketIcon } from '@icons/Rocket'
 
 type Router = NextRouter & {
   query: {
@@ -181,7 +181,7 @@ const RecipeEdit: NextPage = () => {
   const Buttons = () => (
     <ButtonWrapper>
       <ButtonSave disabled={isButtonSaveDisabled} type="submit">
-        <Rocket /> Submit
+        <RocketIcon /> Submit
       </ButtonSave>
       <ButtonPreview
         type="button"
