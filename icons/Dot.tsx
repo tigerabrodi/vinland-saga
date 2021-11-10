@@ -1,7 +1,7 @@
 import { Styleable } from '@lib/types'
 import { v4 as uuidv4 } from 'uuid'
 
-export const Dot = ({ className }: Styleable) => {
+export const DotIcon = ({ className }: Styleable) => {
   const uniqueString = uuidv4()
 
   return (

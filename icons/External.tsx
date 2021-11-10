@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 
-export const External = () => {
+export const ExternalIcon = () => {
   const uniqueString = uuidv4()
 
   return (

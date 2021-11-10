@@ -33,7 +33,7 @@ import { useRealtimeState } from '@hooks/useRealtimeState'
 import { useUserContext } from '@lib/context'
 import { useRouter } from 'next/router'
 import { CloseIcon } from 'icons/Close'
-import { Dot } from '@icons/Dot'
+import { DotIcon } from '@icons/Dot'
 
 type Props = {
   comment: Comment
@@ -159,14 +159,14 @@ export const CommentItem = ({ comment, recipe }: Props) => {
           alt={authorFullname}
         />
         <AuthorText>
-          <Dot />
+          <DotIcon />
           By{' '}
           <Link passHref href={`/${authorUsername}`}>
             <AuthorLink>{authorFullname}</AuthorLink>
           </Link>
-          <Dot />
+          <DotIcon />
           <span>On {formatDate(createdAt)}</span>
-          <Dot />
+          <DotIcon />
         </AuthorText>
         {isEditMode ? (
           <Form onSubmit={handleEditSubmit} ref={editRef}>

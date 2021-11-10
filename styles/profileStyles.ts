@@ -3,7 +3,7 @@ import { theme } from '@styles/theme'
 import styled, { css } from 'styled-components'
 import { media } from '@styles/media'
 import { darkFocusStyles, pinkFocusStyles } from '@styles/focusStyles'
-import { Dot as DotSVG } from '@icons/Dot'
+import { DotIcon as DotSVG } from '@icons/Dot'
 
 export const Wrapper = styled.div`
   margin: 3rem 0;

@@ -1,4 +1,4 @@
-import { External } from '@icons/External'
+import { ExternalIcon } from '@icons/External'
 import Link from 'next/link'
 import { FooterContainer, FooterLink, FooterText } from './styles'
 
@@ -8,7 +8,7 @@ export const Footer = () => (
       Built and designed by{' '}
       <Link passHref href="https://github.com/tigerabrodi">
         <FooterLink target="_blank" rel="noopener noreferrer">
-          Tiger Abrodi <External aria-hidden="true" />{' '}
+          Tiger Abrodi <ExternalIcon aria-hidden="true" />{' '}
         </FooterLink>
       </Link>
     </FooterText>
