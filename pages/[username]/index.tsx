@@ -34,6 +34,7 @@ import { useNewRecipeStore } from '@lib/store'
 import { RecipesFeed } from '@components/RecipesFeed'
 import { getChefWithUsername } from '@lib/firebase/get-utils'
 import { dataToJSON } from '@lib/firebase/format-utils'
+import { Metatags } from '@components/Metatags'
 
 type ServerProps = {
   query: {
@@ -95,6 +96,10 @@ const Profile: NextPage<Props> = ({ chef, recipes }) => {
 
   return (
     <>
+      <Metatags
+        title="Profile"
+        description={`Public profile of the chef ${chef.username}`}
+      />
       <Wrapper>
         <ProfileSection>
           <HiddenProfileTitle>{chef.fullname}</HiddenProfileTitle>

@@ -48,6 +48,7 @@ import toast from 'react-hot-toast'
 import { useGetChef } from '@hooks/auth/useGetChef'
 import { useUserContext } from '@lib/context'
 import { useFormState } from '@hooks/useFormState'
+import { Metatags } from '@components/Metatags'
 
 type Router = NextRouter & {
   query: { username: string }
@@ -201,110 +202,113 @@ const ProfileEdit: NextPage = () => {
     !bio.length
 
   return (
-    <EditForm onSubmit={handleSubmit}>
-      <EditWrapper>
-        <HiddenEditTitle>Editing Profile</HiddenEditTitle>
-        <Avatar
-          src={image}
-          alt={image === DefaultAvatar.src ? 'default' : 'avatar'}
-        />
-        {uploadProgress !== 0 && (
-          <UploadProgress
-            role="progressbar"
-            aria-valuenow={uploadProgress}
-            aria-valuetext="Uploading image"
-            aria-valuemin={0}
-            aria-valuemax={100}
-          >
-            {uploadProgress}%
-          </UploadProgress>
-        )}
-        <UploadInput
-          type="file"
-          id="upload"
-          onChange={uploadFile}
-          accept="image/x-png,image/gif,image/jpeg"
-        />
-        <UploadLabel htmlFor="upload">
-          Avatar Upload
-          <FileUploadSVG />
-        </UploadLabel>
-        <VisibleTitle aria-hidden="true">Editing Profile</VisibleTitle>
+    <>
+      <Metatags title="Profile Edit" description={`Edit your profile.`} />
+      <EditForm onSubmit={handleSubmit}>
+        <EditWrapper>
+          <HiddenEditTitle>Editing Profile</HiddenEditTitle>
+          <Avatar
+            src={image}
+            alt={image === DefaultAvatar.src ? 'default' : 'avatar'}
+          />
+          {uploadProgress !== 0 && (
+            <UploadProgress
+              role="progressbar"
+              aria-valuenow={uploadProgress}
+              aria-valuetext="Uploading image"
+              aria-valuemin={0}
+              aria-valuemax={100}
+            >
+              {uploadProgress}%
+            </UploadProgress>
+          )}
+          <UploadInput
+            type="file"
+            id="upload"
+            onChange={uploadFile}
+            accept="image/x-png,image/gif,image/jpeg"
+          />
+          <UploadLabel htmlFor="upload">
+            Avatar Upload
+            <FileUploadSVG />
+          </UploadLabel>
+          <VisibleTitle aria-hidden="true">Editing Profile</VisibleTitle>
 
-        <Link passHref href={`/${chef.username}`}>
-          <CancelLink aria-label="Cancel">
-            <CancelSVG />
-          </CancelLink>
-        </Link>
-      </EditWrapper>
-      <FormGroup>
-        <Label htmlFor="fullname">Full Name *</Label>
-        <Input
-          id="fullname"
-          name="fullname"
-          type="text"
-          placeholder="Naruto Uzumaki"
-          value={fullname}
-          onChange={handleChange}
-          aria-required="true"
-        />
-      </FormGroup>
-      <AgeFormGroup>
-        <Label htmlFor="age">Age *</Label>
-        <AgeInput
-          id="age"
-          name="age"
-          type="number"
-          placeholder="20"
-          value={age}
-          onChange={handleChange}
-          aria-required="true"
-        />
-      </AgeFormGroup>
-      <FormGroup>
-        <Label htmlFor="work">Work *</Label>
-        <Input
-          id="work"
-          name="work"
-          type="text"
-          placeholder="Chef at Starship"
-          value={work}
-          onChange={handleChange}
-          aria-required="true"
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="location">Location *</Label>
-        <Input
-          id="location"
-          name="location"
-          type="text"
-          placeholder="San Diego, California"
-          value={location}
-          onChange={handleChange}
-          aria-required="true"
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="bio">Biography *</Label>
-        <Textarea
-          id="bio"
-          name="bio"
-          placeholder="I’m a Ninja who enjoys cooking and creating new recipes in my spare time."
-          value={bio}
-          onChange={handleChange}
-        />
-      </FormGroup>
-      <ButtonWrapper>
-        <ButtonSave type="submit" disabled={isButtonDisabled}>
-          <ProfileSVG />
-          Save
-        </ButtonSave>
-        <Link passHref href={`/${chef.username}`}>
-          <LinkCancel>Cancel</LinkCancel>
-        </Link>
-      </ButtonWrapper>
-    </EditForm>
+          <Link passHref href={`/${chef.username}`}>
+            <CancelLink aria-label="Cancel">
+              <CancelSVG />
+            </CancelLink>
+          </Link>
+        </EditWrapper>
+        <FormGroup>
+          <Label htmlFor="fullname">Full Name *</Label>
+          <Input
+            id="fullname"
+            name="fullname"
+            type="text"
+            placeholder="Naruto Uzumaki"
+            value={fullname}
+            onChange={handleChange}
+            aria-required="true"
+          />
+        </FormGroup>
+        <AgeFormGroup>
+          <Label htmlFor="age">Age *</Label>
+          <AgeInput
+            id="age"
+            name="age"
+            type="number"
+            placeholder="20"
+            value={age}
+            onChange={handleChange}
+            aria-required="true"
+          />
+        </AgeFormGroup>
+        <FormGroup>
+          <Label htmlFor="work">Work *</Label>
+          <Input
+            id="work"
+            name="work"
+            type="text"
+            placeholder="Chef at Starship"
+            value={work}
+            onChange={handleChange}
+            aria-required="true"
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="location">Location *</Label>
+          <Input
+            id="location"
+            name="location"
+            type="text"
+            placeholder="San Diego, California"
+            value={location}
+            onChange={handleChange}
+            aria-required="true"
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="bio">Biography *</Label>
+          <Textarea
+            id="bio"
+            name="bio"
+            placeholder="I’m a Ninja who enjoys cooking and creating new recipes in my spare time."
+            value={bio}
+            onChange={handleChange}
+          />
+        </FormGroup>
+        <ButtonWrapper>
+          <ButtonSave type="submit" disabled={isButtonDisabled}>
+            <ProfileSVG />
+            Save
+          </ButtonSave>
+          <Link passHref href={`/${chef.username}`}>
+            <LinkCancel>Cancel</LinkCancel>
+          </Link>
+        </ButtonWrapper>
+      </EditForm>
+    </>
   )
 }
 

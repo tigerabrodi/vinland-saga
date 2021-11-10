@@ -26,6 +26,7 @@ import { CommentItem } from '@components/CommentItem'
 import { useLoadingStore } from '@lib/store'
 import { commentsToJSON, dataToJSON } from '@lib/firebase/format-utils'
 import { getChefWithUsername } from '@lib/firebase/get-utils'
+import { Metatags } from '@components/Metatags'
 
 type Params = {
   params: {
@@ -126,24 +127,34 @@ const RecipeDetailPage: NextPage<Props> = (props) => {
   }
 
   return (
-    <PageWrapper>
-      <RecipeDetail recipe={recipe} />
-      <CommentForm recipe={recipe} />
-      <section>
-        <CommentsHeading id="comments">Comments</CommentsHeading>
-        {comments.length ? (
-          <CommentsList>
-            {comments.map((comment) => (
-              <CommentItem key={comment.id} comment={comment} recipe={recipe} />
-            ))}
-          </CommentsList>
-        ) : (
-          <NoCommentsText>
-            This recipe currently has no comments.
-          </NoCommentsText>
-        )}
-      </section>
-    </PageWrapper>
+    <>
+      <Metatags
+        title="Recipe Detail"
+        description={`Detail page of the recipe ${recipe.title} by ${recipe.authorUsername}`}
+      />
+      <PageWrapper>
+        <RecipeDetail recipe={recipe} />
+        <CommentForm recipe={recipe} />
+        <section>
+          <CommentsHeading id="comments">Comments</CommentsHeading>
+          {comments.length ? (
+            <CommentsList>
+              {comments.map((comment) => (
+                <CommentItem
+                  key={comment.id}
+                  comment={comment}
+                  recipe={recipe}
+                />
+              ))}
+            </CommentsList>
+          ) : (
+            <NoCommentsText>
+              This recipe currently has no comments.
+            </NoCommentsText>
+          )}
+        </section>
+      </PageWrapper>
+    </>
   )
 }
 

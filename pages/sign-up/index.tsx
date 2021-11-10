@@ -20,6 +20,7 @@ import {
   FormError,
 } from '@styles/formStyles'
 import { useFormState } from '@hooks/useFormState'
+import { Metatags } from '@components/Metatags'
 
 const SignUp: NextPage = () => {
   const [isUsernameError, setIsUsernameError] = React.useState(false)
@@ -127,96 +128,102 @@ const SignUp: NextPage = () => {
   }, [signUpError])
 
   return (
-    <SignSection>
-      <SignTitle>Sign Up</SignTitle>
-      <Form onSubmit={handleSubmit} noValidate>
-        <FormGroup>
-          <Label htmlFor="username">Username</Label>
-          <Input
-            id="username"
-            name="username"
-            placeholder="Naruto Uzumaki"
-            type="text"
-            value={username}
-            aria-invalid={isUsernameError ? 'true' : 'false'}
-            onChange={handleChange}
-            aria-required="true"
-          />
-          {isUsernameError && (
-            <FormError role="alert">Username is already taken.</FormError>
-          )}
-          {isUsernameValid && (
-            <FormIsValidText role="alert">Username is valid.</FormIsValidText>
-          )}
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="naruto@gmail.com"
-            value={email}
-            onChange={(event) => {
-              handleChange(event)
-              setIsEmailInvalid(!event.target.validity.valid)
-            }}
-            aria-invalid={isEmailError ? 'true' : 'false'}
-            aria-required="true"
-          />
-          {isEmailError && (
-            <FormError role="alert">Email is not valid.</FormError>
-          )}
-          {isEmailTaken && (
-            <FormError role="alert">Email is already taken.</FormError>
-          )}
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            value={password}
-            onChange={handleChange}
-            aria-invalid={isPasswordError ? 'true' : 'false'}
-            aria-required="true"
-          />
-          {isPasswordError && (
-            <FormError role="alert">
-              Password must be at least 6 characters.
-            </FormError>
-          )}
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="confirm-password">Confirm Password</Label>
-          <Input
-            id="confirm-password"
-            name="confirmPassword"
-            type="password"
-            value={confirmPassword}
-            onChange={handleChange}
-            aria-invalid={isConfirmPasswordError ? 'true' : 'false'}
-            aria-required="true"
-          />
-          {isConfirmPasswordError && (
-            <FormError role="alert">Passwords do not match.</FormError>
-          )}
-        </FormGroup>
-        <SwitchText>
-          Already have an account?{' '}
-          <Link passHref href="/sign-in">
-            <SwitchLink>Sign In.</SwitchLink>
-          </Link>{' '}
-        </SwitchText>
-        <SubmitButton
-          type="submit"
-          disabled={isAnyFieldEmpty || isUsernameError}
-        >
-          Sign Up
-        </SubmitButton>
-      </Form>
-    </SignSection>
+    <>
+      <Metatags
+        title="Sign Up"
+        description="Sign up and create a new account."
+      />
+      <SignSection>
+        <SignTitle>Sign Up</SignTitle>
+        <Form onSubmit={handleSubmit} noValidate>
+          <FormGroup>
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              name="username"
+              placeholder="Naruto Uzumaki"
+              type="text"
+              value={username}
+              aria-invalid={isUsernameError ? 'true' : 'false'}
+              onChange={handleChange}
+              aria-required="true"
+            />
+            {isUsernameError && (
+              <FormError role="alert">Username is already taken.</FormError>
+            )}
+            {isUsernameValid && (
+              <FormIsValidText role="alert">Username is valid.</FormIsValidText>
+            )}
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="naruto@gmail.com"
+              value={email}
+              onChange={(event) => {
+                handleChange(event)
+                setIsEmailInvalid(!event.target.validity.valid)
+              }}
+              aria-invalid={isEmailError ? 'true' : 'false'}
+              aria-required="true"
+            />
+            {isEmailError && (
+              <FormError role="alert">Email is not valid.</FormError>
+            )}
+            {isEmailTaken && (
+              <FormError role="alert">Email is already taken.</FormError>
+            )}
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={handleChange}
+              aria-invalid={isPasswordError ? 'true' : 'false'}
+              aria-required="true"
+            />
+            {isPasswordError && (
+              <FormError role="alert">
+                Password must be at least 6 characters.
+              </FormError>
+            )}
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="confirm-password">Confirm Password</Label>
+            <Input
+              id="confirm-password"
+              name="confirmPassword"
+              type="password"
+              value={confirmPassword}
+              onChange={handleChange}
+              aria-invalid={isConfirmPasswordError ? 'true' : 'false'}
+              aria-required="true"
+            />
+            {isConfirmPasswordError && (
+              <FormError role="alert">Passwords do not match.</FormError>
+            )}
+          </FormGroup>
+          <SwitchText>
+            Already have an account?{' '}
+            <Link passHref href="/sign-in">
+              <SwitchLink>Sign In.</SwitchLink>
+            </Link>{' '}
+          </SwitchText>
+          <SubmitButton
+            type="submit"
+            disabled={isAnyFieldEmpty || isUsernameError}
+          >
+            Sign Up
+          </SubmitButton>
+        </Form>
+      </SignSection>
+    </>
   )
 }
 

@@ -42,6 +42,7 @@ import { useUserContext } from '@lib/context'
 import { useGetChef } from '@hooks/auth/useGetChef'
 import { RecipeDetail } from '@components/RecipeDetail'
 import { getRecipeWithSlug } from '@lib/firebase/get-utils'
+import { Metatags } from '@components/Metatags'
 
 type Router = NextRouter & {
   query: {
@@ -194,65 +195,70 @@ const RecipeEdit: NextPage = () => {
   )
 
   return (
-    <form onSubmit={handleSubmit}>
-      {isPreview ? (
-        <RecipeDetail
-          recipe={{ ...recipe, imageUrl: recipeImage, title, body }}
-          buttons={<Buttons />}
-        />
-      ) : (
-        <RecipeEditWrapper>
-          <Heading>Edit Recipe</Heading>
-          <TitleFormGroup>
-            <Label htmlFor="title">Title</Label>
-            <Input
-              id="title"
-              name="title"
-              value={title}
-              type="text"
-              onChange={handleChange}
-              placeholder="Chicken Tikka"
-            />
-          </TitleFormGroup>
-          <Image
-            src={recipeImage === '' ? PlaceholderImage2x.src : recipe.imageUrl}
-            srcSet={imageSrcSet}
-            alt={recipeImage === '' ? 'Placeholder' : recipe.title}
+    <>
+      <Metatags title="Edit Recipe" description={`Edit your recipe ${title}`} />
+      <form onSubmit={handleSubmit}>
+        {isPreview ? (
+          <RecipeDetail
+            recipe={{ ...recipe, imageUrl: recipeImage, title, body }}
+            buttons={<Buttons />}
           />
-          <FileInput
-            type="file"
-            id="upload"
-            accept="image/x-png,image/gif,image/jpeg"
-            aria-label="Upload Recipe Image"
-            onChange={uploadFile}
-          />
-          <UploadLabel htmlFor="upload">
-            {' '}
-            <ImageIconSVG />{' '}
-          </UploadLabel>
-          <BodyFormGroup>
-            <Label htmlFor="body">Body</Label>
-            <Textarea
-              id="body"
-              name="body"
-              value={body}
-              onChange={handleChange}
-              placeholder="# Chicken Tikka Masala Recipe"
+        ) : (
+          <RecipeEditWrapper>
+            <Heading>Edit Recipe</Heading>
+            <TitleFormGroup>
+              <Label htmlFor="title">Title</Label>
+              <Input
+                id="title"
+                name="title"
+                value={title}
+                type="text"
+                onChange={handleChange}
+                placeholder="Chicken Tikka"
+              />
+            </TitleFormGroup>
+            <Image
+              src={
+                recipeImage === '' ? PlaceholderImage2x.src : recipe.imageUrl
+              }
+              srcSet={imageSrcSet}
+              alt={recipeImage === '' ? 'Placeholder' : recipe.title}
             />
-          </BodyFormGroup>
-          <Text>
-            The body uses{' '}
-            <Link passHref href="https://www.markdownguide.org/basic-syntax/">
-              <TextLink target="_blank" rel="noopener noreferrer">
-                Markdown.
-              </TextLink>
-            </Link>{' '}
-            A simple and easy-to-use markup language.
-          </Text>
-          <Buttons />
-        </RecipeEditWrapper>
-      )}
-    </form>
+            <FileInput
+              type="file"
+              id="upload"
+              accept="image/x-png,image/gif,image/jpeg"
+              aria-label="Upload Recipe Image"
+              onChange={uploadFile}
+            />
+            <UploadLabel htmlFor="upload">
+              {' '}
+              <ImageIconSVG />{' '}
+            </UploadLabel>
+            <BodyFormGroup>
+              <Label htmlFor="body">Body</Label>
+              <Textarea
+                id="body"
+                name="body"
+                value={body}
+                onChange={handleChange}
+                placeholder="# Chicken Tikka Masala Recipe"
+              />
+            </BodyFormGroup>
+            <Text>
+              The body uses{' '}
+              <Link passHref href="https://www.markdownguide.org/basic-syntax/">
+                <TextLink target="_blank" rel="noopener noreferrer">
+                  Markdown.
+                </TextLink>
+              </Link>{' '}
+              A simple and easy-to-use markup language.
+            </Text>
+            <Buttons />
+          </RecipeEditWrapper>
+        )}
+      </form>
+    </>
   )
 }
 

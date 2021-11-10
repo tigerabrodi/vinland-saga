@@ -13,6 +13,7 @@ import { dataToJSON } from '@lib/firebase/format-utils'
 import { Recipe } from '@lib/types'
 import type { NextPage } from 'next'
 import { useHandleSort } from '@hooks/useHandleSort'
+import { Metatags } from '@components/Metatags'
 
 export async function getServerSideProps() {
   const recipesQuery = query<Recipe>(
@@ -41,14 +42,20 @@ const RecipesFeedHome: NextPage<Props> = ({ ssrRecipes }) => {
   })
 
   return (
-    <Feed
-      labels={['Claps', 'Newest']}
-      title="Recipes"
-      itemsLength={recipes.length}
-      setSortingValue={setSortingValue}
-    >
-      <RecipesFeed recipes={recipes} />
-    </Feed>
+    <>
+      <Metatags
+        title="Recipes"
+        description="Find all recipes and link to their detail page."
+      />
+      <Feed
+        labels={['Claps', 'Newest']}
+        title="Recipes"
+        itemsLength={recipes.length}
+        setSortingValue={setSortingValue}
+      >
+        <RecipesFeed recipes={recipes} />
+      </Feed>
+    </>
   )
 }
 

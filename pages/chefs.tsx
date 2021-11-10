@@ -14,6 +14,7 @@ import { ChefProfile } from '@lib/types'
 import type { NextPage } from 'next'
 import { List } from '../styles/chefsStyles'
 import { useHandleSort } from '@hooks/useHandleSort'
+import { Metatags } from '@components/Metatags'
 
 export async function getServerSideProps() {
   const chefsQuery = query(
@@ -41,18 +42,24 @@ const ChefsFeed: NextPage<Props> = ({ ssrChefs }) => {
   })
 
   return (
-    <Feed
-      labels={['Claps', 'Recipes']}
-      title="Chefs"
-      itemsLength={chefs.length}
-      setSortingValue={setSortingValue}
-    >
-      <List>
-        {chefs.map((chef) => (
-          <UserItem key={chef.uid} chef={chef} />
-        ))}
-      </List>
-    </Feed>
+    <>
+      <Metatags
+        title="Chefs"
+        description="Find all the chefs and link to their profile."
+      />
+      <Feed
+        labels={['Claps', 'Recipes']}
+        title="Chefs"
+        itemsLength={chefs.length}
+        setSortingValue={setSortingValue}
+      >
+        <List>
+          {chefs.map((chef) => (
+            <UserItem key={chef.uid} chef={chef} />
+          ))}
+        </List>
+      </Feed>
+    </>
   )
 }
 

@@ -15,6 +15,7 @@ import {
   Input,
 } from '@styles/formStyles'
 import { useSignInWithEmailAndPassword } from '@hooks/auth/useSignInWithEmailAndPassword'
+import { Metatags } from '@components/Metatags'
 
 const SignIn: NextPage = () => {
   const {
@@ -35,53 +36,56 @@ const SignIn: NextPage = () => {
   }
 
   return (
-    <SignSection isLoginMode>
-      <SignTitle>Sign In</SignTitle>
-      <Form onSubmit={handleSubmit} noValidate>
-        <FormGroup>
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="naruto@gmail.com"
-            value={email}
-            onChange={handleChange}
-            aria-required="true"
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="password" isLoginMode>
-            Password
-          </Label>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            value={password}
-            onChange={handleChange}
-            aria-required="true"
-          />
-        </FormGroup>
-        {isSignInError && (
-          <FormError role="alert" isLoginMode>
-            Password or email is invalid.
-          </FormError>
-        )}
-        <SwitchText>
-          Do not have an account yet?{' '}
-          <Link passHref href="/sign-up">
-            <SwitchLink>Sign Up.</SwitchLink>
-          </Link>{' '}
-        </SwitchText>
-        <SubmitButton
-          type="submit"
-          disabled={!email.length || !password.length}
-        >
-          Sign In
-        </SubmitButton>
-      </Form>
-    </SignSection>
+    <>
+      <Metatags title="Sign In" description="Sign in into your account." />
+      <SignSection isLoginMode>
+        <SignTitle>Sign In</SignTitle>
+        <Form onSubmit={handleSubmit} noValidate>
+          <FormGroup>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="naruto@gmail.com"
+              value={email}
+              onChange={handleChange}
+              aria-required="true"
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="password" isLoginMode>
+              Password
+            </Label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={handleChange}
+              aria-required="true"
+            />
+          </FormGroup>
+          {isSignInError && (
+            <FormError role="alert" isLoginMode>
+              Password or email is invalid.
+            </FormError>
+          )}
+          <SwitchText>
+            Do not have an account yet?{' '}
+            <Link passHref href="/sign-up">
+              <SwitchLink>Sign Up.</SwitchLink>
+            </Link>{' '}
+          </SwitchText>
+          <SubmitButton
+            type="submit"
+            disabled={!email.length || !password.length}
+          >
+            Sign In
+          </SubmitButton>
+        </Form>
+      </SignSection>
+    </>
   )
 }
 
