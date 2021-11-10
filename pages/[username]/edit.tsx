@@ -48,7 +48,7 @@ import { useGetChef } from '@hooks/auth/useGetChef'
 import { useUserContext } from '@lib/context'
 import { useFormState } from '@hooks/useFormState'
 import { Metatags } from '@components/Metatags'
-import { CloseIcon } from 'Icons/Close'
+import { CloseIcon } from '@icons/Close'
 
 type Router = NextRouter & {
   query: { username: string }

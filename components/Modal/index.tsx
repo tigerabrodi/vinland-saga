@@ -3,7 +3,7 @@ import { useFocusTrap } from '@hooks/useFocusTrap'
 import { useCloseEscape } from '@hooks/useCloseEscape'
 import { useClickOutside } from '@hooks/useClickOutside'
 import { CloseButton, ModalBackground, ModalWrapper, Title } from './styles'
-import { CloseIcon } from 'Icons/Close'
+import { CloseIcon } from '@icons/Close'
 
 type Props = {
   children: React.ReactNode

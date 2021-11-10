@@ -20,7 +20,8 @@
       "@components/*": ["components/*"],
       "@styles/*": ["styles/*"],
       "@hooks/*": ["hooks/*"],
-      "@lib/*": ["lib/*"]
+      "@lib/*": ["lib/*"],
+      "@icons/*": ["icons/*"]
     },
     "incremental": true
   },
