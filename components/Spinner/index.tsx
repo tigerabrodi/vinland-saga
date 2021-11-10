@@ -1,9 +1,9 @@
 import { theme } from '@styles/theme'
-import SpinnerSVG from '../../assets/spinner.svg'
 import styled, { keyframes } from 'styled-components'
 import { useLoadingStore } from '@lib/store'
 import { media } from '@styles/media'
 import { sectionStyles } from '@styles/sharedStyles'
+import { SpinnerIcon } from '@icons/Spinner'
 
 const spin = keyframes`
     from {
@@ -38,7 +38,7 @@ const SpinnerWrapper = styled.div`
   }
 `
 
-const Spinner = styled(SpinnerSVG)`
+const Spinner = styled(SpinnerIcon)`
   width: 70%;
   height: 70%;
   animation: ${spin} 0.5s linear infinite;
@@ -48,7 +48,7 @@ const Spinner = styled(SpinnerSVG)`
   }
 `
 
-const BigSpinner = styled(SpinnerSVG)`
+const BigSpinner = styled(SpinnerIcon)`
   height: 10rem;
   width: 10rem;
   animation: ${spin} 0.6s linear infinite;
