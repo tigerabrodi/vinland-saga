@@ -1,6 +1,7 @@
 import ClapSVG from '../../assets/clap.svg'
 import ClapFilledSVG from '../../assets/clap-filled.svg'
 import { Button } from './styles'
+import { Styleable } from '@lib/types'
 
 type Props = {
   clapCount: number
@@ -8,8 +9,7 @@ type Props = {
   handleClap: () => void
   label: string
   isDark?: boolean
-  className?: string
-}
+} & Styleable
 
 export const ClapButton = ({
   label,
