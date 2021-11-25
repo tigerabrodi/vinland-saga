@@ -30,3 +30,5 @@ export const ToastOptions = {
     },
   },
 }
+
+export const defaultAvatar = '/assets/default-avatar.png'

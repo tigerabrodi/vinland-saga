@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Link from 'next/link'
 import TrashSVG from '../../assets/trash.svg'
-import defaultAvatar from '../../assets/default-avatar.png'
 import {
   AuthorAvatar,
   AuthorLink,
@@ -34,6 +33,7 @@ import { useRouter } from 'next/router'
 import { CloseIcon } from 'icons/Close'
 import { DotIcon } from '@icons/Dot'
 import { PenIcon } from '@icons/Pen'
+import { defaultAvatar } from '@styles/theme'
 
 type Props = {
   comment: Comment
@@ -155,7 +155,7 @@ export const CommentItem = ({ comment, recipe }: Props) => {
     <>
       <CommentListItem>
         <AuthorAvatar
-          src={authorAvatarUrl === '' ? defaultAvatar.src : authorAvatarUrl}
+          src={authorAvatarUrl === '' ? defaultAvatar : authorAvatarUrl}
           alt={authorFullname}
         />
         <AuthorText>

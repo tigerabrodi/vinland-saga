@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Recipe } from '@lib/types'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
-import defaultAvatar from '../../assets/default-avatar.png'
 import PlaceholderImage4x from '../../assets/placeholder-image4x.jpg'
 import PlaceholderImage3x from '../../assets/placeholder-image3x.jpg'
 import PlaceholderImage2x from '../../assets/placeholder-image2x.jpg'
@@ -41,6 +40,7 @@ import { formatDate } from '@lib/firebase/format-utils'
 import { ConfirmationModal } from '@components/ConfirmationModal'
 import { useLoadingStore } from '@lib/store'
 import { PenIcon } from '@icons/Pen'
+import { defaultAvatar } from '@styles/theme'
 
 type Props = {
   recipe: Recipe
@@ -156,7 +156,7 @@ export const RecipeDetail = ({
               <AuthorLink>{authorFullname}</AuthorLink>
             </Link>{' '}
             <AuthorAvatar
-              src={authorAvatarUrl === '' ? defaultAvatar.src : authorAvatarUrl}
+              src={authorAvatarUrl === '' ? defaultAvatar : authorAvatarUrl}
               alt={authorFullname}
             />{' '}
           </AuthorText>

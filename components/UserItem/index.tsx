@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import RecipeSVG from '../../assets/recipe.svg'
-import defaultAvatar from '../../assets/default-avatar.png'
 import ClapSVG from '../../assets/clap.svg'
 import {
   ListItem,
@@ -13,6 +12,7 @@ import {
   UsernameLink,
 } from './styles'
 import { ChefProfile } from '@lib/types'
+import { defaultAvatar } from '@styles/theme'
 
 type Props = {
   chef: ChefProfile
@@ -23,7 +23,7 @@ export const UserItem = ({
 }: Props) => (
   <ListItem>
     <AvatarImage
-      src={avatarUrl === '' ? defaultAvatar.src : avatarUrl}
+      src={avatarUrl === '' ? defaultAvatar : avatarUrl}
       alt={fullname !== '' ? fullname : username}
     />
     <Fullname>{fullname}</Fullname>

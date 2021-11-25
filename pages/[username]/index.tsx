@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { firebaseDb } from '@lib/firebase/firebase'
-import defaultAvatar from '../../assets/default-avatar.png'
 import { Recipe, ChefProfile } from '@lib/types'
 import type { NextPage } from 'next'
 import { useUserContext } from '@lib/context'
@@ -35,6 +34,7 @@ import { getChefWithUsername } from '@lib/firebase/get-utils'
 import { dataToJSON } from '@lib/firebase/format-utils'
 import { Metatags } from '@components/Metatags'
 import { PenIcon } from '@icons/Pen'
+import { defaultAvatar } from '@styles/theme'
 
 type ServerProps = {
   query: {
@@ -104,7 +104,7 @@ const Profile: NextPage<Props> = ({ chef, recipes }) => {
         <ProfileSection>
           <HiddenProfileTitle>{chef.fullname}</HiddenProfileTitle>
           <Avatar
-            src={chef.avatarUrl === '' ? defaultAvatar.src : chef.avatarUrl}
+            src={chef.avatarUrl === '' ? defaultAvatar : chef.avatarUrl}
             alt={chef.fullname}
           />
           <ProfileUsername>@{chef.username}</ProfileUsername>

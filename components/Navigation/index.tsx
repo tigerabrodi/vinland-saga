@@ -17,7 +17,6 @@ import {
   MenuItemLink,
   Menu,
 } from './styles'
-import defaultAvatar from '../../assets/default-avatar.png'
 import RecipeSVG from '../../assets/recipe.svg'
 import ProfileSVG from '../../assets/profile.svg'
 import { useMedia } from '@hooks/useMedia'
@@ -32,6 +31,7 @@ import { useCloseEscape } from '@hooks/useCloseEscape'
 import { ChefProfile } from '@lib/types'
 import { useRealtimeState } from '@hooks/useRealtimeState'
 import { MoonIcon } from '@icons/Moon'
+import { defaultAvatar } from '@styles/theme'
 
 export const Navigation = () => {
   const isTabletLayout = useMedia('min', '768')
@@ -86,7 +86,7 @@ export const Navigation = () => {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <Avatar
-                src={chef.avatarUrl !== '' ? chef.avatarUrl : defaultAvatar.src}
+                src={chef.avatarUrl !== '' ? chef.avatarUrl : defaultAvatar}
                 alt=""
               />
             </NavMenuButton>

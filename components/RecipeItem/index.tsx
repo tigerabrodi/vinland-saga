@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Recipe } from '@lib/types'
-import defaultAvatar from '../../assets/default-avatar.png'
 import PlaceholderImage4x from '../../assets/placeholder-image4x.jpg'
 import PlaceholderImage3x from '../../assets/placeholder-image3x.jpg'
 import PlaceholderImage2x from '../../assets/placeholder-image2x.jpg'
@@ -23,6 +22,7 @@ import {
 import { auth, firebaseDb } from '@lib/firebase/firebase'
 import { doc, getDoc } from '@firebase/firestore'
 import { formatDate } from '@lib/firebase/format-utils'
+import { defaultAvatar } from '@styles/theme'
 
 type Props = {
   recipe: Recipe
@@ -77,7 +77,7 @@ export const RecipeItem = ({
         alt={title}
       />
       <Avatar
-        src={authorAvatarUrl === '' ? defaultAvatar.src : authorAvatarUrl}
+        src={authorAvatarUrl === '' ? defaultAvatar : authorAvatarUrl}
         alt={authorFullname}
       />
       <Link passHref href={`/${authorUsername}`}>

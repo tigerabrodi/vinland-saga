@@ -5,7 +5,6 @@ import type { NextPage } from 'next'
 import { NextRouter, useRouter } from 'next/router'
 import FileUploadSVG from '../../assets/file-upload.svg'
 import ProfileSVG from '../../assets/profile.svg'
-import DefaultAvatar from '../../assets/default-avatar.png'
 import {
   Avatar,
   CancelLink,
@@ -49,6 +48,7 @@ import { useUserContext } from '@lib/context'
 import { useFormState } from '@hooks/useFormState'
 import { Metatags } from '@components/Metatags'
 import { CloseIcon } from '@icons/Close'
+import { defaultAvatar } from '@styles/theme'
 
 type Router = NextRouter & {
   query: { username: string }
@@ -192,7 +192,7 @@ const ProfileEdit: NextPage = () => {
       ? avatarImage
       : chef.avatarUrl !== ''
       ? chef.avatarUrl
-      : DefaultAvatar.src
+      : defaultAvatar
 
   const isButtonDisabled =
     !fullname.length ||
@@ -209,7 +209,7 @@ const ProfileEdit: NextPage = () => {
           <HiddenEditTitle>Editing Profile</HiddenEditTitle>
           <Avatar
             src={image}
-            alt={image === DefaultAvatar.src ? 'default' : 'avatar'}
+            alt={image === defaultAvatar ? 'default' : 'avatar'}
           />
           {uploadProgress !== 0 && (
             <UploadProgress
