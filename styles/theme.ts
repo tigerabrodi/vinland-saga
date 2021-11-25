@@ -32,3 +32,6 @@ export const ToastOptions = {
 }
 
 export const defaultAvatar = '/assets/default-avatar.png'
+export const placeholderImage2x = '/assets/placeholder-image2x.jpg'
+export const placeholderImage3x = '/assets/placeholder-image3x.jpg'
+export const placeholderImage4x = '/assets/placeholder-image4x.jpg'

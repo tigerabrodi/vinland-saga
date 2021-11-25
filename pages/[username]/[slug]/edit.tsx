@@ -1,9 +1,6 @@
 import * as React from 'react'
 import Link from 'next/link'
 import type { NextPage } from 'next'
-import PlaceholderImage4x from '../../../assets/placeholder-image4x.jpg'
-import PlaceholderImage3x from '../../../assets/placeholder-image3x.jpg'
-import PlaceholderImage2x from '../../../assets/placeholder-image2x.jpg'
 import ImageIconSVG from '../../../assets/images.svg'
 import {
   RecipeEditWrapper,
@@ -43,6 +40,11 @@ import { getRecipeWithSlug } from '@lib/firebase/get-utils'
 import { Metatags } from '@components/Metatags'
 import { EyeIcon } from '@icons/Eye'
 import { RocketIcon } from '@icons/Rocket'
+import {
+  placeholderImage2x,
+  placeholderImage3x,
+  placeholderImage4x,
+} from '@styles/theme'
 
 type Router = NextRouter & {
   query: {
@@ -147,7 +149,7 @@ const RecipeEdit: NextPage = () => {
 
   const imageSrcSet =
     recipeImage === ''
-      ? `${PlaceholderImage2x.src} 300w, ${PlaceholderImage3x.src} 768w, ${PlaceholderImage4x.src} 1280w`
+      ? `${placeholderImage2x} 300w, ${placeholderImage3x} 768w, ${placeholderImage4x} 1280w`
       : undefined
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -218,9 +220,7 @@ const RecipeEdit: NextPage = () => {
               />
             </TitleFormGroup>
             <Image
-              src={
-                recipeImage === '' ? PlaceholderImage2x.src : recipe.imageUrl
-              }
+              src={recipeImage === '' ? placeholderImage2x : recipe.imageUrl}
               srcSet={imageSrcSet}
               alt={recipeImage === '' ? 'Placeholder' : recipe.title}
             />

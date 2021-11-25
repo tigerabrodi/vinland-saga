@@ -2,9 +2,6 @@ import * as React from 'react'
 import { Recipe } from '@lib/types'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
-import PlaceholderImage4x from '../../assets/placeholder-image4x.jpg'
-import PlaceholderImage3x from '../../assets/placeholder-image3x.jpg'
-import PlaceholderImage2x from '../../assets/placeholder-image2x.jpg'
 import BubbleSVG from '../../assets/bubble.svg'
 import TrashSVG from '../../assets/trash.svg'
 import ClockSVG from '../../assets/clock.svg'
@@ -40,7 +37,12 @@ import { formatDate } from '@lib/firebase/format-utils'
 import { ConfirmationModal } from '@components/ConfirmationModal'
 import { useLoadingStore } from '@lib/store'
 import { PenIcon } from '@icons/Pen'
-import { defaultAvatar } from '@styles/theme'
+import {
+  defaultAvatar,
+  placeholderImage2x,
+  placeholderImage3x,
+  placeholderImage4x,
+} from '@styles/theme'
 
 type Props = {
   recipe: Recipe
@@ -70,7 +72,7 @@ export const RecipeDetail = ({
 
   const imageSrcSet =
     imageUrl === ''
-      ? `${PlaceholderImage2x.src} 300w, ${PlaceholderImage3x.src} 768w, ${PlaceholderImage4x.src} 1280w`
+      ? `${placeholderImage2x} 300w, ${placeholderImage3x} 768w, ${placeholderImage4x} 1280w`
       : undefined
 
   const isUserAuthorized = authorUsername === username
@@ -161,7 +163,7 @@ export const RecipeDetail = ({
             />{' '}
           </AuthorText>
           <RecipeImage
-            src={imageUrl === '' ? PlaceholderImage2x.src : imageUrl}
+            src={imageUrl === '' ? placeholderImage2x : imageUrl}
             srcSet={imageSrcSet}
             alt={imageUrl === '' ? 'Placeholder' : title}
           />
